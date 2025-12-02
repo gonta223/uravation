@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTTデータのAIソリューション - SmartAgent・LITRON Sales・tsuzumi活用事例 | Uravation AI Media</title>
+    <meta name="description" content="NTTデータが提供するAIソリューション群を徹底解説。SmartAgent、LITRON Sales、国産LLM tsuzumiの特徴と企業導入事例を紹介。">
+    <meta name="keywords" content="NTTデータ,SmartAgent,LITRON,tsuzumi,国産LLM,AIソリューション">
+    <link rel="canonical" href="https://uravation.com/articles/case-studies/nttdata-smartagent.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "NTTデータのAIソリューション - SmartAgent・LITRON Sales・tsuzumi活用事例",
+        "description": "NTTデータが提供するAIソリューション群を徹底解説。",
+        "datePublished": "2024-11-22T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部"},
+        "publisher": {"@type": "Organization", "name": "Uravation"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "SmartAgentとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SmartAgentはNTTデータが提供するAIエージェントプラットフォームです。複数のAIモデルを組み合わせ、業務プロセスを自動化します。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "tsuzumiとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "tsuzumiはNTTグループが開発した国産大規模言語モデルです。日本語に特化しており、軽量かつ高性能な点が特徴です。"
+                }
+            }
+        ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0066cc; --text: #333; --bg: #f5f5f5; --white: #fff; --border: #e0e0e0; --accent: #0072c6; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+        .header { background: var(--white); border-bottom: 3px solid var(--primary); padding: 1rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .breadcrumb { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; font-size: 0.8rem; color: #666; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        article { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .article-header { padding: 2rem; border-bottom: 1px solid var(--border); }
+        .category-tag { display: inline-block; background: var(--accent); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-family: 'Noto Serif JP', serif; font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; color: #666; }
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: #004499; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .product-card { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+        .product-card h4 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .product-card .tag { display: inline-block; background: var(--accent); color: var(--white); padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.7rem; margin-right: 0.5rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .comparison-table th, .comparison-table td { padding: 1rem; border: 1px solid var(--border); text-align: left; }
+        .comparison-table th { background: var(--primary); color: var(--white); }
+        .comparison-table tr:nth-child(even) { background: var(--bg); }
+        .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: var(--bg); padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+        .footer { background: #1a1a2e; color: var(--white); padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+        </div>
+    </header>
+    <nav class="breadcrumb">
+        <a href="/">ホーム</a> › <a href="/media.html">メディア</a> › <a href="/articles/case-studies/">導入事例</a> › NTTデータ
+    </nav>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">製品紹介</span>
+                <h1 class="article-title">NTTデータのAIソリューション - SmartAgent・LITRON Sales・tsuzumi活用事例</h1>
+                <div class="article-meta">
+                    <span>📅 2024年11月22日</span>
+                    <span>✏️ Uravation編集部</span>
+                    <span>💼 SIer</span>
+                </div>
+            </header>
+            <div class="article-content">
+                <p>日本最大級のSIerであるNTTデータは、独自のAIソリューション群を開発・提供しています。本記事では、企業のAI活用を支援する主要3製品について解説します。</p>
+
+                <h2>SmartAgent™</h2>
+
+                <div class="product-card">
+                    <h4>🤖 SmartAgent™</h4>
+                    <span class="tag">AIエージェント</span>
+                    <span class="tag">業務自動化</span>
+                    <p style="margin-top: 0.5rem;">複数のAIモデルを統合し、業務プロセス全体を自動化するエージェントプラットフォーム</p>
+                </div>
+
+                <h3>特徴</h3>
+                <ul>
+                    <li><strong>マルチモデル対応</strong>：OpenAI、Anthropic、国産LLMなど複数のAIを用途に応じて使い分け</li>
+                    <li><strong>ワークフロー自動化</strong>：複数ステップの業務を自律的に実行</li>
+                    <li><strong>セキュア環境</strong>：オンプレミス/プライベートクラウド対応</li>
+                    <li><strong>既存システム連携</strong>：SAP、Salesforce等との連携機能</li>
+                </ul>
+
+                <h3>導入事例</h3>
+                <p>大手金融機関では、SmartAgentを活用して融資審査の前処理を自動化。書類のOCR、データ抽出、リスク評価の初期判定までを一気通貫で処理し、審査時間を従来の1/3に短縮しました。</p>
+
+                <h2>LITRON® Sales</h2>
+
+                <div class="product-card">
+                    <h4>💼 LITRON® Sales</h4>
+                    <span class="tag">営業支援</span>
+                    <span class="tag">商談分析</span>
+                    <p style="margin-top: 0.5rem;">営業活動を科学的に分析・改善するAI営業支援ソリューション</p>
+                </div>
+
+                <h3>主な機能</h3>
+                <ul>
+                    <li><strong>商談解析</strong>：録音データから商談の質を自動評価</li>
+                    <li><strong>トークスクリプト最適化</strong>：成功パターンを抽出し、標準化</li>
+                    <li><strong>リアルタイムコーチング</strong>：商談中にアドバイスを表示</li>
+                    <li><strong>営業予測</strong>：受注確率を予測し、優先順位付け</li>
+                </ul>
+
+                <h3>導入効果</h3>
+                <p>導入企業では平均して、商談成約率15%向上、新人の戦力化期間50%短縮を実現しています。</p>
+
+                <h2>tsuzumi（つづみ）</h2>
+
+                <div class="product-card">
+                    <h4>🇯🇵 tsuzumi</h4>
+                    <span class="tag">国産LLM</span>
+                    <span class="tag">日本語特化</span>
+                    <p style="margin-top: 0.5rem;">NTTグループが開発した、日本語に特化した軽量・高性能な大規模言語モデル</p>
+                </div>
+
+                <h3>tsuzumiの特徴</h3>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>tsuzumi</th>
+                            <th>海外大規模LLM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>日本語性能</td>
+                            <td>◎ 特化設計</td>
+                            <td>○ 汎用</td>
+                        </tr>
+                        <tr>
+                            <td>モデルサイズ</td>
+                            <td>軽量（7B〜）</td>
+                            <td>大規模（70B〜）</td>
+                        </tr>
+                        <tr>
+                            <td>運用コスト</td>
+                            <td>低〜中</td>
+                            <td>高</td>
+                        </tr>
+                        <tr>
+                            <td>オンプレミス</td>
+                            <td>○ 対応</td>
+                            <td>△ 制限あり</td>
+                        </tr>
+                        <tr>
+                            <td>カスタマイズ</td>
+                            <td>○ 柔軟</td>
+                            <td>△ 制限あり</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>活用シーン</h3>
+                <ul>
+                    <li>社内ドキュメントの検索・要約</li>
+                    <li>コールセンターの対話履歴分析</li>
+                    <li>契約書・法務文書のレビュー支援</li>
+                    <li>技術文書の自動生成</li>
+                </ul>
+
+                <h2>導入検討のポイント</h2>
+                <p>NTTデータのAIソリューションは、エンタープライズ向けの高いセキュリティと信頼性が特徴です。以下のような企業に特に適しています：</p>
+                <ul>
+                    <li>金融・官公庁など高いセキュリティ要件がある</li>
+                    <li>既存のNTTデータ製品との連携が必要</li>
+                    <li>日本語処理の精度を重視する</li>
+                    <li>長期的なサポート・保守が必要</li>
+                </ul>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q. SmartAgentとは？</div>
+                    <div class="faq-answer">A. SmartAgentはNTTデータが提供するAIエージェントプラットフォームです。複数のAIモデルを組み合わせ、業務プロセスを自動化します。既存システムとの連携も可能で、エンタープライズ向けに設計されています。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q. tsuzumiの強みは？</div>
+                    <div class="faq-answer">A. tsuzumiはNTTグループが開発した国産LLMで、日本語処理に特化しています。軽量設計でありながら高性能で、オンプレミス導入やカスタマイズが柔軟に行えます。</div>
+                </div>
+
+                <h2>まとめ</h2>
+                <p>NTTデータのAIソリューションは、日本企業のニーズに合わせた機能と、エンタープライズグレードのセキュリティを両立しています。AI導入を検討する際は、自社の要件に合ったソリューションを選定することが重要です。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Uravation Inc.</p>
+    </footer>
+</body>
+</html>

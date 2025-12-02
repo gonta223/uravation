@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Bedrock最新アップデート - マルチモーダル対応とエージェント機能強化 | Uravation AI Media</title>
+    <meta name="description" content="Amazon Bedrockの最新機能を解説。Claude 3.5対応、Agents機能の強化、Knowledge Bases改善など、企業AI開発に役立つアップデートを紹介。">
+    <meta name="keywords" content="Amazon Bedrock,AWS,生成AI,Claude,エンタープライズAI">
+    <link rel="canonical" href="https://uravation.com/articles/news/aws-bedrock-update.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "Amazon Bedrock最新アップデート",
+        "datePublished": "2024-11-24T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Amazon Bedrockとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Amazon Bedrockは、AWSが提供するマネージド生成AIサービスです。Claude、Titan、Llama 2など複数のLLMをAPIで利用でき、企業向けのセキュリティ・コンプライアンス機能も備えています。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Bedrock Agentsとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Bedrock Agentsは、LLMに外部ツールやデータソースへのアクセス権限を与え、自律的にタスクを実行させる機能です。複雑なワークフローの自動化に活用できます。"
+                }
+            }
+        ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
+        .header { background: #fff; border-bottom: 3px solid #ff9900; padding: 1rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        article { background: #fff; border-radius: 8px; overflow: hidden; }
+        .article-header { padding: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .category-tag { display: inline-block; background: #ff9900; color: #fff; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #ff9900; }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .highlight-box { background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-left: 4px solid #ff9900; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { padding: 1rem; margin: 0.5rem 0; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
+        .feature-list li::before { content: '✓'; color: #ff9900; font-weight: 700; }
+        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: #f5f5f5; padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+        .footer { background: #1a1a2e; color: #fff; padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+        </div>
+    </header>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">クラウド</span>
+                <h1 class="article-title">Amazon Bedrock最新アップデート - マルチモーダル対応とエージェント機能強化</h1>
+            </header>
+            <div class="article-content">
+                <p>AWSの生成AIサービス「Amazon Bedrock」に、待望の新機能が追加されました。Claude 3.5 Sonnetへの対応、Agents機能の強化、Knowledge Basesの改善など、企業のAI開発を加速する機能を解説します。</p>
+
+                <div class="highlight-box">
+                    <h4>🆕 主なアップデート</h4>
+                    <ul>
+                        <li>Claude 3.5 Sonnet / Haiku 対応</li>
+                        <li>Agents for Amazon Bedrock機能強化</li>
+                        <li>Knowledge Bases性能改善</li>
+                        <li>Guardrails（安全性機能）拡充</li>
+                    </ul>
+                </div>
+
+                <h2>利用可能なモデル</h2>
+                <ul class="feature-list">
+                    <li>Anthropic Claude 3.5 Sonnet / 3 Haiku / 3 Opus</li>
+                    <li>Amazon Titan Text / Embeddings / Image</li>
+                    <li>Meta Llama 2 / Llama 3</li>
+                    <li>Mistral AI Large / Small</li>
+                    <li>AI21 Labs Jurassic-2</li>
+                    <li>Cohere Command / Embed</li>
+                    <li>Stability AI SDXL</li>
+                </ul>
+
+                <h2>Agents機能の強化</h2>
+                <h3>マルチエージェント対応</h3>
+                <p>複数のエージェントを組み合わせて、より複雑なワークフローを自動化できるようになりました。</p>
+
+                <h3>コードインタープリター</h3>
+                <p>エージェントがPythonコードを実行し、データ分析や計算を行えるようになりました。</p>
+
+                <h2>企業利用のメリット</h2>
+                <p>Amazon Bedrockは、既存のAWSインフラとシームレスに統合できる点が最大の強みです。VPC内でのプライベート接続、IAMによるきめ細かなアクセス制御、CloudWatchとの統合など、エンタープライズ向け機能が充実しています。</p>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q. Amazon Bedrockとは？</div>
+                    <div class="faq-answer">A. AWSが提供するマネージド生成AIサービスです。Claude、Titan、Llama 2など複数のLLMをAPIで利用でき、企業向けのセキュリティ・コンプライアンス機能も備えています。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q. Bedrock Agentsとは？</div>
+                    <div class="faq-answer">A. LLMに外部ツールやデータソースへのアクセス権限を与え、自律的にタスクを実行させる機能です。複雑なワークフローの自動化に活用できます。</div>
+                </div>
+
+                <h2>まとめ</h2>
+                <p>Amazon Bedrockは、AWSユーザーにとって最もスムーズに生成AIを導入できる選択肢です。既存のクラウドインフラを活かしながら、高度なAI機能を活用したい企業におすすめです。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Uravation Inc.</p>
+    </footer>
+</body>
+</html>

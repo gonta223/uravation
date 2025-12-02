@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【初心者向け】プロンプトエンジニアリング入門 - 効果的なAI指示の書き方 | Uravation AI Media</title>
+    <meta name="description" content="ChatGPTやClaudeの出力品質を劇的に向上させるプロンプトエンジニアリングの基礎を解説。ゼロショット、Few-shot、Chain of Thoughtなど主要テクニックを紹介。">
+    <meta name="keywords" content="プロンプトエンジニアリング,ChatGPT,プロンプト,AI活用,Few-shot,Chain of Thought">
+    <link rel="canonical" href="https://uravation.com/articles/chatgpt/prompt-engineering-basics.html">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"プロンプトエンジニアリング入門","description":"効果的なAI指示の書き方を解説。","datePublished":"2024-11-12T09:00:00+09:00","author":{"@type":"Organization","name":"Uravation編集部"},"publisher":{"@type":"Organization","name":"Uravation"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"プロンプトエンジニアリングとは？","acceptedAnswer":{"@type":"Answer","text":"プロンプトエンジニアリングとは、AIに対する指示（プロンプト）を最適化し、より高品質な出力を得るための技術です。"}},{"@type":"Question","name":"効果的なプロンプトの書き方は？","acceptedAnswer":{"@type":"Answer","text":"役割の明確化、具体的な指示、出力形式の指定、Few-shot例示、段階的思考の促進などのテクニックが効果的です。"}}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#10a37f;--text:#333;--bg:#f5f5f5;--white:#fff;--border:#e0e0e0}body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}.header{background:var(--white);border-bottom:3px solid var(--primary);padding:1rem 0}.header-inner{max-width:1200px;margin:0 auto;padding:0 1rem}.logo{font-size:1.5rem;font-weight:700;color:#0066cc;text-decoration:none}.logo span{color:#ff6600}.breadcrumb{max-width:1200px;margin:1rem auto;padding:0 1rem;font-size:.8rem;color:#666}.breadcrumb a{color:var(--primary);text-decoration:none}.container{max-width:900px;margin:0 auto;padding:2rem 1rem}article{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}.article-header{padding:2rem;border-bottom:1px solid var(--border)}.category-tag{display:inline-block;background:var(--primary);color:var(--white);padding:.25rem .75rem;border-radius:3px;font-size:.75rem;margin-bottom:1rem}.article-title{font-size:1.75rem;line-height:1.4;margin-bottom:1rem}.article-meta{display:flex;gap:1.5rem;font-size:.85rem;color:#666}.article-content{padding:2rem}.article-content h2{font-size:1.35rem;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--primary)}.article-content h3{font-size:1.15rem;margin:1.5rem 0 .75rem;color:#0a7d5e}.article-content p{margin-bottom:1.5rem}.highlight-box{background:linear-gradient(135deg,#e8f5f1 0%,#d0ece4 100%);border-left:4px solid var(--primary);padding:1.5rem;margin:2rem 0;border-radius:0 8px 8px 0}.code-block{background:#1e1e1e;color:#d4d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;margin:1.5rem 0;font-size:.85rem}.compare-box{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}.compare-item{padding:1rem;border-radius:8px}.bad{background:#fee2e2;border:2px solid #dc2626}.good{background:#d1fae5;border:2px solid #10a37f}.compare-label{font-weight:700;margin-bottom:.5rem}.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:1rem;overflow:hidden}.faq-question{background:var(--bg);padding:1rem;font-weight:700}.faq-answer{padding:1rem}.footer{background:#1a1a2e;color:var(--white);padding:2rem 1rem;margin-top:3rem;text-align:center}@media(max-width:600px){.compare-box{grid-template-columns:1fr}}</style>
+</head>
+<body>
+    <header class="header"><div class="header-inner"><a href="/media.html" class="logo">Uravation <span>AI+</span></a></div></header>
+    <nav class="breadcrumb"><a href="/">ホーム</a> › <a href="/media.html">メディア</a> › <a href="/articles/chatgpt/">ChatGPT</a> › プロンプトエンジニアリング入門</nav>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">ChatGPT</span>
+                <h1 class="article-title">【初心者向け】プロンプトエンジニアリング入門 - 効果的なAI指示の書き方</h1>
+                <div class="article-meta"><span>📅 2024年11月12日</span><span>✏️ Uravation編集部</span></div>
+            </header>
+            <div class="article-content">
+                <p><strong>プロンプトエンジニアリング</strong>とは、AIに対する指示（プロンプト）を最適化し、より高品質な出力を得るための技術です。同じAIでも、プロンプトの書き方次第で出力品質は大きく変わります。本記事では、基本テクニックを解説します。</p>
+
+                <div class="highlight-box">
+                    <h4>📝 この記事で学べること</h4>
+                    <ul>
+                        <li>プロンプトの基本構造</li>
+                        <li>役割設定（System Prompt）の効果</li>
+                        <li>Few-shot学習の活用法</li>
+                        <li>Chain of Thoughtプロンプト</li>
+                        <li>業務別プロンプトテンプレート</li>
+                    </ul>
+                </div>
+
+                <h2>1. 基本原則：明確で具体的な指示</h2>
+                <p>曖昧な指示は曖昧な回答を生みます。具体的に何を求めているかを明確にしましょう。</p>
+
+                <div class="compare-box">
+                    <div class="compare-item bad">
+                        <div class="compare-label">❌ 悪い例</div>
+                        <p>「マーケティングについて教えて」</p>
+                    </div>
+                    <div class="compare-item good">
+                        <div class="compare-label">✅ 良い例</div>
+                        <p>「BtoB SaaS企業向けのコンテンツマーケティング戦略について、以下の観点で解説してください：1. 顧客獲得チャネル 2. コンテンツの種類 3. 効果測定指標」</p>
+                    </div>
+                </div>
+
+                <h2>2. 役割設定（System Prompt）</h2>
+                <p>AIに特定の役割を与えることで、回答の専門性と一貫性が向上します。</p>
+
+                <div class="code-block">
+あなたは10年の経験を持つシニアマーケターです。
+以下の条件で回答してください：
+- 専門用語は初心者にもわかりやすく説明
+- 具体的な事例を交えて解説
+- 実践的なアドバイスを提供
+                </div>
+
+                <h2>3. Few-shot学習</h2>
+                <p>望む出力形式の例を示すことで、AIの出力を制御できます。</p>
+
+                <div class="code-block">
+以下の形式でFAQを作成してください：
+
+例1：
+Q: 返品はできますか？
+A: はい、商品到着後7日以内であれば返品可能です。
+
+例2：
+Q: 送料はいくらですか？
+A: 全国一律660円です。5,000円以上のご注文で送料無料になります。
+
+では、「支払い方法」についてFAQを作成してください。
+                </div>
+
+                <h2>4. Chain of Thought（段階的思考）</h2>
+                <p>複雑な問題では、AIに段階的に考えさせることで精度が向上します。</p>
+
+                <div class="code-block">
+以下の問題を段階的に考えて解答してください：
+
+問題：[複雑な問題の記述]
+
+ステップ1: 問題の要素を整理
+ステップ2: 各要素の関係性を分析
+ステップ3: 解決策を検討
+ステップ4: 最終的な結論を導出
+                </div>
+
+                <h2>5. 出力形式の指定</h2>
+                <p>希望する出力形式を明示することで、後処理が容易になります。</p>
+
+                <div class="code-block">
+分析結果を以下のJSON形式で出力してください：
+{
+  "summary": "概要（100字以内）",
+  "key_points": ["ポイント1", "ポイント2", "ポイント3"],
+  "recommendations": ["推奨事項1", "推奨事項2"],
+  "risk_level": "high/medium/low"
+}
+                </div>
+
+                <h2>業務別テンプレート</h2>
+                <h3>メール作成</h3>
+                <div class="code-block">
+以下の条件でビジネスメールを作成してください：
+- 目的: [商談のお礼/提案/問い合わせ等]
+- 宛先: [役職・関係性]
+- トーン: [丁寧/カジュアル/フォーマル]
+- 要点: [伝えたい内容]
+- 次のアクション: [依頼したいこと]
+                </div>
+
+                <h3>会議議事録</h3>
+                <div class="code-block">
+以下の会議メモから議事録を作成してください：
+[会議メモを貼り付け]
+
+出力形式：
+1. 会議概要（日時、参加者、目的）
+2. 決定事項
+3. アクションアイテム（担当者、期限）
+4. 次回予定
+                </div>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item"><div class="faq-question">Q. プロンプトエンジニアリングとは？</div><div class="faq-answer">A. AIに対する指示（プロンプト）を最適化し、より高品質な出力を得るための技術です。適切なプロンプトにより、同じAIでも出力品質が大きく向上します。</div></div>
+                <div class="faq-item"><div class="faq-question">Q. 効果的なプロンプトの書き方は？</div><div class="faq-answer">A. 役割の明確化、具体的な指示、出力形式の指定、Few-shot例示、段階的思考の促進などのテクニックが効果的です。曖昧さを避け、具体的に記述することが重要です。</div></div>
+
+                <h2>まとめ</h2>
+                <p>プロンプトエンジニアリングは、AIを効果的に活用するための必須スキルです。基本原則を押さえ、実践を重ねることで、AIの出力品質を大きく向上させることができます。</p>
+
+                <p>Uravationの研修では、業務に即したプロンプト作成のハンズオントレーニングを提供しています。実践的なスキルを身につけたい方はぜひご参加ください。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer"><p>© 2024 Uravation Inc.</p></footer>
+</body>
+</html>

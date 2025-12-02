@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メルカリのAI活用事例 - 出品支援から不正検知まで | Uravation AI Media</title>
+    <meta name="description" content="メルカリのAI活用事例を解説。AI出品支援機能「メルカリAIアシスト」、不正検知、価格推定など、フリマアプリでのAI活用の最前線を紹介。">
+    <meta name="keywords" content="メルカリ,AI活用,出品支援,メルカリAIアシスト,不正検知">
+    <link rel="canonical" href="https://uravation.com/articles/case-studies/mercari-ai-listing.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "メルカリのAI活用事例 - 出品支援から不正検知まで",
+        "datePublished": "2024-11-19T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "メルカリAIアシストとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "メルカリAIアシストは、商品写真をアップロードするだけで、商品名、説明文、カテゴリ、おすすめ価格をAIが自動生成する機能です。出品の手間を大幅に削減できます。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "メルカリはどんなAI技術を使っている？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "メルカリは画像認識AI、自然言語処理（LLM）、機械学習による価格推定、不正検知AIなど、複数のAI技術を組み合わせて活用しています。"
+                }
+            }
+        ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
+        .header { background: #fff; border-bottom: 3px solid #ff0211; padding: 1rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        article { background: #fff; border-radius: 8px; overflow: hidden; }
+        .article-header { padding: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .category-tag { display: inline-block; background: #ff0211; color: #fff; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #ff0211; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .highlight-box { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-left: 4px solid #ff0211; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { padding: 1rem; margin: 0.5rem 0; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
+        .feature-list li::before { content: '✓'; color: #ff0211; font-weight: 700; font-size: 1.2rem; }
+        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: #f5f5f5; padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+        .footer { background: #1a1a2e; color: #fff; padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+        </div>
+    </header>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">導入事例</span>
+                <h1 class="article-title">メルカリのAI活用事例 - 出品支援から不正検知まで</h1>
+            </header>
+            <div class="article-content">
+                <p>メルカリは、フリマアプリのリーディングカンパニーとして、AI技術を積極的に活用しています。ユーザー体験の向上から安全性確保まで、メルカリのAI活用事例を詳しく解説します。</p>
+
+                <div class="highlight-box">
+                    <h4>📱 メルカリのAI活用</h4>
+                    <ul>
+                        <li>メルカリAIアシスト（出品支援）</li>
+                        <li>AI価格推定機能</li>
+                        <li>不正出品・取引の自動検知</li>
+                        <li>カスタマーサポートのAI化</li>
+                    </ul>
+                </div>
+
+                <h2>メルカリAIアシストとは</h2>
+                <p>2023年にリリースされた「メルカリAIアシスト」は、商品写真を撮影するだけで、AIが商品名、説明文、カテゴリ、適正価格を自動提案する機能です。出品にかかる時間を大幅に短縮し、初心者でも簡単に出品できるようになりました。</p>
+
+                <h2>主なAI機能</h2>
+                <ul class="feature-list">
+                    <li>商品画像からの自動カテゴリ分類</li>
+                    <li>過去取引データに基づく価格推定</li>
+                    <li>説明文の自動生成（LLM活用）</li>
+                    <li>類似商品のレコメンデーション</li>
+                    <li>不正出品のリアルタイム検知</li>
+                </ul>
+
+                <h2>不正検知AI</h2>
+                <p>メルカリでは、禁止商品の出品、詐欺的な取引、なりすましなどを検知するAIシステムを運用しています。機械学習モデルが24時間体制で取引を監視し、不正の疑いがある場合は自動でフラグを立て、人間のモデレーターがレビューする体制を構築しています。</p>
+
+                <h2>技術スタック</h2>
+                <p>メルカリは以下の技術を組み合わせてAIシステムを構築しています：</p>
+                <ul>
+                    <li><strong>画像認識</strong>：独自モデル＋外部API</li>
+                    <li><strong>LLM</strong>：OpenAI API、独自ファインチューニングモデル</li>
+                    <li><strong>機械学習基盤</strong>：Vertex AI、BigQuery ML</li>
+                </ul>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q. メルカリAIアシストとは？</div>
+                    <div class="faq-answer">A. 商品写真をアップロードするだけで、商品名、説明文、カテゴリ、おすすめ価格をAIが自動生成する機能です。出品の手間を大幅に削減できます。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q. メルカリはどんなAI技術を使っている？</div>
+                    <div class="faq-answer">A. 画像認識AI、自然言語処理（LLM）、機械学習による価格推定、不正検知AIなど、複数のAI技術を組み合わせて活用しています。</div>
+                </div>
+
+                <h2>まとめ</h2>
+                <p>メルカリは、ユーザー体験向上と安全性確保の両面でAIを活用し、競争優位性を築いています。BtoCサービスにおけるAI活用の好例として参考になるでしょう。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Uravation Inc.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カスタムGPTs活用ガイド - 業務特化AIアシスタントの作り方 | Uravation AI Media</title>
+    <meta name="description" content="ChatGPTのカスタムGPTs機能を使った業務特化AIアシスタントの作成方法を解説。設定手順、活用事例、ベストプラクティスを紹介。">
+    <meta name="keywords" content="GPTs,カスタムGPT,ChatGPT,業務効率化,AIアシスタント,ノーコード">
+    <link rel="canonical" href="https://uravation.com/articles/chatgpt/custom-gpts-business.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "カスタムGPTs活用ガイド - 業務特化AIアシスタントの作り方",
+        "datePublished": "2024-11-18T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "カスタムGPTsとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "カスタムGPTsは、ChatGPT Plusユーザーが独自のAIアシスタントを作成できる機能です。プログラミング不要で、特定の業務や目的に特化したAIを構築できます。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "GPTsは無料で作れる？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "GPTsの作成にはChatGPT Plus（月額20ドル）またはTeam/Enterpriseプランが必要です。無料プランでは作成できません。"
+                }
+            }
+        ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #10a37f; --text: #333; --bg: #f5f5f5; --white: #fff; --border: #e0e0e0; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+        .header { background: var(--white); border-bottom: 3px solid var(--primary); padding: 1rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        article { background: var(--white); border-radius: 8px; overflow: hidden; }
+        .article-header { padding: 2rem; border-bottom: 1px solid var(--border); }
+        .category-tag { display: inline-block; background: var(--primary); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .highlight-box { background: linear-gradient(135deg, #e6fcf5 0%, #c3fae8 100%); border-left: 4px solid var(--primary); padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .step-list { counter-reset: step; list-style: none; padding: 0; }
+        .step-list li { counter-increment: step; padding: 1rem; margin: 1rem 0; background: var(--bg); border-radius: 8px; position: relative; padding-left: 4rem; }
+        .step-list li::before { content: counter(step); position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: var(--bg); padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+        .footer { background: #1a1a2e; color: var(--white); padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+        </div>
+    </header>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">ChatGPT</span>
+                <h1 class="article-title">カスタムGPTs活用ガイド - 業務特化AIアシスタントの作り方</h1>
+            </header>
+            <div class="article-content">
+                <p>ChatGPTのカスタムGPTs機能を使えば、プログラミングなしで自社業務に特化したAIアシスタントを作成できます。本記事では、作成手順から活用事例まで詳しく解説します。</p>
+
+                <div class="highlight-box">
+                    <h4>💡 GPTsでできること</h4>
+                    <ul>
+                        <li>特定業務に特化した応答の設定</li>
+                        <li>独自の知識ベース（ファイル）の組み込み</li>
+                        <li>外部APIとの連携（Actions機能）</li>
+                        <li>チーム内での共有</li>
+                    </ul>
+                </div>
+
+                <h2>GPTs作成の5ステップ</h2>
+
+                <ol class="step-list">
+                    <li><strong>目的の明確化</strong>：何の業務を支援するGPTを作るか決定</li>
+                    <li><strong>GPT Builderにアクセス</strong>：ChatGPTの「Explore GPTs」→「Create」</li>
+                    <li><strong>指示文（Instructions）の設定</strong>：役割、応答スタイル、制約を記述</li>
+                    <li><strong>知識ファイルのアップロード</strong>：参照させたい資料をアップ</li>
+                    <li><strong>テストと調整</strong>：実際に使いながら改善</li>
+                </ol>
+
+                <h2>業務活用事例</h2>
+
+                <h3>営業支援GPT</h3>
+                <p>製品カタログや価格表をアップロードし、顧客からの質問に即座に回答できるGPTを作成。営業担当者の問い合わせ対応時間を50%削減した事例があります。</p>
+
+                <h3>社内規程Q&A GPT</h3>
+                <p>就業規則、経費規程などの社内文書を読み込ませ、社員からの問い合わせに24時間対応。人事部門の問い合わせ対応負荷を大幅に軽減できます。</p>
+
+                <h3>議事録作成GPT</h3>
+                <p>会議の書き起こしテキストを入力すると、フォーマットに沿った議事録を自動生成。議事録作成時間を80%短縮。</p>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q. カスタムGPTsとは？</div>
+                    <div class="faq-answer">A. ChatGPT Plusユーザーが独自のAIアシスタントを作成できる機能です。プログラミング不要で、特定の業務や目的に特化したAIを構築できます。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q. GPTsは無料で作れる？</div>
+                    <div class="faq-answer">A. GPTsの作成にはChatGPT Plus（月額20ドル）またはTeam/Enterpriseプランが必要です。無料プランでは作成できません。</div>
+                </div>
+
+                <h2>まとめ</h2>
+                <p>カスタムGPTsは、専門知識がなくても業務特化AIを構築できる強力なツールです。まずは小さな業務から試し、徐々に活用範囲を広げていくことをお勧めします。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Uravation Inc.</p>
+    </footer>
+</body>
+</html>

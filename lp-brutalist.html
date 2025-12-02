@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URAVATION | AI研修 - BRUTALIST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #ff0000;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray: #333;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--white);
+            color: var(--black);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            border-bottom: 4px solid var(--black);
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            mix-blend-mode: difference;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            mix-blend-mode: difference;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .hero-text {
+            max-width: 100%;
+        }
+
+        .hero h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(4rem, 20vw, 18rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .outline {
+            -webkit-text-stroke: 2px var(--white);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 .red {
+            color: var(--red);
+        }
+
+        .hero-sub {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+        }
+
+        .hero-sub p {
+            max-width: 400px;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .hero-cta {
+            padding: 1.5rem 3rem;
+            background: var(--red);
+            color: var(--white);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Marquee */
+        .marquee {
+            background: var(--red);
+            padding: 1rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-content span {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            padding: 0 2rem;
+            color: var(--white);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 4px solid var(--black);
+        }
+
+        .stat {
+            padding: 4rem 2rem;
+            border-right: 4px solid var(--black);
+            text-align: center;
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-family: 'Anton', sans-serif;
+            font-size: 5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+        }
+
+        /* Services */
+        .services {
+            padding: 0;
+        }
+
+        .section-header {
+            padding: 4rem 2rem;
+            border-bottom: 4px solid var(--black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            text-transform: uppercase;
+        }
+
+        .section-header span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 300px;
+            border-bottom: 4px solid var(--black);
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .service-number {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            padding: 3rem 2rem;
+            border-right: 4px solid var(--black);
+            display: flex;
+            align-items: center;
+        }
+
+        .service-item:hover .service-number {
+            border-color: var(--white);
+        }
+
+        .service-content {
+            padding: 3rem;
+        }
+
+        .service-content h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .service-content p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            max-width: 500px;
+        }
+
+        .service-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .service-tags span {
+            padding: 0.5rem 1rem;
+            border: 2px solid currentColor;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .service-arrow {
+            padding: 3rem;
+            border-left: 4px solid var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover .service-arrow {
+            border-color: var(--white);
+            color: var(--red);
+        }
+
+        /* Why Section */
+        .why {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .why .section-header {
+            border-color: var(--white);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .why-item {
+            padding: 4rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--red);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 0;
+        }
+
+        .why-item:hover::before {
+            transform: translateY(0);
+        }
+
+        .why-item > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-number {
+            font-family: 'Anton', sans-serif;
+            font-size: 6rem;
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+        }
+
+        .why-item:hover .why-number {
+            opacity: 0.4;
+        }
+
+        .why-item h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .why-item p {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 8rem 2rem;
+            text-align: center;
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .cta p {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            background: var(--white);
+            color: var(--black);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            border: 4px solid var(--black);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 4px solid var(--white);
+        }
+
+        footer .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+        }
+
+        footer nav {
+            position: static;
+            background: none;
+            border: none;
+            padding: 0;
+            mix-blend-mode: normal;
+        }
+
+        footer .nav-links a {
+            color: rgba(255,255,255,0.6);
+        }
+
+        footer .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            opacity: 0.5;
+        }
+
+        /* Back to Portal */
+        .back-portal {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--black);
+            color: var(--white);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 1000;
+            border: 2px solid var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .back-portal:hover {
+            background: var(--red);
+            border-color: var(--red);
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat {
+                border-bottom: 4px solid var(--black);
+            }
+
+            .service-item {
+                grid-template-columns: 1fr;
+            }
+
+            .service-number,
+            .service-arrow {
+                border: none;
+                padding: 2rem;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="portal.html" class="back-portal">← PORTAL</a>
+
+    <nav>
+        <div class="logo">URAVATION</div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#why">Why Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>
+                <span class="outline">AI</span><br>
+                <span class="red">研修</span><br>
+                革命
+            </h1>
+        </div>
+        <div class="hero-sub">
+            <p>
+                私たちは、従来のAI研修の概念を破壊し、<br>
+                真に実践的で成果に直結する<br>
+                プログラムを提供します。
+            </p>
+            <button class="hero-cta">無料相談 →</button>
+        </div>
+    </section>
+
+    <div class="marquee">
+        <div class="marquee-content">
+            <span>AI TRAINING</span>
+            <span>•</span>
+            <span>企業研修</span>
+            <span>•</span>
+            <span>DX ACCELERATION</span>
+            <span>•</span>
+            <span>実践的スキル</span>
+            <span>•</span>
+            <span>AI TRAINING</span>
+            <span>•</span>
+            <span>企業研修</span>
+            <span>•</span>
+            <span>DX ACCELERATION</span>
+            <span>•</span>
+            <span>実践的スキル</span>
+            <span>•</span>
+        </div>
+    </div>
+
+    <section class="stats">
+        <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">導入企業</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">15K+</div>
+            <div class="stat-label">受講者数</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">満足度</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">40%</div>
+            <div class="stat-label">効率化率</div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>SERVICES</h2>
+            <span>What We Offer</span>
+        </div>
+
+        <div class="service-item">
+            <div class="service-number">01</div>
+            <div class="service-content">
+                <h3>AI基礎研修</h3>
+                <p>ChatGPT、Claude、Geminiなど生成AIの基本操作から業務活用まで。非エンジニアでも安心して学べる入門コース。</p>
+                <div class="service-tags">
+                    <span>プロンプト設計</span>
+                    <span>業務効率化</span>
+                    <span>セキュリティ</span>
+                </div>
+            </div>
+            <div class="service-arrow">→</div>
+        </div>
+
+        <div class="service-item">
+            <div class="service-number">02</div>
+            <div class="service-content">
+                <h3>AI実践研修</h3>
+                <p>実際の業務課題を題材に、AIを活用した問題解決スキルを習得。ハンズオン形式で即戦力を育成。</p>
+                <div class="service-tags">
+                    <span>カスタムGPT</span>
+                    <span>RAG構築</span>
+                    <span>自動化</span>
+                </div>
+            </div>
+            <div class="service-arrow">→</div>
+        </div>
+
+        <div class="service-item">
+            <div class="service-number">03</div>
+            <div class="service-content">
+                <h3>エグゼクティブ向け</h3>
+                <p>経営層・管理職向けのAI戦略立案研修。AI投資判断から組織変革まで、意思決定者に必要な知見を提供。</p>
+                <div class="service-tags">
+                    <span>AI戦略</span>
+                    <span>ROI分析</span>
+                    <span>ガバナンス</span>
+                </div>
+            </div>
+            <div class="service-arrow">→</div>
+        </div>
+    </section>
+
+    <section class="why" id="why">
+        <div class="section-header">
+            <h2>WHY URAVATION</h2>
+            <span>選ばれる理由</span>
+        </div>
+        <div class="why-grid">
+            <div class="why-item">
+                <div class="why-number">01</div>
+                <h3>現役AIエンジニアが講師</h3>
+                <p>大手企業でAI開発に従事するプロフェッショナルが直接指導。机上の空論ではない、現場で使えるスキルを伝授。</p>
+            </div>
+            <div class="why-item">
+                <div class="why-number">02</div>
+                <h3>完全カスタマイズ</h3>
+                <p>業界・業務に特化した事例とカリキュラムをオーダーメイドで作成。御社の課題に直接アプローチ。</p>
+            </div>
+            <div class="why-item">
+                <div class="why-number">03</div>
+                <h3>効果測定・フォローアップ</h3>
+                <p>研修後3ヶ月間のサポートと定量的な効果測定レポートを提供。確実な成果を保証。</p>
+            </div>
+            <div class="why-item">
+                <div class="why-number">04</div>
+                <h3>豊富な導入実績</h3>
+                <p>Fortune 500企業から上場企業まで、500社以上の導入実績。業界を問わず成果を出し続けています。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <h2>始めよう</h2>
+        <p>
+            AIは待ってくれない。<br>
+            今すぐ行動を起こし、競合に差をつけましょう。
+        </p>
+        <a href="mailto:info@uravation.com" class="cta-btn">無料相談を予約 →</a>
+    </section>
+
+    <footer>
+        <div class="logo">URAVATION</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="footer-copy">© 2024 URAVATION</div>
+    </footer>
+</body>
+</html>

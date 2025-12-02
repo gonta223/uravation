@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uravation AI Media | 生成AI・企業導入の最前線</title>
+    <meta name="description" content="生成AI・ChatGPT・Claudeの最新ニュース、企業導入事例、活用ノウハウを発信。AI研修・DX推進に役立つ情報メディア。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004499;
+            --accent: #e63946;
+            --accent-orange: #f97316;
+            --text: #333;
+            --text-light: #666;
+            --text-muted: #999;
+            --bg: #fff;
+            --bg-gray: #f8f8f8;
+            --border: #e5e5e5;
+            --border-light: #f0f0f0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: var(--bg-gray);
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .logo-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            border-left: 1px solid var(--border);
+            padding-left: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-gray);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 6px 12px;
+            gap: 8px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            width: 200px;
+            outline: none;
+        }
+
+        .search-icon {
+            color: var(--text-muted);
+        }
+
+        .header-links {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+        }
+
+        .header-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav a {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Breaking News */
+        .breaking-news {
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .breaking-label {
+            background: white;
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .breaking-text {
+            flex: 1;
+        }
+
+        .breaking-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 24px;
+        }
+
+        /* Content Area */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Section */
+        .section {
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--primary);
+        }
+
+        .section-more {
+            font-size: 12px;
+            color: var(--primary);
+        }
+
+        .section-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Featured Articles */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .featured-main {
+            border-right: 1px solid var(--border);
+        }
+
+        .featured-article {
+            padding: 20px;
+        }
+
+        .featured-article img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border-radius: 2px;
+        }
+
+        .featured-article .tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--bg);
+            background: var(--accent);
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+
+        .featured-article .tag.blue {
+            background: var(--primary);
+        }
+
+        .featured-article .tag.orange {
+            background: var(--accent-orange);
+        }
+
+        .featured-article h3 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .featured-article h3:hover {
+            color: var(--primary);
+        }
+
+        .featured-article p {
+            font-size: 13px;
+            color: var(--text-light);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .featured-sub {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-sub .featured-article {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .featured-sub .featured-article:last-child {
+            border-bottom: none;
+        }
+
+        .featured-sub .featured-article h3 {
+            font-size: 14px;
+        }
+
+        /* Article List */
+        .article-list {
+            padding: 0;
+        }
+
+        .article-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.2s;
+        }
+
+        .article-item:hover {
+            background: var(--bg-gray);
+        }
+
+        .article-item:last-child {
+            border-bottom: none;
+        }
+
+        .article-thumb {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 2px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .article-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .article-category {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .article-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-title:hover {
+            color: var(--primary);
+        }
+
+        /* Topic Tabs */
+        .topic-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topic-tab {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-light);
+            background: var(--bg-gray);
+            border-right: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .topic-tab:hover,
+        .topic-tab.active {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            background: linear-gradient(135deg, #1e2a4a 0%, #2d3a5a 100%);
+            padding: 32px 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-item h4 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-item p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-section {
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .sidebar-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-header::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--primary);
+        }
+
+        /* Categories */
+        .category-list {
+            padding: 12px 16px;
+        }
+
+        .category-group {
+            margin-bottom: 16px;
+        }
+
+        .category-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-group-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .category-item:hover {
+            color: var(--primary);
+        }
+
+        .category-item::before {
+            content: '▶';
+            font-size: 8px;
+            color: var(--text-muted);
+        }
+
+        /* Ranking */
+        .ranking-list {
+            padding: 12px 16px;
+        }
+
+        .ranking-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-num {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: var(--bg);
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .ranking-item:nth-child(1) .ranking-num { background: #d4af37; }
+        .ranking-item:nth-child(2) .ranking-num { background: #a8a8a8; }
+        .ranking-item:nth-child(3) .ranking-num { background: #cd7f32; }
+        .ranking-item:nth-child(n+4) .ranking-num { background: var(--text-muted); }
+
+        .ranking-title {
+            font-size: 12px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .ranking-title:hover {
+            color: var(--primary);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .newsletter-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .newsletter h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter p {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .newsletter-form input {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .newsletter-form button {
+            padding: 10px 12px;
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Tags */
+        .tag-cloud {
+            padding: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-item {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--bg-gray);
+            border-radius: 100px;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+
+        .tag-item:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        /* Ad Banner */
+        .ad-banner {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 24px 16px;
+            text-align: center;
+            color: var(--bg);
+        }
+
+        .ad-banner .ad-label {
+            font-size: 10px;
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+
+        .ad-banner h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .ad-banner p {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 16px;
+        }
+
+        .ad-banner .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Market Data */
+        .market-data {
+            padding: 16px;
+        }
+
+        .market-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px;
+        }
+
+        .market-item:last-child {
+            border-bottom: none;
+        }
+
+        .market-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #ccc;
+            margin-top: 40px;
+        }
+
+        .footer-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h5 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--bg);
+            margin-bottom: 16px;
+        }
+
+        .footer-section a {
+            display: block;
+            font-size: 12px;
+            color: #999;
+            padding: 4px 0;
+        }
+
+        .footer-section a:hover {
+            color: var(--bg);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-banner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-right {
+                display: none;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-main {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-main {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-inner {
+                overflow-x: auto;
+            }
+
+            .nav a {
+                white-space: nowrap;
+            }
+
+            .breaking-news {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* Placeholder images with gradients */
+        .thumb-ai { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .thumb-business { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .thumb-tech { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .thumb-security { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .thumb-case { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .thumb-tool { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <span class="logo-main">Uravation AI Media</span>
+                <span class="logo-sub">生成AI・企業導入の最前線</span>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="記事を検索...">
+                </div>
+                <div class="header-links">
+                    <a href="#">ログイン</a>
+                    <a href="#">会員登録</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breaking News -->
+    <div class="breaking-news">
+        <span class="breaking-label">BREAKING</span>
+        <span class="breaking-text"><a href="articles/news/ai-market-2024-trillion.html">【速報】国内生成AI市場、2024年に初の1,000億円突破へ ─ IDC Japan調査</a></span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="active">トップ</a>
+            <a href="#">生成AI</a>
+            <a href="#">導入事例</a>
+            <a href="#">ChatGPT</a>
+            <a href="#">Claude</a>
+            <a href="#">Gemini</a>
+            <a href="#">AI研修</a>
+            <a href="#">コラム</a>
+        </div>
+    </nav>
+
+    <!-- Stats Banner -->
+    <div class="stats-banner">
+        <div class="stat-item">
+            <h4>1,016億円</h4>
+            <p>2024年国内生成AI市場規模</p>
+        </div>
+        <div class="stat-item">
+            <h4>84.4%</h4>
+            <p>年平均成長率（CAGR）</p>
+        </div>
+        <div class="stat-item">
+            <h4>17.3%</h4>
+            <p>日本企業の本格活用率</p>
+        </div>
+        <div class="stat-item">
+            <h4>12.4万人</h4>
+            <p>AI人材の不足数（予測）</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <main class="content">
+            <!-- Featured Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">注目記事</h2>
+                    <a href="#" class="section-more">すべて見る →</a>
+                </div>
+                <div class="featured-grid">
+                    <div class="featured-main">
+                        <article class="featured-article">
+                            <div class="article-thumb thumb-ai" style="width:100%;aspect-ratio:16/9;margin-bottom:12px;border-radius:2px;font-size:48px;">🤖</div>
+                            <span class="tag">速報</span>
+                            <h3><a href="articles/news/mri-ai-agent-proposal.html">時代は生成AIからAIエージェントへ ─ 三菱総研が提言「まもなくビジネスの再飛躍が始まる」</a></h3>
+                            <p>三菱総合研究所は2024年12月のオピニオンで、「AIエージェント」によってまもなく、生成AIに匹敵するビジネスの再飛躍が始まると提言。人からの指示を自ら作業分解して複雑な問題を解決する高度な自律性が特徴。</p>
+                        </article>
+                    </div>
+                    <div class="featured-sub">
+                        <article class="featured-article">
+                            <span class="tag blue">市場動向</span>
+                            <h3><a href="articles/news/ai-market-2024-trillion.html">国内生成AI市場、2028年に8,028億円へ ─ IDC Japan予測</a></h3>
+                        </article>
+                        <article class="featured-article">
+                            <span class="tag orange">企業動向</span>
+                            <h3><a href="articles/news/gmo-67man-hours-saved.html">GMOインターネット、生成AI活用で67万時間の業務削減 ─ 従業員83.9%が活用</a></h3>
+                        </article>
+                        <article class="featured-article">
+                            <span class="tag">提携</span>
+                            <h3><a href="articles/domestic-llm/plamo-preferred-networks.html">Preferred Networks、三菱商事・IIJとAI向けクラウド合弁会社を設立</a></h3>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 生成AI Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">生成AI 最新ニュース</h2>
+                    <a href="#" class="section-more">すべて見る →</a>
+                </div>
+                <div class="topic-tabs">
+                    <span class="topic-tab active">すべて</span>
+                    <span class="topic-tab">ChatGPT</span>
+                    <span class="topic-tab">Claude</span>
+                    <span class="topic-tab">Gemini</span>
+                    <span class="topic-tab">国産LLM</span>
+                </div>
+                <div class="article-list">
+                    <article class="article-item">
+                        <div class="article-thumb thumb-ai">🧠</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">Claude</span>
+                                <span>2024年12月1日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/claude/claude-35-sonnet-guide.html">Claude 3.5 Sonnet、コンテキストウィンドウ20万トークンでGPT-4oを上回る ─ 大容量資料の処理に強み</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-business">📊</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">国産LLM</span>
+                                <span>2024年11月30日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/news/kddi-1000oku-investment.html">KDDI、国内最高性能LLM開発へ1,000億円投資 ─ 経産省認定を受け4年計画</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tech">⚡</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">機能追加</span>
+                                <span>2024年11月29日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/claude/claude-projects-guide.html">Claude「Projects」機能が公開 ─ ChatGPTの「GPTs」に相当、簡単設定で特化型AIアシスタント作成</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-case">🏭</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">製造業</span>
+                                <span>2024年11月28日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/asahi-kasei-6000-cases.html">旭化成、生成AIで新規用途探索を自動化 ─ 6,000以上の用途候補を考案、選別時間40%短縮</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tool">🛠️</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">ツール比較</span>
+                                <span>2024年11月27日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/claude/claude-vs-chatgpt-comparison.html">【2024年版】ChatGPT vs Claude vs Gemini完全比較 ─ 用途別おすすめと選び方を徹底解説</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-ai">💼</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">ChatGPT</span>
+                                <span>2024年11月26日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/chatgpt/chatgpt-enterprise-guide.html">ChatGPT Enterprise完全ガイド ─ 企業向け機能とセキュリティを徹底解説</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tech">☁️</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">クラウド</span>
+                                <span>2024年11月25日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/news/azure-openai-enterprise.html">Azure OpenAI Service完全ガイド ─ 企業向けGPT-4導入の決定版</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-business">🔧</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">AWS</span>
+                                <span>2024年11月24日</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/news/aws-bedrock-update.html">Amazon Bedrock最新アップデート ─ マルチモーダル対応とエージェント機能強化</a></h3>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 導入事例 Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">企業導入事例</h2>
+                    <a href="#" class="section-more">すべて見る →</a>
+                </div>
+                <div class="article-list">
+                    <article class="article-item">
+                        <div class="article-thumb thumb-case">🏭</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">製造業</span>
+                                <span>2024年12月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/daikin-ai-factory.html">ダイキン工業のAI活用事例 ─ 製造業DXの最前線、品質検査50%削減</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-security">🏦</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">金融</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/mizuho-ai-banking.html">みずほ銀行のAI活用事例 ─ 金融DXの最前線、顧客対応から融資審査まで</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-business">🎮</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">エンタメ</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/sony-ai-entertainment.html">ソニーのAI活用事例 ─ エンターテインメント領域でのAI革新</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tech">📱</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">EC</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/mercari-ai-listing.html">メルカリのAI活用事例 ─ 出品支援から不正検知まで、AI活用の最前線</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-case">🚗</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">自動車</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/toyota-ai-use-cases.html">トヨタ自動車のAI活用事例 ─ 製造業AIのパイオニア、品質・生産性向上</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tool">🔌</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">IT</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/case-studies/panasonic-connect-ai.html">パナソニック コネクトのAI活用事例 ─ 全社員向け「ConnectGPT」の成功</a></h3>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- AI研修 Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">AI研修・人材育成</h2>
+                    <a href="#" class="section-more">すべて見る →</a>
+                </div>
+                <div class="article-list">
+                    <article class="article-item">
+                        <div class="article-thumb thumb-ai">🎓</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">研修</span>
+                                <span>2024年12月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/training/why-ai-training-important.html">なぜ今AI研修が必要なのか ─ 日本企業の生成AI活用遅れと人材育成の重要性</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-business">👥</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">経営層向け</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/training/executive-ai-training.html">経営層向けAI研修完全ガイド ─ DX推進に必要なAIリテラシーとは</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tool">📋</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">プロンプト</span>
+                                <span>2024年11月</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/chatgpt/prompt-engineering-basics.html">プロンプトエンジニアリング入門 ─ ChatGPT・Claudeで成果を出す指示の書き方</a></h3>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- コラム Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">コラム・解説</h2>
+                </div>
+                <div class="article-list">
+                    <article class="article-item">
+                        <div class="article-thumb thumb-tech">💡</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">解説</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/column/ai-hallucination-prevention.html">AIハルシネーション対策完全ガイド ─ 生成AIの「嘘」を見抜く方法と防止策</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-security">🛡️</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">セキュリティ</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/security/ai-security-best-practices.html">企業のAI導入、セキュリティリスクと対策 ─ 情報漏洩を防ぐベストプラクティス</a></h3>
+                        </div>
+                    </article>
+                    <article class="article-item">
+                        <div class="article-thumb thumb-case">📈</div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-category">キャリア</span>
+                            </div>
+                            <h3 class="article-title"><a href="articles/column/ai-job-future.html">AIに奪われる仕事・生まれる仕事 ─ 2030年の働き方を予測</a></h3>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Market Data -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">市場データ</div>
+                <div class="market-data">
+                    <div class="market-item">
+                        <span>2024年国内市場</span>
+                        <span class="market-value">1,016億円</span>
+                    </div>
+                    <div class="market-item">
+                        <span>2028年予測</span>
+                        <span class="market-value">8,028億円</span>
+                    </div>
+                    <div class="market-item">
+                        <span>CAGR（成長率）</span>
+                        <span class="market-value">84.4%</span>
+                    </div>
+                    <div class="market-item">
+                        <span>日本企業活用率</span>
+                        <span class="market-value">17.3%</span>
+                    </div>
+                    <div class="market-item">
+                        <span>米国企業活用率</span>
+                        <span class="market-value">73.5%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ranking -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">RANKING</div>
+                <div class="ranking-list">
+                    <div class="ranking-item">
+                        <span class="ranking-num">1</span>
+                        <a href="articles/news/gmo-67man-hours-saved.html" class="ranking-title">GMOインターネット、生成AI活用で67万時間削減 従業員83.9%が活用</a>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-num">2</span>
+                        <a href="articles/news/mri-ai-agent-proposal.html" class="ranking-title">三菱総研「AIエージェント時代」到来を提言 ビジネス再飛躍へ</a>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-num">3</span>
+                        <a href="articles/claude/claude-vs-chatgpt-comparison.html" class="ranking-title">Claude 3.5 vs GPT-4o 完全比較 コンテキスト長で優位</a>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-num">4</span>
+                        <a href="articles/news/kddi-1000oku-investment.html" class="ranking-title">KDDI、国産LLM開発に1,000億円投資 経産省認定</a>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-num">5</span>
+                        <a href="articles/rag/rag-implementation-guide.html" class="ranking-title">RAG実装完全ガイド 社内データ活用のベストプラクティス</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">記事ジャンル</div>
+                <div class="category-list">
+                    <div class="category-group">
+                        <div class="category-group-title">AIツール別</div>
+                        <a href="#" class="category-item">ChatGPT / OpenAI</a>
+                        <a href="#" class="category-item">Claude / Anthropic</a>
+                        <a href="#" class="category-item">Gemini / Google</a>
+                        <a href="#" class="category-item">国産LLM</a>
+                    </div>
+                    <div class="category-group">
+                        <div class="category-group-title">活用目的別</div>
+                        <a href="#" class="category-item">業務効率化・自動化</a>
+                        <a href="#" class="category-item">顧客対応・CX向上</a>
+                        <a href="#" class="category-item">製品開発・R&D</a>
+                        <a href="#" class="category-item">マーケティング</a>
+                    </div>
+                    <div class="category-group">
+                        <div class="category-group-title">業界別</div>
+                        <a href="#" class="category-item">製造業</a>
+                        <a href="#" class="category-item">金融・保険</a>
+                        <a href="#" class="category-item">小売・EC</a>
+                        <a href="#" class="category-item">医療・ヘルスケア</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-section">
+                <div class="newsletter">
+                    <div class="newsletter-icon">📧</div>
+                    <h4>メールマガジン</h4>
+                    <p>AI活用の最新情報を週1回配信！<br>注目記事と専門家コラムをお届け</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="メールアドレス">
+                        <button type="submit">無料で購読する</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="sidebar-section ad-banner">
+                <div class="ad-label">PR</div>
+                <h4>AI研修サービス</h4>
+                <p>企業向け生成AI活用研修<br>導入実績200社以上</p>
+                <a href="lp-studio-production.html" class="btn">詳しく見る</a>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-section">
+                <div class="sidebar-header">人気のタグ</div>
+                <div class="tag-cloud">
+                    <a href="#" class="tag-item">ChatGPT</a>
+                    <a href="#" class="tag-item">Claude</a>
+                    <a href="#" class="tag-item">Gemini</a>
+                    <a href="#" class="tag-item">GPT-4o</a>
+                    <a href="#" class="tag-item">LLM</a>
+                    <a href="#" class="tag-item">RAG</a>
+                    <a href="#" class="tag-item">プロンプト</a>
+                    <a href="#" class="tag-item">AIエージェント</a>
+                    <a href="#" class="tag-item">業務効率化</a>
+                    <a href="#" class="tag-item">セキュリティ</a>
+                    <a href="#" class="tag-item">国産LLM</a>
+                    <a href="#" class="tag-item">AI研修</a>
+                    <a href="#" class="tag-item">導入事例</a>
+                    <a href="#" class="tag-item">API連携</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-section">
+                <h5>カテゴリ</h5>
+                <a href="#">生成AI</a>
+                <a href="#">導入事例</a>
+                <a href="#">ChatGPT</a>
+                <a href="#">Claude</a>
+                <a href="#">AI研修</a>
+                <a href="#">コラム</a>
+            </div>
+            <div class="footer-section">
+                <h5>サービス</h5>
+                <a href="#">AI研修サービス</a>
+                <a href="#">コンサルティング</a>
+                <a href="#">導入支援</a>
+                <a href="#">セミナー</a>
+            </div>
+            <div class="footer-section">
+                <h5>企業情報</h5>
+                <a href="#">会社概要</a>
+                <a href="#">採用情報</a>
+                <a href="#">お問い合わせ</a>
+                <a href="#">プライバシーポリシー</a>
+            </div>
+            <div class="footer-section">
+                <h5>ソーシャル</h5>
+                <a href="#">X (Twitter)</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">YouTube</a>
+                <a href="#">RSS</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Uravation Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Topic tabs
+        document.querySelectorAll('.topic-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.topic-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

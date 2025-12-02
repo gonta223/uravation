@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uravation | Design Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0d0d0d;
+            --white: #f5f5f5;
+            --gray: #888;
+        }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            cursor: crosshair;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .header-info {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero {
+            padding: 8rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 0.4em;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            color: var(--gray);
+            margin-top: 1rem;
+        }
+
+        .hero p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .grid-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 2rem 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .design-card {
+            aspect-ratio: 4/3;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .design-card:hover {
+            z-index: 10;
+        }
+
+        .design-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .design-card:hover::before {
+            opacity: 1;
+        }
+
+        .design-card.brutalist::before {
+            background: linear-gradient(135deg, #ff0000, #ff6600);
+        }
+
+        .design-card.soft::before {
+            background: linear-gradient(135deg, #ffd6e0, #c1e3d6);
+        }
+
+        .design-card.retro::before {
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+        }
+
+        .design-card.editorial::before {
+            background: linear-gradient(135deg, #1a1a2e, #eee);
+        }
+
+        .design-card.cyber::before {
+            background: linear-gradient(135deg, #0ff, #f0f, #ff0);
+        }
+
+        .design-card.original::before {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+        }
+
+        .design-card.studio::before {
+            background: linear-gradient(135deg, #2563eb, #f97316);
+        }
+
+        .design-card.studio:hover .card-content {
+            color: var(--white);
+        }
+
+        .design-card.media::before {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+        }
+
+        .design-card.media:hover .card-content {
+            color: var(--white);
+        }
+
+        .card-content {
+            position: absolute;
+            inset: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+
+        .design-card:hover .card-content {
+            color: var(--black);
+        }
+
+        .design-card.cyber:hover .card-content,
+        .design-card.original:hover .card-content {
+            color: var(--white);
+        }
+
+        .card-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        .card-arrow {
+            width: 50px;
+            height: 50px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+            transform: rotate(-45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .design-card:hover .card-arrow {
+            transform: rotate(0deg);
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .card-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid currentColor;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        footer {
+            padding: 4rem 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        @media (max-width: 1024px) {
+            .designs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .designs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Animated grain */
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.04;
+        }
+
+        .grain::before {
+            content: '';
+            position: absolute;
+            inset: -200%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grain 0.5s steps(1) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-1%, -1%); }
+            20% { transform: translate(1%, 1%); }
+            30% { transform: translate(-1%, 1%); }
+            40% { transform: translate(1%, -1%); }
+            50% { transform: translate(-1%, 0%); }
+            60% { transform: translate(1%, 0%); }
+            70% { transform: translate(0%, 1%); }
+            80% { transform: translate(0%, -1%); }
+            90% { transform: translate(1%, 1%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+
+    <header>
+        <div class="logo">URAVATION</div>
+        <div class="header-info">Design System Portal / 2024</div>
+    </header>
+
+    <section class="hero">
+        <h1>
+            DESIGNS
+            <span>8 Unique Design Variations</span>
+        </h1>
+        <p>Explore different visual directions for the Uravation AI Training brand. Each design tells a unique story.</p>
+    </section>
+
+    <div class="grid-title">
+        <span>Select a Design</span>
+        <span>Click to View →</span>
+    </div>
+
+    <div class="designs-grid">
+        <a href="lp-studio.html" class="design-card studio">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">★</div>
+                    <h3 class="card-title">Studio Style</h3>
+                    <p class="card-subtitle">Japanese toB LP</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Clean</span>
+                        <span class="card-tag">Corporate</span>
+                        <span class="card-tag">Conversion</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="index.html" class="design-card original">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">00</div>
+                    <h3 class="card-title">Neo-Precision</h3>
+                    <p class="card-subtitle">Original Design</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Dark Mode</span>
+                        <span class="card-tag">Gradient</span>
+                        <span class="card-tag">Minimal</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-brutalist.html" class="design-card brutalist">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">01</div>
+                    <h3 class="card-title">Brutalist</h3>
+                    <p class="card-subtitle">Raw & Unconventional</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Bold</span>
+                        <span class="card-tag">Contrast</span>
+                        <span class="card-tag">Typography</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-soft.html" class="design-card soft">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">02</div>
+                    <h3 class="card-title">Soft Organic</h3>
+                    <p class="card-subtitle">Warm & Human</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Light</span>
+                        <span class="card-tag">Pastel</span>
+                        <span class="card-tag">Friendly</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-retro.html" class="design-card retro">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">03</div>
+                    <h3 class="card-title">Retro Future</h3>
+                    <p class="card-subtitle">80s/90s Nostalgia</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Neon</span>
+                        <span class="card-tag">Grid</span>
+                        <span class="card-tag">Synthwave</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-editorial.html" class="design-card editorial">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">04</div>
+                    <h3 class="card-title">Editorial</h3>
+                    <p class="card-subtitle">Magazine Style</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Serif</span>
+                        <span class="card-tag">Elegant</span>
+                        <span class="card-tag">Layout</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-cyber.html" class="design-card cyber">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">05</div>
+                    <h3 class="card-title">Cyberpunk</h3>
+                    <p class="card-subtitle">Neon Dreams</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Glitch</span>
+                        <span class="card-tag">Neon</span>
+                        <span class="card-tag">Tech</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="media.html" class="design-card media">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">06</div>
+                    <h3 class="card-title">Media Site</h3>
+                    <p class="card-subtitle">News Portal Style</p>
+                    <div class="card-tags">
+                        <span class="card-tag">ITmedia</span>
+                        <span class="card-tag">News</span>
+                        <span class="card-tag">Articles</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        <p>© 2024 Uravation Inc.</p>
+        <div class="footer-links">
+            <a href="#">Contact</a>
+            <a href="#">About</a>
+            <a href="#">GitHub</a>
+        </div>
+    </footer>
+
+    <script>
+        // Card hover effect with mouse tracking
+        document.querySelectorAll('.design-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uravation | AI研修で企業の未来を創る</title>
+    <meta name="description" content="Uravationは、企業向けAI研修のリーディングカンパニーです。実践的なAI活用スキルを身につけ、ビジネスを変革しましょう。">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0b;
+            --bg-secondary: #111113;
+            --bg-tertiary: #1a1a1d;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-start: #6366f1;
+            --accent-mid: #8b5cf6;
+            --accent-end: #a855f7;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: rgba(139, 92, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-mid);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-mid);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Noise Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.75rem;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            border: none;
+            border-radius: 100px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(99, 102, 241, 0.1), transparent);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-mid);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-mid) 50%, var(--accent-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            border: none;
+            border-radius: 100px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-mid);
+        }
+
+        .hero-visual {
+            position: absolute;
+            right: 4rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+        }
+
+        .hero-orb {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.4), transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(99, 102, 241, 0.3), transparent 50%);
+            filter: blur(60px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 4rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 4rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--accent-mid);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .service-features {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+
+        .service-features li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            list-style: none;
+        }
+
+        .service-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-mid);
+        }
+
+        /* Why Uravation */
+        .why {
+            padding: 8rem 4rem;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .why-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .why-text h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .why-text > p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .why-features {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .why-feature {
+            display: flex;
+            gap: 1.25rem;
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .why-feature:hover {
+            border-color: var(--accent-mid);
+            transform: translateX(8px);
+        }
+
+        .why-feature-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .why-feature h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .why-feature p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .why-visual {
+            position: relative;
+            height: 500px;
+        }
+
+        .why-card {
+            position: absolute;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .why-card-1 {
+            top: 0;
+            left: 0;
+            width: 280px;
+            animation: floatCard1 8s ease-in-out infinite;
+        }
+
+        .why-card-2 {
+            top: 120px;
+            right: 0;
+            width: 260px;
+            animation: floatCard2 7s ease-in-out infinite;
+        }
+
+        .why-card-3 {
+            bottom: 40px;
+            left: 40px;
+            width: 300px;
+            animation: floatCard3 9s ease-in-out infinite;
+        }
+
+        @keyframes floatCard1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -15px); }
+        }
+
+        @keyframes floatCard2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-10px, 10px); }
+        }
+
+        @keyframes floatCard3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(15px, -10px); }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+        }
+
+        .card-meta strong {
+            display: block;
+            color: var(--text-primary);
+        }
+
+        .card-meta span {
+            color: var(--text-muted);
+        }
+
+        .card-content {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-quote {
+            font-style: italic;
+        }
+
+        /* Curriculum Section */
+        .curriculum {
+            padding: 8rem 4rem;
+        }
+
+        .curriculum-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .curriculum-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .curriculum-item:hover {
+            border-color: var(--accent-mid);
+            background: var(--bg-tertiary);
+        }
+
+        .curriculum-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            width: 80px;
+        }
+
+        .curriculum-content h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .curriculum-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .curriculum-duration {
+            padding: 0.5rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 8rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 100%, rgba(139, 92, 246, 0.2), transparent),
+                var(--bg-secondary);
+        }
+
+        .cta-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-mid);
+            color: white;
+            border-color: var(--accent-mid);
+        }
+
+        .footer-column h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent-mid);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-visual {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-content {
+                grid-template-columns: 1fr;
+            }
+
+            .why-visual {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services, .why, .curriculum, .cta {
+                padding: 4rem 1.5rem;
+            }
+
+            .curriculum-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .curriculum-number {
+                width: auto;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <nav>
+        <div class="logo">Uravation</div>
+        <ul class="nav-links">
+            <li><a href="#services">サービス</a></li>
+            <li><a href="#why">選ばれる理由</a></li>
+            <li><a href="#curriculum">カリキュラム</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+        <button class="nav-cta">無料相談</button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>AI時代のリスキリング支援</span>
+            </div>
+            <h1>
+                AIで、<br>
+                <span class="gradient">ビジネスを再定義する</span>
+            </h1>
+            <p>
+                Uravationは、実践的なAI研修を通じて企業のDX推進を支援します。
+                ChatGPT活用から生成AI開発まで、御社のニーズに合わせたプログラムをご提供。
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">
+                    無料相談を予約
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#services" class="btn-secondary">サービスを見る</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-orb"></div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">研修実施企業</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15,000+</div>
+                <div class="stat-label">受講者数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">満足度</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">40%</div>
+                <div class="stat-label">平均業務効率化</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <span class="section-tag">Services</span>
+            <h2>AI活用を、すべての人に</h2>
+            <p>初心者から上級者まで、段階的にAIスキルを習得できる体系的なプログラム</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">🚀</div>
+                <h3>AI基礎研修</h3>
+                <p>ChatGPTをはじめとする生成AIの基本操作から業務活用まで。非エンジニアでも安心して学べる入門コース。</p>
+                <ul class="service-features">
+                    <li>プロンプトエンジニアリング基礎</li>
+                    <li>業務効率化ワークショップ</li>
+                    <li>セキュリティ・コンプライアンス</li>
+                </ul>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">⚡</div>
+                <h3>AI実践研修</h3>
+                <p>実際の業務課題を題材に、AIを活用した問題解決スキルを習得。ハンズオン形式で即戦力を育成。</p>
+                <ul class="service-features">
+                    <li>カスタムGPT開発</li>
+                    <li>RAGシステム構築</li>
+                    <li>自動化ワークフロー設計</li>
+                </ul>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🎯</div>
+                <h3>エグゼクティブ向け</h3>
+                <p>経営層・管理職向けのAI戦略立案研修。AI投資判断から組織変革まで、意思決定者に必要な知見を提供。</p>
+                <ul class="service-features">
+                    <li>AI戦略策定ワークショップ</li>
+                    <li>ROI分析フレームワーク</li>
+                    <li>ガバナンス体制構築</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="why" id="why">
+        <div class="why-content">
+            <div class="why-text">
+                <h2>なぜUravationが<br>選ばれるのか</h2>
+                <p>実務経験豊富な講師陣と、徹底的にカスタマイズされたカリキュラムで、確実な成果を実現します。</p>
+                <div class="why-features">
+                    <div class="why-feature">
+                        <div class="why-feature-icon">🎓</div>
+                        <div>
+                            <h4>現役AIエンジニアが講師</h4>
+                            <p>大手企業でAI開発に従事するプロフェッショナルが直接指導</p>
+                        </div>
+                    </div>
+                    <div class="why-feature">
+                        <div class="why-feature-icon">🔧</div>
+                        <div>
+                            <h4>完全カスタマイズ対応</h4>
+                            <p>業界・業務に特化した事例とカリキュラムをオーダーメイドで作成</p>
+                        </div>
+                    </div>
+                    <div class="why-feature">
+                        <div class="why-feature-icon">📊</div>
+                        <div>
+                            <h4>効果測定・フォローアップ</h4>
+                            <p>研修後3ヶ月間のサポートと定量的な効果測定レポートを提供</p>
+                        </div>
+                    </div>
+                    <div class="why-feature">
+                        <div class="why-feature-icon">🏢</div>
+                        <div>
+                            <h4>大手企業での実績多数</h4>
+                            <p>Fortune 500企業から上場企業まで、豊富な導入実績</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-visual">
+                <div class="why-card why-card-1">
+                    <div class="card-header">
+                        <div class="card-avatar">👤</div>
+                        <div class="card-meta">
+                            <strong>田中様</strong>
+                            <span>大手製造業 DX推進部長</span>
+                        </div>
+                    </div>
+                    <div class="card-content card-quote">
+                        「研修後、部門全体の生産性が30%向上。具体的な業務改善につながりました。」
+                    </div>
+                </div>
+                <div class="why-card why-card-2">
+                    <div class="card-header">
+                        <div class="card-avatar">👤</div>
+                        <div class="card-meta">
+                            <strong>佐藤様</strong>
+                            <span>IT企業 人事責任者</span>
+                        </div>
+                    </div>
+                    <div class="card-content card-quote">
+                        「実践的な内容で、受講者の満足度が非常に高かったです。」
+                    </div>
+                </div>
+                <div class="why-card why-card-3">
+                    <div class="card-header">
+                        <div class="card-avatar">👤</div>
+                        <div class="card-meta">
+                            <strong>鈴木様</strong>
+                            <span>金融機関 執行役員</span>
+                        </div>
+                    </div>
+                    <div class="card-content card-quote">
+                        「経営層向けの研修で、AI戦略の方向性が明確になりました。」
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="curriculum" id="curriculum">
+        <div class="section-header reveal">
+            <span class="section-tag">Curriculum</span>
+            <h2>研修カリキュラム例</h2>
+            <p>基礎から応用まで、段階的に学べる体系的なプログラム</p>
+        </div>
+        <div class="curriculum-grid">
+            <div class="curriculum-item reveal">
+                <div class="curriculum-number">01</div>
+                <div class="curriculum-content">
+                    <h3>AI・生成AI基礎理解</h3>
+                    <p>AIの歴史から最新トレンドまで。生成AIの仕組みと可能性を理解し、ビジネス活用の視点を養います。</p>
+                </div>
+                <div class="curriculum-duration">2時間</div>
+            </div>
+            <div class="curriculum-item reveal">
+                <div class="curriculum-number">02</div>
+                <div class="curriculum-content">
+                    <h3>プロンプトエンジニアリング</h3>
+                    <p>効果的なプロンプトの書き方を習得。具体的なテンプレートと実践演習で、すぐに使えるスキルを身につけます。</p>
+                </div>
+                <div class="curriculum-duration">3時間</div>
+            </div>
+            <div class="curriculum-item reveal">
+                <div class="curriculum-number">03</div>
+                <div class="curriculum-content">
+                    <h3>業務別活用ワークショップ</h3>
+                    <p>営業、マーケティング、カスタマーサポートなど、部門別の活用事例とハンズオン演習。</p>
+                </div>
+                <div class="curriculum-duration">4時間</div>
+            </div>
+            <div class="curriculum-item reveal">
+                <div class="curriculum-number">04</div>
+                <div class="curriculum-content">
+                    <h3>AI活用プロジェクト実践</h3>
+                    <p>実際の業務課題を題材に、チームでAI活用プロジェクトを企画・実行。成果発表まで一貫してサポート。</p>
+                </div>
+                <div class="curriculum-duration">1日</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="cta-bg"></div>
+        <div class="cta-content reveal">
+            <h2>AI研修を始めませんか？</h2>
+            <p>
+                御社の課題やニーズに合わせた最適なプログラムをご提案いたします。<br>
+                まずは無料相談でお気軽にお問い合わせください。
+            </p>
+            <div class="cta-buttons">
+                <a href="mailto:info@uravation.com" class="btn-primary">
+                    無料相談を予約する
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#" class="btn-secondary">資料をダウンロード</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">Uravation</div>
+                <p>AIの力で、ビジネスの可能性を拡げる。<br>実践的なAI研修で、御社のDXを加速させます。</p>
+                <div class="footer-social">
+                    <a href="#">𝕏</a>
+                    <a href="#">in</a>
+                    <a href="#">▶</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>サービス</h4>
+                <ul>
+                    <li><a href="#">AI基礎研修</a></li>
+                    <li><a href="#">AI実践研修</a></li>
+                    <li><a href="#">エグゼクティブ向け</a></li>
+                    <li><a href="#">カスタム研修</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="#">会社概要</a></li>
+                    <li><a href="#">導入事例</a></li>
+                    <li><a href="#">ブログ</a></li>
+                    <li><a href="#">採用情報</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>お問い合わせ</h4>
+                <ul>
+                    <li><a href="mailto:info@uravation.com">info@uravation.com</a></li>
+                    <li><a href="#">無料相談予約</a></li>
+                    <li><a href="#">資料請求</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Uravation Inc. All rights reserved.</p>
+            <p>
+                <a href="#">プライバシーポリシー</a> ·
+                <a href="#">利用規約</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            cursorDot.style.left = e.clientX - 2 + 'px';
+            cursorDot.style.top = e.clientY - 2 + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+        });
+
+        // Hover effect on interactive elements
+        const hoverElements = document.querySelectorAll('a, button, .service-card, .curriculum-item');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.borderColor = '#a855f7';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.borderColor = '#8b5cf6';
+            });
+        });
+
+        // Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+
+        function revealOnScroll() {
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on hero orb
+        window.addEventListener('scroll', () => {
+            const orb = document.querySelector('.hero-orb');
+            if (orb) {
+                const scrolled = window.pageYOffset;
+                orb.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Counter Animation for Stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                const suffix = element.textContent.includes('+') ? '+' :
+                               element.textContent.includes('%') ? '%' : '';
+                element.textContent = Math.floor(current).toLocaleString() + suffix;
+            }, 30);
+        }
+
+        // Observe stats section
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const numbers = entry.target.querySelectorAll('.stat-number');
+                    numbers.forEach(num => {
+                        const text = num.textContent;
+                        const value = parseInt(text.replace(/[^0-9]/g, ''));
+                        animateCounter(num, value);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Hide cursor on mobile
+        if ('ontouchstart' in window) {
+            cursor.style.display = 'none';
+            cursorDot.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

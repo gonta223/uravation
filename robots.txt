@@ -1,0 +1,61 @@
+# Robots.txt for uravation.com
+# https://uravation.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://uravation.com/sitemap.xml
+
+# Crawl-delay (optional, for polite crawling)
+Crawl-delay: 1
+
+# Block admin/internal pages
+Disallow: /admin/
+Disallow: /api/
+Disallow: /tmp/
+Disallow: /*.json$
+Disallow: /search?
+
+# Allow AI crawlers for AEO (Answer Engine Optimization)
+User-agent: GPTBot
+Allow: /
+Allow: /media/
+Allow: /faq/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /media/
+Allow: /faq/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+Allow: /media/
+Allow: /faq/
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /media/
+Allow: /faq/
+
+User-agent: Bytespider
+Allow: /
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /

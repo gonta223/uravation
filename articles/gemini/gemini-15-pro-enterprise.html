@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 1.5 Pro完全ガイド - 100万トークンコンテキストの活用法 | Uravation AI Media</title>
+    <meta name="description" content="GoogleのGemini 1.5 Proを徹底解説。100万トークンの超大規模コンテキスト、マルチモーダル機能、Google Workspaceとの連携メリットを紹介。">
+    <meta name="keywords" content="Gemini,Google,Gemini 1.5 Pro,マルチモーダル,Google Workspace,企業AI">
+    <link rel="canonical" href="https://uravation.com/articles/gemini/gemini-15-pro-enterprise.html">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Gemini 1.5 Pro完全ガイド","description":"GoogleのGemini 1.5 Proを徹底解説。","datePublished":"2024-11-14T09:00:00+09:00","author":{"@type":"Organization","name":"Uravation編集部"},"publisher":{"@type":"Organization","name":"Uravation"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gemini 1.5 Proの特徴は？","acceptedAnswer":{"@type":"Answer","text":"最大100万トークンのコンテキストウィンドウ、ネイティブのマルチモーダル処理、Google Workspaceとの統合が主な特徴です。"}},{"@type":"Question","name":"GPT-4oとの違いは？","acceptedAnswer":{"@type":"Answer","text":"Geminiはコンテキスト長で優位（100万vs128K）、Google製品との統合力が強み。一方GPT-4oは汎用性とエコシステムの成熟度で優位です。"}}]}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#4285f4;--text:#333;--bg:#f5f5f5;--white:#fff;--border:#e0e0e0}body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}.header{background:var(--white);border-bottom:3px solid var(--primary);padding:1rem 0}.header-inner{max-width:1200px;margin:0 auto;padding:0 1rem}.logo{font-size:1.5rem;font-weight:700;color:#0066cc;text-decoration:none}.logo span{color:#ff6600}.breadcrumb{max-width:1200px;margin:1rem auto;padding:0 1rem;font-size:.8rem;color:#666}.breadcrumb a{color:var(--primary);text-decoration:none}.container{max-width:900px;margin:0 auto;padding:2rem 1rem}article{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}.article-header{padding:2rem;border-bottom:1px solid var(--border)}.category-tag{display:inline-block;background:var(--primary);color:var(--white);padding:.25rem .75rem;border-radius:3px;font-size:.75rem;margin-bottom:1rem}.article-title{font-size:1.75rem;line-height:1.4;margin-bottom:1rem}.article-meta{display:flex;gap:1.5rem;font-size:.85rem;color:#666}.article-content{padding:2rem}.article-content h2{font-size:1.35rem;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--primary)}.article-content h3{font-size:1.15rem;margin:1.5rem 0 .75rem;color:#1a73e8}.article-content p{margin-bottom:1.5rem}.highlight-box{background:linear-gradient(135deg,#e8f0fe 0%,#d2e3fc 100%);border-left:4px solid var(--primary);padding:1.5rem;margin:2rem 0;border-radius:0 8px 8px 0}.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}.stat-card{background:var(--primary);color:var(--white);padding:1.5rem;border-radius:8px;text-align:center}.stat-number{font-size:2rem;font-weight:700}.stat-label{font-size:.85rem;opacity:.9}.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:1rem;overflow:hidden}.faq-question{background:var(--bg);padding:1rem;font-weight:700}.faq-answer{padding:1rem}.footer{background:#1a1a2e;color:var(--white);padding:2rem 1rem;margin-top:3rem;text-align:center}@media(max-width:600px){.stat-grid{grid-template-columns:1fr}}</style>
+</head>
+<body>
+    <header class="header"><div class="header-inner"><a href="/media.html" class="logo">Uravation <span>AI+</span></a></div></header>
+    <nav class="breadcrumb"><a href="/">ホーム</a> › <a href="/media.html">メディア</a> › <a href="/articles/gemini/">Gemini</a> › Gemini 1.5 Pro</nav>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">Gemini</span>
+                <h1 class="article-title">Gemini 1.5 Pro完全ガイド - 100万トークンコンテキストの活用法</h1>
+                <div class="article-meta"><span>📅 2024年11月14日</span><span>✏️ Uravation編集部</span></div>
+            </header>
+            <div class="article-content">
+                <p>GoogleのAIモデル<strong>Gemini 1.5 Pro</strong>は、最大<strong>100万トークン</strong>という驚異的なコンテキストウィンドウを持つ最新のマルチモーダルAIです。本記事では、その特徴と企業での活用法を詳しく解説します。</p>
+
+                <div class="stat-grid">
+                    <div class="stat-card"><div class="stat-number">100万</div><div class="stat-label">最大トークン</div></div>
+                    <div class="stat-card"><div class="stat-number">1時間</div><div class="stat-label">動画処理可能</div></div>
+                    <div class="stat-card"><div class="stat-number">30,000行</div><div class="stat-label">コード処理可能</div></div>
+                </div>
+
+                <h2>Gemini 1.5 Proの主な特徴</h2>
+                <div class="highlight-box">
+                    <h4>🚀 圧倒的なコンテキスト長</h4>
+                    <ul>
+                        <li>最大100万トークン（約75万語）を一度に処理</li>
+                        <li>1時間の動画を丸ごと分析可能</li>
+                        <li>700ページ以上のPDFを一括処理</li>
+                        <li>30,000行以上のコードを理解</li>
+                    </ul>
+                </div>
+
+                <h3>マルチモーダル処理</h3>
+                <p>テキスト、画像、音声、動画を統合的に処理できます。動画の内容理解では特に高い精度を発揮し、会議録画の要約や教育コンテンツの分析に活用できます。</p>
+
+                <h3>Google Workspaceとの統合</h3>
+                <p>Gmail、Google Docs、Google Sheetsなど、Google Workspaceとのシームレスな連携が可能。ビジネスユーザーにとって大きなメリットです。</p>
+
+                <h2>GPT-4o/Claudeとの比較</h2>
+                <table style="width:100%;border-collapse:collapse;margin:1.5rem 0">
+                    <thead><tr><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">項目</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">Gemini 1.5 Pro</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">GPT-4o</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">Claude 3.5</th></tr></thead>
+                    <tbody>
+                        <tr><td style="padding:.75rem;border:1px solid #e0e0e0">コンテキスト</td><td style="padding:.75rem;border:1px solid #e0e0e0"><strong>100万</strong></td><td style="padding:.75rem;border:1px solid #e0e0e0">128K</td><td style="padding:.75rem;border:1px solid #e0e0e0">200K</td></tr>
+                        <tr style="background:#f5f5f5"><td style="padding:.75rem;border:1px solid #e0e0e0">動画処理</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td></tr>
+                        <tr><td style="padding:.75rem;border:1px solid #e0e0e0">Workspace連携</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>企業での活用シーン</h2>
+                <h3>1. 大規模ドキュメント分析</h3>
+                <p>100万トークンのコンテキストを活かし、複数の契約書や仕様書を一括で分析。矛盾点の抽出や比較が容易になります。</p>
+
+                <h3>2. 動画コンテンツの活用</h3>
+                <p>会議録画、研修動画、顧客インタビュー映像を分析し、インサイトを抽出。議事録作成の自動化も可能です。</p>
+
+                <h3>3. コードベース全体の理解</h3>
+                <p>大規模なプロジェクトのソースコード全体を一度に読み込み、設計の理解やバグの発見を支援します。</p>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item"><div class="faq-question">Q. Gemini 1.5 Proの特徴は？</div><div class="faq-answer">A. 最大100万トークンのコンテキストウィンドウ、ネイティブのマルチモーダル処理、Google Workspaceとの統合が主な特徴です。特に長文ドキュメントや動画の処理に強みがあります。</div></div>
+                <div class="faq-item"><div class="faq-question">Q. 料金はいくらですか？</div><div class="faq-answer">A. Google AI Studioでは無料で試用可能。Vertex AIでの利用は、入力$3.5/100万トークン、出力$10.5/100万トークン（128Kまで）です。</div></div>
+
+                <h2>まとめ</h2>
+                <p>Gemini 1.5 Proは、超大規模コンテキストとマルチモーダル処理を武器に、特に長文ドキュメントや動画を扱う業務で真価を発揮します。Google Workspaceユーザーには特に親和性の高い選択肢です。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer"><p>© 2024 Uravation Inc.</p></footer>
+</body>
+</html>

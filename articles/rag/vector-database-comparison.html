@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ベクトルデータベース比較ガイド - Pinecone, Weaviate, Qdrant, Chromaを徹底比較 | Uravation AI Media</title>
+    <meta name="description" content="RAGシステムに欠かせないベクトルデータベースを徹底比較。Pinecone、Weaviate、Qdrant、Chromaの特徴、料金、性能を解説。">
+    <meta name="keywords" content="ベクトルデータベース,Pinecone,Weaviate,Qdrant,Chroma,RAG">
+    <link rel="canonical" href="https://uravation.com/articles/rag/vector-database-comparison.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "ベクトルデータベース比較ガイド",
+        "datePublished": "2024-11-18T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "ベクトルデータベースとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "ベクトルデータベースは、テキストや画像を数値ベクトル（埋め込み）として保存し、類似度検索を高速に実行できる専用データベースです。RAGシステムの中核技術です。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "どのベクトルDBがおすすめ？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "用途により異なります。プロダクション環境にはPinecone、オープンソースならQdrant、プロトタイプにはChromaがおすすめです。"
+                }
+            }
+        ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
+        .header { background: #fff; border-bottom: 3px solid #6366f1; padding: 1rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        article { background: #fff; border-radius: 8px; overflow: hidden; }
+        .article-header { padding: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .category-tag { display: inline-block; background: #6366f1; color: #fff; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #6366f1; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        .comparison-table th, .comparison-table td { padding: 0.75rem; border: 1px solid #e0e0e0; text-align: left; }
+        .comparison-table th { background: #6366f1; color: #fff; }
+        .comparison-table tr:nth-child(even) { background: #f5f5f5; }
+        .highlight-box { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border-left: 4px solid #6366f1; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: #f5f5f5; padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+        .footer { background: #1a1a2e; color: #fff; padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+        </div>
+    </header>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">RAG</span>
+                <h1 class="article-title">ベクトルデータベース比較ガイド - Pinecone, Weaviate, Qdrant, Chromaを徹底比較</h1>
+            </header>
+            <div class="article-content">
+                <p>RAG（検索拡張生成）システムを構築する際に欠かせないのがベクトルデータベースです。本記事では、主要なベクトルDBを比較し、用途に応じた選び方を解説します。</p>
+
+                <div class="highlight-box">
+                    <h4>🔍 ベクトルDBが必要な理由</h4>
+                    <p>LLMに最新情報や社内データを参照させるRAGでは、大量の文書から関連情報を高速に検索する必要があります。ベクトルDBは、テキストを数値化（埋め込み）し、意味的な類似度検索を可能にします。</p>
+                </div>
+
+                <h2>主要ベクトルDB比較</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>製品名</th>
+                            <th>タイプ</th>
+                            <th>特徴</th>
+                            <th>料金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pinecone</strong></td>
+                            <td>マネージド</td>
+                            <td>簡単セットアップ、高可用性</td>
+                            <td>従量課金（無料枠あり）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Weaviate</strong></td>
+                            <td>OSS/マネージド</td>
+                            <td>GraphQL対応、モジュール式</td>
+                            <td>OSS無料/クラウド有料</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qdrant</strong></td>
+                            <td>OSS/マネージド</td>
+                            <td>Rust製で高速、フィルタリング強力</td>
+                            <td>OSS無料/クラウド有料</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chroma</strong></td>
+                            <td>OSS</td>
+                            <td>軽量、開発・プロトタイプ向け</td>
+                            <td>完全無料（OSS）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pgvector</strong></td>
+                            <td>PostgreSQL拡張</td>
+                            <td>既存PG環境で利用可能</td>
+                            <td>無料（PostgreSQL必要）</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>選び方のポイント</h2>
+
+                <p><strong>プロダクション環境</strong>：Pineconeがおすすめ。マネージドサービスで運用負荷が低く、スケーラビリティも高い。</p>
+
+                <p><strong>オンプレミス/カスタマイズ重視</strong>：QdrantまたはWeaviate。オープンソースで柔軟なカスタマイズが可能。</p>
+
+                <p><strong>プロトタイプ/学習目的</strong>：Chroma。軽量で数行のコードで使い始められる。</p>
+
+                <p><strong>既存PostgreSQL環境</strong>：pgvector。新たなインフラ追加なしでベクトル検索を導入可能。</p>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q. ベクトルデータベースとは？</div>
+                    <div class="faq-answer">A. テキストや画像を数値ベクトル（埋め込み）として保存し、類似度検索を高速に実行できる専用データベースです。RAGシステムの中核技術です。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q. どのベクトルDBがおすすめ？</div>
+                    <div class="faq-answer">A. 用途により異なります。プロダクション環境にはPinecone、オープンソースならQdrant、プロトタイプにはChromaがおすすめです。</div>
+                </div>
+
+                <h2>まとめ</h2>
+                <p>ベクトルデータベースは、RAGシステムの性能を左右する重要なコンポーネントです。自社の要件（セキュリティ、スケール、コスト）に応じて最適な選択をしてください。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Uravation Inc.</p>
+    </footer>
+</body>
+</html>

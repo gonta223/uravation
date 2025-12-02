@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI時代のデータガバナンス - 企業が取るべき対策 | Uravation AI Media</title>
+    <meta name="description" content="生成AI活用におけるデータガバナンスの重要性と具体的対策を解説。データ分類、アクセス制御、監査ログなど、企業が実装すべき施策を紹介。">
+    <meta name="keywords" content="データガバナンス,生成AI,情報セキュリティ,コンプライアンス,データ管理">
+    <link rel="canonical" href="https://uravation.com/articles/security/ai-data-governance.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "生成AI時代のデータガバナンス",
+        "datePublished": "2024-11-19T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "AIデータガバナンスとは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "AIデータガバナンスとは、AI活用において企業データの品質、セキュリティ、コンプライアンスを確保するための管理体制です。データ分類、アクセス制御、監査ログなどが含まれます。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "生成AIにどんなデータを入力していいの？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "公開情報、匿名化された情報は問題ありません。個人情報、機密情報、顧客データなどは、利用規約やセキュリティ設定を確認の上、適切に判断する必要があります。"
+                }
+            }
+        ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
+        .header { background: #fff; border-bottom: 3px solid #dc2626; padding: 1rem 0; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+        article { background: #fff; border-radius: 8px; overflow: hidden; }
+        .article-header { padding: 2rem; border-bottom: 1px solid #e0e0e0; }
+        .category-tag { display: inline-block; background: #dc2626; color: #fff; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #dc2626; }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .warning-box { background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%); border-left: 4px solid #dc2626; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .data-matrix { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .data-matrix th, .data-matrix td { padding: 1rem; border: 1px solid #e0e0e0; text-align: left; }
+        .data-matrix th { background: #dc2626; color: #fff; }
+        .data-matrix .ok { color: #16a34a; font-weight: 700; }
+        .data-matrix .ng { color: #dc2626; font-weight: 700; }
+        .data-matrix .caution { color: #d97706; font-weight: 700; }
+        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: #f5f5f5; padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+        .footer { background: #1a1a2e; color: #fff; padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+        </div>
+    </header>
+    <div class="container">
+        <article>
+            <header class="article-header">
+                <span class="category-tag">セキュリティ</span>
+                <h1 class="article-title">生成AI時代のデータガバナンス - 企業が取るべき対策</h1>
+            </header>
+            <div class="article-content">
+                <p>生成AIの活用が進む中、企業データの適切な管理がますます重要になっています。本記事では、AI時代のデータガバナンスの考え方と具体的な対策を解説します。</p>
+
+                <div class="warning-box">
+                    <h4>⚠️ データ漏洩リスクに注意</h4>
+                    <p>生成AIに入力したデータは、サービス提供元のサーバーに送信されます。機密情報の入力は、適切なセキュリティ設定と契約がない限り避けるべきです。</p>
+                </div>
+
+                <h2>データ分類マトリクス</h2>
+
+                <table class="data-matrix">
+                    <thead>
+                        <tr>
+                            <th>データ種別</th>
+                            <th>無料版AI</th>
+                            <th>法人版AI</th>
+                            <th>オンプレミス</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>公開情報</td>
+                            <td class="ok">○</td>
+                            <td class="ok">○</td>
+                            <td class="ok">○</td>
+                        </tr>
+                        <tr>
+                            <td>社内一般情報</td>
+                            <td class="ng">×</td>
+                            <td class="ok">○</td>
+                            <td class="ok">○</td>
+                        </tr>
+                        <tr>
+                            <td>顧客情報（匿名化済）</td>
+                            <td class="ng">×</td>
+                            <td class="caution">△</td>
+                            <td class="ok">○</td>
+                        </tr>
+                        <tr>
+                            <td>個人情報</td>
+                            <td class="ng">×</td>
+                            <td class="ng">×</td>
+                            <td class="caution">△</td>
+                        </tr>
+                        <tr>
+                            <td>機密情報</td>
+                            <td class="ng">×</td>
+                            <td class="ng">×</td>
+                            <td class="caution">△</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>ガバナンス体制の構築</h2>
+
+                <h3>1. ポリシー策定</h3>
+                <p>生成AI利用に関する社内ポリシーを策定します。許可されるユースケース、禁止事項、承認プロセスを明確にします。</p>
+
+                <h3>2. 技術的対策</h3>
+                <p>DLP（データ損失防止）ツールによる機密情報の検知、アクセスログの記録、承認済みツールのみ使用可能にする制御などを実装します。</p>
+
+                <h3>3. 教育・啓発</h3>
+                <p>全社員に対し、AIツール利用時の注意点を教育します。定期的な研修やeラーニングの実施が効果的です。</p>
+
+                <h2>よくある質問</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Q. AIデータガバナンスとは？</div>
+                    <div class="faq-answer">A. AI活用において企業データの品質、セキュリティ、コンプライアンスを確保するための管理体制です。データ分類、アクセス制御、監査ログなどが含まれます。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Q. 生成AIにどんなデータを入力していいの？</div>
+                    <div class="faq-answer">A. 公開情報、匿名化された情報は問題ありません。個人情報、機密情報は、利用規約やセキュリティ設定を確認の上、適切に判断する必要があります。</div>
+                </div>
+
+                <h2>まとめ</h2>
+                <p>生成AI活用の前提として、データガバナンス体制の整備は不可欠です。技術・ポリシー・教育の3つの側面から対策を講じることで、安全なAI活用が可能になります。</p>
+            </div>
+        </article>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Uravation Inc.</p>
+    </footer>
+</body>
+</html>
