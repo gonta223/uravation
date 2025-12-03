@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Beauty Academy | Uravation</title>
+    <title>CLARITY - AI Beauty Academy | Uravation</title>
     <meta name="description" content="美容業界向けAI研修。サロン経営を効率化し、お客様に最高の体験を。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,13 +17,11 @@
         }
 
         :root {
-            --primary: #C4A77D;
-            --primary-dark: #A68B5B;
-            --text: #2D2D2D;
-            --text-light: #6B6B6B;
-            --bg: #FFFCF8;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --bg: #f8f8f8;
             --white: #FFFFFF;
-            --accent: #E8D5C4;
+            --accent: #c9a96e;
         }
 
         body {
@@ -30,18 +29,17 @@
             font-weight: 300;
             color: var(--text);
             line-height: 1.9;
-            background: var(--bg);
+            background: var(--white);
         }
 
-        /* Header */
+        /* Header - matching CLARITY */
         header {
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
             padding: 20px 40px;
-            background: rgba(255, 252, 248, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
         }
 
         .header-inner {
@@ -54,49 +52,50 @@
 
         .logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 500;
             color: var(--text);
             text-decoration: none;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
         }
 
         nav {
             display: flex;
-            gap: 35px;
+            gap: 30px;
             align-items: center;
         }
 
         nav a {
-            color: var(--text-light);
+            color: var(--text);
             text-decoration: none;
             font-size: 0.85rem;
             letter-spacing: 0.05em;
-            transition: color 0.3s;
+            transition: opacity 0.3s;
         }
 
         nav a:hover {
-            color: var(--primary);
+            opacity: 0.6;
         }
 
         .nav-cta {
-            background: var(--primary);
+            background: var(--text);
             color: white !important;
-            padding: 12px 28px;
-            border-radius: 30px;
-            transition: all 0.3s !important;
+            padding: 12px 24px;
+            transition: opacity 0.3s !important;
         }
 
         .nav-cta:hover {
-            background: var(--primary-dark) !important;
+            opacity: 0.8 !important;
         }
 
-        /* Hero */
+        /* Hero - CLARITY style */
         .hero {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            padding: 100px 40px;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 40px 80px;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8e0d5 100%);
             position: relative;
         }
 
@@ -106,308 +105,524 @@
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 60px;
             align-items: center;
         }
 
-        .hero-content {
-            padding-right: 40px;
-        }
-
-        .hero-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.3em;
-            color: var(--primary);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .hero h1 {
+        .hero-content h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 400;
-            line-height: 1.3;
+            line-height: 1.2;
             margin-bottom: 24px;
+            letter-spacing: 0.02em;
         }
 
-        .hero p {
-            color: var(--text-light);
-            margin-bottom: 40px;
+        .hero-content .hero-jp {
             font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 30px;
+            line-height: 1.8;
         }
 
-        .btn-gold {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 16px 48px;
-            border-radius: 30px;
+        .hero-content .hero-en {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        .scroll-down {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             letter-spacing: 0.1em;
-            transition: all 0.3s;
         }
 
-        .btn-gold:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
+        .scroll-down .material-icons {
+            font-size: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+
+        .hero-slider {
+            position: relative;
         }
 
         .hero-image {
-            aspect-ratio: 3/4;
-            background: linear-gradient(135deg, var(--accent) 0%, #D4C4B0 100%);
-            border-radius: 200px 200px 20px 20px;
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, #d4c4b0 0%, #c9b89a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 8rem;
+            font-size: 6rem;
         }
 
-        /* Features */
-        .features {
-            padding: 120px 40px;
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+
+        .slider-controls button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-controls .material-icons {
+            font-size: 20px;
+            color: var(--text);
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 40px;
             background: var(--white);
         }
 
         .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-label {
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
-            color: var(--primary);
-            margin-bottom: 16px;
-            text-transform: uppercase;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .section-header h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 400;
+            letter-spacing: 0.1em;
         }
 
-        .features-grid {
-            max-width: 1000px;
+        .view-more {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .view-more .material-icons {
+            font-size: 18px;
+        }
+
+        .blog-grid {
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 30px;
         }
 
-        .feature-card {
-            text-align: center;
-            padding: 40px 30px;
+        .blog-card {
+            background: var(--bg);
         }
 
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--accent);
-            border-radius: 50%;
-            margin: 0 auto 24px;
+        .blog-card-image {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #e8e0d5 0%, #d4c4b0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
         }
 
-        .feature-card h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-bottom: 12px;
+        .blog-card-content {
+            padding: 20px;
         }
 
-        .feature-card p {
-            font-size: 0.9rem;
+        .blog-card-date {
+            font-size: 0.75rem;
             color: var(--text-light);
+            margin-bottom: 8px;
         }
 
-        /* Programs */
-        .programs {
-            padding: 120px 40px;
+        .blog-card-title {
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Menu Section - matching CLARITY */
+        .menu {
+            padding: 100px 40px;
             background: var(--bg);
         }
 
-        .programs-grid {
+        .menu-inner {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
         }
 
-        .program-card {
+        .menu-header {
+            margin-bottom: 40px;
+        }
+
+        .menu-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .menu-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .menu-description {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .menu-item {
             background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
+            padding: 30px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: all 0.3s;
         }
 
-        .program-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        .menu-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        .program-image {
-            width: 200px;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            flex-shrink: 0;
+        .menu-item h3 {
+            font-size: 1rem;
+            font-weight: 400;
         }
 
-        .program-content {
-            padding: 30px;
-        }
-
-        .program-content h3 {
+        .menu-item .price {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--accent);
         }
 
-        .program-content p {
+        .menu-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            text-decoration: none;
             font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 16px;
+            padding: 12px 24px;
+            border: 1px solid var(--text);
+            transition: all 0.3s;
         }
 
-        .program-price {
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 500;
+        .menu-link:hover {
+            background: var(--text);
+            color: white;
         }
 
-        /* Testimonials */
-        .testimonials {
-            padding: 120px 40px;
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 40px;
             background: var(--white);
         }
 
-        .testimonials-grid {
-            max-width: 1000px;
+        .gallery-inner {
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: start;
         }
 
-        .testimonial-card {
-            padding: 40px;
-            background: var(--bg);
-            border-radius: 20px;
+        .gallery-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 8px;
         }
 
-        .testimonial-text {
-            font-size: 1rem;
-            font-style: italic;
-            margin-bottom: 24px;
-            line-height: 1.9;
+        .gallery-text .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
         }
 
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .gallery-text p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
         }
 
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
-            border-radius: 50%;
+        .gallery-text a {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e8e0d5 0%, #d4c4b0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
 
-        .testimonial-info h4 {
-            font-size: 0.95rem;
-            font-weight: 500;
+        /* FAQ Section */
+        .faq {
+            padding: 100px 40px;
+            background: var(--bg);
         }
 
-        .testimonial-info p {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        /* CTA */
-        .cta {
-            padding: 120px 40px;
-            background: linear-gradient(135deg, var(--text) 0%, #1a1a1a 100%);
-            text-align: center;
-            color: white;
-        }
-
-        .cta h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 16px;
-        }
-
-        .cta p {
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 40px;
-        }
-
-        .cta .btn-gold {
-            border: 1px solid var(--primary);
-        }
-
-        /* Footer */
-        footer {
-            padding: 60px 40px 30px;
-            background: #1a1a1a;
-            color: white;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
+        .faq-inner {
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
+        .faq-header {
+            margin-bottom: 50px;
         }
 
-        .footer-logo {
+        .faq-header h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .faq-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .faq-list {
+            list-style: none;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 24px 0;
+        }
+
+        .faq-question {
+            font-size: 0.95rem;
+            font-weight: 400;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-question .material-icons {
+            font-size: 20px;
+            color: var(--text-light);
+        }
+
+        .faq-answer {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 16px;
+            line-height: 1.8;
+        }
+
+        .faq-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .faq-link a {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* Access Section */
+        .access {
+            padding: 100px 40px;
+            background: var(--white);
+        }
+
+        .access-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .access-image {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #e8e0d5 0%, #d4c4b0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .access-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .access-detail {
+            margin-bottom: 20px;
+        }
+
+        .access-detail .label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .access-detail .value {
+            font-size: 0.95rem;
+        }
+
+        .access-map {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text);
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+
+        .access-map .material-icons {
+            font-size: 18px;
+        }
+
+        /* Footer - matching CLARITY */
+        footer {
+            background: var(--text);
+            color: white;
+        }
+
+        .footer-reservation {
+            padding: 80px 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-reservation h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
             letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .footer-reservation .subtitle {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 16px;
+        }
+
+        .footer-reservation p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+        }
+
+        .reservation-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-reserve {
+            background: white;
+            color: var(--text);
+            padding: 14px 32px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .btn-reserve:hover {
+            opacity: 0.9;
+        }
+
+        .phone-number {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .phone-number .material-icons {
+            font-size: 20px;
+        }
+
+        .footer-bottom {
+            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
         }
 
         .footer-links {
             display: flex;
-            gap: 40px;
+            gap: 30px;
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
-            font-size: 0.85rem;
         }
 
         .footer-links a:hover {
             color: white;
         }
 
-        .footer-bottom {
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.4);
+        .footer-ref {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.2);
         }
 
         .footer-ref a {
@@ -418,11 +633,6 @@
         @media (max-width: 1024px) {
             .hero-inner {
                 grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content {
-                padding-right: 0;
             }
 
             .hero-image {
@@ -430,15 +640,23 @@
                 margin: 0 auto;
             }
 
-            .features-grid {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu-grid {
                 grid-template-columns: 1fr;
             }
 
-            .programs-grid {
+            .gallery-inner {
                 grid-template-columns: 1fr;
             }
 
-            .testimonials-grid {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .access-inner {
                 grid-template-columns: 1fr;
             }
         }
@@ -448,41 +666,40 @@
                 padding: 15px 20px;
             }
 
-            nav {
+            nav a:not(.nav-cta) {
                 display: none;
             }
 
             .hero,
-            .features,
-            .programs,
-            .testimonials,
-            .cta {
-                padding: 80px 20px;
+            .blog,
+            .menu,
+            .gallery,
+            .faq,
+            .access {
+                padding: 60px 20px;
             }
 
-            .program-card {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reservation-buttons {
                 flex-direction: column;
-            }
-
-            .program-image {
-                width: 100%;
-                height: 150px;
-            }
-
-            .footer-top {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .footer-links {
-                flex-wrap: wrap;
-                gap: 20px;
             }
 
             .footer-bottom {
                 flex-direction: column;
-                gap: 10px;
+                gap: 20px;
                 text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
@@ -490,12 +707,14 @@
 <body>
     <header>
         <div class="header-inner">
-            <a href="portal.html" class="logo">BEAUTY ACADEMY</a>
+            <a href="portal.html" class="logo">CLARITY</a>
             <nav>
-                <a href="#features">特徴</a>
-                <a href="#programs">プログラム</a>
-                <a href="#testimonials">お客様の声</a>
-                <a href="#contact" class="nav-cta">無料相談</a>
+                <a href="#menu">Menu</a>
+                <a href="#blog">Blog</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#faq">FAQ</a>
+                <a href="#access">Access</a>
+                <a href="#footer" class="nav-cta">ご予約はこちら</a>
             </nav>
         </div>
     </header>
@@ -503,132 +722,191 @@
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
-                <p class="hero-label">AI × Beauty</p>
-                <h1>美しさを、<br>AIでもっと輝かせる</h1>
-                <p>美容業界に特化したAI研修プログラム。予約管理、顧客対応、SNS運用まで。サロン経営をもっとスマートに。</p>
-                <a href="#contact" class="btn-gold">無料相談を予約</a>
+                <h1>Unleash the beauty.</h1>
+                <p class="hero-jp">内側から美しさを解き放つ、AI研修で実現するトータルビューティーサロン経営「クラリティ」</p>
+                <p class="hero-en">"Clarity" is an AI training program for beauty salons that unlocks business potential from within.</p>
+                <a href="#blog" class="scroll-down">
+                    scroll down
+                    <span class="material-icons">arrow_downward</span>
+                </a>
             </div>
-            <div class="hero-image">💇‍♀️</div>
-        </div>
-    </section>
-
-    <section class="features" id="features">
-        <div class="section-header">
-            <p class="section-label">Why Choose Us</p>
-            <h2>選ばれる理由</h2>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">✨</div>
-                <h3>美容業界特化</h3>
-                <p>美容室・サロン・エステに特化した実践的なカリキュラム。すぐに現場で使えます。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>SNS活用術</h3>
-                <p>InstagramやTikTokでの集客に使えるAI活用法を伝授。フォロワー獲得をサポート。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3>顧客対応効率化</h3>
-                <p>予約対応、問い合わせ、リマインドなど。AIで接客品質を維持しながら効率化。</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="programs" id="programs">
-        <div class="section-header">
-            <p class="section-label">Programs</p>
-            <h2>研修プログラム</h2>
-        </div>
-        <div class="programs-grid">
-            <div class="program-card">
-                <div class="program-image">📚</div>
-                <div class="program-content">
-                    <h3>AI基礎コース</h3>
-                    <p>AI初心者のスタッフ向け。ChatGPTの基本操作から学べます。</p>
-                    <span class="program-price">¥50,000〜 / 全3回</span>
-                </div>
-            </div>
-            <div class="program-card">
-                <div class="program-image">📸</div>
-                <div class="program-content">
-                    <h3>SNS運用コース</h3>
-                    <p>AIを活用した投稿作成、ハッシュタグ選定、分析手法を習得。</p>
-                    <span class="program-price">¥80,000〜 / 全5回</span>
-                </div>
-            </div>
-            <div class="program-card">
-                <div class="program-image">🗓️</div>
-                <div class="program-content">
-                    <h3>業務効率化コース</h3>
-                    <p>予約管理、顧客管理、在庫管理など、バックオフィス業務のAI化。</p>
-                    <span class="program-price">¥100,000〜 / 全6回</span>
-                </div>
-            </div>
-            <div class="program-card">
-                <div class="program-image">👑</div>
-                <div class="program-content">
-                    <h3>オーナー向け経営戦略</h3>
-                    <p>AI時代のサロン経営戦略。データ分析とマーケティングを学ぶ。</p>
-                    <span class="program-price">¥150,000〜 / 全4回</span>
+            <div class="hero-slider">
+                <div class="hero-image">💇</div>
+                <div class="slider-controls">
+                    <button><span class="material-icons">keyboard_arrow_left</span></button>
+                    <button><span class="material-icons">pause</span></button>
+                    <button><span class="material-icons">keyboard_arrow_right</span></button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="testimonials" id="testimonials">
+    <section class="blog" id="blog">
         <div class="section-header">
-            <p class="section-label">Testimonials</p>
-            <h2>お客様の声</h2>
+            <h2>Blog</h2>
+            <a href="#" class="view-more">
+                もっとみる
+                <span class="material-icons">keyboard_arrow_right</span>
+            </a>
         </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">「予約対応の時間が半分以下になりました。その分、お客様との時間を大切にできるようになって、リピート率も上がっています。」</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">👩</div>
-                    <div class="testimonial-info">
-                        <h4>田中 美咲 様</h4>
-                        <p>HAIR SALON M / オーナー</p>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-card-image">📱</div>
+                <div class="blog-card-content">
+                    <p class="blog-card-date">2024.12.01</p>
+                    <h3 class="blog-card-title">AI予約システム導入で予約率30%向上した事例</h3>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-card-image">💬</div>
+                <div class="blog-card-content">
+                    <p class="blog-card-date">2024.11.28</p>
+                    <h3 class="blog-card-title">ChatGPTを活用したカウンセリングシート作成術</h3>
+                </div>
+            </div>
+            <div class="blog-card">
+                <div class="blog-card-image">📸</div>
+                <div class="blog-card-content">
+                    <p class="blog-card-date">2024.11.25</p>
+                    <h3 class="blog-card-title">Instagram運用をAIで効率化する5つの方法</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu" id="menu">
+        <div class="menu-inner">
+            <div class="menu-header">
+                <h2>Menu</h2>
+                <p class="subtitle">研修メニューについて</p>
+            </div>
+            <p class="menu-description">CLARITYでは美容業界に特化したAI研修から、サロン経営効率化のコンサルティングまで、トータルで手がけています。</p>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>AI基礎研修</h3>
+                    <span class="price">¥50,000〜</span>
+                </div>
+                <div class="menu-item">
+                    <h3>SNS運用AI活用コース</h3>
+                    <span class="price">¥80,000〜</span>
+                </div>
+                <div class="menu-item">
+                    <h3>予約・顧客管理システム構築</h3>
+                    <span class="price">¥120,000〜</span>
+                </div>
+                <div class="menu-item">
+                    <h3>オーナー向け経営戦略研修</h3>
+                    <span class="price">¥150,000〜</span>
+                </div>
+            </div>
+            <a href="#" class="menu-link">メニュー一覧へ</a>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="gallery-inner">
+            <div class="gallery-text">
+                <h2>Gallery</h2>
+                <p class="subtitle">研修・導入事例ギャラリー</p>
+                <p>これまでの研修風景や導入サロン様の事例を掲載しております。</p>
+                <a href="#">ギャラリーをみる</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">💇</div>
+                <div class="gallery-item">💅</div>
+                <div class="gallery-item">💆</div>
+                <div class="gallery-item">📊</div>
+                <div class="gallery-item">👩‍💼</div>
+                <div class="gallery-item">🎓</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="faq-header">
+                <h2>FAQ</h2>
+                <p class="subtitle">よくある質問</p>
+            </div>
+            <ul class="faq-list">
+                <li class="faq-item">
+                    <div class="faq-question">
+                        <span>AIの知識がなくても研修を受けられますか？</span>
+                        <span class="material-icons">add</span>
                     </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">「Instagramの投稿作成にAIを使い始めてから、フォロワーが3倍に。新規のお客様も増えて、研修費用はすぐに回収できました。」</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">👨</div>
-                    <div class="testimonial-info">
-                        <h4>鈴木 健一 様</h4>
-                        <p>Beauty Salon K / 店長</p>
+                    <p class="faq-answer">はい、全くの初心者の方でも安心して受講いただけます。基礎から丁寧にご説明いたします。</p>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">
+                        <span>研修はオンラインでも受けられますか？</span>
+                        <span class="material-icons">add</span>
                     </div>
-                </div>
+                    <p class="faq-answer">はい、オンライン・対面どちらでも対応可能です。全国どこからでもご参加いただけます。</p>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">
+                        <span>研修後のサポートはありますか？</span>
+                        <span class="material-icons">add</span>
+                    </div>
+                    <p class="faq-answer">はい、研修後3ヶ月間は無料でフォローアップサポートを提供しております。</p>
+                </li>
+            </ul>
+            <div class="faq-link">
+                <a href="#">よくある質問一覧へ</a>
             </div>
         </div>
     </section>
 
-    <section class="cta" id="contact">
-        <h2>無料相談を受付中</h2>
-        <p>あなたのサロンに最適なAI活用法をご提案します</p>
-        <a href="#" class="btn-gold">無料相談を予約する</a>
-    </section>
-
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-top">
-                <div class="footer-logo">BEAUTY ACADEMY</div>
-                <div class="footer-links">
-                    <a href="#">プログラム</a>
-                    <a href="#">料金</a>
-                    <a href="#">お客様の声</a>
-                    <a href="#">お問い合わせ</a>
-                    <a href="#">プライバシー</a>
+    <section class="access" id="access">
+        <div class="access-inner">
+            <div class="access-image">🏢</div>
+            <div class="access-info">
+                <h3>AI Beauty Academy「クラリティ」</h3>
+                <div class="access-detail">
+                    <p class="label">住所</p>
+                    <p class="value">〒150-0033 東京都渋谷区猿楽町1-2-3</p>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
-                <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/xBXaxznO76" target="_blank">STUDIO サロン・美容向け｜モダン</a></p>
+                <div class="access-detail">
+                    <p class="label">営業時間</p>
+                    <p class="value">10:00 - 19:00</p>
+                </div>
+                <div class="access-detail">
+                    <p class="label">定休日</p>
+                    <p class="value">土日祝日</p>
+                </div>
+                <div class="access-detail">
+                    <p class="label">電話番号</p>
+                    <p class="value">03-0000-0000</p>
+                </div>
+                <a href="#" class="access-map">
+                    <span class="material-icons">place</span>
+                    Google マップで確認する
+                </a>
             </div>
         </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-reservation">
+            <h3>Reservation</h3>
+            <p class="subtitle">ご予約について</p>
+            <p>研修のご予約は電話またはインターネット予約が可能です。<br>お急ぎの場合はお電話でご予約ください。</p>
+            <div class="reservation-buttons">
+                <a href="#" class="btn-reserve">ネットで予約</a>
+                <div class="phone-number">
+                    <span class="material-icons">phone</span>
+                    03-0000-0000
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">(C)2024 CLARITY AI Beauty Academy.</p>
+            <div class="footer-links">
+                <a href="#">運営会社</a>
+                <a href="#">プライバシーポリシー</a>
+            </div>
+        </div>
+        <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/xBXaxznO76" target="_blank">STUDIO サロン・美容向け｜モダン</a></p>
     </footer>
 </body>
 </html>
