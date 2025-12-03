@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Uravation</title>
+    <meta name="description" content="AI研修の実績をシンプルに。私たちの仕事をご覧ください。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --text: #111;
+            --text-light: #666;
+            --bg: #FAFAFA;
+            --white: #FFFFFF;
+            --border: #E5E5E5;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+            font-weight: 300;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 40px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 120px 40px;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Portfolio Grid */
+        .portfolio {
+            padding: 80px 40px;
+        }
+
+        .portfolio-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .portfolio-item:nth-child(3) {
+            grid-column: span 2;
+        }
+
+        .portfolio-image {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-item:nth-child(3) .portfolio-image {
+            aspect-ratio: 21/9;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* About */
+        .about {
+            padding: 120px 40px;
+            background: var(--white);
+        }
+
+        .about-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .about-image {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #F0F0F0 0%, #E0E0E0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+
+        /* Services */
+        .services {
+            padding: 120px 40px;
+            background: var(--bg);
+        }
+
+        .services-header {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .services-header h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            padding: 40px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--text);
+        }
+
+        .service-number {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 120px 40px;
+            background: var(--text);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .contact p {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            border: 1px solid white;
+            color: white;
+            padding: 16px 50px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: white;
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            background: #0A0A0A;
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-ref {
+            font-size: 0.75rem;
+            opacity: 0.4;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item:nth-child(3) {
+                grid-column: span 1;
+            }
+
+            .about-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero,
+            .portfolio,
+            .about,
+            .services,
+            .contact {
+                padding: 80px 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">URAVATION</a>
+            <nav>
+                <a href="#portfolio">Works</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Our Works</h1>
+        <p>AIで企業を変える。私たちが手がけた研修実績とプロジェクトをご覧ください。</p>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">🏢</div>
+                <div class="portfolio-overlay">
+                    <h3>大手製造業A社</h3>
+                    <p>全社員2,000名へのAI研修実施</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">🏦</div>
+                <div class="portfolio-overlay">
+                    <h3>金融機関B社</h3>
+                    <p>AI活用による業務効率化プロジェクト</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">🚀</div>
+                <div class="portfolio-overlay">
+                    <h3>スタートアップC社</h3>
+                    <p>AI導入コンサルティング＆研修</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">🏥</div>
+                <div class="portfolio-overlay">
+                    <h3>医療法人D</h3>
+                    <p>医療従事者向けAI活用研修</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">🎓</div>
+                <div class="portfolio-overlay">
+                    <h3>教育機関E</h3>
+                    <p>教職員向けAIリテラシー研修</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-inner">
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>Uravationは、企業のAI導入を支援するプロフェッショナル集団です。</p>
+                <p>私たちは「AIを使いこなせる人材」を育成することで、企業の競争力向上に貢献します。導入実績500社以上、研修満足度98%の実績があります。</p>
+                <p>シンプルに、確実に、成果を出す。それが私たちのスタイルです。</p>
+            </div>
+            <div class="about-image">👥</div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="services-header">
+            <h2>Services</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3>AI研修</h3>
+                <p>経営層から現場まで、レベルに応じたAI研修プログラムを提供します。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3>導入コンサル</h3>
+                <p>御社に最適なAIツールの選定から導入支援まで、トータルでサポート。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3>継続サポート</h3>
+                <p>導入後の定着支援、フォローアップ研修で確実な成果を実現します。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Get in Touch</h2>
+        <p>プロジェクトについてお気軽にご相談ください</p>
+        <a href="#" class="contact-btn">Contact Us</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">URAVATION</div>
+            <div class="footer-links">
+                <a href="#">Works</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy</a>
+            </div>
+        </div>
+        <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/PxmaZDrOR1" target="_blank">STUDIO PORTFOLIO｜シンプル</a></p>
+    </footer>
+</body>
+</html>

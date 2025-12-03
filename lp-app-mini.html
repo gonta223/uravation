@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Mini | Uravation</title>
+    <meta name="description" content="月額590円から始めるAI学習。ミニマルな料金で、最大限の学びを。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --primary-dark: #4F46E5;
+            --accent: #10B981;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --bg: #FFFFFF;
+            --bg-gray: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 16px 24px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            font-size: 0.7rem;
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 24px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-gray) 0%, var(--bg) 100%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid #E5E7EB;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .hero-badge .new {
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-price {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .hero-price .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text);
+            padding: 14px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .app-preview {
+            margin-top: 60px;
+        }
+
+        .phone-mockup {
+            max-width: 280px;
+            height: 560px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 40px;
+            margin: 0 auto;
+            box-shadow: 0 40px 80px rgba(99, 102, 241, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            position: relative;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 25px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        .features-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-gray);
+            padding: 32px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 24px;
+            background: var(--bg-gray);
+        }
+
+        .pricing-card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .price-display {
+            margin-bottom: 32px;
+        }
+
+        .price-display .amount {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price-display .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+        }
+
+        .price-display .period {
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .pricing-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+            font-size: 1rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 100px 24px;
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #E5E7EB;
+            padding: 24px 0;
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-item h3::before {
+            content: 'Q';
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .faq-item p {
+            color: var(--text-light);
+            padding-left: 40px;
+            font-size: 0.95rem;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .cta .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 16px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .cta .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 24px 30px;
+            background: var(--text);
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref {
+            margin-top: 8px;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .phone-mockup {
+                max-width: 240px;
+                height: 480px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">Uravation <span>Mini</span></a>
+            <a href="#pricing" class="header-cta">今すぐ始める</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="new">NEW</span>
+            Miniプラン登場
+        </div>
+        <h1>AI学習を<br><span class="highlight">もっと身近に</span></h1>
+        <p>月額590円から始められる、ミニマルなAI学習プラン。小さく始めて、大きく成長しよう。</p>
+        <div class="hero-price">
+            月額 <span class="price">¥590</span> から
+        </div>
+        <div class="hero-buttons">
+            <a href="#pricing" class="btn-primary">
+                無料で始める <span>→</span>
+            </a>
+            <a href="#features" class="btn-secondary">機能を見る</a>
+        </div>
+        <div class="app-preview">
+            <div class="phone-mockup">📱</div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Miniでも充実の機能</h2>
+            <p>必要な機能だけを厳選。シンプルだからこそ続けられる</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>基本コース全開放</h3>
+                <p>AI基礎から応用まで、50以上のレッスンが学び放題。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h3>5分レッスン</h3>
+                <p>忙しい人でも続けられる、短時間集中型のレッスン設計。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>進捗管理</h3>
+                <p>学習の進み具合を可視化。モチベーションを維持。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>修了証発行</h3>
+                <p>コース完了で修了証を発行。スキルの証明に。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>マルチデバイス</h3>
+                <p>スマホ、タブレット、PCどこからでもアクセス。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>毎月更新</h3>
+                <p>最新のAI情報を反映した新コンテンツを毎月追加。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2>シンプルな料金プラン</h2>
+            <p>始めやすく、続けやすい価格設定</p>
+        </div>
+        <div class="pricing-card">
+            <span class="pricing-badge">人気No.1</span>
+            <h3>Mini プラン</h3>
+            <p class="description">個人学習に最適な基本プラン</p>
+            <div class="price-display">
+                <span class="currency">¥</span>
+                <span class="amount">590</span>
+                <span class="period">/月</span>
+            </div>
+            <ul class="pricing-features">
+                <li>基本コース50レッスン</li>
+                <li>進捗トラッキング</li>
+                <li>修了証発行</li>
+                <li>マルチデバイス対応</li>
+                <li>メールサポート</li>
+            </ul>
+            <a href="#" class="btn-primary">7日間無料で試す</a>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="section-header">
+            <h2>よくある質問</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3>無料トライアル期間はありますか？</h3>
+                <p>はい、7日間の無料トライアルをご用意しています。トライアル期間中はすべての機能をお試しいただけます。</p>
+            </div>
+            <div class="faq-item">
+                <h3>いつでも解約できますか？</h3>
+                <p>はい、いつでも解約可能です。解約後も契約期間終了までご利用いただけます。</p>
+            </div>
+            <div class="faq-item">
+                <h3>他のプランへのアップグレードは可能ですか？</h3>
+                <p>はい、いつでもStandardプランやProプランへアップグレード可能です。差額のみのお支払いとなります。</p>
+            </div>
+            <div class="faq-item">
+                <h3>法人での利用は可能ですか？</h3>
+                <p>Miniプランは個人向けですが、法人向けのチームプランもご用意しています。お問い合わせください。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>今すぐ始めよう</h2>
+        <p>7日間無料で、すべての機能をお試しいただけます</p>
+        <a href="#" class="btn-white">無料トライアルを開始</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-logo">Uravation</div>
+                <div class="footer-links">
+                    <a href="#">利用規約</a>
+                    <a href="#">プライバシー</a>
+                    <a href="#">お問い合わせ</a>
+                    <a href="#">ヘルプ</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
+                <p class="footer-ref">Design inspired by <a href="https://studio.design/store/templates/51Va6DMO7B" target="_blank">STUDIO アプリ向けLP Mini</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

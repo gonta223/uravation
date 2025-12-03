@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uravation - AI研修で企業を変革</title>
+    <meta name="description" content="シンプルモダンなデザインで伝える、Uravationの企業AI研修サービス。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-light: #3B82F6;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --bg: #FFFFFF;
+            --bg-gray: #F8FAFC;
+            --border: #E2E8F0;
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 8px;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-light) !important;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 40px 100px;
+            background: var(--bg-gray);
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            padding: 14px 32px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-image {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            max-width: 600px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            background: var(--bg-gray);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Stats */
+        .stats {
+            padding: 80px 40px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Services */
+        .services {
+            padding: 100px 40px;
+            background: var(--bg-gray);
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .service-image {
+            width: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .service-card:nth-child(2) .service-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .service-card:nth-child(3) .service-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .service-card:nth-child(4) .service-image {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .service-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .service-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Team */
+        .team {
+            padding: 100px 40px;
+        }
+
+        .team-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--bg-gray);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .team-member h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .team-member p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 40px;
+            background: var(--bg-gray);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px 30px;
+            background: var(--text);
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about .footer-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-about p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero,
+            .features,
+            .services,
+            .team,
+            .cta {
+                padding: 80px 20px;
+            }
+
+            .service-card {
+                flex-direction: column;
+            }
+
+            .service-image {
+                width: 100%;
+                height: 150px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">Uravation</a>
+            <nav>
+                <a href="#features">特徴</a>
+                <a href="#services">サービス</a>
+                <a href="#team">チーム</a>
+                <a href="#contact" class="nav-cta">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h1>AI研修で<br><span>企業の未来</span>を創る</h1>
+                <p>シンプルで分かりやすい研修プログラムで、御社のDX推進をサポートします。導入実績500社以上、満足度98%の実績。</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">無料相談する</a>
+                    <a href="#services" class="btn-secondary">サービスを見る</a>
+                </div>
+            </div>
+            <div class="hero-image">🚀</div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>選ばれる理由</h2>
+            <p>シンプルで効果的な研修プログラム</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>カスタマイズ研修</h3>
+                <p>御社の業界・課題に合わせた完全オーダーメイドのカリキュラムを作成します。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>実践重視</h3>
+                <p>座学だけでなく、実際の業務で使えるハンズオン形式の研修を提供します。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>継続サポート</h3>
+                <p>研修後も定期的なフォローアップで、スキルの定着をサポートします。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-inner">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">導入企業数</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">満足度</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">10,000+</span>
+                <span class="stat-label">研修受講者</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">45%</span>
+                <span class="stat-label">生産性向上</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>サービス</h2>
+            <p>御社のニーズに合わせた最適なプランをご提案</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-image">📚</div>
+                <div class="service-content">
+                    <h3>AI基礎研修</h3>
+                    <p>AI初心者向けの基礎から学べるプログラム。ChatGPTの使い方からスタート。</p>
+                    <a href="#" class="service-link">詳しく見る →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🎯</div>
+                <div class="service-content">
+                    <h3>実践活用研修</h3>
+                    <p>実際の業務でAIを活用するための実践的なスキルを習得。</p>
+                    <a href="#" class="service-link">詳しく見る →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">👔</div>
+                <div class="service-content">
+                    <h3>経営層向け研修</h3>
+                    <p>AI戦略の立案・意思決定に必要な知識を経営視点で解説。</p>
+                    <a href="#" class="service-link">詳しく見る →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🛠️</div>
+                <div class="service-content">
+                    <h3>導入コンサルティング</h3>
+                    <p>AIツールの選定から導入、運用までトータルでサポート。</p>
+                    <a href="#" class="service-link">詳しく見る →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="section-header">
+            <h2>チーム</h2>
+            <p>経験豊富な専門家がサポート</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">👨‍💼</div>
+                <h3>佐藤 太郎</h3>
+                <p>CEO / AI Strategist</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍💻</div>
+                <h3>田中 花子</h3>
+                <p>Lead Trainer</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍🔬</div>
+                <h3>山本 一郎</h3>
+                <p>AI Consultant</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍🎓</div>
+                <h3>鈴木 美咲</h3>
+                <p>Curriculum Designer</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>御社の課題に合わせた最適なプランをご提案いたします</p>
+        <a href="#" class="btn-primary">無料相談を予約する</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-about">
+                    <div class="footer-logo">Uravation</div>
+                    <p>AI研修で企業の未来を創る。DX推進をトータルでサポートします。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>サービス</h4>
+                    <a href="#">AI基礎研修</a>
+                    <a href="#">実践活用研修</a>
+                    <a href="#">経営層向け研修</a>
+                    <a href="#">導入コンサル</a>
+                </div>
+                <div class="footer-col">
+                    <h4>会社情報</h4>
+                    <a href="#">会社概要</a>
+                    <a href="#">チーム</a>
+                    <a href="#">採用情報</a>
+                    <a href="#">ニュース</a>
+                </div>
+                <div class="footer-col">
+                    <h4>サポート</h4>
+                    <a href="#">お問い合わせ</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">プライバシー</a>
+                    <a href="#">利用規約</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
+                <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/ld7Wl6mqV3" target="_blank">STUDIO コーポレート｜シンプルモダン</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

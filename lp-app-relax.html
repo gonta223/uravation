@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIアシスタントアプリ | Uravation</title>
+    <meta name="description" content="リラックスしながらAIを学べるアプリ。直感的なUIで誰でも簡単に始められます。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7C9A92;
+            --primary-light: #A8C5BB;
+            --accent: #E8B4A0;
+            --text: #4A5568;
+            --text-dark: #2D3748;
+            --bg: #FDF9F6;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.9;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            padding: 20px 30px;
+            background: var(--white);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 30px 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--white) 0%, var(--bg) 100%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: var(--text);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(124, 154, 146, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .app-preview {
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .app-mockup {
+            max-width: 300px;
+            height: 600px;
+            background: var(--white);
+            border-radius: 40px;
+            margin: 0 auto;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--primary-light);
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 30px;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .section-title p {
+            color: var(--text);
+        }
+
+        .features-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--bg);
+            border-radius: 20px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-light);
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 100px 30px;
+            background: var(--bg);
+        }
+
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 30px;
+            background: var(--white);
+        }
+
+        .pricing-cards {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: var(--bg);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card.featured {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-card ul li::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .pricing-card.featured ul li::before {
+            color: var(--accent);
+        }
+
+        .pricing-card .btn {
+            display: block;
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pricing-card .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .pricing-card .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .pricing-card.featured .btn {
+            background: white;
+            color: var(--primary);
+        }
+
+        .pricing-card.featured .btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 16px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .cta .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 30px 30px;
+            background: var(--text-dark);
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        .footer-ref {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 140px 20px 80px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            .footer-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">Uravation</a>
+            <a href="#download" class="header-cta">無料ダウンロード</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-badge">App Store 注目アプリ</span>
+        <h1>リラックスしながら<br>AIスキルを身につける</h1>
+        <p>忙しい毎日でも、すきま時間で少しずつ。ストレスフリーなAI学習体験をあなたに。</p>
+        <div class="hero-buttons">
+            <a href="#download" class="btn-primary">
+                <span>📱</span> 無料でダウンロード
+            </a>
+            <a href="#features" class="btn-secondary">機能を見る</a>
+        </div>
+        <div class="app-preview">
+            <div class="app-mockup">📱</div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>心地よく学べる機能</h2>
+            <p>あなたのペースで、無理なく続けられる</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🌿</div>
+                <h3>リラックスモード</h3>
+                <p>落ち着いた配色とBGMで、ストレスなく学習に集中できます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3>5分レッスン</h3>
+                <p>1レッスン5分。通勤中や休憩時間にサクッと学べます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>パーソナライズ</h3>
+                <p>あなたのレベルと目標に合わせた最適なカリキュラムを提供。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>達成バッジ</h3>
+                <p>学習を続けるとバッジを獲得。モチベーション維持をサポート。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>AIチャット練習</h3>
+                <p>実際にAIと対話しながら、実践的なスキルを身につけます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>進捗トラッキング</h3>
+                <p>学習履歴を可視化。成長を実感しながら続けられます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="section-title">
+            <h2>かんたん3ステップ</h2>
+            <p>今日からすぐに始められます</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>アプリをダウンロード</h3>
+                    <p>App Store / Google Playから無料でダウンロード。アカウント登録は1分で完了。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>目標を設定</h3>
+                    <p>あなたの学習目標と1日に使える時間を設定。最適なプランを自動作成します。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>リラックスして学習開始</h3>
+                    <p>好きな時間に、好きな場所で。心地よい学習体験をお楽しみください。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-title">
+            <h2>料金プラン</h2>
+            <p>あなたに合ったプランをお選びください</p>
+        </div>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <p>まずはお試し</p>
+                <div class="price">¥0<span>/月</span></div>
+                <ul>
+                    <li>基本レッスン10個</li>
+                    <li>1日1レッスン</li>
+                    <li>進捗トラッキング</li>
+                </ul>
+                <a href="#" class="btn btn-outline">始める</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Premium</h3>
+                <p>本格的に学ぶ</p>
+                <div class="price">¥980<span>/月</span></div>
+                <ul>
+                    <li>全レッスン無制限</li>
+                    <li>AIチャット練習</li>
+                    <li>パーソナライズ機能</li>
+                    <li>優先サポート</li>
+                </ul>
+                <a href="#" class="btn">14日間無料で試す</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Team</h3>
+                <p>チームで学ぶ</p>
+                <div class="price">¥800<span>/人/月</span></div>
+                <ul>
+                    <li>Premiumの全機能</li>
+                    <li>チーム管理機能</li>
+                    <li>進捗レポート</li>
+                    <li>専任サポート</li>
+                </ul>
+                <a href="#" class="btn btn-outline">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="download">
+        <h2>今すぐ始めよう</h2>
+        <p>リラックスしながら、AIスキルを身につける新しい学習体験</p>
+        <a href="#" class="btn-white">無料ダウンロード</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-logo">Uravation</div>
+                <div class="footer-links">
+                    <a href="#">会社概要</a>
+                    <a href="#">プライバシー</a>
+                    <a href="#">利用規約</a>
+                    <a href="#">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
+                <p class="footer-ref">Design inspired by <a href="https://studio.design/store/templates/YogO01Kq23" target="_blank">STUDIO アプリLP｜Relax</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

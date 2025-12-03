@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Beauty Academy | Uravation</title>
+    <meta name="description" content="美容業界向けAI研修。サロン経営を効率化し、お客様に最高の体験を。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #C4A77D;
+            --primary-dark: #A68B5B;
+            --text: #2D2D2D;
+            --text-light: #6B6B6B;
+            --bg: #FFFCF8;
+            --white: #FFFFFF;
+            --accent: #E8D5C4;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 300;
+            color: var(--text);
+            line-height: 1.9;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            background: rgba(255, 252, 248, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 12px 28px;
+            border-radius: 30px;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark) !important;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 40px;
+            position: relative;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-content {
+            padding-right: 40px;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+
+        .btn-gold:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--accent) 0%, #D4C4B0 100%);
+            border-radius: 200px 200px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+        }
+
+        /* Features */
+        .features {
+            padding: 120px 40px;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+
+        .features-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Programs */
+        .programs {
+            padding: 120px 40px;
+            background: var(--bg);
+        }
+
+        .programs-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            transition: all 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .program-image {
+            width: 200px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .program-content {
+            padding: 30px;
+        }
+
+        .program-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .program-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .program-price {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 40px;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            padding: 40px;
+            background: var(--bg);
+            border-radius: 20px;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.9;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .testimonial-info h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .testimonial-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 120px 40px;
+            background: linear-gradient(135deg, var(--text) 0%, #1a1a1a 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+        }
+
+        .cta .btn-gold {
+            border: 1px solid var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px 30px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+            }
+
+            .hero-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero,
+            .features,
+            .programs,
+            .testimonials,
+            .cta {
+                padding: 80px 20px;
+            }
+
+            .program-card {
+                flex-direction: column;
+            }
+
+            .program-image {
+                width: 100%;
+                height: 150px;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">BEAUTY ACADEMY</a>
+            <nav>
+                <a href="#features">特徴</a>
+                <a href="#programs">プログラム</a>
+                <a href="#testimonials">お客様の声</a>
+                <a href="#contact" class="nav-cta">無料相談</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <p class="hero-label">AI × Beauty</p>
+                <h1>美しさを、<br>AIでもっと輝かせる</h1>
+                <p>美容業界に特化したAI研修プログラム。予約管理、顧客対応、SNS運用まで。サロン経営をもっとスマートに。</p>
+                <a href="#contact" class="btn-gold">無料相談を予約</a>
+            </div>
+            <div class="hero-image">💇‍♀️</div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-header">
+            <p class="section-label">Why Choose Us</p>
+            <h2>選ばれる理由</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>美容業界特化</h3>
+                <p>美容室・サロン・エステに特化した実践的なカリキュラム。すぐに現場で使えます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>SNS活用術</h3>
+                <p>InstagramやTikTokでの集客に使えるAI活用法を伝授。フォロワー獲得をサポート。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>顧客対応効率化</h3>
+                <p>予約対応、問い合わせ、リマインドなど。AIで接客品質を維持しながら効率化。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="programs" id="programs">
+        <div class="section-header">
+            <p class="section-label">Programs</p>
+            <h2>研修プログラム</h2>
+        </div>
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="program-image">📚</div>
+                <div class="program-content">
+                    <h3>AI基礎コース</h3>
+                    <p>AI初心者のスタッフ向け。ChatGPTの基本操作から学べます。</p>
+                    <span class="program-price">¥50,000〜 / 全3回</span>
+                </div>
+            </div>
+            <div class="program-card">
+                <div class="program-image">📸</div>
+                <div class="program-content">
+                    <h3>SNS運用コース</h3>
+                    <p>AIを活用した投稿作成、ハッシュタグ選定、分析手法を習得。</p>
+                    <span class="program-price">¥80,000〜 / 全5回</span>
+                </div>
+            </div>
+            <div class="program-card">
+                <div class="program-image">🗓️</div>
+                <div class="program-content">
+                    <h3>業務効率化コース</h3>
+                    <p>予約管理、顧客管理、在庫管理など、バックオフィス業務のAI化。</p>
+                    <span class="program-price">¥100,000〜 / 全6回</span>
+                </div>
+            </div>
+            <div class="program-card">
+                <div class="program-image">👑</div>
+                <div class="program-content">
+                    <h3>オーナー向け経営戦略</h3>
+                    <p>AI時代のサロン経営戦略。データ分析とマーケティングを学ぶ。</p>
+                    <span class="program-price">¥150,000〜 / 全4回</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <p class="section-label">Testimonials</p>
+            <h2>お客様の声</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">「予約対応の時間が半分以下になりました。その分、お客様との時間を大切にできるようになって、リピート率も上がっています。」</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">👩</div>
+                    <div class="testimonial-info">
+                        <h4>田中 美咲 様</h4>
+                        <p>HAIR SALON M / オーナー</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">「Instagramの投稿作成にAIを使い始めてから、フォロワーが3倍に。新規のお客様も増えて、研修費用はすぐに回収できました。」</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">👨</div>
+                    <div class="testimonial-info">
+                        <h4>鈴木 健一 様</h4>
+                        <p>Beauty Salon K / 店長</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <h2>無料相談を受付中</h2>
+        <p>あなたのサロンに最適なAI活用法をご提案します</p>
+        <a href="#" class="btn-gold">無料相談を予約する</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-logo">BEAUTY ACADEMY</div>
+                <div class="footer-links">
+                    <a href="#">プログラム</a>
+                    <a href="#">料金</a>
+                    <a href="#">お客様の声</a>
+                    <a href="#">お問い合わせ</a>
+                    <a href="#">プライバシー</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
+                <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/xBXaxznO76" target="_blank">STUDIO サロン・美容向け｜モダン</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Summit 2024 | Uravation</title>
+    <meta name="description" content="日本最大級のAIカンファレンス。業界リーダーが集結し、AIの未来を語る2日間。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0EA5E9;
+            --primary-dark: #0284C7;
+            --secondary: #F97316;
+            --text: #0F172A;
+            --text-light: #64748B;
+            --bg: #FFFFFF;
+            --bg-dark: #0F172A;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .header-cta {
+            background: var(--secondary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background: var(--bg-dark);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 40%);
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .event-date .live {
+            background: var(--secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35);
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 16px 38px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Countdown */
+        .countdown {
+            margin-top: 60px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Speakers */
+        .speakers {
+            padding: 120px 40px;
+            background: var(--bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .speakers-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .speaker-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: #F8FAFC;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .speaker-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .speaker-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .speaker-card .title {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .speaker-card .company {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Schedule */
+        .schedule {
+            padding: 120px 40px;
+            background: #F8FAFC;
+        }
+
+        .schedule-days {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .schedule-day {
+            margin-bottom: 60px;
+        }
+
+        .schedule-day h3 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .schedule-day h3 span {
+            background: var(--primary);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 30px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .schedule-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .schedule-time {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 100px;
+        }
+
+        .schedule-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .schedule-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Venue */
+        .venue {
+            padding: 120px 40px;
+            background: var(--bg);
+        }
+
+        .venue-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .venue-map {
+            aspect-ratio: 4/3;
+            background: #E2E8F0;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .venue-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .venue-info p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .venue-details {
+            background: #F8FAFC;
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .venue-details li {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
+            list-style: none;
+        }
+
+        .venue-details li:last-child {
+            border-bottom: none;
+        }
+
+        .venue-details .label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 120px 40px;
+            background: var(--bg-dark);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .cta .btn-primary {
+            font-size: 1.2rem;
+            padding: 20px 50px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px 30px;
+            background: #0A0F1A;
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref {
+            margin-top: 8px;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .venue-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .countdown {
+                gap: 15px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .speakers,
+            .schedule,
+            .venue,
+            .cta {
+                padding: 80px 20px;
+            }
+
+            .schedule-item {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">AI <span>Summit</span> 2024</a>
+            <a href="#register" class="header-cta">今すぐ申し込む</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="event-date">
+                <span class="live">LIVE</span>
+                2024.12.15-16 @ 東京国際フォーラム
+            </div>
+            <h1>AIの<span>未来</span>を<br>共に描こう</h1>
+            <p>日本最大級のAIカンファレンス。業界をリードする30名以上のスピーカーが集結し、AIの最前線を語る2日間。</p>
+            <div class="hero-buttons">
+                <a href="#register" class="btn-primary">
+                    チケットを購入 <span>→</span>
+                </a>
+                <a href="#schedule" class="btn-outline">プログラムを見る</a>
+            </div>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number">12</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">08</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">45</span>
+                    <span class="countdown-label">Min</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">30</span>
+                    <span class="countdown-label">Sec</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="speakers" id="speakers">
+        <div class="section-header">
+            <h2>登壇者</h2>
+            <p>各分野のエキスパートが最新知見を共有</p>
+        </div>
+        <div class="speakers-grid">
+            <div class="speaker-card">
+                <div class="speaker-avatar">👨‍💼</div>
+                <h3>山田 太郎</h3>
+                <p class="title">Chief AI Officer</p>
+                <p class="company">Tech Corp Japan</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">👩‍🔬</div>
+                <h3>鈴木 花子</h3>
+                <p class="title">AI Research Director</p>
+                <p class="company">AI Lab Inc.</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">👨‍🏫</div>
+                <h3>佐藤 一郎</h3>
+                <p class="title">Professor</p>
+                <p class="company">東京大学</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">👩‍💻</div>
+                <h3>田中 美咲</h3>
+                <p class="title">CEO & Founder</p>
+                <p class="company">AI Startup</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="schedule" id="schedule">
+        <div class="section-header">
+            <h2>プログラム</h2>
+            <p>2日間にわたる充実のセッション</p>
+        </div>
+        <div class="schedule-days">
+            <div class="schedule-day">
+                <h3><span>DAY 1</span> 12月15日（日）</h3>
+                <div class="schedule-item">
+                    <span class="schedule-time">10:00</span>
+                    <div class="schedule-content">
+                        <h4>オープニングキーノート</h4>
+                        <p>AIの現在地と未来への展望</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">11:30</span>
+                    <div class="schedule-content">
+                        <h4>生成AIの最前線</h4>
+                        <p>ChatGPT以降のAI進化と企業活用</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">14:00</span>
+                    <div class="schedule-content">
+                        <h4>AI×ビジネス変革</h4>
+                        <p>先進企業に学ぶAI導入成功事例</p>
+                    </div>
+                </div>
+            </div>
+            <div class="schedule-day">
+                <h3><span>DAY 2</span> 12月16日（月）</h3>
+                <div class="schedule-item">
+                    <span class="schedule-time">10:00</span>
+                    <div class="schedule-content">
+                        <h4>AI人材育成</h4>
+                        <p>これからの時代に求められるスキルとは</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">13:00</span>
+                    <div class="schedule-content">
+                        <h4>ハンズオンワークショップ</h4>
+                        <p>実践で学ぶプロンプトエンジニアリング</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">16:00</span>
+                    <div class="schedule-content">
+                        <h4>クロージングセッション</h4>
+                        <p>AI時代を生き抜くための提言</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="venue" id="venue">
+        <div class="section-header">
+            <h2>会場</h2>
+        </div>
+        <div class="venue-inner">
+            <div class="venue-map">🗺️</div>
+            <div class="venue-info">
+                <h3>東京国際フォーラム</h3>
+                <p>都心のアクセス抜群な会場で、最高のカンファレンス体験を。</p>
+                <ul class="venue-details">
+                    <li>
+                        <span class="label">住所</span>
+                        <span>東京都千代田区丸の内3-5-1</span>
+                    </li>
+                    <li>
+                        <span class="label">アクセス</span>
+                        <span>有楽町駅より徒歩1分</span>
+                    </li>
+                    <li>
+                        <span class="label">収容人数</span>
+                        <span>1,500名</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="register">
+        <h2>参加登録受付中</h2>
+        <p>早期申込割引は12月1日まで。お見逃しなく。</p>
+        <a href="#" class="btn-primary">今すぐ申し込む</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-logo">AI <span>Summit</span> 2024</div>
+                <div class="footer-links">
+                    <a href="#">プログラム</a>
+                    <a href="#">登壇者</a>
+                    <a href="#">会場</a>
+                    <a href="#">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
+                <p class="footer-ref">Design inspired by <a href="https://studio.design/store/templates/18dO8VvanG" target="_blank">STUDIO イベント向けLP｜シンプル</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

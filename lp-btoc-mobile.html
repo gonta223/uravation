@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI学習アプリ | Uravation</title>
+    <meta name="description" content="スマホでサクッとAI学習。モバイルファーストな新しい学習体験。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E85A2A;
+            --secondary: #00B4D8;
+            --text: #1A1A1A;
+            --text-light: #666;
+            --bg: #FFFFFF;
+            --bg-cream: #FFF9F5;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Mobile First - All styles optimized for mobile */
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 20px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg) 100%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-cta {
+            display: block;
+            background: var(--primary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .hero-sub {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .phone-mockup {
+            margin-top: 40px;
+            width: 240px;
+            height: 480px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 35px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            box-shadow: 0 30px 60px rgba(255, 107, 53, 0.3);
+            position: relative;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 50px 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        /* Features */
+        .features {
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 24px;
+            background: var(--bg-cream);
+            border-radius: 16px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 60px 20px;
+            background: var(--bg-cream);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Reviews */
+        .reviews {
+            padding: 60px 20px;
+        }
+
+        .review-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .review-card {
+            background: white;
+            border: 1px solid #EEE;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .review-stars {
+            color: #FFB800;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .review-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .review-job {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 60px 20px;
+            background: var(--bg-cream);
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            margin: 20px 0;
+        }
+
+        .pricing-price .amount {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .pricing-price .period {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 24px 0;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            list-style: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .pricing-cta {
+            display: block;
+            background: var(--primary);
+            color: white;
+            padding: 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .app-badges {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .app-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px 20px;
+            background: var(--text);
+            color: white;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref {
+            margin-top: 8px;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        /* Desktop styles */
+        @media (min-width: 768px) {
+            .hero {
+                padding: 140px 40px 100px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-cta {
+                display: inline-block;
+            }
+
+            .phone-mockup {
+                width: 300px;
+                height: 600px;
+            }
+
+            .stats {
+                padding: 80px 40px;
+            }
+
+            .stats-grid {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .features,
+            .how-it-works,
+            .reviews,
+            .pricing {
+                padding: 100px 40px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .feature-list {
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            .steps {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .review-cards {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .pricing-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">Uravation</a>
+            <a href="#download" class="header-cta">無料DL</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-badge">📱 モバイルファースト</span>
+        <h1><span>スマホ</span>で<br>サクッとAI学習</h1>
+        <p>通勤中、休憩中、寝る前に。<br>いつでもどこでもAIスキルアップ。</p>
+        <a href="#download" class="hero-cta">今すぐ無料ダウンロード</a>
+        <p class="hero-sub">※ クレジットカード不要</p>
+        <div class="phone-mockup">📱</div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">50万+</span>
+                <span class="stat-label">ダウンロード</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4.8</span>
+                <span class="stat-label">App評価</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">満足度</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="section-title">
+            <h2>選ばれる3つの理由</h2>
+            <p>モバイルに最適化された学習体験</p>
+        </div>
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">⏱️</div>
+                <div class="feature-content">
+                    <h3>1レッスン3分</h3>
+                    <p>スキマ時間でサクッと学べる。集中力が続く短時間設計。</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎮</div>
+                <div class="feature-content">
+                    <h3>ゲーム感覚で続く</h3>
+                    <p>ポイント、バッジ、ランキングで楽しく続けられる。</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📴</div>
+                <div class="feature-content">
+                    <h3>オフライン対応</h3>
+                    <p>電波がなくても大丈夫。地下鉄でも学習できる。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="section-title">
+            <h2>かんたん3ステップ</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>アプリをダウンロード</h3>
+                    <p>App Store / Google Playから無料でダウンロード</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>1分でアカウント作成</h3>
+                    <p>メールアドレスだけでOK。すぐに始められます</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>今日から学習スタート</h3>
+                    <p>好きなコースを選んで、さっそく学習開始！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="section-title">
+            <h2>ユーザーの声</h2>
+        </div>
+        <div class="review-cards">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">「通勤時間が学習時間に変わりました。3分でサクッと学べるので、毎日続けられています。」</p>
+                <div class="review-author">
+                    <div class="review-avatar">👩</div>
+                    <div>
+                        <div class="review-name">田中さん</div>
+                        <div class="review-job">会社員 / 28歳</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">「オフラインでも使えるのが最高。地下鉄で毎日学習しています。」</p>
+                <div class="review-author">
+                    <div class="review-avatar">👨</div>
+                    <div>
+                        <div class="review-name">山本さん</div>
+                        <div class="review-job">エンジニア / 32歳</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="section-title">
+            <h2>料金プラン</h2>
+        </div>
+        <div class="pricing-card">
+            <span class="pricing-badge">人気No.1</span>
+            <h3>プレミアムプラン</h3>
+            <div class="pricing-price">
+                <span class="amount">¥980</span>
+                <span class="period">/月</span>
+            </div>
+            <ul class="pricing-features">
+                <li>全コース無制限</li>
+                <li>オフラインダウンロード</li>
+                <li>広告なし</li>
+                <li>修了証発行</li>
+                <li>優先サポート</li>
+            </ul>
+            <a href="#" class="pricing-cta">7日間無料で試す</a>
+        </div>
+    </section>
+
+    <section class="cta" id="download">
+        <h2>今すぐダウンロード</h2>
+        <p>無料で始めて、AIスキルを身につけよう</p>
+        <a href="#" class="cta-button">無料ダウンロード</a>
+        <div class="app-badges">
+            <span class="app-badge">📱 App Store</span>
+            <span class="app-badge">🤖 Google Play</span>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Uravation</div>
+        <div class="footer-links">
+            <a href="#">利用規約</a>
+            <a href="#">プライバシー</a>
+            <a href="#">ヘルプ</a>
+            <a href="#">お問い合わせ</a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Uravation Inc.</p>
+            <p class="footer-ref">Design inspired by <a href="https://studio.design/store/templates/r1pqDyNajv" target="_blank">STUDIO BtoC商材モバイル向けLP</a></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI導入ソリューション | Uravation</title>
+    <meta name="description" content="上質なAI導入体験を。インテリアのように、あなたのビジネスに自然に溶け込むAIソリューション。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B7355;
+            --primary-light: #A69076;
+            --accent: #C9A86C;
+            --text: #3D3D3D;
+            --text-light: #6B6B6B;
+            --bg: #FAF8F5;
+            --white: #FFFFFF;
+            --cream: #F5F0E8;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 300;
+            color: var(--text);
+            line-height: 2;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            padding: 25px 50px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .hero-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-content {
+            padding-right: 40px;
+        }
+
+        .hero-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            color: var(--text);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 450px;
+        }
+
+        .btn-elegant {
+            display: inline-block;
+            padding: 18px 50px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            transition: all 0.4s;
+        }
+
+        .btn-elegant:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            height: 70vh;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: var(--primary-light);
+        }
+
+        /* Philosophy */
+        .philosophy {
+            padding: 150px 50px;
+            background: var(--white);
+        }
+
+        .philosophy-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .philosophy h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        .philosophy p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Products */
+        .products {
+            padding: 100px 50px 150px;
+            background: var(--bg);
+        }
+
+        .products-header {
+            max-width: 1400px;
+            margin: 0 auto 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .products-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .product-card {
+            background: var(--white);
+            transition: transform 0.4s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            aspect-ratio: 1;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-light);
+        }
+
+        .product-info {
+            padding: 30px;
+        }
+
+        .product-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        /* Features */
+        .features {
+            padding: 150px 50px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .features-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        .feature-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 150px 50px;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 50px 40px;
+            background: var(--text);
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .footer-col a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .footer-col a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-image {
+                height: 50vh;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .philosophy,
+            .products,
+            .features,
+            .cta {
+                padding: 80px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="portal.html" class="logo">URAVATION</a>
+            <nav>
+                <a href="#philosophy">Philosophy</a>
+                <a href="#products">Solutions</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <p class="hero-label">AI Solutions</p>
+                <h1>上質なAI体験を、<br>あなたのビジネスに</h1>
+                <p>インテリアのように、空間に自然と溶け込むAIソリューション。美しく、機能的に、あなたのビジネスを彩ります。</p>
+                <a href="#contact" class="btn-elegant">お問い合わせ</a>
+            </div>
+            <div class="hero-image">🏛️</div>
+        </div>
+    </section>
+
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-inner">
+            <p class="section-label">Our Philosophy</p>
+            <h2>テクノロジーと美学の調和</h2>
+            <p>私たちは、AIを単なるツールではなく、ビジネス空間を美しく彩る「インテリア」として捉えています。洗練されたデザインと高度な機能性を両立し、あなたのビジネスに上質な体験をお届けします。</p>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="products-header">
+            <div>
+                <p class="section-label">Solutions</p>
+                <h2>AI導入プラン</h2>
+            </div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">💼</div>
+                <div class="product-info">
+                    <h3>Business Basic</h3>
+                    <p>基本的なAI導入支援。小規模チームに最適です。</p>
+                    <span class="product-price">¥300,000〜</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🏢</div>
+                <div class="product-info">
+                    <h3>Enterprise Standard</h3>
+                    <p>中規模企業向けの包括的なAI導入ソリューション。</p>
+                    <span class="product-price">¥800,000〜</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🌟</div>
+                <div class="product-info">
+                    <h3>Premium Custom</h3>
+                    <p>完全オーダーメイドのAIソリューション設計。</p>
+                    <span class="product-price">お問い合わせ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-inner">
+            <h2>私たちが大切にしていること</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <h3>Beauty</h3>
+                    <p>美しいUIと洗練されたユーザー体験を追求します。使うたびに心地よさを感じるデザイン。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Function</h3>
+                    <p>見た目だけでなく、高度な機能性を実現。ビジネスの生産性を確実に向上させます。</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Harmony</h3>
+                    <p>既存のワークフローに自然に溶け込む設計。導入の負担を最小限に抑えます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <p class="section-label">Contact</p>
+        <h2>お気軽にご相談ください</h2>
+        <p>あなたのビジネスに最適なAIソリューションをご提案いたします</p>
+        <a href="#" class="btn-elegant">無料相談を予約する</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-logo">URAVATION</div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>COMPANY</h4>
+                        <a href="#">会社概要</a>
+                        <a href="#">採用情報</a>
+                        <a href="#">ニュース</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SOLUTIONS</h4>
+                        <a href="#">Business Basic</a>
+                        <a href="#">Enterprise</a>
+                        <a href="#">Premium</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>SUPPORT</h4>
+                        <a href="#">お問い合わせ</a>
+                        <a href="#">FAQ</a>
+                        <a href="#">資料請求</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Uravation Inc.</p>
+                <p class="footer-ref">Design inspired by <a href="https://studio.design/store/templates/vNxqg2xO1k" target="_blank">STUDIO 商品紹介LP｜INTERIOR</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
