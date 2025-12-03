@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飲食業界向けAI研修 | Uravation</title>
+    <meta name="description" content="飲食店・フード業界に特化したAI活用研修。予約管理、在庫最適化、SNSマーケティングをAIで効率化。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #D97706;
+            --primary-dark: #B45309;
+            --secondary: #059669;
+            --accent: #DC2626;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --bg: #FFFBF5;
+            --bg-cream: #FEF3E2;
+            --brown: #78350F;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.9;
+            background: var(--bg);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 30px;
+            background: rgba(255,251,245,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-header:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 30px 80px;
+            background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-deco {
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+        }
+
+        .hero-deco.top-left {
+            top: 100px;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-deco.top-right {
+            top: 150px;
+            right: 5%;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+
+        .hero-deco.bottom-left {
+            bottom: 100px;
+            left: 10%;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            color: var(--brown);
+        }
+
+        .hero h1 .accent {
+            color: var(--primary);
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 35px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            padding: 16px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--text);
+            color: white;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 0.8s ease 0.3s both;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .hero-card-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--brown);
+        }
+
+        .hero-card-list {
+            list-style: none;
+        }
+
+        .hero-card-list li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .hero-card-list li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        /* Problems */
+        .problems {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .section-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.3rem);
+            font-weight: 700;
+            color: var(--brown);
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .problem-card {
+            background: var(--bg-cream);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .problem-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .problem-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .problem-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .problem-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Solutions */
+        .solutions {
+            padding: 100px 30px;
+            background: var(--bg);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: white;
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .solution-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+
+        .solution-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--brown);
+        }
+
+        .solution-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Cases */
+        .cases {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .cases-slider {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .case-card {
+            background: var(--bg-cream);
+            border-radius: 24px;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease;
+        }
+
+        .case-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .case-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .case-icon {
+            font-size: 2.5rem;
+        }
+
+        .case-type {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .case-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .case-body {
+            padding: 25px;
+        }
+
+        .case-result {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .case-num {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .case-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .case-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 100px 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 35px;
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 30px;
+            background: var(--brown);
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .footer-ref {
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-ref a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .hero-visual {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cases-slider {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-deco {
+                display: none;
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="/" class="logo">
+                <span class="logo-icon">🍽️</span>
+                Uravation
+            </a>
+            <nav class="nav">
+                <a href="#problems" class="nav-link">課題</a>
+                <a href="#solutions" class="nav-link">サービス</a>
+                <a href="#cases" class="nav-link">導入事例</a>
+                <a href="#contact" class="btn-header">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-deco top-left">🍜</div>
+        <div class="hero-deco top-right">☕</div>
+        <div class="hero-deco bottom-left">🍰</div>
+
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">飲食業界特化</div>
+                <h1>AIで<span class="accent">お店の業務</span>を<br>もっとラクに、もっと賢く</h1>
+                <p class="hero-desc">予約管理、在庫発注、SNS運用、スタッフ教育...飲食店の「困った」をAIで解決。忙しいお店でもすぐに導入できる実践的な研修プログラムです。</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn-primary">
+                        無料相談する
+                        <span>→</span>
+                    </a>
+                    <a href="#cases" class="btn-outline">
+                        導入事例を見る
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <span class="hero-card-icon">📊</span>
+                    <h3>こんなことができます</h3>
+                    <ul class="hero-card-list">
+                        <li>AIで予約管理を自動化</li>
+                        <li>売上データから最適な仕入れ量を予測</li>
+                        <li>SNS投稿文をAIが提案</li>
+                        <li>多言語対応の接客マニュアル作成</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems -->
+    <section class="problems" id="problems">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-icon">😔</div>
+                <h2 class="section-title">こんなお悩みありませんか？</h2>
+            </div>
+
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📞</div>
+                    <div>
+                        <h3>予約電話の対応に追われる</h3>
+                        <p>ピーク時の電話対応で接客に集中できない。予約のダブルブッキングも発生...</p>
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📦</div>
+                    <div>
+                        <h3>食材ロスが減らない</h3>
+                        <p>発注量の予測が難しく、廃棄が増えてコストがかさむ...</p>
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📱</div>
+                    <div>
+                        <h3>SNS更新の時間がない</h3>
+                        <p>お店のSNSを更新したいけど、毎日投稿を考える余裕がない...</p>
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">👨‍🍳</div>
+                    <div>
+                        <h3>スタッフ教育に手が回らない</h3>
+                        <p>人手不足で新人教育に十分な時間が取れない...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions -->
+    <section class="solutions" id="solutions">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-icon">✨</div>
+                <h2 class="section-title">Uravationで解決</h2>
+                <p class="section-desc">飲食店の現場を知り尽くした講師が、すぐに使えるAI活用法をお教えします</p>
+            </div>
+
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🤖</div>
+                    <h3>予約・問い合わせ自動化</h3>
+                    <p>AIチャットボットで24時間予約受付。電話対応も音声AIで自動化できます。</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📈</div>
+                    <h3>需要予測・発注最適化</h3>
+                    <p>過去の売上データをAIが分析し、最適な仕入れ量を提案。食材ロスを削減。</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📝</div>
+                    <h3>SNS運用サポート</h3>
+                    <p>AIが投稿文を提案。写真を撮るだけで、魅力的なキャプションが完成します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases -->
+    <section class="cases" id="cases">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-icon">🎉</div>
+                <h2 class="section-title">導入事例</h2>
+            </div>
+
+            <div class="cases-slider">
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-icon">🍜</div>
+                        <div>
+                            <div class="case-type">ラーメン店 / 5店舗</div>
+                            <div class="case-name">麺処 山田様</div>
+                        </div>
+                    </div>
+                    <div class="case-body">
+                        <div class="case-result">
+                            <div class="case-num">35%</div>
+                            <div class="case-label">食材ロス削減</div>
+                        </div>
+                        <p class="case-desc">AI需要予測を導入し、スープの仕込み量を最適化。月間の食材廃棄コストを大幅に削減しました。</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-icon">☕</div>
+                        <div>
+                            <div class="case-type">カフェ / 1店舗</div>
+                            <div class="case-name">Cafe BLOOM様</div>
+                        </div>
+                    </div>
+                    <div class="case-body">
+                        <div class="case-result">
+                            <div class="case-num">3倍</div>
+                            <div class="case-label">SNSフォロワー増</div>
+                        </div>
+                        <p class="case-desc">AIを活用したSNS運用で、3ヶ月でInstagramフォロワーが3倍に。来店客数も20%増加しました。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>お店の課題をお聞かせください。飲食業界に詳しいスタッフが、最適なAI活用法をご提案します。</p>
+        <a href="mailto:info@uravation.com" class="btn-white">
+            無料相談を申し込む
+            <span>→</span>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">🍽️ Uravation</div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>サービス</h4>
+                        <ul>
+                            <li><a href="#">飲食店向け研修</a></li>
+                            <li><a href="#">導入事例</a></li>
+                            <li><a href="#">料金プラン</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>会社情報</h4>
+                        <ul>
+                            <li><a href="#">会社概要</a></li>
+                            <li><a href="#">お問い合わせ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>法務</h4>
+                        <ul>
+                            <li><a href="#">プライバシーポリシー</a></li>
+                            <li><a href="#">特定商取引法に基づく表記</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copy">© 2024 Uravation Inc. All rights reserved.</div>
+                <div class="footer-ref">
+                    デザイン参照: <a href="https://studio.design/ja/store/templates/lp6aorgqRg" target="_blank" rel="noopener">STUDIO Store - ドリンク・フード向けLP</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.problem-card, .solution-card, .case-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Stagger animation delays
+        document.querySelectorAll('.problem-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        document.querySelectorAll('.solution-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.15}s`;
+        });
+
+        document.querySelectorAll('.case-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

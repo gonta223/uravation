@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI研修で業務効率を劇的改善 | Uravation</title>
+    <meta name="description" content="BtoB企業向けAI研修プログラム。導入実績300社以上、業務効率40%向上の実績。まずは無料相談から。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #004C99;
+            --secondary: #FF6B35;
+            --text: #1A1A2E;
+            --text-light: #666;
+            --bg: #FFFFFF;
+            --bg-gray: #F8F9FA;
+            --border: #E5E5E5;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+        }
+
+        /* Fixed CTA Bar */
+        .fixed-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 12px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+        }
+
+        .fixed-cta.visible {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .fixed-cta-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .fixed-cta-text {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .fixed-cta-text span {
+            color: var(--secondary);
+        }
+
+        /* Header */
+        header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 999;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .header-cta {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            background: #E55A2B;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section - BtoB Style */
+        .hero {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f8faff 0%, #e8f0fe 100%);
+        }
+
+        .hero-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero h1 .highlight {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: rgba(0, 102, 204, 0.2);
+            z-index: -1;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-num {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .hero-stat-num span {
+            font-size: 1.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--secondary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #E55A2B;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-sub {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 12px;
+        }
+
+        /* Problem Section */
+        .problems {
+            padding: 100px 20px;
+            background: var(--bg);
+        }
+
+        .section-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 900;
+            line-height: 1.4;
+        }
+
+        .problem-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .problem-item {
+            background: var(--bg-gray);
+            padding: 30px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .problem-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .problem-icon {
+            width: 50px;
+            height: 50px;
+            background: #FFF3F0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .problem-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .problem-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 100px 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .solution .section-label {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .solution-arrow {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .solution-box {
+            background: white;
+            color: var(--text);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .solution-box h3 {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .solution-box h3 span {
+            color: var(--primary);
+        }
+
+        .solution-box p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .solution-feature {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .solution-feature.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .solution-feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #3399FF);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+            color: white;
+        }
+
+        .solution-feature h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .solution-feature p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 20px;
+            background: var(--bg-gray);
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .benefit-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .benefit-num {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Case Studies */
+        .cases {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .case-card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease;
+        }
+
+        .case-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .case-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .case-header {
+            padding: 25px;
+            background: var(--bg-gray);
+        }
+
+        .case-company {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .case-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .case-body {
+            padding: 25px;
+        }
+
+        .case-result {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .case-result-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--secondary);
+            line-height: 1;
+        }
+
+        .case-result-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .case-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--text) 0%, #2A2A4E 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 100px 20px;
+            background: var(--bg-gray);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            padding: 0 30px 25px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px;
+            background: var(--text);
+            color: white;
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-ref a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .fixed-cta-inner {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fixed-cta-text {
+                font-size: 0.9rem;
+            }
+
+            .problem-item {
+                flex-direction: column;
+            }
+
+            .solution-box {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed CTA -->
+    <div class="fixed-cta" id="fixedCta">
+        <div class="fixed-cta-inner">
+            <div class="fixed-cta-text"><span>今なら無料</span>でAI活用診断を実施中</div>
+            <a href="#contact" class="header-cta">無料相談する →</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="/" class="logo">Uravation</a>
+            <a href="#contact" class="header-cta">無料相談 →</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-label">BtoB企業向けAI研修</div>
+            <h1>AI導入で<span class="highlight">業務効率40%向上</span><br>を実現しませんか？</h1>
+            <p class="hero-desc">300社以上の導入実績を持つUravationが、<br>貴社に最適なAI活用法をご提案します。</p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num" data-target="300">0</div>
+                    <div class="hero-stat-label">導入企業数</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num" data-target="40">0<span>%</span></div>
+                    <div class="hero-stat-label">平均業務効率改善</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num" data-target="98">0<span>%</span></div>
+                    <div class="hero-stat-label">顧客満足度</div>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#contact" class="btn-primary">
+                    まずは無料で相談する
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <span class="btn-sub">※ 30分の無料診断付き</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems -->
+    <section class="problems">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">PROBLEM</div>
+                <h2 class="section-title">こんな課題を抱えていませんか？</h2>
+            </div>
+
+            <div class="problem-list">
+                <div class="problem-item">
+                    <div class="problem-icon">😰</div>
+                    <div class="problem-content">
+                        <h3>AIを導入したいが、何から始めればいいかわからない</h3>
+                        <p>ChatGPTやAIツールの存在は知っているが、自社の業務にどう活かせばいいか具体的なイメージが湧かない。</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">📉</div>
+                    <div class="problem-content">
+                        <h3>AI導入を試みたが、社内で定着しなかった</h3>
+                        <p>ツールを導入しても、使いこなせる社員が限られ、結局従来の方法に戻ってしまった経験がある。</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">💰</div>
+                    <div class="problem-content">
+                        <h3>AI投資の費用対効果が見えない</h3>
+                        <p>AIへの投資がどれだけのリターンを生むのか、経営層への説明が難しい。</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">⏰</div>
+                    <div class="problem-content">
+                        <h3>人手不足で業務効率化が急務</h3>
+                        <p>採用が難しい中、限られた人員で生産性を上げる必要に迫られている。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="solution">
+        <div class="section-inner">
+            <div class="solution-arrow">↓</div>
+            <div class="section-header">
+                <div class="section-label">SOLUTION</div>
+                <h2 class="section-title" style="color: white;">Uravationが全て解決します</h2>
+            </div>
+
+            <div class="solution-box">
+                <h3>「<span>実践重視</span>」のAI研修で<br>確実に業務に活かせるスキルを習得</h3>
+                <p>座学だけでなく、貴社の実際の業務データを使った実践ワークショップで、すぐに使えるスキルが身につきます。</p>
+
+                <div class="solution-features">
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">🎯</div>
+                        <h4>業務特化カリキュラム</h4>
+                        <p>貴社の課題に合わせたオーダーメイド研修</p>
+                    </div>
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">👥</div>
+                        <h4>少人数制で確実に習得</h4>
+                        <p>1クラス最大10名の少人数で丁寧にサポート</p>
+                    </div>
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">📊</div>
+                        <h4>効果測定レポート</h4>
+                        <p>研修前後の生産性を数値化してご報告</p>
+                    </div>
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">🔄</div>
+                        <h4>3ヶ月間のフォロー</h4>
+                        <p>研修後も定着まで継続サポート</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">BENEFITS</div>
+                <h2 class="section-title">Uravationが選ばれる理由</h2>
+            </div>
+
+            <div class="benefit-grid">
+                <div class="benefit-card">
+                    <div class="benefit-num">01</div>
+                    <h3>300社以上の導入実績</h3>
+                    <p>製造業、金融、IT、小売など幅広い業界での豊富な導入実績。業界特有の課題を熟知しています。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-num">02</div>
+                    <h3>ROI平均200%以上</h3>
+                    <p>研修投資に対して平均200%以上のリターンを実現。数値で効果を実感していただけます。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-num">03</div>
+                    <h3>現役AIエンジニアが講師</h3>
+                    <p>最新のAI動向を熟知した現役エンジニアが、実務で本当に使えるノウハウをお伝えします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases -->
+    <section class="cases">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">CASE STUDY</div>
+                <h2 class="section-title">導入企業の成果</h2>
+            </div>
+
+            <div class="case-grid">
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-company">製造業 / 従業員500名</div>
+                        <div class="case-title">A社様</div>
+                    </div>
+                    <div class="case-body">
+                        <div class="case-result">
+                            <div class="case-result-num">45%</div>
+                            <div class="case-result-label">業務時間削減</div>
+                        </div>
+                        <p class="case-desc">品質検査レポートの作成時間を大幅に削減。月間100時間以上の工数削減を実現しました。</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-company">金融 / 従業員2000名</div>
+                        <div class="case-title">B社様</div>
+                    </div>
+                    <div class="case-body">
+                        <div class="case-result">
+                            <div class="case-result-num">3倍</div>
+                            <div class="case-result-label">提案書作成スピード</div>
+                        </div>
+                        <p class="case-desc">AIを活用した提案書テンプレート生成により、営業生産性が飛躍的に向上しました。</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-company">IT / 従業員100名</div>
+                        <div class="case-title">C社様</div>
+                    </div>
+                    <div class="case-body">
+                        <div class="case-result">
+                            <div class="case-result-num">80%</div>
+                            <div class="case-result-label">コード品質向上</div>
+                        </div>
+                        <p class="case-desc">AI活用コードレビューの導入で、バグ発生率が大幅に減少しました。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="section-inner">
+            <h2>まずは無料で<br>AI活用診断を受けてみませんか？</h2>
+            <p>30分のオンライン面談で、貴社のAI活用可能性を無料で診断します。強引な営業は一切いたしません。</p>
+
+            <div class="cta-buttons">
+                <a href="mailto:info@uravation.com" class="btn-primary">
+                    無料相談を予約する
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="tel:03-1234-5678" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                    </svg>
+                    電話で相談
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label">FAQ</div>
+                <h2 class="section-title">よくあるご質問</h2>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">研修にはどのくらいの期間が必要ですか？</div>
+                    <div class="faq-answer">
+                        <p>基本プログラムは2日間（計16時間）です。ご要望に応じて、半日×4回など柔軟な日程調整も可能です。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">ITに詳しくない社員でも参加できますか？</div>
+                    <div class="faq-answer">
+                        <p>はい、大丈夫です。プログラミングの知識は不要で、PCの基本操作ができれば参加いただけます。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">オンラインでの受講は可能ですか？</div>
+                    <div class="faq-answer">
+                        <p>はい、全国どこからでもオンラインで受講いただけます。対面・オンラインのハイブリッド形式も対応可能です。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">費用はどのくらいかかりますか？</div>
+                    <div class="faq-answer">
+                        <p>研修内容・人数によって異なりますが、1名あたり10万円〜が目安です。詳細は無料相談でお見積りいたします。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">Uravation</div>
+            <div class="footer-links">
+                <a href="/">ホーム</a>
+                <a href="/services">サービス</a>
+                <a href="/cases">導入事例</a>
+                <a href="/company">会社概要</a>
+                <a href="/contact">お問い合わせ</a>
+                <a href="/privacy">プライバシーポリシー</a>
+            </div>
+            <div class="footer-copy">© 2024 Uravation Inc. All rights reserved.</div>
+            <div class="footer-ref">
+                デザイン参照: <a href="https://studio.design/ja/store/templates/9BmqMpYOXG" target="_blank" rel="noopener">STUDIO Store - BtoB商材の標準LP</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fixed CTA visibility
+        const fixedCta = document.getElementById('fixedCta');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                fixedCta.classList.add('visible');
+            } else {
+                fixedCta.classList.remove('visible');
+            }
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.hero-stat-num[data-target]');
+        const animateCounter = (el) => {
+            const target = parseInt(el.dataset.target);
+            const suffix = el.innerHTML.includes('%') ? '%' : (el.innerHTML.includes('社') ? '社' : '');
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.innerHTML = Math.floor(current) + (suffix ? '<span>' + suffix + '</span>' : '');
+            }, 30);
+        };
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Counter animation
+                    if (entry.target.classList.contains('hero-stat-num')) {
+                        animateCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.problem-item, .solution-feature, .benefit-card, .case-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter elements
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('open');
+            });
+        });
+
+        // Stagger animation delays
+        document.querySelectorAll('.problem-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        document.querySelectorAll('.solution-feature').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.15}s`;
+        });
+
+        document.querySelectorAll('.benefit-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        document.querySelectorAll('.case-card').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        document.querySelectorAll('.faq-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+    </script>
+</body>
+</html>

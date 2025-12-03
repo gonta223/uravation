@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【無料セミナー】AI活用で変わる働き方 | Uravation</title>
+    <meta name="description" content="AI活用の最新事例を学べる無料オンラインセミナー。ChatGPT、Claude、Geminiなど主要AIツールの実践的な使い方を解説。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --secondary: #7C3AED;
+            --accent: #F59E0B;
+            --text: #111827;
+            --text-light: #6B7280;
+            --bg: #FFFFFF;
+            --bg-dark: #111827;
+            --gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+        }
+
+        /* Opening Animation */
+        .opening {
+            position: fixed;
+            inset: 0;
+            background: var(--gradient);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 0.5s ease 2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .opening-text {
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            text-align: center;
+            animation: zoomIn 0.8s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.98);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .header-badge {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Hero - Event Style */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 30px 80px;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .hero-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-date-icon {
+            font-size: 1.2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .hero-meta-item {
+            text-align: center;
+        }
+
+        .hero-meta-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .hero-meta-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--primary);
+            padding: 20px 50px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        .hero-note {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            animation: fadeInUp 0.8s ease 1s both;
+        }
+
+        /* Countdown */
+        .countdown {
+            padding: 60px 30px;
+            background: var(--bg-dark);
+            color: white;
+        }
+
+        .countdown-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-num {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .countdown-unit {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-top: 8px;
+        }
+
+        /* About */
+        .about {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .section-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+            border-radius: 24px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+
+        .about-highlights {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .about-highlight {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 100px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .about-highlight-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Program */
+        .program {
+            padding: 100px 30px;
+            background: #F9FAFB;
+        }
+
+        .program-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .program-item {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 30px;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .program-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .program-time {
+            background: var(--gradient);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .program-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .program-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Speaker */
+        .speaker {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .speaker-card {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 50px;
+            align-items: center;
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+            border-radius: 24px;
+            padding: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .speaker-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .speaker-img {
+            width: 250px;
+            height: 250px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            margin: 0 auto;
+        }
+
+        .speaker-info h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .speaker-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .speaker-bio {
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        /* Form */
+        .form-section {
+            padding: 100px 30px;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .form-section .section-tag {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .form-section .section-desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .form-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-label .required {
+            color: #EF4444;
+            margin-left: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+
+        .form-checkbox label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .form-checkbox a {
+            color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 100px 30px;
+            background: #F9FAFB;
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-question {
+            padding: 24px 30px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-inner {
+            padding: 0 30px 24px;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 30px;
+            background: var(--bg-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .footer-ref {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+
+        .footer-ref a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+        }
+
+        .footer-ref a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-meta {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .program-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .program-time {
+                width: fit-content;
+            }
+
+            .speaker-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .speaker-img {
+                width: 180px;
+                height: 180px;
+                font-size: 4rem;
+            }
+
+            .form-box {
+                padding: 30px 20px;
+            }
+
+            .countdown-timer {
+                gap: 15px;
+            }
+
+            .countdown-num {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Opening Animation -->
+    <div class="opening">
+        <div class="opening-text">AI活用セミナー<br>まもなく開始</div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="/" class="logo">Uravation</a>
+            <div class="header-badge">🎉 参加費無料</div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-date">
+                <span class="hero-date-icon">📅</span>
+                2025年1月15日（水）14:00〜15:30
+            </div>
+            <h1>AI活用で変わる働き方<br>〜実践事例から学ぶ〜</h1>
+            <p class="hero-subtitle">ChatGPT、Claude、Geminiを活用した業務効率化の最前線をお届けします</p>
+
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">開催形式</div>
+                    <div class="hero-meta-value">オンライン</div>
+                </div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">参加費</div>
+                    <div class="hero-meta-value">無料</div>
+                </div>
+                <div class="hero-meta-item">
+                    <div class="hero-meta-label">定員</div>
+                    <div class="hero-meta-value">100名</div>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#form" class="btn-cta">
+                    今すぐ申し込む
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="hero-note">※ 申込後、視聴URLをメールでお送りします</p>
+        </div>
+    </section>
+
+    <!-- Countdown -->
+    <section class="countdown">
+        <div class="countdown-inner">
+            <p class="countdown-label">セミナー開始まであと</p>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <div class="countdown-num" id="days">00</div>
+                    <div class="countdown-unit">日</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="hours">00</div>
+                    <div class="countdown-unit">時間</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="minutes">00</div>
+                    <div class="countdown-unit">分</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-num" id="seconds">00</div>
+                    <div class="countdown-unit">秒</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-tag">ABOUT</div>
+                <h2 class="section-title">このセミナーについて</h2>
+            </div>
+
+            <div class="about-content">
+                <p class="about-text">AIツールの進化により、ビジネスの現場での働き方が大きく変わりつつあります。<br>本セミナーでは、300社以上の企業でAI研修を実施してきたUravationが、実際の導入事例をもとに、<br>明日から使える実践的なAI活用法をお伝えします。</p>
+                <div class="about-highlights">
+                    <div class="about-highlight">
+                        <span class="about-highlight-icon">💡</span>
+                        初心者OK
+                    </div>
+                    <div class="about-highlight">
+                        <span class="about-highlight-icon">📱</span>
+                        スマホ視聴可
+                    </div>
+                    <div class="about-highlight">
+                        <span class="about-highlight-icon">🎬</span>
+                        アーカイブ配信
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program -->
+    <section class="program">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-tag">PROGRAM</div>
+                <h2 class="section-title">プログラム内容</h2>
+            </div>
+
+            <div class="program-list">
+                <div class="program-item">
+                    <div class="program-time">14:00</div>
+                    <div class="program-content">
+                        <h3>オープニング・AI活用の現状</h3>
+                        <p>2024年のAI動向と、企業でのAI活用の実態についてデータをもとに解説します。</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">14:20</div>
+                    <div class="program-content">
+                        <h3>事例紹介：業務効率40%向上の秘密</h3>
+                        <p>製造業A社、金融B社、IT企業C社の具体的な導入事例とその成果をご紹介します。</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">14:50</div>
+                    <div class="program-content">
+                        <h3>実演：今日から使えるAI活用テクニック</h3>
+                        <p>ChatGPT、Claudeを使った業務効率化のデモンストレーション。プロンプトの書き方も解説。</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <div class="program-time">15:15</div>
+                    <div class="program-content">
+                        <h3>Q&A・クロージング</h3>
+                        <p>参加者からの質問にお答えします。個別相談のご案内も。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speaker -->
+    <section class="speaker">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-tag">SPEAKER</div>
+                <h2 class="section-title">登壇者</h2>
+            </div>
+
+            <div class="speaker-card">
+                <div class="speaker-img">👨‍💼</div>
+                <div class="speaker-info">
+                    <h3>山田 太郎</h3>
+                    <p class="speaker-role">Uravation株式会社 代表取締役 / AI研修講師</p>
+                    <p class="speaker-bio">大手IT企業でAIプロジェクトを多数リードした後、2020年にUravationを設立。「AIを誰でも使いこなせる社会」を目指し、これまで300社以上の企業でAI研修を実施。分かりやすい解説と実践的なアプローチが好評で、研修満足度は98%を超える。著書に「AI時代の働き方革命」がある。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form -->
+    <section class="form-section" id="form">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-tag">ENTRY</div>
+                <h2 class="section-title" style="color: white;">お申し込み</h2>
+                <p class="section-desc">下記フォームに必要事項をご入力ください</p>
+            </div>
+
+            <div class="form-box">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label class="form-label">お名前<span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="山田 太郎" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">メールアドレス<span class="required">*</span></label>
+                        <input type="email" class="form-input" placeholder="example@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">会社名</label>
+                        <input type="text" class="form-input" placeholder="株式会社〇〇">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">部署・役職</label>
+                        <input type="text" class="form-input" placeholder="営業部 課長">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">このセミナーを知ったきっかけ</label>
+                        <select class="form-select">
+                            <option value="">選択してください</option>
+                            <option value="search">検索</option>
+                            <option value="sns">SNS</option>
+                            <option value="referral">紹介</option>
+                            <option value="other">その他</option>
+                        </select>
+                    </div>
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="privacy" required>
+                        <label for="privacy"><a href="/privacy">プライバシーポリシー</a>に同意します</label>
+                    </div>
+                    <button type="submit" class="btn-submit">申し込む（無料）</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-tag">FAQ</div>
+                <h2 class="section-title">よくあるご質問</h2>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">AIの知識がなくても参加できますか？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">はい、初心者の方でも分かりやすい内容になっています。AIツールを触ったことがない方も安心してご参加ください。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">アーカイブ視聴はできますか？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">はい、お申し込みいただいた方には、セミナー終了後にアーカイブ動画のURLをお送りします。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">スマートフォンでも視聴できますか？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">はい、スマートフォン・タブレット・PCいずれからでもご視聴いただけます。</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">質問はできますか？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">はい、セミナー中にチャットで質問を受け付けます。時間の都合上、すべての質問にお答えできない場合がありますがご了承ください。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Uravation</div>
+        <div class="footer-links">
+            <a href="/">ホーム</a>
+            <a href="/company">会社概要</a>
+            <a href="/privacy">プライバシーポリシー</a>
+            <a href="/contact">お問い合わせ</a>
+        </div>
+        <div class="footer-copy">© 2024 Uravation Inc. All rights reserved.</div>
+        <div class="footer-ref">
+            デザイン参照: <a href="https://studio.design/ja/store/templates/ld7WlNyqV3" target="_blank" rel="noopener">STUDIO Store - セミナー｜イベント向けLP</a>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const eventDate = new Date('2025-01-15T14:00:00+09:00');
+            const now = new Date();
+            const diff = eventDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.program-item, .speaker-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Stagger animation delays
+        document.querySelectorAll('.program-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.15}s`;
+        });
+
+        document.querySelectorAll('.faq-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

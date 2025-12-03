@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI人材育成 コーポレートプラン | Uravation</title>
+    <meta name="description" content="企業のAI人材育成を総合的にサポート。戦略立案から実装まで、ビジネス成長を加速するAI研修プログラム。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --accent-light: #ff6b6b;
+            --text: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s var(--transition), visibility 0.8s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.3em;
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s var(--transition);
+        }
+
+        .nav.scrolled {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.75rem 1.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: heroFadeIn 1s var(--transition) 0.5s forwards;
+        }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(233, 69, 96, 0.2);
+            color: var(--accent-light);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-visual {
+            position: relative;
+            opacity: 0;
+            transform: translateX(40px);
+            animation: heroSlideIn 1s var(--transition) 0.8s forwards;
+        }
+
+        @keyframes heroSlideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 8rem 4rem;
+        }
+
+        .section-dark {
+            background: var(--gray-100);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transform: scaleX(0);
+            transition: transform 0.4s var(--transition);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Process Section */
+        .process-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .process-container::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: 0 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .process-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s var(--transition);
+        }
+
+        .process-step:hover .process-number {
+            background: var(--accent);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .process-step h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .process-step p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Cases Section */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .case-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.4s var(--transition);
+        }
+
+        .case-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .case-card:nth-child(even) {
+            transform: translateX(30px);
+        }
+
+        .case-card:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .case-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .case-image {
+            width: 200px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .case-content {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .case-industry {
+            display: inline-block;
+            background: rgba(233, 69, 96, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .case-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .case-result {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .pricing-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured.visible {
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card.featured .pricing-name {
+            color: var(--white);
+        }
+
+        .pricing-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card.featured .pricing-desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card.featured .pricing-price {
+            color: var(--white);
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .pricing-period {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card.featured .pricing-period {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-card.featured .pricing-features li {
+            border-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .pricing-btn {
+            display: block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s var(--transition);
+        }
+
+        .pricing-card .pricing-btn {
+            background: var(--gray-100);
+            color: var(--primary);
+        }
+
+        .pricing-card .pricing-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .pricing-card.featured .pricing-btn:hover {
+            background: var(--accent-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 6rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.1) 0%, transparent 50%);
+            animation: ctaPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-10%, -10%); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            padding: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero p {
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .process-container::before {
+                display: none;
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .features-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured.visible {
+                transform: none;
+            }
+
+            .case-card {
+                flex-direction: column;
+            }
+
+            .case-image {
+                width: 100%;
+                height: 150px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-logo">URAVATION</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">URAVATION</a>
+        <ul class="nav-links">
+            <li><a href="#features">特徴</a></li>
+            <li><a href="#process">導入フロー</a></li>
+            <li><a href="#cases">導入事例</a></li>
+            <li><a href="#pricing">料金プラン</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">お問い合わせ</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">CORPORATE AI TRAINING</span>
+                <h1>企業のAI人材育成を<br><span>戦略的に加速</span>する</h1>
+                <p>組織全体のAIリテラシー向上から、専門人材の育成まで。御社のビジネス成長を支える包括的なAI研修プログラムを提供します。</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">
+                        無料相談を予約
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/></svg>
+                    </a>
+                    <a href="#features" class="btn-secondary">詳しく見る</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">導入企業数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">満足度</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">受講者数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3.2x</div>
+                            <div class="stat-label">生産性向上</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Features</span>
+                <h2 class="section-title">選ばれる3つの理由</h2>
+                <p class="section-subtitle">Uravationのコーポレートプランが多くの企業様に選ばれている理由をご紹介します。</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-delay="0">
+                    <div class="feature-icon">🎯</div>
+                    <h3>オーダーメイドカリキュラム</h3>
+                    <p>御社の業界特性、現状のスキルレベル、目標に合わせて完全カスタマイズ。実務に直結する実践的な研修内容を設計します。</p>
+                </div>
+                <div class="feature-card" data-delay="100">
+                    <div class="feature-icon">👥</div>
+                    <h3>ハンズオン形式の研修</h3>
+                    <p>座学だけでなく、実際のAIツールを使った実践演習を重視。受講後すぐに業務で活用できるスキルが身につきます。</p>
+                </div>
+                <div class="feature-card" data-delay="200">
+                    <div class="feature-icon">📊</div>
+                    <h3>効果測定と継続サポート</h3>
+                    <p>研修前後のスキル評価、定着度の測定、フォローアップ研修まで。投資対効果を可視化し、継続的な成長を支援します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Process</span>
+                <h2 class="section-title">導入までの流れ</h2>
+                <p class="section-subtitle">お問い合わせから研修開始まで、スムーズにサポートいたします。</p>
+            </div>
+            <div class="process-container">
+                <div class="process-step" data-delay="0">
+                    <div class="process-number">01</div>
+                    <h4>無料ヒアリング</h4>
+                    <p>御社の現状課題と目標をお伺いし、最適なプランをご提案します。</p>
+                </div>
+                <div class="process-step" data-delay="150">
+                    <div class="process-number">02</div>
+                    <h4>カリキュラム設計</h4>
+                    <p>業界特性とスキルレベルに合わせた研修プログラムを作成します。</p>
+                </div>
+                <div class="process-step" data-delay="300">
+                    <div class="process-number">03</div>
+                    <h4>研修実施</h4>
+                    <p>経験豊富な講師による実践的な研修をオンライン/オフラインで実施。</p>
+                </div>
+                <div class="process-step" data-delay="450">
+                    <div class="process-number">04</div>
+                    <h4>効果測定・定着</h4>
+                    <p>研修効果を測定し、継続的なスキル定着をサポートします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section id="cases" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Cases</span>
+                <h2 class="section-title">導入事例</h2>
+                <p class="section-subtitle">様々な業界でAI人材育成の成果が出ています。</p>
+            </div>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-image">🏭</div>
+                    <div class="case-content">
+                        <span class="case-industry">製造業</span>
+                        <h3>大手自動車部品メーカー様</h3>
+                        <p>品質管理部門への AI 活用研修を実施。検査工程の自動化により大幅な効率化を実現。</p>
+                        <div class="case-result">検査時間 40%削減</div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-image">💼</div>
+                    <div class="case-content">
+                        <span class="case-industry">金融</span>
+                        <h3>地方銀行様</h3>
+                        <p>全社員向けAIリテラシー研修と、融資審査部門への専門研修を段階的に実施。</p>
+                        <div class="case-result">業務効率 2.5倍向上</div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-image">🛒</div>
+                    <div class="case-content">
+                        <span class="case-industry">小売</span>
+                        <h3>大手ECサイト運営会社様</h3>
+                        <p>マーケティング部門へのAI活用研修。需要予測と顧客分析の精度が飛躍的に向上。</p>
+                        <div class="case-result">売上 25%アップ</div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-image">🏥</div>
+                    <div class="case-content">
+                        <span class="case-industry">医療</span>
+                        <h3>総合病院グループ様</h3>
+                        <p>事務部門へのAI活用研修を実施。レセプト処理や予約管理の効率化に成功。</p>
+                        <div class="case-result">事務作業 60%削減</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">料金プラン</h2>
+                <p class="section-subtitle">御社の規模とニーズに合わせて最適なプランをお選びいただけます。</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card" data-delay="0">
+                    <div class="pricing-name">スタータープラン</div>
+                    <div class="pricing-desc">小規模チームの導入に</div>
+                    <div class="pricing-price">¥300,000<span>〜</span></div>
+                    <div class="pricing-period">10名まで / 1日研修</div>
+                    <ul class="pricing-features">
+                        <li>基礎AIリテラシー研修</li>
+                        <li>ハンズオン演習</li>
+                        <li>研修資料提供</li>
+                        <li>質問対応（1ヶ月）</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn">お問い合わせ</a>
+                </div>
+                <div class="pricing-card featured" data-delay="100">
+                    <span class="pricing-badge">人気No.1</span>
+                    <div class="pricing-name">スタンダードプラン</div>
+                    <div class="pricing-desc">部門単位での導入に</div>
+                    <div class="pricing-price">¥800,000<span>〜</span></div>
+                    <div class="pricing-period">30名まで / 3日間研修</div>
+                    <ul class="pricing-features">
+                        <li>カスタマイズカリキュラム</li>
+                        <li>実務課題での演習</li>
+                        <li>スキル評価レポート</li>
+                        <li>フォローアップ研修（1回）</li>
+                        <li>質問対応（3ヶ月）</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn">お問い合わせ</a>
+                </div>
+                <div class="pricing-card" data-delay="200">
+                    <div class="pricing-name">エンタープライズ</div>
+                    <div class="pricing-desc">全社導入に</div>
+                    <div class="pricing-price">個別見積</div>
+                    <div class="pricing-period">人数無制限 / 年間契約</div>
+                    <ul class="pricing-features">
+                        <li>全社戦略コンサルティング</li>
+                        <li>階層別研修プログラム</li>
+                        <li>専任サポート担当</li>
+                        <li>定期効果測定</li>
+                        <li>オンデマンド学習コンテンツ</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="cta-content">
+            <h2>まずは無料相談から</h2>
+            <p>御社のAI人材育成の課題と目標をお聞かせください。最適なプランをご提案いたします。</p>
+            <div class="cta-buttons">
+                <a href="mailto:contact@uravation.com" class="btn-primary">
+                    無料相談を予約する
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/></svg>
+                </a>
+                <a href="tel:03-1234-5678" class="btn-secondary">03-1234-5678</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>URAVATION</h3>
+                <p>企業のAI人材育成を戦略的にサポートする、<br>包括的なトレーニングソリューション。</p>
+            </div>
+            <div class="footer-column">
+                <h4>サービス</h4>
+                <ul>
+                    <li><a href="#">コーポレート研修</a></li>
+                    <li><a href="#">オンライン講座</a></li>
+                    <li><a href="#">コンサルティング</a></li>
+                    <li><a href="#">eラーニング</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>企業情報</h4>
+                <ul>
+                    <li><a href="#">会社概要</a></li>
+                    <li><a href="#">導入事例</a></li>
+                    <li><a href="#">ニュース</a></li>
+                    <li><a href="#">採用情報</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>サポート</h4>
+                <ul>
+                    <li><a href="#">お問い合わせ</a></li>
+                    <li><a href="#">よくある質問</a></li>
+                    <li><a href="#">資料ダウンロード</a></li>
+                    <li><a href="#">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Uravation Inc. All rights reserved.</p>
+            <p>デザイン参照: <a href="https://studio.design/store/templates/14BqN8dWrP" target="_blank" rel="noopener">STUDIO Store - BAZE/CORPORATE</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading-screen').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navigation Scroll Effect
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.feature-card, .process-step, .case-card, .pricing-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter Animation
+        const animateCounter = (element, target) => {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target >= 1000 ? (target / 1000).toFixed(0) + 'K+' : target + (element.dataset.suffix || '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 30);
+        };
+
+        // Animate stats when hero is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.stat-number').forEach(stat => {
+                        const text = stat.textContent;
+                        const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+                        if (text.includes('K')) {
+                            stat.dataset.target = num * 1000;
+                        } else if (text.includes('%')) {
+                            stat.dataset.target = num;
+                            stat.dataset.suffix = '%';
+                        } else if (text.includes('x')) {
+                            stat.dataset.target = num;
+                            stat.dataset.suffix = 'x';
+                        } else {
+                            stat.dataset.target = num;
+                            stat.dataset.suffix = '+';
+                        }
+                    });
+                    heroObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        heroObserver.observe(document.querySelector('.hero'));
+    </script>
+</body>
+</html>
