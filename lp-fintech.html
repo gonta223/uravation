@@ -1362,5 +1362,236 @@
             </div>
         </div>
     </footer>
+    <!-- Animation Scripts -->
+    <style>
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-delay-1 { transition-delay: 0.1s; }
+        .animate-delay-2 { transition-delay: 0.2s; }
+        .animate-delay-3 { transition-delay: 0.3s; }
+        .animate-delay-4 { transition-delay: 0.4s; }
+
+        /* Enhanced Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .floating-card {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Glow Pulse for Primary Color */
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 102, 255, 0.6); }
+        }
+
+        /* Chart Animation */
+        @keyframes chartGrow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        .card-chart .chart-line {
+            animation: chartGrow 2s ease-out 1s backwards;
+        }
+
+        /* Button Shimmer */
+        .btn-primary, .nav-cta {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after, .nav-cta::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-primary:hover::after, .nav-cta:hover::after {
+            left: 100%;
+        }
+
+        /* Nav Slide Down */
+        .nav {
+            animation: slideDown 0.6s ease-out;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Hero Animations */
+        .hero-badge {
+            animation: fadeInDown 0.8s ease-out 0.2s backwards;
+        }
+        .hero-title {
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+        .hero-desc {
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+        .hero-ctas {
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+        .hero-trust {
+            animation: fadeInUp 0.8s ease-out 1s backwards;
+        }
+        .card-preview {
+            animation: fadeInRight 1s ease-out 0.6s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Stat Value Animation */
+        .stat-value {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .stat-item:hover .stat-value {
+            transform: scale(1.1);
+        }
+
+        /* Feature Card Enhanced */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-icon {
+            transition: transform 0.4s ease;
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Pricing Card Glow */
+        .pricing-card.featured {
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        /* Transaction Slide In */
+        .transaction {
+            animation: slideInRight 0.5s ease-out backwards;
+        }
+        .transaction:nth-child(1) { animation-delay: 1.2s; }
+        .transaction:nth-child(2) { animation-delay: 1.4s; }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Security Badge Pulse */
+        .security-badge {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .security-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.2);
+        }
+    </style>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Add animation classes to elements
+        document.querySelectorAll('.feature-card, .pricing-card, .stat-item, .section-header, .security-item, .security-badge, .footer-brand').forEach((el, index) => {
+            el.classList.add('animate-on-scroll');
+            el.classList.add('animate-delay-' + ((index % 4) + 1));
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Counter animation for stats
+        const animateCounter = (el) => {
+            const text = el.textContent;
+            const num = parseFloat(text.replace(/[^\d.]/g, ''));
+            const prefix = text.match(/^[^\d]*/)?.[0] || '';
+            const suffix = text.match(/[^\d.]*$/)?.[0] || '';
+
+            let current = 0;
+            const duration = 2000;
+            const start = performance.now();
+
+            const animate = (now) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                current = num * easeOut;
+
+                el.textContent = prefix + Math.round(current) + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    el.textContent = text;
+                }
+            };
+            requestAnimationFrame(animate);
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-value').forEach(animateCounter);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stats').forEach(el => statsObserver.observe(el));
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const floatingCards = document.querySelectorAll('.floating-card');
+            floatingCards.forEach((card, index) => {
+                const speed = 0.05 + (index * 0.02);
+                card.style.transform = `translateY(${Math.sin(scrolled * 0.01 + index) * 10}px)`;
+            });
+        });
+    </script>
 </body>
 </html>

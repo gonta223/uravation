@@ -1233,5 +1233,286 @@
             <p class="footer-copyright">© 2024 さくら総合クリニック All rights reserved.</p>
         </div>
     </footer>
+    <!-- Animation Scripts -->
+    <style>
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-delay-1 { transition-delay: 0.1s; }
+        .animate-delay-2 { transition-delay: 0.2s; }
+        .animate-delay-3 { transition-delay: 0.3s; }
+        .animate-delay-4 { transition-delay: 0.4s; }
+
+        /* Soft Pulse Animation */
+        @keyframes softPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Button Gentle Effect */
+        .btn-primary, .btn-cta {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-primary::after, .btn-cta::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-primary:hover::after, .btn-cta:hover::after {
+            left: 100%;
+        }
+        .btn-primary:hover, .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 108, 167, 0.3);
+        }
+
+        /* Nav Animation */
+        .nav {
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hero Animations */
+        .hero-badge {
+            animation: fadeInDown 0.8s ease-out 0.2s backwards;
+        }
+        .hero-title {
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+        .hero-desc {
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+        .hero-ctas {
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+        .hero-card {
+            animation: fadeInRight 1s ease-out 0.6s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Hero Card Float */
+        .hero-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Info Bar Items */
+        .info-item {
+            transition: all 0.3s ease;
+        }
+        .info-item:hover {
+            transform: translateY(-3px);
+        }
+        .info-icon {
+            transition: transform 0.3s ease;
+        }
+        .info-item:hover .info-icon {
+            transform: scale(1.2);
+        }
+
+        /* Department Card Gentle */
+        .dept-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dept-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(45, 108, 167, 0.15);
+        }
+        .dept-icon {
+            transition: transform 0.4s ease;
+        }
+        .dept-card:hover .dept-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        /* Doctor Card Professional */
+        .doctor-card {
+            transition: all 0.4s ease;
+        }
+        .doctor-card:hover {
+            transform: translateY(-5px);
+        }
+        .doctor-avatar {
+            transition: all 0.4s ease;
+        }
+        .doctor-card:hover .doctor-avatar {
+            box-shadow: 0 10px 30px rgba(45, 108, 167, 0.2);
+        }
+
+        /* Schedule Table Row Highlight */
+        .schedule-table tr {
+            transition: background 0.3s ease;
+        }
+        .schedule-table tbody tr:hover {
+            background: rgba(45, 108, 167, 0.05);
+        }
+
+        /* Feature Card Pop */
+        .feature-card {
+            transition: all 0.4s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        .feature-icon {
+            transition: transform 0.4s ease;
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+        }
+
+        /* Access Map Gentle */
+        .access-map {
+            transition: all 0.3s ease;
+        }
+        .access-map:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* CTA Section Warm Glow */
+        .cta {
+            position: relative;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #4a9bd9 100%);
+            z-index: -1;
+            animation: warmGlow 5s ease-in-out infinite;
+        }
+        @keyframes warmGlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        /* Schedule Status Pulse */
+        .schedule-status.status-open {
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+        }
+    </style>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Add animation classes to elements
+        document.querySelectorAll('.dept-card, .doctor-card, .feature-card, .info-item, .section-header, .cta-content').forEach((el, index) => {
+            el.classList.add('animate-on-scroll');
+            el.classList.add('animate-delay-' + ((index % 4) + 1));
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Dynamic date update for hero card
+        const updateDate = () => {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
+            const dateStr = now.toLocaleDateString('ja-JP', options);
+            const dateEl = document.querySelector('.card-info p');
+            if (dateEl) {
+                dateEl.textContent = dateStr;
+            }
+
+            // Update schedule status based on time
+            const hour = now.getHours();
+            const statusAm = document.querySelector('.schedule-row:first-child .schedule-status');
+            const statusPm = document.querySelector('.schedule-row:last-child .schedule-status');
+
+            if (statusAm && statusPm) {
+                if (hour >= 9 && hour < 12.5) {
+                    statusAm.textContent = '診療中';
+                    statusAm.classList.add('status-open');
+                    statusAm.classList.remove('status-closed');
+                } else {
+                    statusAm.textContent = '終了';
+                    statusAm.classList.remove('status-open');
+                    statusAm.classList.add('status-closed');
+                }
+
+                if (hour >= 15 && hour < 18.5) {
+                    statusPm.textContent = '診療中';
+                    statusPm.classList.add('status-open');
+                    statusPm.classList.remove('status-closed');
+                } else if (hour < 15) {
+                    statusPm.textContent = '受付前';
+                    statusPm.classList.remove('status-open');
+                    statusPm.classList.add('status-closed');
+                } else {
+                    statusPm.textContent = '終了';
+                    statusPm.classList.remove('status-open');
+                    statusPm.classList.add('status-closed');
+                }
+            }
+        };
+
+        updateDate();
+
+        // Parallax effect on hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroWave = document.querySelector('.hero-wave');
+            if (heroWave && scrolled < window.innerHeight) {
+                heroWave.style.transform = `translateY(${scrolled * 0.2}px)`;
+            }
+        });
+    </script>
 </body>
 </html>
