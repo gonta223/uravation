@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEURAL WORKS - AI開発・導入支援エージェンシー</title>
+    <meta name="description" content="NEURAL WORKSは、最先端のAI技術であなたのビジネスを変革。カスタムAI開発から導入支援まで、一気通貫でサポートします。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #030014;
+            --color-surface: #0a0a1a;
+            --color-white: #ffffff;
+            --color-primary: #00f0ff;
+            --color-secondary: #ff00ea;
+            --color-accent: #7b2fff;
+            --color-gray: #8892b0;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 0, 20, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: 'AI';
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-gray);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+            text-shadow: 0 0 20px var(--color-primary);
+        }
+
+        .nav-cta {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--color-primary);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-cta:hover::before {
+            left: 100%;
+        }
+
+        .nav-cta:hover {
+            background: var(--color-primary);
+            color: var(--color-bg);
+            box-shadow: 0 0 30px var(--color-primary);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+        }
+
+        .badge-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--color-primary); }
+            50% { opacity: 0.5; box-shadow: 0 0 20px 5px var(--color-primary); }
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--color-gray);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            color: var(--color-bg);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 1.25rem 2.5rem;
+            background: transparent;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45%;
+            aspect-ratio: 1;
+        }
+
+        .neural-network {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--color-primary);
+            animation: nodeGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes nodeGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .node:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+        .node:nth-child(2) { top: 40%; left: 60%; animation-delay: 0.5s; }
+        .node:nth-child(3) { top: 60%; left: 25%; animation-delay: 1s; }
+        .node:nth-child(4) { top: 30%; left: 80%; animation-delay: 1.5s; }
+        .node:nth-child(5) { top: 70%; left: 70%; animation-delay: 2s; }
+        .node:nth-child(6) { top: 50%; left: 45%; animation-delay: 2.5s; background: var(--color-secondary); box-shadow: 0 0 20px var(--color-secondary); }
+
+        /* Services */
+        .services {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--color-gray);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(10, 10, 26, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
+        }
+
+        .service-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(0, 240, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .service-desc {
+            color: var(--color-gray);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .service-tag {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--color-primary);
+            letter-spacing: 0.1em;
+        }
+
+        /* Process */
+        .process {
+            padding: 8rem 5%;
+            background: var(--color-surface);
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 4rem;
+        }
+
+        .process-step {
+            padding: 2rem;
+            position: relative;
+            border-right: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .process-step:last-child {
+            border-right: none;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-icon span {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--color-bg);
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .step-desc {
+            color: var(--color-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Case Studies */
+        .cases {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .case-card {
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            padding: 3rem;
+            transition: all 0.4s ease;
+        }
+
+        .case-card:hover {
+            border-color: var(--color-primary);
+        }
+
+        .case-industry {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .case-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .case-desc {
+            color: var(--color-gray);
+            margin-bottom: 2rem;
+        }
+
+        .case-metrics {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .case-metric {
+            text-align: left;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--color-gray);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-title .gradient {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-desc {
+            font-size: 1.25rem;
+            color: var(--color-gray);
+            margin-bottom: 3rem;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-bg);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 30px 60px rgba(0, 240, 255, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-surface);
+            padding: 4rem 5%;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--color-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--color-gray);
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="logo">
+            <div class="logo-icon"></div>
+            NEURAL WORKS
+        </a>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#cases">Cases</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">GET STARTED</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-pulse"></span>
+                AI Development Agency
+            </div>
+            <h1 class="hero-title">
+                <span class="gradient">AI</span>で<br>
+                ビジネスを変革する
+            </h1>
+            <p class="hero-desc">
+                最先端のAI技術と専門知識で、
+                あなたのビジネス課題を解決します。
+                カスタムAI開発から導入支援まで、一気通貫でサポート。
+            </p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn-primary">
+                    無料相談
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#cases" class="btn-secondary">事例を見る</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="neural-network">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services">
+        <div class="section-header">
+            <p class="section-label">Our Services</p>
+            <h2 class="section-title">AIソリューション</h2>
+            <p class="section-desc">
+                ビジネス課題に最適なAIソリューションを提案・開発します
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3 class="service-title">生成AI導入支援</h3>
+                <p class="service-desc">
+                    ChatGPT、Claude等の生成AIを業務に導入。
+                    プロンプト設計から運用体制構築まで支援。
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">LLM</span>
+                    <span class="service-tag">ChatGPT</span>
+                    <span class="service-tag">RAG</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3 class="service-title">カスタムAI開発</h3>
+                <p class="service-desc">
+                    貴社のデータを活用した独自AIモデルを開発。
+                    画像認識、自然言語処理、予測分析など。
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">ML</span>
+                    <span class="service-tag">Deep Learning</span>
+                    <span class="service-tag">CV</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3 class="service-title">AI戦略コンサルティング</h3>
+                <p class="service-desc">
+                    AI導入のロードマップ策定から、
+                    組織変革、人材育成までトータルサポート。
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">Strategy</span>
+                    <span class="service-tag">Roadmap</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-number">04</div>
+                <h3 class="service-title">AIチャットボット</h3>
+                <p class="service-desc">
+                    24時間対応のカスタマーサポート、
+                    社内FAQボットなど、用途に合わせて開発。
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">Chatbot</span>
+                    <span class="service-tag">NLP</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-number">05</div>
+                <h3 class="service-title">業務自動化（RPA+AI）</h3>
+                <p class="service-desc">
+                    AIとRPAを組み合わせた高度な業務自動化で、
+                    生産性を劇的に向上。
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">RPA</span>
+                    <span class="service-tag">Automation</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-number">06</div>
+                <h3 class="service-title">AI人材育成</h3>
+                <p class="service-desc">
+                    社内AI人材の育成プログラムを提供。
+                    実践的なハンズオン研修で即戦力を養成。
+                </p>
+                <div class="service-tags">
+                    <span class="service-tag">Training</span>
+                    <span class="service-tag">Workshop</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="process">
+        <div class="section-header">
+            <p class="section-label">Our Process</p>
+            <h2 class="section-title">開発プロセス</h2>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-icon"><span>01</span></div>
+                <h3 class="step-title">Discovery</h3>
+                <p class="step-desc">ビジネス課題をヒアリングし、AI適用領域を特定</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon"><span>02</span></div>
+                <h3 class="step-title">Design</h3>
+                <p class="step-desc">最適なAIアーキテクチャと開発計画を設計</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon"><span>03</span></div>
+                <h3 class="step-title">Develop</h3>
+                <p class="step-desc">アジャイル開発でプロトタイプから本番環境まで構築</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon"><span>04</span></div>
+                <h3 class="step-title">Deploy</h3>
+                <p class="step-desc">本番環境へのデプロイと継続的な改善サポート</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="cases" class="cases">
+        <div class="section-header">
+            <p class="section-label">Case Studies</p>
+            <h2 class="section-title">導入事例</h2>
+        </div>
+        <div class="cases-grid">
+            <div class="case-card">
+                <p class="case-industry">Manufacturing</p>
+                <h3 class="case-title">製造業A社 - 外観検査AI</h3>
+                <p class="case-desc">
+                    画像認識AIによる外観検査の自動化で、
+                    検査精度向上と人件費削減を同時に実現。
+                </p>
+                <div class="case-metrics">
+                    <div class="case-metric">
+                        <p class="metric-value">99.5%</p>
+                        <p class="metric-label">検査精度</p>
+                    </div>
+                    <div class="case-metric">
+                        <p class="metric-value">70%</p>
+                        <p class="metric-label">工数削減</p>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card">
+                <p class="case-industry">Finance</p>
+                <h3 class="case-title">金融機関B社 - 審査AI</h3>
+                <p class="case-desc">
+                    与信審査AIの導入で、審査時間を大幅短縮。
+                    精度向上により不良債権率も改善。
+                </p>
+                <div class="case-metrics">
+                    <div class="case-metric">
+                        <p class="metric-value">90%</p>
+                        <p class="metric-label">審査時間短縮</p>
+                    </div>
+                    <div class="case-metric">
+                        <p class="metric-value">-40%</p>
+                        <p class="metric-label">不良債権率</p>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card">
+                <p class="case-industry">Retail</p>
+                <h3 class="case-title">小売業C社 - 需要予測AI</h3>
+                <p class="case-desc">
+                    機械学習による需要予測で、在庫最適化を実現。
+                    廃棄ロスと機会損失を大幅に削減。
+                </p>
+                <div class="case-metrics">
+                    <div class="case-metric">
+                        <p class="metric-value">-35%</p>
+                        <p class="metric-label">廃棄ロス</p>
+                    </div>
+                    <div class="case-metric">
+                        <p class="metric-value">+15%</p>
+                        <p class="metric-label">売上向上</p>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card">
+                <p class="case-industry">Healthcare</p>
+                <h3 class="case-title">医療機関D社 - 診断支援AI</h3>
+                <p class="case-desc">
+                    画像診断支援AIで医師の診断をサポート。
+                    見落としリスクを低減し、診断精度を向上。
+                </p>
+                <div class="case-metrics">
+                    <div class="case-metric">
+                        <p class="metric-value">95%</p>
+                        <p class="metric-label">検出精度</p>
+                    </div>
+                    <div class="case-metric">
+                        <p class="metric-value">50%</p>
+                        <p class="metric-label">診断時間短縮</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">
+                <span class="gradient">AI</span>で未来を創ろう
+            </h2>
+            <p class="cta-desc">
+                まずは無料相談から。<br>
+                貴社のビジネス課題をお聞かせください。
+            </p>
+            <a href="#" class="btn-cta">
+                無料相談を予約
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">NEURAL WORKS</div>
+            <ul class="footer-links">
+                <li><a href="#">会社概要</a></li>
+                <li><a href="#">採用情報</a></li>
+                <li><a href="#">ブログ</a></li>
+                <li><a href="#">お問い合わせ</a></li>
+            </ul>
+            <p class="footer-copyright">© 2024 NEURAL WORKS Inc.</p>
+        </div>
+    </footer>
+</body>
+</html>

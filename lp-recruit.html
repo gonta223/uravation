@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOIN US - 採用情報 | 未来をつくる仲間を募集</title>
+    <meta name="description" content="私たちと一緒に未来を創りませんか？多様なバックグラウンドを持つ仲間たちが活躍する環境で、あなたの可能性を広げましょう。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #fafafa;
+            --color-white: #ffffff;
+            --color-black: #1a1a1a;
+            --color-primary: #ff6b35;
+            --color-secondary: #4ecdc4;
+            --color-accent: #ffe66d;
+            --color-purple: #a855f7;
+            --color-blue: #3b82f6;
+            --color-pink: #ec4899;
+            --color-gray: #6b7280;
+            --color-gray-light: #f3f4f6;
+            --font-display: 'Poppins', sans-serif;
+            --font-body: 'Noto Sans JP', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-black);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-black);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-cta {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-pink));
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #fff5f2 0%, #f0fdfa 50%, #fef3c7 100%);
+        }
+
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-pink));
+            opacity: 0.1;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-blue));
+            opacity: 0.1;
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-purple));
+            opacity: 0.15;
+            top: 40%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-white);
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .hero-badge::before {
+            content: '✨';
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--color-gray);
+            margin-bottom: 2rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-pink));
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            background: var(--color-white);
+            color: var(--color-black);
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid var(--color-black);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-gray);
+        }
+
+        /* Values */
+        .values {
+            padding: 8rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: var(--color-white);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-pink));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .value-card:nth-child(2) .value-icon {
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-blue));
+        }
+
+        .value-card:nth-child(3) .value-icon {
+            background: linear-gradient(135deg, var(--color-purple), var(--color-pink));
+        }
+
+        .value-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .value-desc {
+            color: var(--color-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Benefits */
+        .benefits {
+            padding: 8rem 5%;
+            background: var(--color-black);
+            color: var(--color-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-purple));
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .benefits .section-label {
+            color: var(--color-secondary);
+        }
+
+        .benefits .section-title {
+            color: var(--color-white);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(10px);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-desc {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+
+        /* People */
+        .people {
+            padding: 8rem 5%;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .person-card {
+            background: var(--color-white);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .person-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .person-image {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--color-gray-light), #e5e7eb);
+            position: relative;
+        }
+
+        .person-card:nth-child(1) .person-image {
+            background: linear-gradient(135deg, #fecaca, #fcd34d);
+        }
+
+        .person-card:nth-child(2) .person-image {
+            background: linear-gradient(135deg, #a5f3fc, #c4b5fd);
+        }
+
+        .person-card:nth-child(3) .person-image {
+            background: linear-gradient(135deg, #d9f99d, #67e8f9);
+        }
+
+        .person-card:nth-child(4) .person-image {
+            background: linear-gradient(135deg, #fbcfe8, #a78bfa);
+        }
+
+        .person-info {
+            padding: 1.5rem;
+        }
+
+        .person-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .person-role {
+            font-size: 0.85rem;
+            color: var(--color-gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .person-quote {
+            font-size: 0.9rem;
+            color: var(--color-gray);
+            font-style: italic;
+        }
+
+        /* Jobs */
+        .jobs {
+            padding: 8rem 5%;
+            background: linear-gradient(180deg, var(--color-gray-light) 0%, var(--color-bg) 100%);
+        }
+
+        .jobs-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .job-card {
+            background: var(--color-white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .job-tag {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            background: var(--color-gray-light);
+            color: var(--color-gray);
+        }
+
+        .job-tag.new {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-pink));
+            color: var(--color-white);
+        }
+
+        .job-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--color-gray);
+        }
+
+        .job-arrow {
+            width: 50px;
+            height: 50px;
+            background: var(--color-gray-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover .job-arrow {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-pink));
+        }
+
+        .job-card:hover .job-arrow svg {
+            stroke: white;
+        }
+
+        .job-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-black);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-purple), var(--color-blue));
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--color-white);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 1.25rem 2.5rem;
+            background: var(--color-white);
+            color: var(--color-black);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 4rem 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .footer-logo span {
+            color: var(--color-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .people-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .people-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .job-card {
+                grid-template-columns: 1fr;
+            }
+
+            .job-arrow {
+                justify-self: end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="logo">JOIN<span>US</span></a>
+        <ul class="nav-links">
+            <li><a href="#values">Culture</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+            <li><a href="#people">People</a></li>
+            <li><a href="#jobs">Jobs</a></li>
+        </ul>
+        <a href="#jobs" class="nav-cta">募集一覧</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">Now Hiring!</div>
+            <h1 class="hero-title">
+                未来をつくる<br>
+                <span class="gradient">仲間を募集中</span>
+            </h1>
+            <p class="hero-desc">
+                私たちは、多様なバックグラウンドを持つ仲間たちと一緒に、
+                テクノロジーで社会を変えていくことを目指しています。
+                あなたの可能性を、ここで広げてみませんか？
+            </p>
+            <div class="hero-ctas">
+                <a href="#jobs" class="btn-primary">
+                    募集中のポジション
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#values" class="btn-secondary">
+                    カルチャーを知る
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">250+</div>
+                    <div class="stat-label">社員数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">28歳</div>
+                    <div class="stat-label">平均年齢</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">40%</div>
+                    <div class="stat-label">女性比率</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section id="values" class="values">
+        <div class="section-header">
+            <p class="section-label">Our Culture</p>
+            <h2 class="section-title">大切にしている価値観</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🚀</div>
+                <h3 class="value-title">Challenge First</h3>
+                <p class="value-desc">
+                    失敗を恐れず、新しいことに挑戦する姿勢を大切にしています。
+                    失敗は成長のための学びです。
+                </p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">One Team</h3>
+                <p class="value-desc">
+                    部署や役職を超えて、全員がワンチームとして
+                    目標に向かって協力し合います。
+                </p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💡</div>
+                <h3 class="value-title">Think Different</h3>
+                <p class="value-desc">
+                    既存の枠にとらわれない発想で、
+                    常に新しい価値を生み出すことを目指します。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="benefits" class="benefits">
+        <div class="section-header">
+            <p class="section-label">Benefits</p>
+            <h2 class="section-title">働く環境と福利厚生</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">🏠</div>
+                <h3 class="benefit-title">フレックス×リモートワーク</h3>
+                <p class="benefit-desc">
+                    コアタイムなしのフルフレックス制度。リモートワークも自由に選択可能です。
+                </p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📚</div>
+                <h3 class="benefit-title">学習支援制度</h3>
+                <p class="benefit-desc">
+                    書籍購入、カンファレンス参加、資格取得費用を全額会社負担でサポート。
+                </p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🌴</div>
+                <h3 class="benefit-title">有給休暇 + 特別休暇</h3>
+                <p class="benefit-desc">
+                    年間有給20日に加え、リフレッシュ休暇、バースデー休暇など特別休暇も充実。
+                </p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💪</div>
+                <h3 class="benefit-title">健康支援</h3>
+                <p class="benefit-desc">
+                    ジム補助、健康診断オプション無料、メンタルヘルスサポートを完備。
+                </p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">👶</div>
+                <h3 class="benefit-title">育児・介護支援</h3>
+                <p class="benefit-desc">
+                    育児休業、看護休暇、介護休暇を充実。時短勤務も柔軟に対応します。
+                </p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3 class="benefit-title">ストックオプション</h3>
+                <p class="benefit-desc">
+                    全社員にストックオプションを付与。会社の成長を一緒に分かち合えます。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- People -->
+    <section id="people" class="people">
+        <div class="section-header">
+            <p class="section-label">Our People</p>
+            <h2 class="section-title">仲間たちの声</h2>
+        </div>
+        <div class="people-grid">
+            <div class="person-card">
+                <div class="person-image"></div>
+                <div class="person-info">
+                    <h3 class="person-name">田中 美咲</h3>
+                    <p class="person-role">プロダクトマネージャー / 2021入社</p>
+                    <p class="person-quote">「やりたいと言えば任せてもらえる環境です」</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <div class="person-image"></div>
+                <div class="person-info">
+                    <h3 class="person-name">佐藤 健太</h3>
+                    <p class="person-role">エンジニア / 2020入社</p>
+                    <p class="person-quote">「技術的な挑戦を楽しめる毎日です」</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <div class="person-image"></div>
+                <div class="person-info">
+                    <h3 class="person-name">鈴木 愛</h3>
+                    <p class="person-role">デザイナー / 2022入社</p>
+                    <p class="person-quote">「多様な意見を尊重してくれるチームです」</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <div class="person-image"></div>
+                <div class="person-info">
+                    <h3 class="person-name">山本 翔</h3>
+                    <p class="person-role">セールス / 2019入社</p>
+                    <p class="person-quote">「成長を実感できる環境に感謝しています」</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs -->
+    <section id="jobs" class="jobs">
+        <div class="section-header">
+            <p class="section-label">Open Positions</p>
+            <h2 class="section-title">募集中のポジション</h2>
+        </div>
+        <div class="jobs-list">
+            <div class="job-card">
+                <div class="job-content">
+                    <div class="job-tags">
+                        <span class="job-tag new">NEW</span>
+                        <span class="job-tag">エンジニア</span>
+                    </div>
+                    <h3 class="job-title">バックエンドエンジニア</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート可</span>
+                        <span>💼 正社員</span>
+                    </div>
+                </div>
+                <div class="job-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-content">
+                    <div class="job-tags">
+                        <span class="job-tag new">NEW</span>
+                        <span class="job-tag">エンジニア</span>
+                    </div>
+                    <h3 class="job-title">フロントエンドエンジニア</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート可</span>
+                        <span>💼 正社員</span>
+                    </div>
+                </div>
+                <div class="job-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-content">
+                    <div class="job-tags">
+                        <span class="job-tag">デザイン</span>
+                    </div>
+                    <h3 class="job-title">プロダクトデザイナー</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート可</span>
+                        <span>💼 正社員</span>
+                    </div>
+                </div>
+                <div class="job-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-content">
+                    <div class="job-tags">
+                        <span class="job-tag">プロダクト</span>
+                    </div>
+                    <h3 class="job-title">プロダクトマネージャー</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート可</span>
+                        <span>💼 正社員</span>
+                    </div>
+                </div>
+                <div class="job-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-content">
+                    <div class="job-tags">
+                        <span class="job-tag">ビジネス</span>
+                    </div>
+                    <h3 class="job-title">カスタマーサクセス</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート可</span>
+                        <span>💼 正社員</span>
+                    </div>
+                </div>
+                <div class="job-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-bg"></div>
+        <div class="cta-content">
+            <h2 class="cta-title">あなたの挑戦を待っています</h2>
+            <p class="cta-desc">
+                まずはカジュアル面談から。<br>
+                お気軽にご応募ください。
+            </p>
+            <a href="#" class="btn-cta">
+                エントリーする
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">JOIN<span>US</span></div>
+            <ul class="footer-links">
+                <li><a href="#">会社概要</a></li>
+                <li><a href="#">プライバシーポリシー</a></li>
+                <li><a href="#">利用規約</a></li>
+                <li><a href="#">お問い合わせ</a></li>
+            </ul>
+            <p class="footer-copyright">© 2024 Company Inc. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

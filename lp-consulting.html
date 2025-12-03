@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRATEGIA | 戦略コンサルティング</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #faf9f7;
+            --bg-alt: #f5f3ef;
+            --text: #1a1a1a;
+            --text-muted: #6b6b6b;
+            --accent: #8b7355;
+            --accent-dark: #6b5a47;
+            --gold: #c4a574;
+            --border: #e5e0d8;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(250, 249, 247, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+        }
+
+        .btn-text:hover {
+            color: var(--text);
+        }
+
+        .btn-primary {
+            background: var(--text);
+            border: none;
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin-bottom: 3rem;
+            line-height: 1.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image-main {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(135deg, var(--bg-alt) 0%, var(--border) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image-main::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            border: 1px solid var(--gold);
+            opacity: 0.5;
+        }
+
+        .hero-image-accent {
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 200px;
+            height: 250px;
+            background: var(--accent);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--bg);
+            padding: 2rem;
+        }
+
+        .accent-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .accent-text {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--text);
+            color: var(--bg);
+            padding: 4rem;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 4rem;
+        }
+
+        .section-header {
+            max-width: 600px;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+        }
+
+        .service-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 3rem 2.5rem;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.5s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+
+        .service-card:hover::before {
+            width: 100%;
+        }
+
+        .service-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--border);
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 2rem;
+            transition: color 0.5s;
+        }
+
+        .service-card:hover .service-number {
+            color: var(--gold);
+        }
+
+        .service-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .service-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .service-link:hover {
+            gap: 1rem;
+        }
+
+        /* Case Studies */
+        .cases {
+            padding: 8rem 4rem;
+            background: var(--bg-alt);
+        }
+
+        .cases-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .case-card {
+            background: var(--bg);
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+        }
+
+        .case-image {
+            height: 280px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .case-tag {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: var(--bg);
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .case-content {
+            padding: 2.5rem;
+        }
+
+        .case-company {
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .case-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .case-result {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .case-metrics {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .metric {
+            text-align: left;
+        }
+
+        .metric-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 8rem 4rem;
+        }
+
+        .team-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            align-items: center;
+        }
+
+        .team-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--accent);
+            padding-left: 2rem;
+            border-left: 2px solid var(--gold);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 8rem 4rem;
+            background: var(--text);
+            color: var(--bg);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta .btn-primary {
+            background: var(--gold);
+            color: var(--text);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--bg);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 5rem 4rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--text);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .hero-image-main {
+                height: 400px;
+            }
+
+            .services-grid,
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .services,
+            .cases,
+            .team,
+            .cta {
+                padding: 4rem 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="logo">STRATEGIA</a>
+        <ul class="nav-links">
+            <li><a href="#">サービス</a></li>
+            <li><a href="#">実績</a></li>
+            <li><a href="#">チーム</a></li>
+            <li><a href="#">インサイト</a></li>
+            <li><a href="#">採用情報</a></li>
+        </ul>
+        <div class="nav-cta">
+            <button class="btn btn-text">EN</button>
+            <a href="#" class="btn btn-primary">お問い合わせ</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-label">Strategic Consulting</div>
+                <h1 class="hero-title">
+                    複雑な課題を、<br>
+                    <em>本質的</em>な解へ
+                </h1>
+                <p class="hero-desc">
+                    経営の最前線で、真の変革を実現する。30年以上の実績と
+                    深い業界知見で、貴社の成長戦略をともに描きます。
+                </p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">無料相談を予約</a>
+                    <a href="#" class="btn btn-outline">サービス詳細 →</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-main"></div>
+                <div class="hero-image-accent">
+                    <div class="accent-number">30+</div>
+                    <div class="accent-text">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">プロジェクト実績</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">クライアント満足度</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">¥2.5T</div>
+                <div class="stat-label">創出価値総額</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">45</div>
+                <div class="stat-label">シニアパートナー</div>
+            </div>
+        </div>
+    </div>
+
+    <section class="services">
+        <div class="section-header">
+            <div class="section-label">Our Services</div>
+            <h2 class="section-title">経営課題を、成長機会に変える</h2>
+            <p class="section-desc">戦略立案から実行支援まで、一貫したパートナーシップで企業変革を実現します。</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3 class="service-title">成長戦略</h3>
+                <p class="service-desc">市場分析、競争戦略、事業ポートフォリオの最適化まで、持続的成長の道筋を描きます。</p>
+                <a href="#" class="service-link">詳しく見る →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3 class="service-title">DX推進</h3>
+                <p class="service-desc">テクノロジーを活用したビジネスモデル変革、オペレーション改革を支援します。</p>
+                <a href="#" class="service-link">詳しく見る →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3 class="service-title">M&A・PMI</h3>
+                <p class="service-desc">戦略的買収のデューデリジェンスから、統合後の価値創造まで包括的に支援します。</p>
+                <a href="#" class="service-link">詳しく見る →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-number">04</div>
+                <h3 class="service-title">組織変革</h3>
+                <p class="service-desc">人材戦略、組織設計、企業文化の変革を通じて、実行力ある組織を構築します。</p>
+                <a href="#" class="service-link">詳しく見る →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-number">05</div>
+                <h3 class="service-title">サステナビリティ</h3>
+                <p class="service-desc">ESG経営の戦略策定、カーボンニュートラル実現に向けたロードマップを策定します。</p>
+                <a href="#" class="service-link">詳しく見る →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-number">06</div>
+                <h3 class="service-title">グローバル展開</h3>
+                <p class="service-desc">海外市場参入戦略、現地オペレーション構築、グローバルガバナンス整備を支援します。</p>
+                <a href="#" class="service-link">詳しく見る →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cases">
+        <div class="cases-header">
+            <div class="section-header" style="margin-bottom: 0;">
+                <div class="section-label">Case Studies</div>
+                <h2 class="section-title">成果を生む、実績の数々</h2>
+            </div>
+            <a href="#" class="btn btn-outline">すべての実績を見る →</a>
+        </div>
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-image">
+                    <span class="case-tag">製造業</span>
+                </div>
+                <div class="case-content">
+                    <div class="case-company">大手自動車部品メーカー</div>
+                    <h3 class="case-title">グローバルサプライチェーン再構築による収益改善</h3>
+                    <p class="case-result">調達戦略の抜本的見直しと生産拠点の最適化により、大幅なコスト削減を実現</p>
+                    <div class="case-metrics">
+                        <div class="metric">
+                            <div class="metric-value">¥180億</div>
+                            <div class="metric-label">年間コスト削減</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">23%</div>
+                            <div class="metric-label">営業利益率改善</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image" style="background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);">
+                    <span class="case-tag">金融</span>
+                </div>
+                <div class="case-content">
+                    <div class="case-company">大手地方銀行</div>
+                    <h3 class="case-title">デジタルバンキング戦略による顧客基盤拡大</h3>
+                    <p class="case-result">モバイルアプリを起点とした新サービス展開で、若年層の獲得に成功</p>
+                    <div class="case-metrics">
+                        <div class="metric">
+                            <div class="metric-value">+45万人</div>
+                            <div class="metric-label">新規顧客獲得</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">3.2倍</div>
+                            <div class="metric-label">デジタル取引増加</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team">
+        <div class="team-intro">
+            <div class="section-header" style="margin-bottom: 0;">
+                <div class="section-label">Our Team</div>
+                <h2 class="section-title">各界のエキスパートが、<br>貴社の課題に向き合う</h2>
+                <p class="section-desc">戦略コンサルタント、業界スペシャリスト、テクノロジーエキスパートが三位一体となり、最適なソリューションを提供します。</p>
+            </div>
+            <blockquote class="team-quote">
+                "私たちは答えを押し付けません。<br>
+                クライアントとともに、<br>
+                最適解を見つけ出します。"
+            </blockquote>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">次のステージへ、<br>ともに歩みましょう</h2>
+            <p class="cta-desc">経営課題のご相談から、具体的なプロジェクトのご依頼まで。まずはお気軽にご連絡ください。</p>
+            <a href="#" class="btn btn-primary">無料相談を予約する</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">STRATEGIA</a>
+                <p>30年以上にわたり、日本を代表する企業の経営変革を支援してきました。</p>
+            </div>
+            <div class="footer-col">
+                <h4>サービス</h4>
+                <ul>
+                    <li><a href="#">成長戦略</a></li>
+                    <li><a href="#">DX推進</a></li>
+                    <li><a href="#">M&A・PMI</a></li>
+                    <li><a href="#">組織変革</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="#">会社概要</a></li>
+                    <li><a href="#">リーダーシップ</a></li>
+                    <li><a href="#">採用情報</a></li>
+                    <li><a href="#">ニュース</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>お問い合わせ</h4>
+                <ul>
+                    <li><a href="#">東京オフィス</a></li>
+                    <li><a href="#">大阪オフィス</a></li>
+                    <li><a href="#">お問い合わせフォーム</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 STRATEGIA Inc. All rights reserved.</p>
+            <p>プライバシーポリシー | 利用規約</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEELWORKS - 産業機械・プラント設備の総合メーカー</title>
+    <meta name="description" content="STEELWORKSは、産業機械・プラント設備の設計・製造・施工を一貫して行う総合メーカー。70年の実績と最新技術で、ものづくりの未来を創造します。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #f5f5f5;
+            --color-white: #ffffff;
+            --color-black: #141414;
+            --color-primary: #e63946;
+            --color-secondary: #1d3557;
+            --color-accent: #f4a261;
+            --color-gray-100: #f0f0f0;
+            --color-gray-300: #d0d0d0;
+            --color-gray-500: #707070;
+            --color-gray-700: #404040;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'Barlow', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-black);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--color-black);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-cta {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--color-accent);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5%;
+            background: var(--color-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #0d1f33 100%);
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255,255,255,0.02) 100px,
+                    rgba(255,255,255,0.02) 101px
+                );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            color: var(--color-white);
+        }
+
+        .hero-label {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 10vw, 7rem);
+            line-height: 0.9;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title .outline {
+            -webkit-text-stroke: 2px var(--color-white);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--color-white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-white);
+        }
+
+        .hero-stats {
+            position: absolute;
+            right: 5%;
+            bottom: 15%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .hero-stat {
+            text-align: right;
+            color: var(--color-white);
+        }
+
+        .hero-stat-value {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--color-primary);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--color-black);
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value span {
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* About */
+        .about {
+            padding: 8rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-content {
+            max-width: 500px;
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            line-height: 1;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text {
+            color: var(--color-gray-700);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-white);
+        }
+
+        .feature-text {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .about-image {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--color-gray-300), var(--color-gray-500));
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            right: -2rem;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--color-primary);
+            z-index: -1;
+        }
+
+        /* Products */
+        .products {
+            padding: 8rem 5%;
+            background: var(--color-white);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--color-bg);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-black));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            letter-spacing: 0.1em;
+        }
+
+        .product-content {
+            padding: 2rem;
+        }
+
+        .product-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-desc {
+            color: var(--color-gray-700);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-link {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .product-link:hover {
+            gap: 1rem;
+        }
+
+        /* Process */
+        .process {
+            padding: 8rem 5%;
+            background: var(--color-secondary);
+            color: var(--color-white);
+        }
+
+        .process .section-title {
+            color: var(--color-white);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 4rem;
+        }
+
+        .process-step {
+            padding: 3rem 2rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .process-step:last-child {
+            border-right: none;
+        }
+
+        .step-number {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(255,255,255,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Clients */
+        .clients {
+            padding: 6rem 5%;
+            background: var(--color-black);
+        }
+
+        .clients-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .clients-header .section-title {
+            color: var(--color-white);
+            font-size: 1.5rem;
+        }
+
+        .clients-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .client-logo {
+            width: 120px;
+            height: 60px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.4);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 8rem 5%;
+            background: var(--color-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: 'CONTACT';
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-display);
+            font-size: 20rem;
+            color: rgba(255,255,255,0.05);
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .cta-text {
+            color: var(--color-white);
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .cta-form {
+            background: var(--color-white);
+            padding: 3rem;
+        }
+
+        .form-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 2px solid var(--color-gray-300);
+            background: var(--color-bg);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            background: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: var(--color-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 4rem 5%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--color-primary);
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-stats {
+                display: none;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                display: none;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .cta-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="logo">STEEL<span>WORKS</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#products">PRODUCTS</a></li>
+            <li><a href="#process">PROCESS</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">GET QUOTE</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <p class="hero-label">Industrial Excellence Since 1954</p>
+            <h1 class="hero-title">
+                BUILDING<br>
+                <span class="outline">TOMORROW'S</span><br>
+                INDUSTRY
+            </h1>
+            <p class="hero-desc">
+                70年以上の実績と最新技術の融合。
+                産業機械・プラント設備の設計から製造、施工まで一貫対応。
+            </p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn-primary">
+                    お見積り依頼
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#products" class="btn-secondary">製品を見る</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <p class="hero-stat-value">70+</p>
+                <p class="hero-stat-label">Years of Experience</p>
+            </div>
+            <div class="hero-stat">
+                <p class="hero-stat-value">5000+</p>
+                <p class="hero-stat-label">Projects Completed</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <p class="stat-value">70<span>+</span></p>
+            <p class="stat-label">Years History</p>
+        </div>
+        <div class="stat-item">
+            <p class="stat-value">5000<span>+</span></p>
+            <p class="stat-label">Projects</p>
+        </div>
+        <div class="stat-item">
+            <p class="stat-value">1200<span>+</span></p>
+            <p class="stat-label">Employees</p>
+        </div>
+        <div class="stat-item">
+            <p class="stat-value">15<span></span></p>
+            <p class="stat-label">Countries</p>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <p class="section-label">ABOUT US</p>
+            <h2 class="section-title">
+                ものづくりの<br>未来を創る
+            </h2>
+            <p class="about-text">
+                STEELWORKSは、1954年の創業以来、
+                産業機械・プラント設備の設計・製造・施工を
+                一貫して行う総合メーカーです。
+            </p>
+            <p class="about-text">
+                国内外5000件以上のプロジェクト実績を持ち、
+                最新のデジタル技術と熟練の技を融合させた
+                高品質なソリューションを提供しています。
+            </p>
+            <div class="about-features">
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                    </div>
+                    <span class="feature-text">ISO 9001認証</span>
+                </div>
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <span class="feature-text">安全第一</span>
+                </div>
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <span class="feature-text">グローバル展開</span>
+                </div>
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M12 2v20M2 12h20"/>
+                        </svg>
+                    </div>
+                    <span class="feature-text">カスタム対応</span>
+                </div>
+            </div>
+        </div>
+        <div class="about-image"></div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="products">
+        <div class="section-header">
+            <div>
+                <p class="section-label">PRODUCTS</p>
+                <h2 class="section-title">製品・サービス</h2>
+            </div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-category">MACHINERY</span>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">産業機械</h3>
+                    <p class="product-desc">
+                        搬送装置、加工機械、組立ラインなど、
+                        お客様のニーズに合わせたカスタム設計。
+                    </p>
+                    <a href="#" class="product-link">
+                        VIEW MORE
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-category">PLANT</span>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">プラント設備</h3>
+                    <p class="product-desc">
+                        化学、食品、医薬品など各種プラントの
+                        設計・製造・施工を一貫対応。
+                    </p>
+                    <a href="#" class="product-link">
+                        VIEW MORE
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-category">STRUCTURE</span>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">鉄骨構造物</h3>
+                    <p class="product-desc">
+                        工場、倉庫、大型施設の
+                        鉄骨構造物の設計・製作・施工。
+                    </p>
+                    <a href="#" class="product-link">
+                        VIEW MORE
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="process">
+        <div class="section-header">
+            <div>
+                <p class="section-label">PROCESS</p>
+                <h2 class="section-title">ワンストップサービス</h2>
+            </div>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <p class="step-number">01</p>
+                <h3 class="step-title">企画・設計</h3>
+                <p class="step-desc">お客様の課題をヒアリングし、最適なソリューションを設計</p>
+            </div>
+            <div class="process-step">
+                <p class="step-number">02</p>
+                <h3 class="step-title">製造</h3>
+                <p class="step-desc">自社工場で一貫製造。品質管理を徹底</p>
+            </div>
+            <div class="process-step">
+                <p class="step-number">03</p>
+                <h3 class="step-title">施工</h3>
+                <p class="step-desc">経験豊富なエンジニアが現場で据付・調整</p>
+            </div>
+            <div class="process-step">
+                <p class="step-number">04</p>
+                <h3 class="step-title">保守</h3>
+                <p class="step-desc">導入後も長期的なメンテナンスをサポート</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients -->
+    <section class="clients">
+        <div class="clients-header">
+            <h2 class="section-title">TRUSTED BY</h2>
+        </div>
+        <div class="clients-logos">
+            <div class="client-logo">CLIENT 1</div>
+            <div class="client-logo">CLIENT 2</div>
+            <div class="client-logo">CLIENT 3</div>
+            <div class="client-logo">CLIENT 4</div>
+            <div class="client-logo">CLIENT 5</div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="cta">
+        <div class="cta-content">
+            <div class="cta-text">
+                <p class="section-label">CONTACT US</p>
+                <h2 class="cta-title">
+                    まずは<br>
+                    ご相談から
+                </h2>
+                <p class="cta-desc">
+                    お客様の課題やご要望をお聞かせください。
+                    経験豊富なエンジニアが最適なソリューションをご提案いたします。
+                </p>
+            </div>
+            <div class="cta-form">
+                <h3 class="form-title">お問い合わせ</h3>
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">会社名</label>
+                        <input type="text" class="form-input" placeholder="株式会社〇〇">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">お名前 *</label>
+                        <input type="text" class="form-input" placeholder="山田 太郎" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">メールアドレス *</label>
+                        <input type="email" class="form-input" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">電話番号</label>
+                        <input type="tel" class="form-input" placeholder="03-1234-5678">
+                    </div>
+                    <button type="submit" class="form-submit">SEND MESSAGE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">STEEL<span>WORKS</span></div>
+                <p class="footer-desc">
+                    産業機械・プラント設備の設計・製造・施工を
+                    一貫して行う総合メーカー
+                </p>
+            </div>
+            <div>
+                <h4 class="footer-title">PRODUCTS</h4>
+                <ul class="footer-links">
+                    <li><a href="#">産業機械</a></li>
+                    <li><a href="#">プラント設備</a></li>
+                    <li><a href="#">鉄骨構造物</a></li>
+                    <li><a href="#">メンテナンス</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">COMPANY</h4>
+                <ul class="footer-links">
+                    <li><a href="#">会社概要</a></li>
+                    <li><a href="#">沿革</a></li>
+                    <li><a href="#">採用情報</a></li>
+                    <li><a href="#">アクセス</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">SUPPORT</h4>
+                <ul class="footer-links">
+                    <li><a href="#">お問い合わせ</a></li>
+                    <li><a href="#">資料請求</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2024 STEELWORKS Inc. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
