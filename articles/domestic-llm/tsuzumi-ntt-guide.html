@@ -4,87 +4,433 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NTT「tsuzumi」完全ガイド - 日本語特化の国産LLMの特徴と活用法 | Uravation AI Media</title>
-    <meta name="description" content="NTTグループが開発した国産LLM「tsuzumi」を徹底解説。日本語処理に特化した軽量・高性能モデルの特徴、料金、導入事例を紹介します。">
-    <meta name="keywords" content="tsuzumi,NTT,国産LLM,日本語AI,大規模言語モデル,企業向けAI">
-    <link rel="canonical" href="https://uravation.com/articles/domestic-llm/tsuzumi-ntt-guide.html">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"NTT「tsuzumi」完全ガイド","description":"NTTグループが開発した国産LLM「tsuzumi」を徹底解説。","datePublished":"2024-11-13T09:00:00+09:00","author":{"@type":"Organization","name":"Uravation編集部"},"publisher":{"@type":"Organization","name":"Uravation"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"tsuzumiとは？","acceptedAnswer":{"@type":"Answer","text":"tsuzumiはNTTグループが開発した日本語に特化した大規模言語モデルです。7Bパラメータの軽量版から70Bパラメータの大規模版まで用意されています。"}},{"@type":"Question","name":"海外LLMとの違いは？","acceptedAnswer":{"@type":"Answer","text":"日本語処理に特化した設計、軽量でオンプレミス導入が容易、国内サポート体制が充実、日本の法規制に準拠している点が主な違いです。"}}]}</script>
+    <meta name="description" content="NTTグループが開発した国産LLM「tsuzumi」を徹底解説。日本語処理に特化した軽量・高性能モデルの特徴、料金、導入事例、海外LLMとの比較を紹介します。">
+    <meta name="keywords" content="tsuzumi,NTT,国産LLM,日本語AI,大規模言語モデル,企業向けAI,日本語処理">
+    <link rel="canonical" href="https://gonta223.github.io/uravation/articles/domestic-llm/tsuzumi-ntt-guide.html">
+
+    <!-- OGP -->
+    <meta property="og:title" content="NTT「tsuzumi」完全ガイド - 日本語特化の国産LLMの特徴と活用法">
+    <meta property="og:description" content="NTTグループが開発した国産LLM「tsuzumi」を徹底解説。日本語処理に特化した軽量・高性能モデルの導入事例も紹介。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gonta223.github.io/uravation/articles/domestic-llm/tsuzumi-ntt-guide.html">
+    <meta property="og:site_name" content="Uravation AI Media">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2024-11-13T09:00:00+09:00">
+    <meta property="article:modified_time" content="2024-12-01T09:00:00+09:00">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NTT「tsuzumi」完全ガイド - 日本語特化の国産LLMの特徴と活用法">
+    <meta name="twitter:description" content="NTTグループが開発した国産LLM「tsuzumi」を徹底解説。日本語処理に特化した軽量・高性能モデル。">
+
+    <!-- 構造化データ: Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "NTT「tsuzumi」完全ガイド - 日本語特化の国産LLMの特徴と活用法",
+        "description": "NTTグループが開発した国産LLM「tsuzumi」を徹底解説。日本語処理に特化した軽量・高性能モデルの特徴、料金、導入事例を紹介。",
+        "datePublished": "2024-11-13T09:00:00+09:00",
+        "dateModified": "2024-12-01T09:00:00+09:00",
+        "author": {
+            "@type": "Organization",
+            "name": "Uravation編集部",
+            "url": "https://gonta223.github.io/uravation/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Uravation Inc.",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://gonta223.github.io/uravation/images/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://gonta223.github.io/uravation/articles/domestic-llm/tsuzumi-ntt-guide.html"
+        }
+    }
+    </script>
+
+    <!-- 構造化データ: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://gonta223.github.io/uravation/"},
+            {"@type": "ListItem", "position": 2, "name": "AIメディア", "item": "https://gonta223.github.io/uravation/media.html"},
+            {"@type": "ListItem", "position": 3, "name": "国産LLM", "item": "https://gonta223.github.io/uravation/articles/domestic-llm/"},
+            {"@type": "ListItem", "position": 4, "name": "NTT「tsuzumi」完全ガイド"}
+        ]
+    }
+    </script>
+
+    <!-- 構造化データ: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "tsuzumiとは何ですか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "tsuzumi（つづみ）は、NTTグループが開発した日本語に特化した国産大規模言語モデル（LLM）です。7Bパラメータの軽量版から70Bパラメータの大規模版まで用意されており、日本語処理の精度と軽量設計によるオンプレミス導入のしやすさが特徴です。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "tsuzumiと海外LLM（GPT-4、Claude）の違いは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "主な違いは4点あります。①日本語処理に特化した設計で敬語やニュアンスの精度が高い、②軽量でオンプレミス導入が容易、③NTTグループによる日本語での国内サポート体制、④日本の法規制・商慣習に準拠。汎用性能では海外LLMが優れますが、日本語特化用途ではtsuzumiが優位です。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "tsuzumiの導入費用・料金はいくらですか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "tsuzumiの料金は導入形態や利用規模により異なります。API利用、オンプレミス導入、カスタマイズ開発など複数のプランがあり、詳細な料金はNTTグループへの問い合わせが必要です。中小企業向けのライトプランも用意されています。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "tsuzumiはどのような企業に向いていますか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "データセキュリティを重視する金融機関・官公庁、日本語処理の精度を求める企業（コールセンター、法務部門など）、オンプレミス導入を希望する企業、日本語でのサポートを必要とする企業に特に適しています。実際に地方銀行や大手製造業での導入実績があります。"
+                }
+            }
+        ]
+    }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#c41e3a;--text:#333;--bg:#f5f5f5;--white:#fff;--border:#e0e0e0}body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}.header{background:var(--white);border-bottom:3px solid #0066cc;padding:1rem 0}.header-inner{max-width:1200px;margin:0 auto;padding:0 1rem}.logo{font-size:1.5rem;font-weight:700;color:#0066cc;text-decoration:none}.logo span{color:#ff6600}.breadcrumb{max-width:1200px;margin:1rem auto;padding:0 1rem;font-size:.8rem;color:#666}.breadcrumb a{color:var(--primary);text-decoration:none}.container{max-width:900px;margin:0 auto;padding:2rem 1rem}article{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}.article-header{padding:2rem;border-bottom:1px solid var(--border)}.category-tag{display:inline-block;background:var(--primary);color:var(--white);padding:.25rem .75rem;border-radius:3px;font-size:.75rem;margin-bottom:1rem}.article-title{font-size:1.75rem;line-height:1.4;margin-bottom:1rem}.article-meta{display:flex;gap:1.5rem;font-size:.85rem;color:#666}.article-content{padding:2rem}.article-content h2{font-size:1.35rem;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--primary)}.article-content h3{font-size:1.15rem;margin:1.5rem 0 .75rem;color:#a31530}.article-content p{margin-bottom:1.5rem}.highlight-box{background:linear-gradient(135deg,#fce4ec 0%,#f8bbd9 100%);border-left:4px solid var(--primary);padding:1.5rem;margin:2rem 0;border-radius:0 8px 8px 0}.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:2rem 0}.feature-card{background:var(--bg);padding:1.5rem;border-radius:8px;text-align:center;border-top:4px solid var(--primary)}.feature-card h4{color:var(--primary);margin-bottom:.5rem}.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:1rem;overflow:hidden}.faq-question{background:var(--bg);padding:1rem;font-weight:700}.faq-answer{padding:1rem}.footer{background:#1a1a2e;color:var(--white);padding:2rem 1rem;margin-top:3rem;text-align:center}@media(max-width:600px){.feature-grid{grid-template-columns:1fr}}</style>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #c41e3a; --primary-light: #fce4ec; --primary-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%); --text: #333; --bg: #f5f5f5; --white: #fff; --border: #e0e0e0; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+
+        .header { background: var(--white); border-bottom: 3px solid var(--primary); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        .logo span { color: #ff6600; }
+        .header-nav { display: flex; gap: 1.5rem; }
+        .header-nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+
+        .breadcrumb { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; font-size: 0.8rem; color: #666; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: grid; grid-template-columns: 1fr 300px; gap: 2rem; }
+
+        article { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .article-header { padding: 2rem; border-bottom: 1px solid var(--border); }
+        .category-tag { display: inline-block; background: var(--primary); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; color: #666; flex-wrap: wrap; }
+
+        .toc { background: var(--bg); border-radius: 8px; padding: 1.5rem; margin: 2rem; }
+        .toc h4 { margin-bottom: 1rem; font-size: 1rem; }
+        .toc ul { list-style: none; }
+        .toc li { margin-bottom: 0.5rem; }
+        .toc a { color: var(--primary); text-decoration: none; font-size: 0.9rem; }
+        .toc a:hover { text-decoration: underline; }
+
+        .article-content { padding: 2rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: #a31530; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .article-content ul, .article-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+
+        .highlight-box { background: var(--primary-gradient); border-left: 4px solid var(--primary); padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .highlight-box h4 { margin-bottom: 0.75rem; color: #a31530; }
+
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+        .stat-card { background: var(--primary-gradient); padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: #666; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg); padding: 1.5rem; border-radius: 8px; text-align: center; border-top: 4px solid var(--primary); }
+        .feature-card h4 { color: var(--primary); margin-bottom: 0.5rem; }
+
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .comparison-table th, .comparison-table td { padding: 0.75rem; border: 1px solid var(--border); text-align: left; }
+        .comparison-table th { background: var(--primary); color: var(--white); }
+        .comparison-table tr:nth-child(even) { background: var(--bg); }
+
+        .faq-section { margin: 2rem 0; }
+        .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: var(--bg); padding: 1rem; font-weight: 700; }
+        .faq-answer { padding: 1rem; }
+
+        .author-box { background: var(--bg); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; display: flex; gap: 1rem; align-items: center; }
+        .author-icon { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem; }
+        .author-info h4 { margin-bottom: 0.25rem; }
+        .author-info p { font-size: 0.85rem; color: #666; margin: 0; }
+
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        .sidebar-section { background: var(--white); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .sidebar-section h4 { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .related-list { list-style: none; }
+        .related-list li { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .related-list li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .related-list a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .related-list a:hover { color: var(--primary); }
+
+        .cta-box { background: var(--primary-gradient); border-radius: 8px; padding: 1.5rem; text-align: center; }
+        .cta-box h4 { margin-bottom: 0.5rem; color: #a31530; }
+        .cta-box p { font-size: 0.9rem; margin-bottom: 1rem; }
+        .cta-button { display: inline-block; background: var(--primary); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; font-weight: 700; }
+
+        .footer { background: #1a1a2e; color: var(--white); padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+        .footer a { color: #a0a0a0; text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .header-nav { display: none; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <header class="header"><div class="header-inner"><a href="/media.html" class="logo">Uravation <span>AI+</span></a></div></header>
-    <nav class="breadcrumb"><a href="/">ホーム</a> › <a href="/media.html">メディア</a> › <a href="/articles/domestic-llm/">国産LLM</a> › tsuzumi</nav>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/uravation/media.html" class="logo">Uravation <span>AI+</span></a>
+            <nav class="header-nav">
+                <a href="/uravation/media.html">メディア</a>
+                <a href="/uravation/index.html#services">サービス</a>
+                <a href="/uravation/index.html#contact">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumb">
+        <a href="/uravation/">ホーム</a> ›
+        <a href="/uravation/media.html">AIメディア</a> ›
+        <a href="/uravation/media.html#domestic-llm">国産LLM</a> ›
+        NTT「tsuzumi」完全ガイド
+    </nav>
+
     <div class="container">
-        <article>
-            <header class="article-header">
-                <span class="category-tag">国産LLM</span>
-                <h1 class="article-title">NTT「tsuzumi」完全ガイド - 日本語特化の国産LLMの特徴と活用法</h1>
-                <div class="article-meta"><span>📅 2024年11月13日</span><span>✏️ Uravation編集部</span></div>
-            </header>
-            <div class="article-content">
-                <p>NTTグループが開発した国産大規模言語モデル<strong>「tsuzumi（つづみ）」</strong>は、日本語処理に特化した設計と、軽量でありながら高性能な点が特徴です。本記事では、tsuzumiの特徴と企業での活用方法を詳しく解説します。</p>
+        <main>
+            <article>
+                <header class="article-header">
+                    <span class="category-tag">国産LLM</span>
+                    <h1 class="article-title">NTT「tsuzumi」完全ガイド - 日本語特化の国産LLMの特徴と活用法</h1>
+                    <div class="article-meta">
+                        <span>📅 2024年11月13日</span>
+                        <span>🔄 2024年12月1日更新</span>
+                        <span>✏️ Uravation編集部</span>
+                    </div>
+                </header>
 
-                <div class="highlight-box">
-                    <h4>🇯🇵 tsuzumiの主な特徴</h4>
+                <nav class="toc">
+                    <h4>📑 目次</h4>
                     <ul>
-                        <li>日本語に特化した学習データで高精度な日本語処理</li>
-                        <li>7B〜70Bパラメータの複数サイズを提供</li>
-                        <li>軽量設計でオンプレミス導入が容易</li>
-                        <li>NTTグループによる国内サポート体制</li>
-                        <li>日本の法規制・商慣習に対応</li>
+                        <li><a href="#overview">tsuzumiとは</a></li>
+                        <li><a href="#why-domestic">なぜ国産LLMが必要か</a></li>
+                        <li><a href="#lineup">モデルラインナップ</a></li>
+                        <li><a href="#cases">導入事例</a></li>
+                        <li><a href="#comparison">海外LLMとの比較</a></li>
+                        <li><a href="#faq">よくある質問</a></li>
                     </ul>
-                </div>
+                </nav>
 
-                <h2>なぜ国産LLMが必要か</h2>
-                <h3>1. 日本語処理の精度</h3>
-                <p>海外製LLMは英語中心の学習データで構築されており、日本語の微妙なニュアンスや敬語表現の処理に課題があります。tsuzumiは日本語コーパスを中心に学習されており、より自然な日本語処理が可能です。</p>
+                <div class="article-content">
+                    <section id="overview">
+                        <p>NTTグループが開発した国産大規模言語モデル<strong>「tsuzumi（つづみ）」</strong>は、日本語処理に特化した設計と、軽量でありながら高性能な点が特徴です。本記事では、tsuzumiの特徴と企業での活用方法を詳しく解説します。</p>
 
-                <h3>2. データ主権とセキュリティ</h3>
-                <p>企業の機密データを海外サーバーに送信することへの懸念があります。国産LLMであれば、国内データセンターでの運用が可能で、データ主権の観点からも安心です。</p>
+                        <div class="stat-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">7B〜70B</div>
+                                <div class="stat-label">パラメータ数</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">日本語特化</div>
+                                <div class="stat-label">言語最適化</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">国内</div>
+                                <div class="stat-label">サポート体制</div>
+                            </div>
+                        </div>
 
-                <h3>3. サポート体制</h3>
-                <p>日本語での技術サポート、日本時間での対応が可能。トラブル時の迅速な対応が期待できます。</p>
+                        <div class="highlight-box">
+                            <h4>🇯🇵 tsuzumiの主な特徴</h4>
+                            <ul>
+                                <li>日本語に特化した学習データで高精度な日本語処理</li>
+                                <li>7B〜70Bパラメータの複数サイズを提供</li>
+                                <li>軽量設計でオンプレミス導入が容易</li>
+                                <li>NTTグループによる国内サポート体制</li>
+                                <li>日本の法規制・商慣習に対応</li>
+                            </ul>
+                        </div>
+                    </section>
 
-                <h2>tsuzumiのモデルラインナップ</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>tsuzumi-7B</h4>
-                        <p>軽量版。エッジデバイスでも動作可能。FAQ応答や文書要約に最適。</p>
+                    <section id="why-domestic">
+                        <h2>なぜ国産LLMが必要か</h2>
+
+                        <h3>1. 日本語処理の精度</h3>
+                        <p>海外製LLMは英語中心の学習データで構築されており、日本語の微妙なニュアンスや敬語表現の処理に課題があります。tsuzumiは日本語コーパスを中心に学習されており、より自然な日本語処理が可能です。</p>
+
+                        <h3>2. データ主権とセキュリティ</h3>
+                        <p>企業の機密データを海外サーバーに送信することへの懸念があります。国産LLMであれば、国内データセンターでの運用が可能で、データ主権の観点からも安心です。</p>
+
+                        <h3>3. サポート体制</h3>
+                        <p>日本語での技術サポート、日本時間での対応が可能。トラブル時の迅速な対応が期待できます。</p>
+                    </section>
+
+                    <section id="lineup">
+                        <h2>tsuzumiのモデルラインナップ</h2>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h4>tsuzumi-7B</h4>
+                                <p>軽量版。エッジデバイスでも動作可能。FAQ応答や文書要約に最適。コスト効率に優れる。</p>
+                            </div>
+                            <div class="feature-card">
+                                <h4>tsuzumi-70B</h4>
+                                <p>大規模版。高度な推論や複雑なタスクに対応。企業の基幹システム向け。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="cases">
+                        <h2>導入事例</h2>
+
+                        <h3>金融機関での活用</h3>
+                        <p>地方銀行で、顧客からの問い合わせ対応にtsuzumiを導入。専門用語を含む日本語での応答品質が向上し、<strong>対応時間を30%短縮</strong>しました。</p>
+
+                        <h3>製造業での活用</h3>
+                        <p>大手製造業で、技術文書の検索・要約システムにtsuzumiを採用。社内ナレッジの活用効率が大幅に向上しました。</p>
+
+                        <h3>官公庁での活用</h3>
+                        <p>データセキュリティを重視する官公庁において、オンプレミス環境での文書処理システムとして導入。国内完結の運用で高いセキュリティを実現しています。</p>
+                    </section>
+
+                    <section id="comparison">
+                        <h2>海外LLMとの比較</h2>
+
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>tsuzumi</th>
+                                    <th>GPT-4</th>
+                                    <th>Claude</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>日本語性能</td>
+                                    <td><strong>◎ 特化</strong></td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>オンプレミス</td>
+                                    <td>◎</td>
+                                    <td>△</td>
+                                    <td>△</td>
+                                </tr>
+                                <tr>
+                                    <td>国内サポート</td>
+                                    <td>◎</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>汎用性能</td>
+                                    <td>○</td>
+                                    <td>◎</td>
+                                    <td>◎</td>
+                                </tr>
+                                <tr>
+                                    <td>導入の容易さ</td>
+                                    <td>○</td>
+                                    <td>◎</td>
+                                    <td>◎</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="faq">
+                        <h2>よくある質問</h2>
+
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <div class="faq-question">Q. tsuzumiとは何ですか？</div>
+                                <div class="faq-answer">A. tsuzumi（つづみ）は、NTTグループが開発した日本語に特化した国産大規模言語モデル（LLM）です。7Bパラメータの軽量版から70Bパラメータの大規模版まで用意されており、日本語処理の精度と軽量設計によるオンプレミス導入のしやすさが特徴です。</div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">Q. tsuzumiと海外LLM（GPT-4、Claude）の違いは？</div>
+                                <div class="faq-answer">A. 主な違いは4点あります。①日本語処理に特化した設計で敬語やニュアンスの精度が高い、②軽量でオンプレミス導入が容易、③NTTグループによる日本語での国内サポート体制、④日本の法規制・商慣習に準拠。汎用性能では海外LLMが優れますが、日本語特化用途ではtsuzumiが優位です。</div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">Q. tsuzumiの導入費用・料金はいくらですか？</div>
+                                <div class="faq-answer">A. tsuzumiの料金は導入形態や利用規模により異なります。API利用、オンプレミス導入、カスタマイズ開発など複数のプランがあり、詳細な料金はNTTグループへの問い合わせが必要です。中小企業向けのライトプランも用意されています。</div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">Q. tsuzumiはどのような企業に向いていますか？</div>
+                                <div class="faq-answer">A. データセキュリティを重視する金融機関・官公庁、日本語処理の精度を求める企業（コールセンター、法務部門など）、オンプレミス導入を希望する企業、日本語でのサポートを必要とする企業に特に適しています。実際に地方銀行や大手製造業での導入実績があります。</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <h2>まとめ</h2>
+                    <p>tsuzumiは、日本語処理に特化した国産LLMとして、セキュリティと日本語品質を重視する企業に適した選択肢です。NTTグループのサポート体制も含め、安心して導入・運用できる環境が整っています。用途に応じて海外LLMとの使い分けも検討しながら、最適なAI活用を進めていきましょう。</p>
+
+                    <div class="author-box">
+                        <div class="author-icon">U</div>
+                        <div class="author-info">
+                            <h4>Uravation編集部</h4>
+                            <p>AI活用の最新トレンドから実践的なノウハウまで、ビジネスに役立つ情報をお届けします。</p>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <h4>tsuzumi-70B</h4>
-                        <p>大規模版。高度な推論や複雑なタスクに対応。企業の基幹システム向け。</p>
-                    </div>
                 </div>
+            </article>
+        </main>
 
-                <h2>導入事例</h2>
-                <h3>金融機関での活用</h3>
-                <p>地方銀行で、顧客からの問い合わせ対応にtsuzumiを導入。専門用語を含む日本語での応答品質が向上し、対応時間を30%短縮しました。</p>
-
-                <h3>製造業での活用</h3>
-                <p>大手製造業で、技術文書の検索・要約システムにtsuzumiを採用。社内ナレッジの活用効率が大幅に向上しました。</p>
-
-                <h2>海外LLMとの比較</h2>
-                <table style="width:100%;border-collapse:collapse;margin:1.5rem 0">
-                    <thead><tr><th style="padding:.75rem;border:1px solid #e0e0e0;background:#c41e3a;color:white">項目</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#c41e3a;color:white">tsuzumi</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#c41e3a;color:white">GPT-4</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#c41e3a;color:white">Claude</th></tr></thead>
-                    <tbody>
-                        <tr><td style="padding:.75rem;border:1px solid #e0e0e0">日本語性能</td><td style="padding:.75rem;border:1px solid #e0e0e0"><strong>◎ 特化</strong></td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td></tr>
-                        <tr style="background:#f5f5f5"><td style="padding:.75rem;border:1px solid #e0e0e0">オンプレミス</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td></tr>
-                        <tr><td style="padding:.75rem;border:1px solid #e0e0e0">国内サポート</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td></tr>
-                        <tr style="background:#f5f5f5"><td style="padding:.75rem;border:1px solid #e0e0e0">汎用性能</td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td></tr>
-                    </tbody>
-                </table>
-
-                <h2>よくある質問</h2>
-                <div class="faq-item"><div class="faq-question">Q. tsuzumiとは？</div><div class="faq-answer">A. tsuzumiはNTTグループが開発した日本語に特化した大規模言語モデルです。7Bパラメータの軽量版から70Bパラメータの大規模版まで用意されており、用途に応じて選択できます。</div></div>
-                <div class="faq-item"><div class="faq-question">Q. どのような企業に向いていますか？</div><div class="faq-answer">A. データセキュリティを重視する金融・官公庁、日本語処理の精度を求める企業、オンプレミス導入を希望する企業に特に適しています。</div></div>
-
-                <h2>まとめ</h2>
-                <p>tsuzumiは、日本語処理に特化した国産LLMとして、セキュリティと日本語品質を重視する企業に適した選択肢です。NTTグループのサポート体制も含め、安心して導入・運用できる環境が整っています。</p>
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h4>📌 関連記事</h4>
+                <ul class="related-list">
+                    <li><a href="/uravation/articles/domestic-llm/plamo-preferred-networks.html">PLaMo完全ガイド - PFNの国産LLM</a></li>
+                    <li><a href="/uravation/articles/security/ai-data-governance.html">生成AI時代のデータガバナンス</a></li>
+                    <li><a href="/uravation/articles/claude/claude-35-sonnet-guide.html">Claude 3.5 Sonnet完全ガイド</a></li>
+                    <li><a href="/uravation/articles/chatgpt/chatgpt-enterprise-guide.html">ChatGPT Enterprise導入ガイド</a></li>
+                </ul>
             </div>
-        </article>
+
+            <div class="sidebar-section cta-box">
+                <h4>🎯 AI研修のご案内</h4>
+                <p>国産LLMを含むAIツールの実践的な活用方法を学べる研修プログラムをご用意しています。</p>
+                <a href="/uravation/index.html#contact" class="cta-button">お問い合わせ</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>🏷️ カテゴリー</h4>
+                <ul class="related-list">
+                    <li><a href="/uravation/media.html#case-studies">導入事例</a></li>
+                    <li><a href="/uravation/media.html#chatgpt">ChatGPT</a></li>
+                    <li><a href="/uravation/media.html#claude">Claude</a></li>
+                    <li><a href="/uravation/media.html#domestic-llm">国産LLM</a></li>
+                    <li><a href="/uravation/media.html#security">セキュリティ</a></li>
+                </ul>
+            </div>
+        </aside>
     </div>
-    <footer class="footer"><p>© 2024 Uravation Inc.</p></footer>
+
+    <footer class="footer">
+        <p>© 2024 Uravation Inc. | <a href="/uravation/index.html">会社概要</a> | <a href="/uravation/index.html#contact">お問い合わせ</a></p>
+    </footer>
 </body>
 </html>

@@ -5,17 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Projects完全ガイド - プロジェクト機能の使い方と活用法 | Uravation AI Media</title>
     <meta name="description" content="AnthropicのClaude Projectsの使い方を徹底解説。ファイルアップロード、カスタム指示、チーム共有など、業務効率化のためのベストプラクティスを紹介。">
-    <meta name="keywords" content="Claude Projects,Anthropic,Claude Pro,AI活用,業務効率化">
-    <link rel="canonical" href="https://uravation.com/articles/claude/claude-projects-guide.html">
+    <meta name="keywords" content="Claude Projects,Anthropic,Claude Pro,AI活用,業務効率化,プロジェクト管理">
+    <link rel="canonical" href="https://gonta223.github.io/uravation/articles/claude/claude-projects-guide.html">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Claude Projects完全ガイド - プロジェクト機能の使い方と活用法">
+    <meta property="og:description" content="Claude Projectsの使い方を徹底解説。ファイル管理、カスタム指示、チーム共有で業務効率化を実現。">
+    <meta property="og:url" content="https://gonta223.github.io/uravation/articles/claude/claude-projects-guide.html">
+    <meta property="og:site_name" content="Uravation AI Media">
+    <meta property="og:image" content="https://gonta223.github.io/uravation/images/ogp-claude-projects.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Claude Projects完全ガイド - プロジェクト機能の使い方と活用法">
+    <meta name="twitter:description" content="Claude Projectsの使い方を徹底解説。ファイル管理、カスタム指示、チーム共有のベストプラクティス。">
+
+    <!-- Article Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Claude Projects完全ガイド - プロジェクト機能の使い方と活用法",
+        "description": "AnthropicのClaude Projectsの使い方を徹底解説。ファイルアップロード、カスタム指示、チーム共有など、業務効率化のためのベストプラクティスを紹介。",
         "datePublished": "2024-11-22T09:00:00+09:00",
-        "author": {"@type": "Organization", "name": "Uravation編集部"}
+        "dateModified": "2024-11-25T10:00:00+09:00",
+        "author": {
+            "@type": "Organization",
+            "name": "Uravation編集部",
+            "url": "https://gonta223.github.io/uravation/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Uravation Inc.",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://gonta223.github.io/uravation/images/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://gonta223.github.io/uravation/articles/claude/claude-projects-guide.html"
+        }
     }
     </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://gonta223.github.io/uravation/"},
+            {"@type": "ListItem", "position": 2, "name": "メディア", "item": "https://gonta223.github.io/uravation/media.html"},
+            {"@type": "ListItem", "position": 3, "name": "Claude", "item": "https://gonta223.github.io/uravation/articles/claude/"},
+            {"@type": "ListItem", "position": 4, "name": "Claude Projects完全ガイド"}
+        ]
+    }
+    </script>
+
+    <!-- FAQPage Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -23,24 +72,41 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Claude Projectsとは？",
+                "name": "Claude Projectsとは何ですか？",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Claude Projectsは、Anthropicが提供するプロジェクト管理機能です。関連ファイルをまとめて管理し、カスタム指示を設定することで、一貫性のあるAI活用が可能になります。"
+                    "text": "Claude Projectsは、Anthropicが提供するプロジェクト管理機能です。関連するファイル（PDF、テキスト、コード等）をプロジェクト単位でまとめて管理し、カスタム指示（System Prompt）を設定することで、一貫性のあるAI応答を得ることができます。チームでのプロジェクト共有や会話履歴の検索機能も備えており、業務での継続的なAI活用に適しています。"
                 }
             },
             {
                 "@type": "Question",
-                "name": "Projectsはどのプランで使える？",
+                "name": "Claude Projectsはどのプランで使えますか？",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Claude Projects機能はClaude Pro（月額20ドル）およびTeamプランで利用可能です。無料プランでは利用できません。"
+                    "text": "Claude Projects機能は、Claude Pro（月額20ドル）およびClaude Teamプラン（1ユーザーあたり月額25ドル、最低5ユーザー）で利用可能です。無料プランでは利用できません。Teamプランではプロジェクトをチームメンバーと共有でき、組織的なAI活用が可能になります。企業向けにはClaude for Businessも提供されています。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Projectsにアップロードできるファイルの種類と容量は？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Claude Projectsでは、PDF、テキストファイル（.txt）、Microsoft Office文書（Word、Excel、PowerPoint）、ソースコード（Python、JavaScript等）、画像ファイル（JPG、PNG等）をアップロードできます。1プロジェクトあたりの総容量上限はProプランで500MB、Teamプランで1GBです。アップロードされたファイルはClaudeのコンテキストとして参照され、回答時に自動的に活用されます。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "カスタム指示（System Prompt）の効果的な設定方法は？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "効果的なカスタム指示の設定には、(1)役割の定義（例：あなたは法務専門家です）、(2)出力形式の指定（箇条書き、表形式など）、(3)トーン＆マナーの設定（丁寧語、専門用語の使用レベル）、(4)制約条件の明示（文字数制限、参照すべきファイル）が重要です。具体的で明確な指示ほど、一貫性のある高品質な出力が得られます。テンプレートとして保存し、類似プロジェクトで再利用することも効率的です。"
                 }
             }
         ]
     }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --primary: #d97706; --text: #333; --bg: #f5f5f5; --white: #fff; --border: #e0e0e0; }
@@ -49,22 +115,58 @@
         .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
         .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
         .logo span { color: #ff6600; }
+        .breadcrumb { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; font-size: 0.85rem; color: #666; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
         .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
-        article { background: var(--white); border-radius: 8px; overflow: hidden; }
+        article { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .article-header { padding: 2rem; border-bottom: 1px solid var(--border); }
         .category-tag { display: inline-block; background: var(--primary); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
-        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-title { font-family: 'Noto Serif JP', serif; font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; color: #666; flex-wrap: wrap; }
+        .toc { background: #fefce8; border: 1px solid #fef08a; border-radius: 8px; padding: 1.5rem; margin: 2rem; }
+        .toc h4 { margin-bottom: 1rem; color: var(--primary); }
+        .toc ul { list-style: none; }
+        .toc li { margin-bottom: 0.5rem; }
+        .toc a { color: var(--text); text-decoration: none; }
+        .toc a:hover { color: var(--primary); }
         .article-content { padding: 2rem; }
         .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: #b45309; }
         .article-content p { margin-bottom: 1.5rem; }
+        .article-content ul, .article-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
         .highlight-box { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 4px solid var(--primary); padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0; }
         .feature-card { background: var(--bg); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--primary); }
         .feature-card h4 { color: var(--primary); margin-bottom: 0.5rem; }
+        .step-list { counter-reset: step; list-style: none; padding-left: 0; }
+        .step-list li { counter-increment: step; position: relative; padding-left: 3rem; margin-bottom: 1.5rem; }
+        .step-list li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 2rem; height: 2rem; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .faq-section { margin: 2rem 0; }
         .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
         .faq-question { background: var(--bg); padding: 1rem; font-weight: 700; }
         .faq-answer { padding: 1rem; }
+        .author-box { display: flex; gap: 1rem; align-items: center; background: var(--bg); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; }
+        .author-avatar { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; }
+        .author-info h4 { margin-bottom: 0.25rem; }
+        .author-info p { font-size: 0.85rem; color: #666; margin: 0; }
+        .related-articles { background: var(--bg); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; }
+        .related-articles h4 { margin-bottom: 1rem; }
+        .related-list { list-style: none; }
+        .related-list li { margin-bottom: 0.75rem; }
+        .related-list a { color: var(--primary); text-decoration: none; }
+        .related-list a:hover { text-decoration: underline; }
+        .cta-box { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: var(--white); padding: 2rem; border-radius: 8px; margin: 2rem 0; text-align: center; }
+        .cta-box h4 { margin-bottom: 1rem; font-size: 1.25rem; }
+        .cta-box p { margin-bottom: 1.5rem; opacity: 0.9; }
+        .cta-button { display: inline-block; background: var(--primary); color: var(--white); padding: 0.75rem 2rem; border-radius: 5px; text-decoration: none; font-weight: 700; }
+        .cta-button:hover { background: #b45309; }
         .footer { background: #1a1a2e; color: var(--white); padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+            .article-meta { flex-direction: column; gap: 0.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -73,71 +175,205 @@
             <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
         </div>
     </header>
+
+    <nav class="breadcrumb">
+        <a href="/">ホーム</a> &rsaquo; <a href="/media.html">メディア</a> &rsaquo; <a href="/articles/claude/">Claude</a> &rsaquo; Claude Projects完全ガイド
+    </nav>
+
     <div class="container">
         <article>
             <header class="article-header">
                 <span class="category-tag">Claude</span>
                 <h1 class="article-title">Claude Projects完全ガイド - プロジェクト機能の使い方と活用法</h1>
+                <div class="article-meta">
+                    <span>公開: 2024年11月22日</span>
+                    <span>更新: 2024年11月25日</span>
+                    <span>著者: Uravation編集部</span>
+                    <span>読了時間: 約8分</span>
+                </div>
             </header>
+
+            <nav class="toc">
+                <h4>目次</h4>
+                <ul>
+                    <li><a href="#overview">1. Claude Projectsとは</a></li>
+                    <li><a href="#features">2. 主な機能と特徴</a></li>
+                    <li><a href="#setup">3. プロジェクトの作成方法</a></li>
+                    <li><a href="#custom-instructions">4. カスタム指示の設定</a></li>
+                    <li><a href="#use-cases">5. 活用シーン</a></li>
+                    <li><a href="#tips">6. 効果的な使い方のコツ</a></li>
+                    <li><a href="#faq">7. よくある質問</a></li>
+                </ul>
+            </nav>
+
             <div class="article-content">
                 <p>Claude Projectsは、AnthropicのClaude AIをより効果的に活用するためのプロジェクト管理機能です。ファイル管理、カスタム指示、チーム共有など、業務効率化に役立つ機能を詳しく解説します。</p>
 
                 <div class="highlight-box">
-                    <h4>📂 Claude Projectsの主な機能</h4>
+                    <h4>Claude Projectsの主な機能</h4>
                     <ul>
-                        <li>プロジェクト単位でのファイル管理</li>
+                        <li>プロジェクト単位でのファイル管理（PDF、テキスト、コード等）</li>
                         <li>カスタム指示（System Prompt）の設定</li>
                         <li>会話履歴の整理・検索</li>
                         <li>Teamプランでのプロジェクト共有</li>
                     </ul>
                 </div>
 
-                <h2>Projects機能の詳細</h2>
+                <h2 id="overview">Claude Projectsとは</h2>
+                <p>Claude Projectsは、関連するファイルと設定をプロジェクト単位でまとめて管理できる機能です。通常のClaude会話では、毎回ファイルをアップロードしたり、指示を繰り返す必要がありますが、Projectsを使えばこれらを一度設定するだけで、継続的に活用できます。</p>
+
+                <p>特に以下のようなユースケースで威力を発揮します：</p>
+                <ul>
+                    <li>継続的なドキュメント作成・編集プロジェクト</li>
+                    <li>特定のコードベースに関する質問応答</li>
+                    <li>ブランドガイドラインに沿ったコンテンツ生成</li>
+                    <li>チーム共通のナレッジベース活用</li>
+                </ul>
+
+                <h2 id="features">主な機能と特徴</h2>
 
                 <div class="feature-grid">
                     <div class="feature-card">
-                        <h4>📄 ファイルアップロード</h4>
-                        <p>PDF、テキスト、コードなど様々なファイルをプロジェクトに追加。Claudeが参照しながら回答します。</p>
+                        <h4>ファイルアップロード</h4>
+                        <p>PDF、テキスト、コードなど様々なファイルをプロジェクトに追加。Claudeが参照しながら回答します。最大500MB（Proプラン）まで対応。</p>
                     </div>
                     <div class="feature-card">
-                        <h4>⚙️ カスタム指示</h4>
-                        <p>プロジェクトごとに応答スタイルや制約を設定。一貫性のある出力を実現。</p>
+                        <h4>カスタム指示</h4>
+                        <p>プロジェクトごとに応答スタイルや制約を設定。System Promptとして毎回自動的に適用され、一貫性のある出力を実現。</p>
                     </div>
                     <div class="feature-card">
-                        <h4>🔍 会話検索</h4>
-                        <p>過去の会話を検索・参照。プロジェクト内で蓄積したナレッジを活用。</p>
+                        <h4>会話検索</h4>
+                        <p>過去の会話を検索・参照可能。プロジェクト内で蓄積したナレッジを活用し、以前のやり取りを踏まえた回答を得られます。</p>
                     </div>
                     <div class="feature-card">
-                        <h4>👥 チーム共有</h4>
-                        <p>Teamプランでプロジェクトをメンバーと共有。組織的なAI活用が可能に。</p>
+                        <h4>チーム共有</h4>
+                        <p>Teamプランでプロジェクトをメンバーと共有。組織的なAI活用が可能になり、ベストプラクティスをチーム全体で活用できます。</p>
                     </div>
                 </div>
 
-                <h2>活用シーン</h2>
+                <h2 id="setup">プロジェクトの作成方法</h2>
 
-                <p><strong>技術ドキュメント作成</strong>：APIドキュメントや設計書をアップロードし、一貫したスタイルでドキュメント作成を支援。</p>
+                <ol class="step-list">
+                    <li>
+                        <strong>Claude.aiにログイン</strong><br>
+                        Claude Pro または Teamプランのアカウントでログインします。
+                    </li>
+                    <li>
+                        <strong>「Projects」を選択</strong><br>
+                        左側のサイドバーから「Projects」をクリックし、「New Project」を選択します。
+                    </li>
+                    <li>
+                        <strong>プロジェクト名と説明を入力</strong><br>
+                        分かりやすいプロジェクト名（例：「契約書レビュー」「技術ブログ執筆」）を設定します。
+                    </li>
+                    <li>
+                        <strong>ファイルをアップロード</strong><br>
+                        関連するドキュメント、コード、参考資料をドラッグ＆ドロップでアップロードします。
+                    </li>
+                    <li>
+                        <strong>カスタム指示を設定</strong><br>
+                        プロジェクト固有の指示（役割、出力形式、制約等）を設定して完了です。
+                    </li>
+                </ol>
 
-                <p><strong>法務レビュー</strong>：契約書テンプレートと過去の判例をプロジェクトに追加し、契約書のレビューを効率化。</p>
+                <h2 id="custom-instructions">カスタム指示の設定</h2>
 
-                <p><strong>マーケティング</strong>：ブランドガイドラインと過去のコンテンツを参照させ、トーン＆マナーを統一した文章を作成。</p>
+                <p>効果的なカスタム指示を設定することで、Claudeの出力品質と一貫性が大幅に向上します。以下の要素を含めることをお勧めします：</p>
 
-                <h2>よくある質問</h2>
-                <div class="faq-item">
-                    <div class="faq-question">Q. Claude Projectsとは？</div>
-                    <div class="faq-answer">A. Anthropicが提供するプロジェクト管理機能です。関連ファイルをまとめて管理し、カスタム指示を設定することで、一貫性のあるAI活用が可能になります。</div>
+                <h3>1. 役割の定義</h3>
+                <p>Claudeにどのような専門家として振る舞ってほしいかを明示します。</p>
+                <p><em>例：「あなたは経験豊富な法務担当者として、契約書のレビューと修正提案を行ってください。」</em></p>
+
+                <h3>2. 出力形式の指定</h3>
+                <p>望ましい回答の形式を具体的に指定します。</p>
+                <p><em>例：「回答は以下の形式で構成してください：(1)要約、(2)詳細分析、(3)推奨アクション」</em></p>
+
+                <h3>3. トーン＆マナーの設定</h3>
+                <p>コミュニケーションスタイルを指定します。</p>
+                <p><em>例：「丁寧語を使用し、専門用語には必ず括弧書きで説明を加えてください。」</em></p>
+
+                <h3>4. 制約条件の明示</h3>
+                <p>守るべきルールや禁止事項を明確にします。</p>
+                <p><em>例：「推測で回答せず、アップロードされたドキュメントに基づいて回答してください。」</em></p>
+
+                <h2 id="use-cases">活用シーン</h2>
+
+                <h3>技術ドキュメント作成</h3>
+                <p>APIドキュメントや設計書をプロジェクトにアップロードし、一貫したスタイルでドキュメント作成を支援。既存ドキュメントの形式を学習させることで、新規ドキュメントも同じフォーマットで生成できます。</p>
+
+                <h3>法務レビュー</h3>
+                <p>契約書テンプレートと過去の判例・社内ガイドラインをプロジェクトに追加し、契約書のレビューを効率化。リスクポイントの抽出や修正案の提示を自動化できます。</p>
+
+                <h3>マーケティングコンテンツ</h3>
+                <p>ブランドガイドラインと過去のコンテンツを参照させ、トーン＆マナーを統一した文章を作成。SNS投稿、ブログ記事、メールマガジンなど、一貫したブランドボイスを維持できます。</p>
+
+                <h3>カスタマーサポート</h3>
+                <p>製品マニュアル、FAQデータベース、過去の対応履歴をプロジェクトに登録し、問い合わせへの回答案を生成。対応品質の均一化と効率化を実現します。</p>
+
+                <h2 id="tips">効果的な使い方のコツ</h2>
+
+                <div class="highlight-box">
+                    <h4>ベストプラクティス</h4>
+                    <ul>
+                        <li><strong>プロジェクトは目的別に分ける</strong> - 1プロジェクト1目的で管理</li>
+                        <li><strong>ファイルは最新版を維持</strong> - 古い情報は削除して混乱を防ぐ</li>
+                        <li><strong>カスタム指示は具体的に</strong> - 曖昧な指示より詳細な指示の方が効果的</li>
+                        <li><strong>定期的にレビュー</strong> - 出力品質を確認し、指示を改善する</li>
+                    </ul>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Q. Projectsはどのプランで使える？</div>
-                    <div class="faq-answer">A. Claude Pro（月額20ドル）およびTeamプランで利用可能です。無料プランでは利用できません。</div>
-                </div>
+
+                <section class="faq-section">
+                    <h2 id="faq">よくある質問</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">Q. Claude Projectsとは何ですか？</div>
+                        <div class="faq-answer">A. Claude Projectsは、Anthropicが提供するプロジェクト管理機能です。関連するファイル（PDF、テキスト、コード等）をプロジェクト単位でまとめて管理し、カスタム指示（System Prompt）を設定することで、一貫性のあるAI応答を得ることができます。チームでのプロジェクト共有や会話履歴の検索機能も備えており、業務での継続的なAI活用に適しています。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Q. Claude Projectsはどのプランで使えますか？</div>
+                        <div class="faq-answer">A. Claude Projects機能は、Claude Pro（月額20ドル）およびClaude Teamプラン（1ユーザーあたり月額25ドル、最低5ユーザー）で利用可能です。無料プランでは利用できません。Teamプランではプロジェクトをチームメンバーと共有でき、組織的なAI活用が可能になります。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Q. Projectsにアップロードできるファイルの種類と容量は？</div>
+                        <div class="faq-answer">A. PDF、テキストファイル（.txt）、Microsoft Office文書（Word、Excel、PowerPoint）、ソースコード（Python、JavaScript等）、画像ファイル（JPG、PNG等）をアップロードできます。1プロジェクトあたりの総容量上限はProプランで500MB、Teamプランで1GBです。アップロードされたファイルはClaudeのコンテキストとして参照され、回答時に自動的に活用されます。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Q. カスタム指示（System Prompt）の効果的な設定方法は？</div>
+                        <div class="faq-answer">A. 効果的なカスタム指示の設定には、(1)役割の定義（例：あなたは法務専門家です）、(2)出力形式の指定（箇条書き、表形式など）、(3)トーン＆マナーの設定（丁寧語、専門用語の使用レベル）、(4)制約条件の明示（文字数制限、参照すべきファイル）が重要です。具体的で明確な指示ほど、一貫性のある高品質な出力が得られます。</div>
+                    </div>
+                </section>
 
                 <h2>まとめ</h2>
-                <p>Claude Projectsを活用することで、Claudeをより業務に密着した形で利用できます。まずは1つのプロジェクトから始めて、徐々に活用範囲を広げていくことをお勧めします。</p>
+                <p>Claude Projectsを活用することで、Claudeをより業務に密着した形で利用できます。ファイル管理、カスタム指示、チーム共有の3つの機能を組み合わせることで、単発の質問応答から継続的なAI活用へとステップアップできます。まずは1つのプロジェクトから始めて、徐々に活用範囲を広げていくことをお勧めします。</p>
+
+                <div class="author-box">
+                    <div class="author-avatar">U</div>
+                    <div class="author-info">
+                        <h4>Uravation編集部</h4>
+                        <p>AI導入支援の専門家チーム。大手企業から中小企業まで、100社以上のAI活用プロジェクトを支援。最新のAI動向と実践的な導入ノウハウを発信しています。</p>
+                    </div>
+                </div>
+
+                <div class="related-articles">
+                    <h4>関連記事</h4>
+                    <ul class="related-list">
+                        <li><a href="/articles/claude/claude-35-sonnet-guide.html">Claude 3.5 Sonnet完全ガイド - 200Kコンテキストと高性能の秘密</a></li>
+                        <li><a href="/articles/claude/claude-vs-chatgpt-comparison.html">Claude vs ChatGPT徹底比較 - 2024年最新版</a></li>
+                        <li><a href="/articles/chatgpt/custom-gpts-business.html">カスタムGPTs活用ガイド - 業務効率化のためのGPT作成方法</a></li>
+                        <li><a href="/articles/chatgpt/prompt-engineering-basics.html">プロンプトエンジニアリング入門 - AI活用の基本テクニック</a></li>
+                    </ul>
+                </div>
+
+                <div class="cta-box">
+                    <h4>Claude活用でお困りではありませんか？</h4>
+                    <p>Uravationでは、Claude Projectsの活用方法から、企業全体のAI導入戦略まで、幅広くサポートしています。まずはお気軽にご相談ください。</p>
+                    <a href="/contact.html" class="cta-button">無料相談を予約する</a>
+                </div>
             </div>
         </article>
     </div>
+
     <footer class="footer">
-        <p>© 2024 Uravation Inc.</p>
+        <p>&copy; 2024 Uravation Inc. All rights reserved.</p>
     </footer>
 </body>
 </html>

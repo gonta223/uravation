@@ -4,16 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amazon Bedrock最新アップデート - マルチモーダル対応とエージェント機能強化 | Uravation AI Media</title>
-    <meta name="description" content="Amazon Bedrockの最新機能を解説。Claude 3.5対応、Agents機能の強化、Knowledge Bases改善など、企業AI開発に役立つアップデートを紹介。">
-    <meta name="keywords" content="Amazon Bedrock,AWS,生成AI,Claude,エンタープライズAI">
-    <link rel="canonical" href="https://uravation.com/articles/news/aws-bedrock-update.html">
+    <meta name="description" content="Amazon Bedrockの最新機能を徹底解説。Claude 3.5対応、Agents機能の強化、Knowledge Bases改善など、企業AI開発に役立つアップデートを紹介。">
+    <meta name="keywords" content="Amazon Bedrock,AWS,生成AI,Claude,エンタープライズAI,Agents,RAG">
+    <link rel="canonical" href="https://gonta223.github.io/uravation/articles/news/aws-bedrock-update.html">
+
+    <!-- OGP -->
+    <meta property="og:title" content="Amazon Bedrock最新アップデート - マルチモーダル対応とエージェント機能強化">
+    <meta property="og:description" content="Amazon Bedrockの最新機能を解説。Claude 3.5対応、Agents強化など。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gonta223.github.io/uravation/articles/news/aws-bedrock-update.html">
+    <meta property="og:site_name" content="Uravation AI Media">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2024-11-24T09:00:00+09:00">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Amazon Bedrock最新アップデート">
+    <meta name="twitter:description" content="Claude 3.5対応、Agents強化など企業向け機能を解説。">
+
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "NewsArticle",
-        "headline": "Amazon Bedrock最新アップデート",
+        "headline": "Amazon Bedrock最新アップデート - マルチモーダル対応とエージェント機能強化",
+        "description": "Amazon Bedrockの最新機能を解説。Claude 3.5対応、Agents機能の強化、Knowledge Bases改善など。",
         "datePublished": "2024-11-24T09:00:00+09:00",
-        "author": {"@type": "Organization", "name": "Uravation編集部"}
+        "dateModified": "2024-11-24T09:00:00+09:00",
+        "author": {"@type": "Organization", "name": "Uravation編集部", "url": "https://gonta223.github.io/uravation/"},
+        "publisher": {"@type": "Organization", "name": "Uravation", "logo": {"@type": "ImageObject", "url": "https://gonta223.github.io/uravation/logo.png"}},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://gonta223.github.io/uravation/articles/news/aws-bedrock-update.html"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://gonta223.github.io/uravation/"},
+            {"@type": "ListItem", "position": 2, "name": "メディア", "item": "https://gonta223.github.io/uravation/media.html"},
+            {"@type": "ListItem", "position": 3, "name": "ニュース", "item": "https://gonta223.github.io/uravation/articles/news/"},
+            {"@type": "ListItem", "position": 4, "name": "Amazon Bedrockアップデート"}
+        ]
     }
     </script>
     <script type="application/ld+json">
@@ -23,68 +55,148 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Amazon Bedrockとは？",
+                "name": "Amazon Bedrockとは何ですか？",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Amazon Bedrockは、AWSが提供するマネージド生成AIサービスです。Claude、Titan、Llama 2など複数のLLMをAPIで利用でき、企業向けのセキュリティ・コンプライアンス機能も備えています。"
+                    "text": "AWSが提供するマネージド生成AIサービスです。Claude、Titan、Llama 2など複数のLLMをAPIで利用でき、企業向けのセキュリティ・コンプライアンス機能も備えています。"
                 }
             },
             {
                 "@type": "Question",
-                "name": "Bedrock Agentsとは？",
+                "name": "Bedrock Agentsとは何ですか？",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Bedrock Agentsは、LLMに外部ツールやデータソースへのアクセス権限を与え、自律的にタスクを実行させる機能です。複雑なワークフローの自動化に活用できます。"
+                    "text": "LLMに外部ツールやデータソースへのアクセス権限を与え、自律的にタスクを実行させる機能です。複雑なワークフローの自動化に活用できます。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "利用可能なモデルは何ですか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Claude 3.5 Sonnet/3 Haiku/3 Opus、Amazon Titan、Meta Llama 2/3、Mistral AI、AI21 Labs Jurassic-2、Cohere、Stability AIなど多数のモデルが利用可能です。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "企業利用のメリットは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "既存のAWSインフラとシームレスに統合できる点が最大の強みです。VPC内でのプライベート接続、IAMによるアクセス制御、CloudWatchとの統合など、エンタープライズ向け機能が充実しています。"
                 }
             }
         ]
     }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
-        .header { background: #fff; border-bottom: 3px solid #ff9900; padding: 1rem 0; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
+        :root { --primary: #ff9900; --primary-dark: #e68a00; --text: #333; --text-light: #666; --bg: #f5f5f5; --white: #fff; --border: #e0e0e0; --accent: #0066cc; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+        .header { background: var(--white); border-bottom: 3px solid var(--primary); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); text-decoration: none; }
         .logo span { color: #ff6600; }
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
-        article { background: #fff; border-radius: 8px; overflow: hidden; }
-        .article-header { padding: 2rem; border-bottom: 1px solid #e0e0e0; }
-        .category-tag { display: inline-block; background: #ff9900; color: #fff; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
-        .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .nav a { margin-left: 2rem; color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .breadcrumb { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; font-size: 0.8rem; color: var(--text-light); }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: grid; grid-template-columns: 1fr 300px; gap: 2rem; }
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+        article { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .article-header { padding: 2rem; border-bottom: 1px solid var(--border); }
+        .category-tag { display: inline-block; background: var(--primary); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .article-title { font-family: 'Noto Serif JP', serif; font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--text-light); flex-wrap: wrap; }
         .article-content { padding: 2rem; }
-        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #ff9900; }
-        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; }
+        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--primary-dark); }
         .article-content p { margin-bottom: 1.5rem; }
-        .highlight-box { background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-left: 4px solid #ff9900; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
-        .feature-list { list-style: none; padding: 0; }
-        .feature-list li { padding: 1rem; margin: 0.5rem 0; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
-        .feature-list li::before { content: '✓'; color: #ff9900; font-weight: 700; }
-        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
-        .faq-question { background: #f5f5f5; padding: 1rem; font-weight: 700; }
-        .faq-answer { padding: 1rem; }
-        .footer { background: #1a1a2e; color: #fff; padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+        .article-content ul { margin: 1rem 0 1.5rem 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+        .toc { background: var(--bg); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+        .toc-title { font-weight: 700; margin-bottom: 1rem; }
+        .toc ul { list-style: none; margin: 0; padding: 0; }
+        .toc li { padding: 0.5rem 0; border-bottom: 1px dashed var(--border); }
+        .toc li:last-child { border-bottom: none; }
+        .toc a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .highlight-box { background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-left: 4px solid var(--primary); padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .highlight-box h4 { color: var(--primary-dark); margin-bottom: 0.75rem; }
+        .feature-list { list-style: none; padding: 0; margin: 2rem 0; }
+        .feature-list li { padding: 1rem; margin: 0.5rem 0; background: var(--bg); border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
+        .feature-list li::before { content: '✓'; color: var(--primary); font-weight: 700; font-size: 1.2rem; }
+        .faq-section { margin: 2rem 0; }
+        .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: var(--bg); padding: 1rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .faq-question::before { content: 'Q'; background: var(--accent); color: var(--white); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+        .faq-answer { padding: 1rem; display: flex; gap: 0.5rem; }
+        .faq-answer::before { content: 'A'; background: var(--primary); color: var(--white); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+        .author-box { display: flex; gap: 1rem; padding: 1.5rem; background: var(--bg); border-radius: 8px; margin: 2rem 0; }
+        .author-avatar { width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; flex-shrink: 0; }
+        .author-info h4 { font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .author-info p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+        .cta-box { background: linear-gradient(135deg, var(--accent), #004499); color: var(--white); padding: 2rem; border-radius: 8px; margin: 2rem 0; text-align: center; }
+        .cta-box h3 { margin-bottom: 1rem; }
+        .cta-box p { margin-bottom: 1.5rem; opacity: 0.9; }
+        .cta-button { display: inline-block; background: var(--white); color: var(--accent); padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 700; }
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        .sidebar-box { background: var(--white); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .sidebar-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); }
+        .related-list { list-style: none; }
+        .related-list li { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .related-list li:last-child { border-bottom: none; }
+        .related-list a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .related-list a:hover { color: var(--accent); }
+        .footer { background: #1a1a2e; color: var(--white); padding: 3rem 1rem; margin-top: 3rem; text-align: center; }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-inner">
             <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+            <nav class="nav">
+                <a href="/media.html">ホーム</a>
+                <a href="/articles/news/">ニュース</a>
+                <a href="/articles/case-studies/">導入事例</a>
+            </nav>
         </div>
     </header>
+
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="/">ホーム</a> › <a href="/media.html">メディア</a> › <a href="/articles/news/">ニュース</a> › Amazon Bedrockアップデート
+    </nav>
+
     <div class="container">
         <article>
             <header class="article-header">
                 <span class="category-tag">クラウド</span>
                 <h1 class="article-title">Amazon Bedrock最新アップデート - マルチモーダル対応とエージェント機能強化</h1>
+                <div class="article-meta">
+                    <span>📅 2024年11月24日</span>
+                    <span>✏️ Uravation編集部</span>
+                    <span>🕐 読了時間：5分</span>
+                </div>
             </header>
-            <div class="article-content">
-                <p>AWSの生成AIサービス「Amazon Bedrock」に、待望の新機能が追加されました。Claude 3.5 Sonnetへの対応、Agents機能の強化、Knowledge Basesの改善など、企業のAI開発を加速する機能を解説します。</p>
 
-                <div class="highlight-box">
-                    <h4>🆕 主なアップデート</h4>
+            <div class="article-content">
+                <p>AWSの生成AIサービス「<strong>Amazon Bedrock</strong>」に、待望の新機能が追加されました。Claude 3.5 Sonnetへの対応、Agents機能の強化、Knowledge Basesの改善など、企業のAI開発を加速する機能を解説します。</p>
+
+                <nav class="toc">
+                    <div class="toc-title">📑 目次</div>
                     <ul>
+                        <li><a href="#updates">主なアップデート</a></li>
+                        <li><a href="#models">利用可能なモデル</a></li>
+                        <li><a href="#agents">Agents機能の強化</a></li>
+                        <li><a href="#benefits">企業利用のメリット</a></li>
+                        <li><a href="#faq">よくある質問</a></li>
+                    </ul>
+                </nav>
+
+                <div class="highlight-box" id="updates">
+                    <h4>🆕 主なアップデート</h4>
+                    <ul style="margin:0; padding-left: 1.5rem;">
                         <li>Claude 3.5 Sonnet / Haiku 対応</li>
                         <li>Agents for Amazon Bedrock機能強化</li>
                         <li>Knowledge Bases性能改善</li>
@@ -92,7 +204,7 @@
                     </ul>
                 </div>
 
-                <h2>利用可能なモデル</h2>
+                <h2 id="models">利用可能なモデル</h2>
                 <ul class="feature-list">
                     <li>Anthropic Claude 3.5 Sonnet / 3 Haiku / 3 Opus</li>
                     <li>Amazon Titan Text / Embeddings / Image</li>
@@ -103,33 +215,99 @@
                     <li>Stability AI SDXL</li>
                 </ul>
 
-                <h2>Agents機能の強化</h2>
+                <h2 id="agents">Agents機能の強化</h2>
+
                 <h3>マルチエージェント対応</h3>
-                <p>複数のエージェントを組み合わせて、より複雑なワークフローを自動化できるようになりました。</p>
+                <p>複数のエージェントを組み合わせて、より複雑なワークフローを自動化できるようになりました。例えば、情報収集エージェントと分析エージェントを連携させ、レポート作成を自動化するといった使い方が可能です。</p>
 
                 <h3>コードインタープリター</h3>
-                <p>エージェントがPythonコードを実行し、データ分析や計算を行えるようになりました。</p>
+                <p>エージェントがPythonコードを実行し、データ分析や計算を行えるようになりました。CSVファイルの分析、グラフ生成、統計処理などをAIエージェントに任せることができます。</p>
 
-                <h2>企業利用のメリット</h2>
-                <p>Amazon Bedrockは、既存のAWSインフラとシームレスに統合できる点が最大の強みです。VPC内でのプライベート接続、IAMによるきめ細かなアクセス制御、CloudWatchとの統合など、エンタープライズ向け機能が充実しています。</p>
+                <h3>Knowledge Bases統合</h3>
+                <p>社内ドキュメントや外部データソースと連携するKnowledge Basesとの統合が強化され、RAG（検索拡張生成）の精度が向上しました。</p>
 
-                <h2>よくある質問</h2>
-                <div class="faq-item">
-                    <div class="faq-question">Q. Amazon Bedrockとは？</div>
-                    <div class="faq-answer">A. AWSが提供するマネージド生成AIサービスです。Claude、Titan、Llama 2など複数のLLMをAPIで利用でき、企業向けのセキュリティ・コンプライアンス機能も備えています。</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Q. Bedrock Agentsとは？</div>
-                    <div class="faq-answer">A. LLMに外部ツールやデータソースへのアクセス権限を与え、自律的にタスクを実行させる機能です。複雑なワークフローの自動化に活用できます。</div>
-                </div>
+                <h2 id="benefits">企業利用のメリット</h2>
+                <p>Amazon Bedrockは、既存のAWSインフラとシームレスに統合できる点が最大の強みです。</p>
+                <ul>
+                    <li><strong>セキュリティ</strong>：VPC内でのプライベート接続、PrivateLink対応</li>
+                    <li><strong>アクセス制御</strong>：IAMによるきめ細かな権限管理</li>
+                    <li><strong>監視</strong>：CloudWatchとの統合でログ・メトリクス管理</li>
+                    <li><strong>コスト管理</strong>：使用量に応じた従量課金</li>
+                    <li><strong>リージョン</strong>：東京リージョンで利用可能</li>
+                </ul>
+
+                <section class="faq-section" id="faq">
+                    <h2>よくある質問（FAQ）</h2>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Amazon Bedrockとは？</div>
+                        <div class="faq-answer">
+                            <p>AWSが提供するマネージド生成AIサービスです。Claude、Titan、Llama 2など複数のLLMをAPIで利用でき、企業向けセキュリティ・コンプライアンス機能も備えています。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Bedrock Agentsとは？</div>
+                        <div class="faq-answer">
+                            <p>LLMに外部ツールやデータソースへのアクセス権限を与え、自律的にタスクを実行させる機能です。複雑なワークフローの自動化に活用できます。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">どのモデルが利用可能ですか？</div>
+                        <div class="faq-answer">
+                            <p>Claude 3.5 Sonnet、Amazon Titan、Meta Llama 3、Mistral AI、Cohere、Stability AIなど多数のモデルが利用可能です。用途に応じて選択できます。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">企業利用のメリットは？</div>
+                        <div class="faq-answer">
+                            <p>既存AWSインフラとの統合、VPCプライベート接続、IAMアクセス制御、CloudWatch監視など、エンタープライズ向け機能が充実しています。</p>
+                        </div>
+                    </div>
+                </section>
 
                 <h2>まとめ</h2>
                 <p>Amazon Bedrockは、AWSユーザーにとって最もスムーズに生成AIを導入できる選択肢です。既存のクラウドインフラを活かしながら、高度なAI機能を活用したい企業におすすめです。</p>
+
+                <div class="author-box">
+                    <div class="author-avatar">U</div>
+                    <div class="author-info">
+                        <h4>Uravation編集部</h4>
+                        <p>AI・DX領域の最新情報をわかりやすくお届けします。企業のAI活用支援を専門とするUravationが運営。</p>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <h3>クラウドAI導入のご相談</h3>
+                    <p>Amazon BedrockをはじめとするクラウドAIの導入支援を行っています。</p>
+                    <a href="/contact.html" class="cta-button">無料相談する →</a>
+                </div>
             </div>
         </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-box">
+                <h3 class="sidebar-title">関連記事</h3>
+                <ul class="related-list">
+                    <li><a href="/articles/news/azure-openai-enterprise.html">Azure OpenAI Service完全ガイド</a></li>
+                    <li><a href="/articles/claude/claude-35-sonnet-guide.html">Claude 3.5 Sonnet完全ガイド</a></li>
+                    <li><a href="/articles/rag/rag-implementation-guide.html">RAG実装完全ガイド</a></li>
+                    <li><a href="/articles/news/nvidia-blackwell-impact.html">NVIDIA Blackwell GPUが変えるAI開発</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-box" style="background: linear-gradient(135deg, var(--accent), #004499); color: var(--white);">
+                <h3 class="sidebar-title" style="border-color: rgba(255,255,255,0.3); color: var(--white);">AI研修のご相談</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem;">クラウドAI活用の企業研修を提供しています。</p>
+                <a href="/contact.html" style="display: block; background: var(--white); color: var(--accent); text-align: center; padding: 0.75rem; border-radius: 4px; text-decoration: none; font-weight: 700;">無料相談 →</a>
+            </div>
+        </aside>
     </div>
+
     <footer class="footer">
-        <p>© 2024 Uravation Inc.</p>
+        <p>© 2024 Uravation Inc. All rights reserved.</p>
     </footer>
 </body>
 </html>

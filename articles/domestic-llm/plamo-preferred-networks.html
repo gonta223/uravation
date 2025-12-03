@@ -4,18 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLaMo（プラモ）完全ガイド - Preferred Networksの国産LLM | Uravation AI Media</title>
-    <meta name="description" content="Preferred Networksが開発する国産LLM「PLaMo」を解説。技術特徴、ベンチマーク性能、商用利用の可能性について詳しく紹介。">
-    <meta name="keywords" content="PLaMo,Preferred Networks,PFN,国産LLM,日本語AI">
-    <link rel="canonical" href="https://uravation.com/articles/domestic-llm/plamo-preferred-networks.html">
+    <meta name="description" content="Preferred Networks（PFN）が開発する国産LLM「PLaMo」を徹底解説。オープンソースで商用利用可能な特徴、ベンチマーク性能、導入方法を紹介。">
+    <meta name="keywords" content="PLaMo,Preferred Networks,PFN,国産LLM,日本語AI,オープンソース,Apache 2.0">
+    <link rel="canonical" href="https://gonta223.github.io/uravation/articles/domestic-llm/plamo-preferred-networks.html">
+
+    <!-- OGP -->
+    <meta property="og:title" content="PLaMo（プラモ）完全ガイド - Preferred Networksの国産LLM">
+    <meta property="og:description" content="PFNが開発する国産LLM「PLaMo」を徹底解説。オープンソースで商用利用可能な国産AIモデル。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gonta223.github.io/uravation/articles/domestic-llm/plamo-preferred-networks.html">
+    <meta property="og:site_name" content="Uravation AI Media">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2024-11-20T09:00:00+09:00">
+    <meta property="article:modified_time" content="2024-12-01T09:00:00+09:00">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PLaMo（プラモ）完全ガイド - Preferred Networksの国産LLM">
+    <meta name="twitter:description" content="PFNが開発する国産LLM「PLaMo」を徹底解説。オープンソースで商用利用可能。">
+
+    <!-- 構造化データ: Article -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "PLaMo完全ガイド - Preferred Networksの国産LLM",
+        "headline": "PLaMo（プラモ）完全ガイド - Preferred Networksの国産LLM",
+        "description": "Preferred Networksが開発する国産LLM「PLaMo」を解説。技術特徴、ベンチマーク性能、商用利用の可能性について紹介。",
         "datePublished": "2024-11-20T09:00:00+09:00",
-        "author": {"@type": "Organization", "name": "Uravation編集部"}
+        "dateModified": "2024-12-01T09:00:00+09:00",
+        "author": {
+            "@type": "Organization",
+            "name": "Uravation編集部",
+            "url": "https://gonta223.github.io/uravation/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Uravation Inc.",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://gonta223.github.io/uravation/images/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://gonta223.github.io/uravation/articles/domestic-llm/plamo-preferred-networks.html"
+        }
     }
     </script>
+
+    <!-- 構造化データ: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://gonta223.github.io/uravation/"},
+            {"@type": "ListItem", "position": 2, "name": "AIメディア", "item": "https://gonta223.github.io/uravation/media.html"},
+            {"@type": "ListItem", "position": 3, "name": "国産LLM", "item": "https://gonta223.github.io/uravation/articles/domestic-llm/"},
+            {"@type": "ListItem", "position": 4, "name": "PLaMo完全ガイド"}
+        ]
+    }
+    </script>
+
+    <!-- 構造化データ: FAQPage -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -23,131 +74,363 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "PLaMoとは？",
+                "name": "PLaMoとは何ですか？",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "PLaMo（Preferred Language Model）は、Preferred Networksが開発する国産大規模言語モデルです。日本語性能に優れ、商用利用可能なライセンスで提供されています。"
+                    "text": "PLaMo（Preferred Language Model）は、日本を代表するAI企業Preferred Networks（PFN）が開発する国産大規模言語モデルです。日本語性能に優れ、Apache 2.0ライセンスで商用利用可能なオープンソースとして公開されています。"
                 }
             },
             {
                 "@type": "Question",
-                "name": "PLaMoは無料で使える？",
+                "name": "PLaMoは無料で使えますか？",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "PLaMoは商用利用可能なオープンソースとして公開されており、無料で利用できます。Hugging Faceからダウンロード可能です。"
+                    "text": "はい、PLaMoは商用利用可能なオープンソースとして無料で公開されています。Hugging Faceからダウンロードでき、自社サーバーで運用可能です。APIコストが不要でコスト削減につながります。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "PLaMoとtsuzumiの違いは何ですか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "PLaMoはオープンソース（Apache 2.0）で無料利用可能、自社でのカスタマイズが容易です。tsuzumiはNTTグループによるサポート体制が充実しており、エンタープライズ向けの導入支援があります。技術力がある企業はPLaMo、サポート重視ならtsuzumiが向いています。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Preferred Networks（PFN）とはどんな会社ですか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Preferred Networks（PFN）は2014年設立の日本のAI企業で、トヨタ自動車、ファナック、NTTなどと協業実績があります。深層学習フレームワーク「Chainer」の開発元としても知られ、産業用AIで高い技術力を持つ企業です。"
                 }
             }
         ]
     }
     </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
-        .header { background: #fff; border-bottom: 3px solid #00a4e4; padding: 1rem 0; }
-        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        :root { --primary: #00a4e4; --primary-light: #e0f7ff; --primary-gradient: linear-gradient(135deg, #e0f7ff 0%, #b3ecff 100%); --text: #333; --bg: #f5f5f5; --white: #fff; --border: #e0e0e0; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+
+        .header { background: var(--white); border-bottom: 3px solid var(--primary); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; text-decoration: none; }
         .logo span { color: #ff6600; }
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
-        article { background: #fff; border-radius: 8px; overflow: hidden; }
-        .article-header { padding: 2rem; border-bottom: 1px solid #e0e0e0; }
-        .category-tag { display: inline-block; background: #00a4e4; color: #fff; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
+        .header-nav { display: flex; gap: 1.5rem; }
+        .header-nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+
+        .breadcrumb { max-width: 1200px; margin: 1rem auto; padding: 0 1rem; font-size: 0.8rem; color: #666; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: grid; grid-template-columns: 1fr 300px; gap: 2rem; }
+
+        article { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .article-header { padding: 2rem; border-bottom: 1px solid var(--border); }
+        .category-tag { display: inline-block; background: var(--primary); color: var(--white); padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.75rem; margin-bottom: 1rem; }
         .article-title { font-size: 1.75rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; color: #666; flex-wrap: wrap; }
+
+        .toc { background: var(--bg); border-radius: 8px; padding: 1.5rem; margin: 2rem; }
+        .toc h4 { margin-bottom: 1rem; font-size: 1rem; }
+        .toc ul { list-style: none; }
+        .toc li { margin-bottom: 0.5rem; }
+        .toc a { color: var(--primary); text-decoration: none; font-size: 0.9rem; }
+        .toc a:hover { text-decoration: underline; }
+
         .article-content { padding: 2rem; }
-        .article-content h2 { font-size: 1.35rem; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #00a4e4; }
+        .article-content h2 { font-size: 1.35rem; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .article-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: #0088cc; }
         .article-content p { margin-bottom: 1.5rem; }
-        .highlight-box { background: linear-gradient(135deg, #e0f7ff 0%, #b3ecff 100%); border-left: 4px solid #00a4e4; padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .article-content ul, .article-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+
+        .highlight-box { background: var(--primary-gradient); border-left: 4px solid var(--primary); padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .highlight-box h4 { margin-bottom: 0.75rem; color: #0088cc; }
+
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
+        .stat-card { background: var(--primary-gradient); padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: #666; }
+
         .spec-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
-        .spec-table th, .spec-table td { padding: 1rem; border: 1px solid #e0e0e0; text-align: left; }
-        .spec-table th { background: #00a4e4; color: #fff; }
-        .faq-item { border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
-        .faq-question { background: #f5f5f5; padding: 1rem; font-weight: 700; }
+        .spec-table th, .spec-table td { padding: 0.75rem; border: 1px solid var(--border); text-align: left; }
+        .spec-table th { background: var(--primary); color: var(--white); }
+        .spec-table tr:nth-child(even) { background: var(--bg); }
+
+        .merit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+        .merit-card { background: var(--bg); padding: 1.5rem; border-radius: 8px; border-top: 4px solid var(--primary); }
+        .merit-card h4 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1rem; }
+
+        .faq-section { margin: 2rem 0; }
+        .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        .faq-question { background: var(--bg); padding: 1rem; font-weight: 700; }
         .faq-answer { padding: 1rem; }
-        .footer { background: #1a1a2e; color: #fff; padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+
+        .author-box { background: var(--bg); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; display: flex; gap: 1rem; align-items: center; }
+        .author-icon { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem; }
+        .author-info h4 { margin-bottom: 0.25rem; }
+        .author-info p { font-size: 0.85rem; color: #666; margin: 0; }
+
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        .sidebar-section { background: var(--white); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .sidebar-section h4 { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        .related-list { list-style: none; }
+        .related-list li { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .related-list li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .related-list a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .related-list a:hover { color: var(--primary); }
+
+        .cta-box { background: var(--primary-gradient); border-radius: 8px; padding: 1.5rem; text-align: center; }
+        .cta-box h4 { margin-bottom: 0.5rem; color: #0088cc; }
+        .cta-box p { font-size: 0.9rem; margin-bottom: 1rem; }
+        .cta-button { display: inline-block; background: var(--primary); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; font-weight: 700; }
+
+        .footer { background: #1a1a2e; color: var(--white); padding: 2rem 1rem; margin-top: 3rem; text-align: center; }
+        .footer a { color: #a0a0a0; text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .header-nav { display: none; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .merit-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-inner">
-            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+            <a href="/uravation/media.html" class="logo">Uravation <span>AI+</span></a>
+            <nav class="header-nav">
+                <a href="/uravation/media.html">メディア</a>
+                <a href="/uravation/index.html#services">サービス</a>
+                <a href="/uravation/index.html#contact">お問い合わせ</a>
+            </nav>
         </div>
     </header>
+
+    <nav class="breadcrumb">
+        <a href="/uravation/">ホーム</a> ›
+        <a href="/uravation/media.html">AIメディア</a> ›
+        <a href="/uravation/media.html#domestic-llm">国産LLM</a> ›
+        PLaMo完全ガイド
+    </nav>
+
     <div class="container">
-        <article>
-            <header class="article-header">
-                <span class="category-tag">国産LLM</span>
-                <h1 class="article-title">PLaMo（プラモ）完全ガイド - Preferred Networksの国産LLM</h1>
-            </header>
-            <div class="article-content">
-                <p>PLaMo（Preferred Language Model）は、日本を代表するAI企業Preferred Networks（PFN）が開発する国産大規模言語モデルです。オープンソースで商用利用可能な点が特徴です。</p>
+        <main>
+            <article>
+                <header class="article-header">
+                    <span class="category-tag">国産LLM</span>
+                    <h1 class="article-title">PLaMo（プラモ）完全ガイド - Preferred Networksの国産LLM</h1>
+                    <div class="article-meta">
+                        <span>📅 2024年11月20日</span>
+                        <span>🔄 2024年12月1日更新</span>
+                        <span>✏️ Uravation編集部</span>
+                    </div>
+                </header>
 
-                <div class="highlight-box">
-                    <h4>🔧 PLaMoの特徴</h4>
+                <nav class="toc">
+                    <h4>📑 目次</h4>
                     <ul>
-                        <li>日本語処理に最適化された設計</li>
-                        <li>商用利用可能なApache 2.0ライセンス</li>
-                        <li>13B、70Bなど複数サイズを提供</li>
-                        <li>Hugging Faceで無料公開</li>
+                        <li><a href="#overview">PLaMoとは</a></li>
+                        <li><a href="#pfn">Preferred Networksについて</a></li>
+                        <li><a href="#spec">モデルスペック</a></li>
+                        <li><a href="#merit">商用利用のメリット</a></li>
+                        <li><a href="#usage">導入・利用方法</a></li>
+                        <li><a href="#faq">よくある質問</a></li>
                     </ul>
+                </nav>
+
+                <div class="article-content">
+                    <section id="overview">
+                        <p><strong>PLaMo（Preferred Language Model）</strong>は、日本を代表するAI企業Preferred Networks（PFN）が開発する国産大規模言語モデルです。オープンソースで商用利用可能な点が特徴で、企業のAI導入を加速させる選択肢として注目されています。</p>
+
+                        <div class="stat-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">13B+</div>
+                                <div class="stat-label">パラメータ数</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">無料</div>
+                                <div class="stat-label">利用料金</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">Apache 2.0</div>
+                                <div class="stat-label">ライセンス</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">商用OK</div>
+                                <div class="stat-label">利用範囲</div>
+                            </div>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h4>🔧 PLaMoの特徴</h4>
+                            <ul>
+                                <li>日本語処理に最適化された設計</li>
+                                <li>商用利用可能なApache 2.0ライセンス</li>
+                                <li>13B、70Bなど複数サイズを提供</li>
+                                <li>Hugging Faceで無料公開</li>
+                                <li>自社サーバーでの運用が可能</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="pfn">
+                        <h2>Preferred Networks（PFN）について</h2>
+                        <p>Preferred Networksは2014年設立の日本のAI企業で、<strong>トヨタ自動車、ファナック、NTT</strong>などと協業し、産業用AIで実績を持っています。深層学習フレームワーク<strong>「Chainer」</strong>の開発元としても知られ、高い技術力を持つ企業です。</p>
+
+                        <h3>PFNの強み</h3>
+                        <ul>
+                            <li><strong>産業用AI</strong>：製造業・ロボティクス分野での豊富な実績</li>
+                            <li><strong>技術力</strong>：Chainer開発で培った深層学習の知見</li>
+                            <li><strong>大企業との協業</strong>：トヨタ、ファナック、NTTなど</li>
+                            <li><strong>研究開発</strong>：国際学会での論文発表多数</li>
+                        </ul>
+                    </section>
+
+                    <section id="spec">
+                        <h2>モデルスペック</h2>
+
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>PLaMo-13B</th>
+                                    <th>PLaMo-70B</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>パラメータ数</td>
+                                    <td>130億</td>
+                                    <td>700億</td>
+                                </tr>
+                                <tr>
+                                    <td>コンテキスト長</td>
+                                    <td>4,096トークン</td>
+                                    <td>8,192トークン</td>
+                                </tr>
+                                <tr>
+                                    <td>学習データ</td>
+                                    <td colspan="2">日本語・英語コーパス</td>
+                                </tr>
+                                <tr>
+                                    <td>ライセンス</td>
+                                    <td colspan="2">Apache 2.0（商用利用可）</td>
+                                </tr>
+                                <tr>
+                                    <td>公開先</td>
+                                    <td colspan="2">Hugging Face</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="merit">
+                        <h2>商用利用のメリット</h2>
+                        <p>PLaMoは商用利用可能なオープンソースとして公開されているため、以下のメリットがあります：</p>
+
+                        <div class="merit-grid">
+                            <div class="merit-card">
+                                <h4>💰 コスト削減</h4>
+                                <p>APIコストなしで自社サーバーで運用可能。大量利用時のコストを大幅に削減できます。</p>
+                            </div>
+                            <div class="merit-card">
+                                <h4>🔧 カスタマイズ</h4>
+                                <p>ファインチューニングで業務特化が可能。自社データで学習させることで精度向上。</p>
+                            </div>
+                            <div class="merit-card">
+                                <h4>🔒 データセキュリティ</h4>
+                                <p>オンプレミス運用でデータ外部送信なし。機密情報を扱う業務でも安心して利用可能。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="usage">
+                        <h2>導入・利用方法</h2>
+
+                        <h3>1. Hugging Faceからダウンロード</h3>
+                        <p>PLaMoはHugging Faceで公開されており、アカウント登録後にダウンロード可能です。必要なGPUリソースを確認の上、環境を準備してください。</p>
+
+                        <h3>2. 環境構築</h3>
+                        <p>PyTorchなどの深層学習フレームワーク環境を構築します。13Bモデルの場合、推論には16GB以上のVRAMを持つGPUが推奨されます。</p>
+
+                        <h3>3. ファインチューニング（任意）</h3>
+                        <p>自社データでファインチューニングすることで、特定業務に特化したモデルにカスタマイズできます。</p>
+                    </section>
+
+                    <section id="faq">
+                        <h2>よくある質問</h2>
+
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <div class="faq-question">Q. PLaMoとは何ですか？</div>
+                                <div class="faq-answer">A. PLaMo（Preferred Language Model）は、日本を代表するAI企業Preferred Networks（PFN）が開発する国産大規模言語モデルです。日本語性能に優れ、Apache 2.0ライセンスで商用利用可能なオープンソースとして公開されています。</div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">Q. PLaMoは無料で使えますか？</div>
+                                <div class="faq-answer">A. はい、PLaMoは商用利用可能なオープンソースとして無料で公開されています。Hugging Faceからダウンロードでき、自社サーバーで運用可能です。APIコストが不要でコスト削減につながります。</div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">Q. PLaMoとtsuzumiの違いは何ですか？</div>
+                                <div class="faq-answer">A. PLaMoはオープンソース（Apache 2.0）で無料利用可能、自社でのカスタマイズが容易です。tsuzumiはNTTグループによるサポート体制が充実しており、エンタープライズ向けの導入支援があります。技術力がある企業はPLaMo、サポート重視ならtsuzumiが向いています。</div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">Q. Preferred Networks（PFN）とはどんな会社ですか？</div>
+                                <div class="faq-answer">A. Preferred Networks（PFN）は2014年設立の日本のAI企業で、トヨタ自動車、ファナック、NTTなどと協業実績があります。深層学習フレームワーク「Chainer」の開発元としても知られ、産業用AIで高い技術力を持つ企業です。</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <h2>まとめ</h2>
+                    <p>PLaMoは、国産LLMの中でも商用利用しやすい選択肢の一つです。オープンソースで無料利用可能、自社でのカスタマイズが容易という特徴から、技術力を持つ企業のオンプレミスLLM運用に適しています。コスト削減とデータセキュリティを両立したい企業には、有力な候補となるでしょう。</p>
+
+                    <div class="author-box">
+                        <div class="author-icon">U</div>
+                        <div class="author-info">
+                            <h4>Uravation編集部</h4>
+                            <p>AI活用の最新トレンドから実践的なノウハウまで、ビジネスに役立つ情報をお届けします。</p>
+                        </div>
+                    </div>
                 </div>
+            </article>
+        </main>
 
-                <h2>モデルスペック</h2>
-
-                <table class="spec-table">
-                    <thead>
-                        <tr>
-                            <th>項目</th>
-                            <th>PLaMo-13B</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>パラメータ数</td>
-                            <td>130億</td>
-                        </tr>
-                        <tr>
-                            <td>コンテキスト長</td>
-                            <td>4,096トークン</td>
-                        </tr>
-                        <tr>
-                            <td>学習データ</td>
-                            <td>日本語・英語コーパス</td>
-                        </tr>
-                        <tr>
-                            <td>ライセンス</td>
-                            <td>Apache 2.0</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h2>PFNの強み</h2>
-                <p>Preferred Networksは、トヨタ自動車、ファナックなどと協業し、産業用AIで実績を持つ企業です。深層学習フレームワーク「Chainer」の開発元としても知られ、高い技術力を持っています。</p>
-
-                <h2>商用利用のメリット</h2>
-                <p>PLaMoは商用利用可能なオープンソースとして公開されているため、以下のメリットがあります：</p>
-                <ul>
-                    <li><strong>コスト削減</strong>：APIコストなしで自社サーバーで運用可能</li>
-                    <li><strong>カスタマイズ</strong>：ファインチューニングで業務特化が可能</li>
-                    <li><strong>データセキュリティ</strong>：オンプレミス運用でデータ外部送信なし</li>
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h4>📌 関連記事</h4>
+                <ul class="related-list">
+                    <li><a href="/uravation/articles/domestic-llm/tsuzumi-ntt-guide.html">NTT「tsuzumi」完全ガイド</a></li>
+                    <li><a href="/uravation/articles/rag/rag-implementation-guide.html">RAG実装ガイド</a></li>
+                    <li><a href="/uravation/articles/security/ai-data-governance.html">生成AI時代のデータガバナンス</a></li>
+                    <li><a href="/uravation/articles/chatgpt/chatgpt-enterprise-guide.html">ChatGPT Enterprise導入ガイド</a></li>
                 </ul>
-
-                <h2>よくある質問</h2>
-                <div class="faq-item">
-                    <div class="faq-question">Q. PLaMoとは？</div>
-                    <div class="faq-answer">A. Preferred Networks が開発する国産大規模言語モデルです。日本語性能に優れ、商用利用可能なライセンスで提供されています。</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Q. PLaMoは無料で使える？</div>
-                    <div class="faq-answer">A. 商用利用可能なオープンソースとして公開されており、無料で利用できます。Hugging Faceからダウンロード可能です。</div>
-                </div>
-
-                <h2>まとめ</h2>
-                <p>PLaMoは、国産LLMの中でも商用利用しやすい選択肢の一つです。オンプレミス環境でのLLM運用を検討している企業には、有力な候補となるでしょう。</p>
             </div>
-        </article>
+
+            <div class="sidebar-section cta-box">
+                <h4>🎯 AI研修のご案内</h4>
+                <p>国産LLMを含むAIツールの実践的な活用方法を学べる研修プログラムをご用意しています。</p>
+                <a href="/uravation/index.html#contact" class="cta-button">お問い合わせ</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>🏷️ カテゴリー</h4>
+                <ul class="related-list">
+                    <li><a href="/uravation/media.html#case-studies">導入事例</a></li>
+                    <li><a href="/uravation/media.html#chatgpt">ChatGPT</a></li>
+                    <li><a href="/uravation/media.html#claude">Claude</a></li>
+                    <li><a href="/uravation/media.html#domestic-llm">国産LLM</a></li>
+                    <li><a href="/uravation/media.html#rag">RAG</a></li>
+                </ul>
+            </div>
+        </aside>
     </div>
+
     <footer class="footer">
-        <p>© 2024 Uravation Inc.</p>
+        <p>© 2024 Uravation Inc. | <a href="/uravation/index.html">会社概要</a> | <a href="/uravation/index.html#contact">お問い合わせ</a></p>
     </footer>
 </body>
 </html>

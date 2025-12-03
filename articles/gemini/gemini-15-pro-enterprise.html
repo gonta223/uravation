@@ -4,34 +4,587 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gemini 1.5 Pro完全ガイド - 100万トークンコンテキストの活用法 | Uravation AI Media</title>
-    <meta name="description" content="GoogleのGemini 1.5 Proを徹底解説。100万トークンの超大規模コンテキスト、マルチモーダル機能、Google Workspaceとの連携メリットを紹介。">
-    <meta name="keywords" content="Gemini,Google,Gemini 1.5 Pro,マルチモーダル,Google Workspace,企業AI">
-    <link rel="canonical" href="https://uravation.com/articles/gemini/gemini-15-pro-enterprise.html">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Gemini 1.5 Pro完全ガイド","description":"GoogleのGemini 1.5 Proを徹底解説。","datePublished":"2024-11-14T09:00:00+09:00","author":{"@type":"Organization","name":"Uravation編集部"},"publisher":{"@type":"Organization","name":"Uravation"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gemini 1.5 Proの特徴は？","acceptedAnswer":{"@type":"Answer","text":"最大100万トークンのコンテキストウィンドウ、ネイティブのマルチモーダル処理、Google Workspaceとの統合が主な特徴です。"}},{"@type":"Question","name":"GPT-4oとの違いは？","acceptedAnswer":{"@type":"Answer","text":"Geminiはコンテキスト長で優位（100万vs128K）、Google製品との統合力が強み。一方GPT-4oは汎用性とエコシステムの成熟度で優位です。"}}]}</script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#4285f4;--text:#333;--bg:#f5f5f5;--white:#fff;--border:#e0e0e0}body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}.header{background:var(--white);border-bottom:3px solid var(--primary);padding:1rem 0}.header-inner{max-width:1200px;margin:0 auto;padding:0 1rem}.logo{font-size:1.5rem;font-weight:700;color:#0066cc;text-decoration:none}.logo span{color:#ff6600}.breadcrumb{max-width:1200px;margin:1rem auto;padding:0 1rem;font-size:.8rem;color:#666}.breadcrumb a{color:var(--primary);text-decoration:none}.container{max-width:900px;margin:0 auto;padding:2rem 1rem}article{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}.article-header{padding:2rem;border-bottom:1px solid var(--border)}.category-tag{display:inline-block;background:var(--primary);color:var(--white);padding:.25rem .75rem;border-radius:3px;font-size:.75rem;margin-bottom:1rem}.article-title{font-size:1.75rem;line-height:1.4;margin-bottom:1rem}.article-meta{display:flex;gap:1.5rem;font-size:.85rem;color:#666}.article-content{padding:2rem}.article-content h2{font-size:1.35rem;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--primary)}.article-content h3{font-size:1.15rem;margin:1.5rem 0 .75rem;color:#1a73e8}.article-content p{margin-bottom:1.5rem}.highlight-box{background:linear-gradient(135deg,#e8f0fe 0%,#d2e3fc 100%);border-left:4px solid var(--primary);padding:1.5rem;margin:2rem 0;border-radius:0 8px 8px 0}.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}.stat-card{background:var(--primary);color:var(--white);padding:1.5rem;border-radius:8px;text-align:center}.stat-number{font-size:2rem;font-weight:700}.stat-label{font-size:.85rem;opacity:.9}.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:1rem;overflow:hidden}.faq-question{background:var(--bg);padding:1rem;font-weight:700}.faq-answer{padding:1rem}.footer{background:#1a1a2e;color:var(--white);padding:2rem 1rem;margin-top:3rem;text-align:center}@media(max-width:600px){.stat-grid{grid-template-columns:1fr}}</style>
+    <meta name="description" content="GoogleのGemini 1.5 Proを徹底解説。100万トークンの超大規模コンテキスト、マルチモーダル機能、Google Workspaceとの連携メリット、GPT-4o/Claudeとの比較を紹介。">
+    <meta name="keywords" content="Gemini,Google,Gemini 1.5 Pro,マルチモーダル,Google Workspace,企業AI,100万トークン">
+    <link rel="canonical" href="https://gonta223.github.io/uravation/articles/gemini/gemini-15-pro-enterprise.html">
+
+    <!-- OGP -->
+    <meta property="og:title" content="Gemini 1.5 Pro完全ガイド - 100万トークンコンテキストの活用法">
+    <meta property="og:description" content="GoogleのGemini 1.5 Proを徹底解説。100万トークンの超大規模コンテキスト、マルチモーダル機能を紹介。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://gonta223.github.io/uravation/articles/gemini/gemini-15-pro-enterprise.html">
+    <meta property="og:site_name" content="Uravation AI Media">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2024-11-14T09:00:00+09:00">
+    <meta property="article:modified_time" content="2024-11-28T09:00:00+09:00">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gemini 1.5 Pro完全ガイド - 100万トークンの活用法">
+    <meta name="twitter:description" content="GoogleのGemini 1.5 Proを徹底解説。圧倒的なコンテキスト長とマルチモーダル機能。">
+
+    <!-- JSON-LD Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Gemini 1.5 Pro完全ガイド - 100万トークンコンテキストの活用法",
+        "description": "GoogleのGemini 1.5 Proを徹底解説。100万トークンの超大規模コンテキスト、マルチモーダル機能を紹介。",
+        "image": "https://gonta223.github.io/uravation/images/gemini-15-pro.jpg",
+        "datePublished": "2024-11-14T09:00:00+09:00",
+        "dateModified": "2024-11-28T09:00:00+09:00",
+        "author": {
+            "@type": "Organization",
+            "name": "Uravation編集部",
+            "url": "https://gonta223.github.io/uravation/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Uravation",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://gonta223.github.io/uravation/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://gonta223.github.io/uravation/articles/gemini/gemini-15-pro-enterprise.html"
+        }
+    }
+    </script>
+
+    <!-- JSON-LD BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://gonta223.github.io/uravation/"},
+            {"@type": "ListItem", "position": 2, "name": "メディア", "item": "https://gonta223.github.io/uravation/media.html"},
+            {"@type": "ListItem", "position": 3, "name": "Gemini", "item": "https://gonta223.github.io/uravation/articles/gemini/"},
+            {"@type": "ListItem", "position": 4, "name": "Gemini 1.5 Pro完全ガイド"}
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Gemini 1.5 Proの最大コンテキスト長は？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Gemini 1.5 Proの最大コンテキストウィンドウは100万トークンです。これは約75万語、700ページ以上のPDF、1時間の動画を一度に処理できる量に相当し、GPT-4oの128K、Claude 3.5の200Kを大きく上回ります。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Gemini 1.5 Proの料金はいくらですか？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Google AI Studioでは無料で試用可能です。Vertex AIでの利用は、128Kトークンまでの場合、入力$3.5/100万トークン、出力$10.5/100万トークンです。長文コンテキスト（128K超）では料金が異なります。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "GPT-4oやClaudeとの違いは？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Geminiはコンテキスト長で圧倒的優位（100万vs128K/200K）、動画のネイティブ処理、Google Workspaceとの統合が強みです。一方、GPT-4oは汎用性とエコシステムの成熟度、Claudeはコーディング能力と安全性で優位です。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Gemini 1.5 Proの企業活用事例は？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "大規模ドキュメント分析（契約書・仕様書の一括比較）、動画コンテンツの分析（会議録画の要約、研修動画の分析）、コードベース全体の理解（30,000行以上のコードを一度に読み込み）などの用途で活用されています。"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #1a73e8;
+            --text: #333;
+            --text-light: #666;
+            --bg: #f5f5f5;
+            --white: #fff;
+            --border: #e0e0e0;
+            --accent: #ea4335;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .header {
+            background: var(--white);
+            border-bottom: 3px solid var(--primary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .logo span { color: #ff6600; }
+
+        .nav a {
+            margin-left: 2rem;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .nav a:hover { color: var(--primary); }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+        }
+
+        article {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .article-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.75rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .toc {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem;
+        }
+
+        .toc h4 {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toc li:last-child { border-bottom: none; }
+
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .toc a:hover { color: var(--primary); }
+
+        .article-content {
+            padding: 2rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.35rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .article-content h3 {
+            font-size: 1.15rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--primary-dark);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--bg);
+        }
+
+        .faq-section {
+            margin: 2rem 0;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--bg);
+            padding: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-question::before {
+            content: 'Q';
+            background: var(--primary);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .faq-answer {
+            padding: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .faq-answer::before {
+            content: 'A';
+            background: var(--accent);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .author-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg);
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-box {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .related-list {
+            list-style: none;
+        }
+
+        .related-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .related-list li:last-child { border-bottom: none; }
+
+        .related-list a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .related-list a:hover { color: var(--primary); }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-box p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: var(--white);
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .stat-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <header class="header"><div class="header-inner"><a href="/media.html" class="logo">Uravation <span>AI+</span></a></div></header>
-    <nav class="breadcrumb"><a href="/">ホーム</a> › <a href="/media.html">メディア</a> › <a href="/articles/gemini/">Gemini</a> › Gemini 1.5 Pro</nav>
+    <header class="header">
+        <div class="header-inner">
+            <a href="/media.html" class="logo">Uravation <span>AI+</span></a>
+            <nav class="nav">
+                <a href="/media.html">ホーム</a>
+                <a href="/articles/news/">ニュース</a>
+                <a href="/articles/case-studies/">導入事例</a>
+                <a href="/articles/column/">コラム</a>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="/">ホーム</a><span> › </span>
+        <a href="/media.html">メディア</a><span> › </span>
+        <a href="/articles/gemini/">Gemini</a><span> › </span>
+        <span>Gemini 1.5 Pro完全ガイド</span>
+    </nav>
+
     <div class="container">
         <article>
             <header class="article-header">
                 <span class="category-tag">Gemini</span>
                 <h1 class="article-title">Gemini 1.5 Pro完全ガイド - 100万トークンコンテキストの活用法</h1>
-                <div class="article-meta"><span>📅 2024年11月14日</span><span>✏️ Uravation編集部</span></div>
+                <div class="article-meta">
+                    <span>📅 2024年11月14日</span>
+                    <span>✏️ Uravation編集部</span>
+                    <span>🕐 読了時間：8分</span>
+                </div>
             </header>
+
+            <nav class="toc">
+                <h4>📑 目次</h4>
+                <ul>
+                    <li><a href="#features">Gemini 1.5 Proの主な特徴</a></li>
+                    <li><a href="#comparison">GPT-4o/Claudeとの比較</a></li>
+                    <li><a href="#use-cases">企業での活用シーン</a></li>
+                    <li><a href="#pricing">料金体系</a></li>
+                    <li><a href="#faq">よくある質問</a></li>
+                </ul>
+            </nav>
+
             <div class="article-content">
                 <p>GoogleのAIモデル<strong>Gemini 1.5 Pro</strong>は、最大<strong>100万トークン</strong>という驚異的なコンテキストウィンドウを持つ最新のマルチモーダルAIです。本記事では、その特徴と企業での活用法を詳しく解説します。</p>
 
                 <div class="stat-grid">
-                    <div class="stat-card"><div class="stat-number">100万</div><div class="stat-label">最大トークン</div></div>
-                    <div class="stat-card"><div class="stat-number">1時間</div><div class="stat-label">動画処理可能</div></div>
-                    <div class="stat-card"><div class="stat-number">30,000行</div><div class="stat-label">コード処理可能</div></div>
+                    <div class="stat-card">
+                        <div class="stat-number">100万</div>
+                        <div class="stat-label">最大トークン</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1時間</div>
+                        <div class="stat-label">動画処理可能</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30,000行</div>
+                        <div class="stat-label">コード処理可能</div>
+                    </div>
                 </div>
 
-                <h2>Gemini 1.5 Proの主な特徴</h2>
+                <h2 id="features">Gemini 1.5 Proの主な特徴</h2>
+
                 <div class="highlight-box">
                     <h4>🚀 圧倒的なコンテキスト長</h4>
                     <ul>
@@ -48,35 +601,143 @@
                 <h3>Google Workspaceとの統合</h3>
                 <p>Gmail、Google Docs、Google Sheetsなど、Google Workspaceとのシームレスな連携が可能。ビジネスユーザーにとって大きなメリットです。</p>
 
-                <h2>GPT-4o/Claudeとの比較</h2>
-                <table style="width:100%;border-collapse:collapse;margin:1.5rem 0">
-                    <thead><tr><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">項目</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">Gemini 1.5 Pro</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">GPT-4o</th><th style="padding:.75rem;border:1px solid #e0e0e0;background:#4285f4;color:white">Claude 3.5</th></tr></thead>
+                <h2 id="comparison">GPT-4o/Claudeとの比較</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>Gemini 1.5 Pro</th>
+                            <th>GPT-4o</th>
+                            <th>Claude 3.5</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><td style="padding:.75rem;border:1px solid #e0e0e0">コンテキスト</td><td style="padding:.75rem;border:1px solid #e0e0e0"><strong>100万</strong></td><td style="padding:.75rem;border:1px solid #e0e0e0">128K</td><td style="padding:.75rem;border:1px solid #e0e0e0">200K</td></tr>
-                        <tr style="background:#f5f5f5"><td style="padding:.75rem;border:1px solid #e0e0e0">動画処理</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">○</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td></tr>
-                        <tr><td style="padding:.75rem;border:1px solid #e0e0e0">Workspace連携</td><td style="padding:.75rem;border:1px solid #e0e0e0">◎</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td><td style="padding:.75rem;border:1px solid #e0e0e0">△</td></tr>
+                        <tr>
+                            <td>コンテキスト長</td>
+                            <td><strong>100万トークン</strong></td>
+                            <td>128K</td>
+                            <td>200K</td>
+                        </tr>
+                        <tr>
+                            <td>動画処理</td>
+                            <td>◎ ネイティブ対応</td>
+                            <td>○</td>
+                            <td>△</td>
+                        </tr>
+                        <tr>
+                            <td>Workspace連携</td>
+                            <td>◎</td>
+                            <td>△</td>
+                            <td>△</td>
+                        </tr>
+                        <tr>
+                            <td>コーディング</td>
+                            <td>○</td>
+                            <td>○</td>
+                            <td>◎</td>
+                        </tr>
+                        <tr>
+                            <td>日本語性能</td>
+                            <td>○</td>
+                            <td>◎</td>
+                            <td>◎</td>
+                        </tr>
                     </tbody>
                 </table>
 
-                <h2>企業での活用シーン</h2>
+                <h2 id="use-cases">企業での活用シーン</h2>
+
                 <h3>1. 大規模ドキュメント分析</h3>
-                <p>100万トークンのコンテキストを活かし、複数の契約書や仕様書を一括で分析。矛盾点の抽出や比較が容易になります。</p>
+                <p>100万トークンのコンテキストを活かし、複数の契約書や仕様書を一括で分析。矛盾点の抽出や比較が容易になります。例えば、10件の契約書を同時に読み込み、条件の違いを一覧表にまとめることも可能です。</p>
 
                 <h3>2. 動画コンテンツの活用</h3>
-                <p>会議録画、研修動画、顧客インタビュー映像を分析し、インサイトを抽出。議事録作成の自動化も可能です。</p>
+                <p>会議録画、研修動画、顧客インタビュー映像を分析し、インサイトを抽出。議事録作成の自動化も可能です。1時間の会議動画から重要なアクションアイテムを抽出するといった使い方ができます。</p>
 
                 <h3>3. コードベース全体の理解</h3>
-                <p>大規模なプロジェクトのソースコード全体を一度に読み込み、設計の理解やバグの発見を支援します。</p>
+                <p>大規模なプロジェクトのソースコード全体を一度に読み込み、設計の理解やバグの発見を支援します。レガシーシステムのモダナイゼーション計画にも活用できます。</p>
 
-                <h2>よくある質問</h2>
-                <div class="faq-item"><div class="faq-question">Q. Gemini 1.5 Proの特徴は？</div><div class="faq-answer">A. 最大100万トークンのコンテキストウィンドウ、ネイティブのマルチモーダル処理、Google Workspaceとの統合が主な特徴です。特に長文ドキュメントや動画の処理に強みがあります。</div></div>
-                <div class="faq-item"><div class="faq-question">Q. 料金はいくらですか？</div><div class="faq-answer">A. Google AI Studioでは無料で試用可能。Vertex AIでの利用は、入力$3.5/100万トークン、出力$10.5/100万トークン（128Kまで）です。</div></div>
+                <h2 id="pricing">料金体系</h2>
+
+                <div class="highlight-box">
+                    <h4>💰 Gemini 1.5 Pro 料金（Vertex AI）</h4>
+                    <ul>
+                        <li><strong>128Kトークン以下</strong>：入力 $3.5/100万トークン、出力 $10.5/100万トークン</li>
+                        <li><strong>128K超〜1Mトークン</strong>：入力 $7.0/100万トークン、出力 $21.0/100万トークン</li>
+                        <li><strong>Google AI Studio</strong>：無料で試用可能（レート制限あり）</li>
+                    </ul>
+                </div>
+
+                <section class="faq-section" id="faq">
+                    <h2>よくある質問（FAQ）</h2>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Gemini 1.5 Proの最大コンテキスト長は？</div>
+                        <div class="faq-answer">
+                            <p>最大100万トークンです。これは約75万語、700ページ以上のPDF、1時間の動画を一度に処理できる量に相当し、GPT-4oの128K、Claude 3.5の200Kを大きく上回ります。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Gemini 1.5 Proの料金はいくらですか？</div>
+                        <div class="faq-answer">
+                            <p>Google AI Studioでは無料で試用可能です。Vertex AIでは、128Kトークンまでの場合、入力$3.5/100万トークン、出力$10.5/100万トークンです。長文コンテキスト利用時は料金が異なります。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">GPT-4oやClaudeとの違いは？</div>
+                        <div class="faq-answer">
+                            <p>Geminiはコンテキスト長で圧倒的優位（100万トークン）、動画のネイティブ処理、Google Workspaceとの統合が強みです。GPT-4oは汎用性、Claudeはコーディング能力と安全性で優位です。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">企業での主な活用事例は？</div>
+                        <div class="faq-answer">
+                            <p>大規模ドキュメント分析（契約書・仕様書の一括比較）、動画コンテンツの分析（会議録画の要約、研修動画の分析）、コードベース全体の理解（30,000行以上のコードを一度に読み込み）などで活用されています。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="author-box">
+                    <div class="author-avatar">U</div>
+                    <div class="author-info">
+                        <h4>Uravation編集部</h4>
+                        <p>AI活用に関する最新情報をお届けします。企業のAI導入・研修をサポートするUravationが運営。</p>
+                    </div>
+                </div>
 
                 <h2>まとめ</h2>
                 <p>Gemini 1.5 Proは、超大規模コンテキストとマルチモーダル処理を武器に、特に長文ドキュメントや動画を扱う業務で真価を発揮します。Google Workspaceユーザーには特に親和性の高い選択肢です。</p>
+
+                <p>Uravationでは、Geminiを含む各種AIツールの活用研修を提供しています。最適なAIツールの選定から活用方法まで、お気軽にご相談ください。</p>
             </div>
         </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-box">
+                <h3 class="sidebar-title">関連記事</h3>
+                <ul class="related-list">
+                    <li><a href="/articles/gemini/gemini-workspace-integration.html">Gemini for Google Workspace完全ガイド</a></li>
+                    <li><a href="/articles/chatgpt/gpt-4o-features-guide.html">GPT-4o完全ガイド - マルチモーダル機能を徹底解説</a></li>
+                    <li><a href="/articles/claude/claude-35-sonnet-guide.html">Claude 3.5 Sonnet完全ガイド</a></li>
+                    <li><a href="/articles/claude/claude-vs-chatgpt-comparison.html">Claude vs ChatGPT徹底比較</a></li>
+                </ul>
+            </div>
+
+            <div class="cta-box">
+                <h3>AI研修のご相談</h3>
+                <p>Gemini・ChatGPT・Claudeなど各種AIの活用研修を提供しています</p>
+                <a href="/contact.html" class="cta-btn">無料相談する →</a>
+            </div>
+        </aside>
     </div>
-    <footer class="footer"><p>© 2024 Uravation Inc.</p></footer>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p>© 2024 Uravation Inc. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
