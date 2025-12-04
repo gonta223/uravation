@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TRAINING | Uravation</title>
+    <meta name="description" content="AI活用でビジネスを加速させる。Uravationの法人向けAI研修サービス。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --bg: #F9FAFB;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+            --accent: #10B981;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.outline {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--white);
+        }
+
+        .nav-btn.outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+            border: 1px solid var(--primary);
+        }
+
+        .nav-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .nav-btn .material-icons {
+            font-size: 18px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 40px 80px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 32px;
+            line-height: 1.9;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .cta-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .cta-btn.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .cta-btn.outline {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-btn.outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Problems Section */
+        .problems {
+            padding: 80px 40px;
+            background: var(--white);
+        }
+
+        .problems-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .problem-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #FEF2F2;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .problem-item::before {
+            content: "close";
+            font-family: 'Material Icons';
+            color: #EF4444;
+            font-size: 20px;
+        }
+
+        .arrow-down {
+            display: flex;
+            justify-content: center;
+            margin: 32px 0;
+        }
+
+        .arrow-down .material-icons {
+            font-size: 48px;
+            color: var(--primary);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .solutions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .solution-card {
+            padding: 24px;
+            background: var(--bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .solution-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .solution-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .solution-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 40px;
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 40px;
+            background: var(--white);
+        }
+
+        .features-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), #3B82F6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 28px;
+            color: var(--white);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 40px;
+            background: var(--bg);
+        }
+
+        .pricing-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pricing-card {
+            padding: 32px;
+            background: var(--white);
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .pricing-card.recommended {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.recommended::before {
+            content: "おすすめ";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 24px;
+        }
+
+        .pricing-price .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .pricing-price .period {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .pricing-feature .material-icons {
+            font-size: 18px;
+            color: var(--accent);
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            color: var(--primary);
+            background: var(--white);
+        }
+
+        .pricing-btn:hover,
+        .pricing-card.recommended .pricing-btn {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            background: var(--text);
+            color: var(--white);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-links .material-icons {
+            font-size: 14px;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 16px;
+            background: #111;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+            }
+
+            .header-nav {
+                gap: 8px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .nav-btn span:not(.material-icons) {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .problems,
+            .features,
+            .pricing {
+                padding: 60px 20px;
+            }
+
+            .solutions,
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.recommended {
+                transform: none;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AI TRAINING</div>
+        <nav class="header-nav">
+            <a href="#" class="nav-btn outline">
+                <span class="material-icons">description</span>
+                <span>資料請求</span>
+            </a>
+            <a href="#contact" class="nav-btn primary">
+                <span class="material-icons">mail_outline</span>
+                <span>お問い合わせ</span>
+            </a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>AI活用でビジネスを加速させる</h1>
+            <p>私たちの独自開発されたAI研修プログラムにより、企業のAI課題を的確に捉え、組織全体のAIリテラシーを根本的に向上させます。受講者からは「この研修でAI活用の方向性が明確になった」といった声を多数いただいています。私たちは、これからも革新的なAI研修の開発に注力し、企業のDXを更に発展させるお手伝いをしていきます。</p>
+            <div class="hero-cta">
+                <a href="#" class="cta-btn primary">
+                    <span class="material-icons">description</span>
+                    資料請求
+                </a>
+                <a href="#contact" class="cta-btn outline">
+                    <span class="material-icons">mail_outline</span>
+                    お問い合わせ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="problems">
+        <div class="problems-inner">
+            <h2 class="section-title">AI活用がうまくいかない、<br>その悩みを解決します</h2>
+            <div class="problem-list">
+                <div class="problem-item">社員のAIリテラシーにばらつきがある</div>
+                <div class="problem-item">AIツールを導入したが活用できていない</div>
+                <div class="problem-item">AI活用のアイデアを業務に落とし込めない</div>
+                <div class="problem-item">経営層と現場でAIに対する認識がずれている</div>
+            </div>
+            <div class="arrow-down">
+                <span class="material-icons">arrow_downward</span>
+            </div>
+            <div class="solutions">
+                <div class="solution-card">
+                    <div class="solution-label">Point 1</div>
+                    <div class="solution-title">レベル別カリキュラム</div>
+                    <p class="solution-text">初心者から上級者まで、受講者のレベルに合わせた最適なカリキュラムを提供します。</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-label">Point 2</div>
+                    <div class="solution-title">ハンズオン形式で実践</div>
+                    <p class="solution-text">座学だけでなく、実際にAIツールを使った実践的なワークショップを実施します。</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-label">Point 3</div>
+                    <div class="solution-title">業務課題に直結</div>
+                    <p class="solution-text">貴社の業務課題をヒアリングし、すぐに活用できる具体的なAI活用法を提案します。</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-label">Point 4</div>
+                    <div class="solution-title">経営層向け研修も</div>
+                    <p class="solution-text">経営視点でのAI戦略立案から、現場実装まで一貫したサポートを提供します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <p>研修内容や具体的な進め方を詳しくご説明します</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-btn primary">
+                <span class="material-icons">description</span>
+                資料請求
+            </a>
+            <a href="#contact" class="cta-btn outline">
+                <span class="material-icons">mail_outline</span>
+                お問い合わせ
+            </a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-inner">
+            <h2 class="section-title">AI研修の充実の4つの特徴</h2>
+            <div class="feature-list">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">sync</span>
+                    </div>
+                    <h3>最新AI対応</h3>
+                    <p>ChatGPT、Claude、Geminiなど最新のAIツールに対応。トレンドの変化に合わせてカリキュラムを常にアップデートしています。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">insights</span>
+                    </div>
+                    <h3>効果測定レポート</h3>
+                    <p>研修前後のスキル変化を可視化。経営層への報告に使える詳細なレポートを提供し、投資対効果を明確にします。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">tune</span>
+                    </div>
+                    <h3>カスタマイズ対応</h3>
+                    <p>業種・職種に合わせたカスタマイズが可能。営業、マーケティング、開発など部門別の専門研修もご用意しています。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">support_agent</span>
+                    </div>
+                    <h3>研修後サポート</h3>
+                    <p>研修終了後も3ヶ月間のフォローアップサポート付き。質問対応やアドバイスで定着をサポートします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="pricing-inner">
+            <h2 class="section-title">料金プラン</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-name">ライトプラン</div>
+                    <div class="pricing-price">
+                        <span class="amount">¥50,000</span>
+                        <span class="period">/ 回</span>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            2時間の基礎研修
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            最大20名まで参加可能
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            研修資料PDF提供
+                        </div>
+                    </div>
+                    <a href="#contact" class="pricing-btn">お問い合わせ</a>
+                </div>
+                <div class="pricing-card recommended">
+                    <div class="pricing-name">スタンダード</div>
+                    <div class="pricing-price">
+                        <span class="amount">¥150,000</span>
+                        <span class="period">/ 回</span>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            4時間のハンズオン研修
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            最大30名まで参加可能
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            研修資料PDF提供
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            1ヶ月間のQ&Aサポート
+                        </div>
+                    </div>
+                    <a href="#contact" class="pricing-btn">お問い合わせ</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-name">プレミアム</div>
+                    <div class="pricing-price">
+                        <span class="amount">¥300,000</span>
+                        <span class="period">/ 回</span>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            1日集中研修（6時間）
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            人数無制限
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            カスタマイズカリキュラム
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            3ヶ月間のサポート
+                        </div>
+                        <div class="pricing-feature">
+                            <span class="material-icons">check_circle</span>
+                            効果測定レポート
+                        </div>
+                    </div>
+                    <a href="#contact" class="pricing-btn">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <p>まずはお気軽にご相談ください</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-btn primary">
+                <span class="material-icons">description</span>
+                資料請求
+            </a>
+            <a href="mailto:info@uravation.com" class="cta-btn outline">
+                <span class="material-icons">mail_outline</span>
+                お問い合わせ
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">AI TRAINING by Uravation</div>
+            <div class="footer-links">
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">運営会社 <span class="material-icons">open_in_new</span></a>
+            </div>
+        </div>
+        <p class="footer-copyright">©2024 Uravation Inc.</p>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/YogO09dq23" target="_blank">STUDIO THE BUSINESS</a></p>
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand. | AI研修ブランディングLP</title>
+    <meta name="description" content="AI研修の新定番。Uravationが提供する法人向けAI研修サービス。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --text: #2D2D2D;
+            --text-light: #666;
+            --bg: #FAF9F7;
+            --white: #FFFFFF;
+            --accent: #8B7355;
+            --border: #E8E4DE;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.9;
+            background: var(--bg);
+            font-weight: 400;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 249, 247, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px;
+            background: linear-gradient(180deg, var(--bg) 0%, #F5F3EF 100%);
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--text-light);
+            letter-spacing: 0.2em;
+        }
+
+        /* News */
+        .news {
+            padding: 24px 60px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .news-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+        }
+
+        .news-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Section */
+        section {
+            padding: 100px 60px;
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        /* About */
+        .about {
+            background: var(--white);
+        }
+
+        .about-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+
+        .about p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2.2;
+        }
+
+        /* Features */
+        .features {
+            background: var(--bg);
+        }
+
+        .features-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            background: var(--white);
+            border-radius: 8px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 0.03em;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.9;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--white);
+        }
+
+        .pricing-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .pricing-card {
+            padding: 32px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .pricing-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .pricing-card .desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .pricing-card .price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .options-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .options-list {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 32px;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .option-info h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .option-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .option-price {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--bg);
+        }
+
+        .faq-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .faq-question .material-icons {
+            color: var(--text-light);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question .material-icons {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 32px 24px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.9;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .contact-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            line-height: 1.9;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            background: var(--text);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: var(--accent);
+        }
+
+        .contact-btn .material-icons {
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo {
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand .address {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text);
+        }
+
+        .footer-legal {
+            text-align: right;
+        }
+
+        .footer-legal a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-legal .copyright {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .news {
+                padding: 16px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .feature-grid,
+            .pricing-list {
+                grid-template-columns: 1fr;
+            }
+
+            .options-list {
+                flex-direction: column;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-nav {
+                align-items: center;
+            }
+
+            .footer-legal {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Uravation.</a>
+        <nav>
+            <a href="#">TOP</a>
+            <a href="#about">ABOUT</a>
+            <a href="#feature">FEATURE</a>
+            <a href="#price">PRICE</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>これがAI研修の<br>新定番"ブランド"</h1>
+            <p class="subtitle">The AI Training Brand</p>
+        </div>
+    </section>
+
+    <div class="news">
+        <span class="news-label">News</span>
+        <p class="news-text">新プログラム「経営者向けAI戦略研修」を今年販売予定</p>
+    </div>
+
+    <section class="about" id="about">
+        <div class="about-inner">
+            <div class="section-header">
+                <p class="section-label">ABOUT</p>
+                <h2 class="section-title">私たちについて</h2>
+            </div>
+            <h3>AI研修に、新しい風を</h3>
+            <p>AI研修の本質を大切にしながら、現代のビジネスに寄り添うスタイルを提案するブランドです。業種や職種にこだわり、経営層向け・現場向け・エンジニア向けなど、それぞれの個性を丁寧に引き出したカリキュラムを開発しました。私たちは、一つひとつの研修に込められた講師の技と想いを、シンプルで美しいかたちでお届けします。</p>
+        </div>
+    </section>
+
+    <section class="features" id="feature">
+        <div class="features-inner">
+            <div class="section-header">
+                <p class="section-label">FEATURE</p>
+                <h2 class="section-title">研修の特徴</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>初心者にもやさしい内容</h3>
+                    <p>専門用語を極力排除したわかりやすい解説で、AIに馴染みのない方でも安心して学べる、やさしい内容に仕上げました。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>厳選された実践カリキュラム</h3>
+                    <p>最前線で活躍するAI専門家と直接連携し、品質にこだわったカリキュラムだけを使用。現場で使える実践的な内容をお届けします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="price">
+        <div class="pricing-inner">
+            <div class="section-header">
+                <p class="section-label">PRICE</p>
+                <h2 class="section-title">研修価格</h2>
+            </div>
+            <div class="pricing-list">
+                <div class="pricing-card">
+                    <h3>基礎研修プラン</h3>
+                    <p class="desc">AI入門として最適なプラン</p>
+                    <p class="price">¥100,000（税込）</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>実践研修プラン</h3>
+                    <p class="desc">ハンズオンで学ぶ実践型</p>
+                    <p class="price">¥200,000（税込）</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>カスタムプラン</h3>
+                    <p class="desc">御社専用カリキュラム</p>
+                    <p class="price">¥300,000〜（税込）</p>
+                </div>
+            </div>
+            <p class="options-title">（オプション）</p>
+            <div class="options-list">
+                <div class="option-item">
+                    <div class="option-info">
+                        <h4>フォローアップサポート</h4>
+                        <p>研修後1ヶ月間のQ&A対応</p>
+                    </div>
+                    <span class="option-price">＋¥30,000（税込）</span>
+                </div>
+                <div class="option-item">
+                    <div class="option-info">
+                        <h4>効果測定レポート</h4>
+                        <p>研修前後のスキル変化を可視化</p>
+                    </div>
+                    <span class="option-price">＋¥20,000（税込）</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="section-header">
+                <p class="section-label">FAQ</p>
+                <h2 class="section-title">よくある質問</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item active">
+                    <button class="faq-question">
+                        <span>Q. 研修の所要時間はどのくらいですか？</span>
+                        <span class="material-icons">keyboard_arrow_up</span>
+                    </button>
+                    <div class="faq-answer">
+                        プランによって異なりますが、基礎研修は2時間、実践研修は4時間、カスタムプランは1日〜複数日で設定可能です。詳しくはお問い合わせください。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. オンラインでの研修は対応していますか？</span>
+                        <span class="material-icons">keyboard_arrow_up</span>
+                    </button>
+                    <div class="faq-answer">
+                        はい、対応しています。Zoom、Teams、Google Meetなど、御社でご利用のツールに合わせて実施可能です。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. 少人数でも申し込みできますか？</span>
+                        <span class="material-icons">keyboard_arrow_up</span>
+                    </button>
+                    <div class="faq-answer">
+                        はい、可能です。最少5名様から受講いただけます。少人数向けの個別対応プランもご用意しておりますので、お気軽にご相談ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <div class="section-header">
+                <p class="section-label">CONTACT</p>
+                <h2 class="section-title">お問い合わせ</h2>
+            </div>
+            <p>ご不明な点やご相談、研修に関するご質問などがございましたら、お気軽にご連絡ください。3営業日以内に折り返しご連絡させていただきます。</p>
+            <a href="mailto:info@uravation.com" class="contact-btn">
+                お問い合わせフォーム
+                <span class="material-icons">keyboard_arrow_right</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="#" class="logo">Uravation.</a>
+                <p class="address">〒150-0001 東京都渋谷区神宮前X-XX-XX</p>
+                <div class="footer-social">
+                    <a href="#"><span class="material-icons">language</span></a>
+                    <a href="#"><span class="material-icons">alternate_email</span></a>
+                    <a href="#"><span class="material-icons">tag</span></a>
+                </div>
+            </div>
+            <nav class="footer-nav">
+                <a href="#">トップ</a>
+                <a href="#about">私たちについて</a>
+                <a href="#feature">特徴</a>
+                <a href="#price">研修価格</a>
+                <a href="#faq">よくある質問</a>
+                <a href="#contact">お問い合わせ</a>
+            </nav>
+            <div class="footer-legal">
+                <a href="#">プライバシーポリシー</a>
+                <p class="copyright">©︎ 2024 Uravation Inc.</p>
+            </div>
+        </div>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/Q65qmmvqVR" target="_blank">STUDIO ブランディング｜Brand.</a></p>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.faq-item');
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

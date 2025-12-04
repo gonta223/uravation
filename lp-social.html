@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social. | AI教育普及プロジェクト</title>
+    <meta name="description" content="すべての人にAIリテラシーを。Uravationが推進するAI教育普及プロジェクト。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --bg: #F0FDF4;
+            --white: #FFFFFF;
+            --border: #D1FAE5;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.9;
+            background: var(--white);
+            font-weight: 400;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            padding: 16px 40px;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .header-btn.outline {
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .header-btn.outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .header-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .header-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .header-btn .material-icons {
+            font-size: 18px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--bg) 0%, #DCFCE7 100%);
+            text-align: center;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Notice */
+        .notice {
+            padding: 20px 40px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notice-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .notice-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .notice-text {
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .notice-text a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .notice-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Section */
+        section {
+            padding: 80px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .section-title {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 700;
+        }
+
+        /* Vision */
+        .vision {
+            background: var(--bg);
+        }
+
+        .vision-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vision h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .vision p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        /* Mission */
+        .mission {
+            background: var(--white);
+        }
+
+        .mission-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .mission-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .mission-card {
+            padding: 32px;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+
+        .mission-number {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .mission-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .mission-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stats .section-label {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .stats .section-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .stats-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 32px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+        }
+
+        .stat-card .material-icons {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        .stat-card h4 {
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-unit {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Activities */
+        .activities {
+            background: var(--bg);
+        }
+
+        .activities-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .activity-card {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 32px;
+            padding: 32px;
+            background: var(--white);
+            border-radius: 12px;
+        }
+
+        .activity-image {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .activity-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .activity-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .activity-schedule {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--white);
+        }
+
+        .faq-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .faq-question .q-label {
+            color: var(--primary);
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .faq-question .material-icons {
+            color: var(--text-light);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question .material-icons {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.9;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Sponsors */
+        .sponsors {
+            background: var(--bg);
+        }
+
+        .sponsors-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .sponsors-note {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .sponsors-list {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .sponsor-item {
+            padding: 16px 32px;
+            background: var(--white);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Support */
+        .support {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .support-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .support p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            line-height: 1.9;
+        }
+
+        .support-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .support-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .support-btn .material-icons {
+            font-size: 20px;
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .contact-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 40px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px;
+            background: var(--text);
+            color: var(--white);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-info h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .footer-info p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+        }
+
+        .footer-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 32px;
+        }
+
+        .footer-nav a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--white);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 16px;
+            background: #111;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .mission-list,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-card {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <span class="header-logo">AI教育普及プロジェクト</span>
+            <nav class="header-nav">
+                <a href="#vision">私たちについて</a>
+                <a href="#activities">活動内容</a>
+                <a href="#faq">よくある質問</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#support" class="header-btn primary">
+                    <span class="material-icons">favorite</span>
+                    応援する
+                </a>
+                <a href="#contact" class="header-btn outline">
+                    <span class="material-icons">email</span>
+                    お問合せ
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="hero-label">非営利プロジェクト SOCIAL.</p>
+            <h1>すべての人に<br>AIリテラシーを届ける</h1>
+            <p>地域全体でAI教育の機会を広げていく</p>
+        </div>
+    </section>
+
+    <div class="notice">
+        <div class="notice-inner">
+            <span class="notice-label">重要なお知らせ</span>
+            <p class="notice-text"><a href="#support">現在、協賛企業様・講師ボランティアを募集中！</a></p>
+            <span class="notice-date">(2024.12.01)</span>
+        </div>
+    </div>
+
+    <section class="vision" id="vision">
+        <div class="vision-inner">
+            <div class="section-header">
+                <p class="section-label">Our Vision</p>
+                <p class="section-subtitle">私たちのビジョン</p>
+            </div>
+            <h3>AIで笑顔になれる社会を<br>地域みんなで</h3>
+            <p>私たちが目指すのは、すべての人がAIを理解し、自分らしく活用できる社会です。年齢や職業を問わず、誰もがAIの恩恵を受けられる環境を広げていくことが、私たちのビジョンです。小さな学びの積み重ねが、大きな変化と希望につながります。</p>
+        </div>
+    </section>
+
+    <section class="mission">
+        <div class="mission-inner">
+            <div class="section-header">
+                <p class="section-label">Our Mission</p>
+                <p class="section-subtitle">私たちのミッション</p>
+            </div>
+            <div class="mission-list">
+                <div class="mission-card">
+                    <p class="mission-number">"01"</p>
+                    <h3>誰でも学べる場所</h3>
+                    <p>高齢者から学生まで、誰もが気軽にAIを学べる無料の学習機会を地域に広げていきます。</p>
+                </div>
+                <div class="mission-card">
+                    <p class="mission-number">"02"</p>
+                    <h3>つながりを育む</h3>
+                    <p>AI学習を通じて世代を超えた交流を促進し、地域コミュニティのつながりを強化します。</p>
+                </div>
+                <div class="mission-card">
+                    <p class="mission-number">"03"</p>
+                    <h3>実践を支える</h3>
+                    <p>学んだ知識を実生活や仕事で活かせるよう、継続的なサポートを提供します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-inner">
+            <div class="section-header">
+                <p class="section-label">By the Numbers</p>
+                <p class="section-subtitle">数値でみる活動データ</p>
+            </div>
+            <p class="stats-note">2024年12月時点の数値です。</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="material-icons">face</span>
+                    <h4>参加者人数</h4>
+                    <p class="stat-number">1,500</p>
+                    <p class="stat-unit">人</p>
+                </div>
+                <div class="stat-card">
+                    <span class="material-icons">event_available</span>
+                    <h4>開催回数</h4>
+                    <p class="stat-number">120</p>
+                    <p class="stat-unit">回</p>
+                </div>
+                <div class="stat-card">
+                    <span class="material-icons">domain</span>
+                    <h4>協賛企業</h4>
+                    <p class="stat-number">15</p>
+                    <p class="stat-unit">社</p>
+                </div>
+                <div class="stat-card">
+                    <span class="material-icons">volunteer_activism</span>
+                    <h4>講師ボランティア</h4>
+                    <p class="stat-number">30</p>
+                    <p class="stat-unit">名</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activities" id="activities">
+        <div class="activities-inner">
+            <div class="section-header">
+                <p class="section-label">Activities</p>
+                <p class="section-subtitle">活動内容</p>
+            </div>
+            <div class="activity-list">
+                <div class="activity-card">
+                    <div class="activity-image">🤖</div>
+                    <div class="activity-content">
+                        <h3>シニア向けAI入門講座</h3>
+                        <p>スマートフォンやパソコンを使って、ChatGPTなどのAIツールの基本的な使い方を学びます。日常生活で役立つ活用法を丁寧にサポート。</p>
+                        <p class="activity-schedule">[実施日] 毎週土曜日 10:00-12:00</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-image">💻</div>
+                    <div class="activity-content">
+                        <h3>学生向けAIワークショップ</h3>
+                        <p>AI技術の仕組みから実践的な活用法まで、将来のキャリアに役立つスキルを楽しく学べるワークショップを開催しています。</p>
+                        <p class="activity-schedule">[実施日] 月2回 / 日曜日</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="section-header">
+                <p class="section-label">FAQ</p>
+                <p class="section-subtitle">よくある質問</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item active">
+                    <button class="faq-question">
+                        <span><span class="q-label">Q.</span>参加費用はかかりますか？</span>
+                        <span class="material-icons">add</span>
+                    </button>
+                    <div class="faq-answer">
+                        基本的に無料でご参加いただけます。一部の特別プログラムでは材料費等の実費をいただく場合があります。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span><span class="q-label">Q.</span>パソコンがなくても参加できますか？</span>
+                        <span class="material-icons">add</span>
+                    </button>
+                    <div class="faq-answer">
+                        はい、会場では貸出用のタブレットをご用意しています。スマートフォンをお持ちの方は、そちらを使った学習も可能です。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span><span class="q-label">Q.</span>講師として参加するにはどうすればいいですか？</span>
+                        <span class="material-icons">add</span>
+                    </button>
+                    <div class="faq-answer">
+                        お問い合わせフォームからご連絡ください。AI関連の知識や経験をお持ちの方を歓迎しています。未経験の方でも研修制度がありますのでご安心ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sponsors">
+        <div class="sponsors-inner">
+            <div class="section-header">
+                <p class="section-label">Sponsors</p>
+                <p class="section-subtitle">協賛・スポンサー</p>
+            </div>
+            <p class="sponsors-note">私たちの活動は、多くの方々のご支援によって成り立っています。</p>
+            <div class="sponsors-list">
+                <div class="sponsor-item">株式会社A</div>
+                <div class="sponsor-item">株式会社B</div>
+                <div class="sponsor-item">株式会社C</div>
+                <div class="sponsor-item">株式会社D</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="support" id="support">
+        <div class="support-inner">
+            <div class="section-header">
+                <p class="section-label">Support</p>
+                <p class="section-subtitle">応援する</p>
+            </div>
+            <p>ご寄付は一口から受け付けています。金銭のご支援だけでなく、会場提供やボランティア参加なども応援の形です。</p>
+            <a href="#" class="support-btn">
+                <span class="material-icons">favorite</span>
+                応援する
+                <span class="material-icons">launch</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <div class="section-header">
+                <p class="section-label">Contact</p>
+                <p class="section-subtitle">お問合せ</p>
+            </div>
+            <p>活動内容やイベントの詳細、協力や参加に関するご相談など、お気軽にお問い合わせください。</p>
+            <a href="mailto:info@uravation.com" class="contact-link">
+                <span class="material-icons">email</span>
+                お問合せフォーム
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-info">
+                <h4>運営</h4>
+                <p>
+                    [所在地] 〒150-0001 東京都渋谷区神宮前X-XX-XX<br>
+                    [メール] info@uravation.com<br>
+                    [運営] Uravation Inc.
+                </p>
+            </div>
+            <nav class="footer-nav">
+                <a href="#">トップ</a>
+                <a href="#vision">私たちについて</a>
+                <a href="#activities">活動内容</a>
+                <a href="#faq">よくある質問</a>
+                <a href="#support">応援する</a>
+                <a href="#contact">お問合せ</a>
+            </nav>
+        </div>
+        <p class="footer-copyright">© 2024 Uravation Inc.</p>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/14yqBzbqjV" target="_blank">STUDIO 社会課題｜Social.</a></p>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.faq-item');
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE KEYNOTE | AI Summit 2024</title>
+    <meta name="description" content="AI活用の最前線。Uravation主催のAIサミット2024。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0A0A0A;
+            --text: #FFFFFF;
+            --text-muted: rgba(255,255,255,0.6);
+            --accent: #E63946;
+            --gold: #D4AF37;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+            font-weight: 300;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .ticket-btn {
+            background: var(--accent);
+            color: var(--text) !important;
+            padding: 10px 24px;
+            border-radius: 2px;
+            font-weight: 500;
+        }
+
+        .ticket-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            background: linear-gradient(180deg, var(--bg) 0%, #1a1a1a 50%, var(--bg) 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(230,57,70,0.1) 0%, transparent 70%);
+        }
+
+        .award-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 32px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: 0.1em;
+            animation: fadeIn 1s ease 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.9;
+            letter-spacing: 0.05em;
+            margin-bottom: 32px;
+            animation: fadeIn 1s ease 0.4s backwards;
+        }
+
+        .hero h1 span {
+            display: block;
+        }
+
+        .hero-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            animation: fadeIn 1s ease 0.6s backwards;
+        }
+
+        .hero-credits {
+            display: flex;
+            gap: 24px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            animation: fadeIn 1s ease 0.8s backwards;
+        }
+
+        /* Section */
+        section {
+            padding: 100px 40px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            letter-spacing: 0.05em;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        /* Trailer */
+        .trailer {
+            background: #111;
+        }
+
+        .trailer-buttons {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .trailer-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .trailer-btn:hover {
+            background: var(--accent);
+        }
+
+        .trailer-btn .material-icons {
+            font-size: 24px;
+        }
+
+        /* Introduction */
+        .introduction {
+            background: var(--bg);
+        }
+
+        .intro-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .intro-lead {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .intro-block h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .intro-block p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        /* Speakers */
+        .speakers {
+            background: #111;
+        }
+
+        .speaker-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .speaker-card {
+            text-align: center;
+        }
+
+        .speaker-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-muted);
+        }
+
+        .speaker-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .speaker-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Staff */
+        .staff {
+            background: var(--bg);
+        }
+
+        .staff-list {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 40px;
+        }
+
+        .staff-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 32px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .staff-info h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .staff-info .role {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .staff-bio {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        /* Venue */
+        .venue {
+            background: #111;
+        }
+
+        .venue-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .venue-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 120px;
+            gap: 24px;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .venue-area {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .venue-name a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .venue-name a:hover {
+            color: var(--accent);
+        }
+
+        .venue-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        /* Ticket CTA */
+        .ticket-cta {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 100;
+        }
+
+        .ticket-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: var(--accent);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(230,57,70,0.4);
+            transition: all 0.3s;
+        }
+
+        .ticket-cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(230,57,70,0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px;
+            text-align: center;
+            background: var(--bg);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-ref {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .footer-ref a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+
+            nav a:not(.ticket-btn) {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .speaker-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .staff-item {
+                grid-template-columns: 1fr;
+            }
+
+            .venue-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .venue-date {
+                text-align: left;
+            }
+
+            .ticket-cta {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+            }
+
+            .ticket-cta a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#trailer">Trailer</a>
+            <a href="#introduction">Introduction</a>
+            <a href="#speakers">Speakers</a>
+            <a href="#staff">Staff</a>
+            <a href="#venue">Venue</a>
+            <a href="#" class="ticket-btn">Register</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="award-badge">
+            <span class="material-icons" style="font-size: 16px;">emoji_events</span>
+            AI Training Award 2024 受賞
+        </div>
+        <p class="tagline">一歩踏み出せば、<br>AIが見えてくる。</p>
+        <h1>
+            <span>THE</span>
+            <span>KEYNOTE</span>
+        </h1>
+        <p class="hero-info">2024年5月から全国開催</p>
+        <div class="hero-credits">
+            <span>主催 Uravation</span>
+            <span>企画 AI研修事業部</span>
+            <span>協賛 各社</span>
+        </div>
+    </section>
+
+    <section class="trailer" id="trailer">
+        <h2 class="section-title">Trailer</h2>
+        <div class="trailer-buttons">
+            <a href="#" class="trailer-btn">
+                <span class="material-icons">play_circle</span>
+                ダイジェスト（3分）を見る
+            </a>
+            <a href="#" class="trailer-btn">
+                <span class="material-icons">play_circle</span>
+                ティザー（30秒）を見る
+            </a>
+        </div>
+    </section>
+
+    <section class="introduction" id="introduction">
+        <h2 class="section-title">Introduction</h2>
+        <div class="intro-inner">
+            <p class="intro-lead">「変革」のUravationが贈る、<br>今を生きるビジネスパーソンのためのAIサミット</p>
+            <div class="intro-grid">
+                <div class="intro-block">
+                    <h2>あたらしいAI研修のかたち</h2>
+                    <p>数々の企業研修で実績を持つUravationが新たに企画した本イベントは、日々の業務に追われるビジネスパーソンがAI活用を見つめ直すために開催されます。「すべてのひとに届く新しいAI研修を届けたい」―主催者はそう語ります。</p>
+                </div>
+                <div class="intro-block">
+                    <h2>Concept</h2>
+                    <p>AIに追われる毎日を送るあなたへ。本イベントでは、AI活用の成功事例から失敗談まで、実践的な知見を共有します。参加者同士の交流を通じて、自分自身の業務にAIをどう活かすか、具体的なアクションプランを持ち帰っていただきます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="speakers" id="speakers">
+        <h2 class="section-title">Speakers</h2>
+        <div class="speaker-list">
+            <div class="speaker-card">
+                <div class="speaker-image">👤</div>
+                <h3>佐藤 太郎</h3>
+                <p>基調講演</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">👤</div>
+                <h3>山田 花子</h3>
+                <p>セッション1</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">👤</div>
+                <h3>鈴木 一郎</h3>
+                <p>セッション2</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">👤</div>
+                <h3>田中 美咲</h3>
+                <p>パネルディスカッション</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="staff" id="staff">
+        <h2 class="section-title">Staff</h2>
+        <div class="staff-list">
+            <div class="staff-item">
+                <div class="staff-info">
+                    <h3>佐藤 すぐる</h3>
+                    <p class="role">主催・企画</p>
+                </div>
+                <p class="staff-bio">Uravation代表。AI研修事業を立ち上げ、多くの企業のDX推進を支援。「すべての人がAIを使いこなせる社会を」をミッションに活動中。</p>
+            </div>
+            <div class="staff-item">
+                <div class="staff-info">
+                    <h3>運営チーム</h3>
+                    <p class="role">イベント運営</p>
+                </div>
+                <p class="staff-bio">Uravation AI研修事業部のメンバーが中心となり、企画から運営まで一貫してサポート。参加者の学びを最大化するための環境づくりに注力しています。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="venue" id="venue">
+        <h2 class="section-title">Venue</h2>
+        <div class="venue-list">
+            <div class="venue-item">
+                <span class="venue-area">東京</span>
+                <div class="venue-name"><a href="#">渋谷ヒカリエホール</a></div>
+                <span class="venue-date">5月12日</span>
+            </div>
+            <div class="venue-item">
+                <span class="venue-area">大阪</span>
+                <div class="venue-name"><a href="#">グランフロント大阪</a></div>
+                <span class="venue-date">5月19日</span>
+            </div>
+            <div class="venue-item">
+                <span class="venue-area">名古屋</span>
+                <div class="venue-name"><a href="#">ナディアパーク</a></div>
+                <span class="venue-date">5月26日</span>
+            </div>
+            <div class="venue-item">
+                <span class="venue-area">オンライン</span>
+                <div class="venue-name"><a href="#">Zoom Webinar</a></div>
+                <span class="venue-date">6月2日</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="ticket-cta">
+        <a href="#">
+            <span class="material-icons">confirmation_number</span>
+            Register Now
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="mailto:info@uravation.com">CONTACT</a>
+            <a href="#">PRIVACY POLICY</a>
+        </div>
+        <p class="footer-copyright">COPYRIGHT © 2024 URAVATION INC.</p>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/pBVqXZPWRd" target="_blank">STUDIO THE CINEMA</a></p>
+</body>
+</html>
