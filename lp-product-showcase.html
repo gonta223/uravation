@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Training Essentials | Uravation - プロダクト紹介</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B7355;
+            --secondary: #C9A86C;
+            --dark: #2C2420;
+            --cream: #F9F6F2;
+            --light: #ffffff;
+            --text: #3d3d3d;
+            --text-light: #7a7a7a;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 300;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Elegant Header */
+        header {
+            background: var(--light);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            letter-spacing: 0.1em;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero - Product Style */
+        .hero {
+            padding: 6rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-image {
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: 2rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 0.25rem;
+        }
+
+        .hero-image .icon {
+            font-size: 6rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .hero-text .category {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--dark);
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text .description {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .hero-text .price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+
+        .hero-text .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--dark);
+            color: white;
+            padding: 1rem 3rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Features */
+        .features {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-header .subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .features-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .feature-card {
+            text-align: center;
+        }
+
+        .feature-card .icon-box {
+            width: 80px;
+            height: 80px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-card .icon-box .material-icons {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Product Details */
+        .details {
+            padding: 6rem 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .details-grid.reverse {
+            direction: rtl;
+        }
+
+        .details-grid.reverse > * {
+            direction: ltr;
+        }
+
+        .details-image {
+            aspect-ratio: 1;
+            background: var(--light);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-image .material-icons {
+            font-size: 5rem;
+            color: var(--secondary);
+        }
+
+        .details-content .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--secondary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .details-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .details-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Specs */
+        .specs {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .specs-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .specs-header .subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .specs-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .specs-table {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .spec-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 0;
+        }
+
+        .spec-row .label {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--secondary);
+        }
+
+        .spec-row .value {
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .testimonials-header .subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .testimonials-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--dark);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .testimonial-card .quote {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-card .avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-card .avatar .material-icons {
+            color: white;
+        }
+
+        .testimonial-card .info .name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-card .info .company {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-links h4 {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-bottom .reference {
+            margin-top: 0.5rem;
+        }
+
+        .footer-bottom .reference a {
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-grid.reverse {
+                direction: ltr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">URAVATION</div>
+                <nav>
+                    <a href="#">PRODUCT</a>
+                    <a href="#">FEATURES</a>
+                    <a href="#">PRICING</a>
+                    <a href="#">CONTACT</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container" style="display: contents;">
+            <div class="hero-image">
+                <span class="material-icons icon">psychology</span>
+            </div>
+            <div class="hero-text">
+                <p class="category">AI TRAINING SOLUTION</p>
+                <h1>AI Training<br>Essentials</h1>
+                <p class="description">
+                    高品質なAIモデルを育てるための、洗練されたトレーニングソリューション。
+                    RLHFの専門知識と最新のメソドロジーを、あなたのチームに。
+                </p>
+                <div class="price">
+                    ¥980,000〜 <span>/ プロジェクト</span>
+                </div>
+                <a href="#" class="cta-btn">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="features-header">
+                <p class="subtitle">FEATURES</p>
+                <h2>選ばれる3つの理由</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <span class="material-icons">diamond</span>
+                    </div>
+                    <h3>最高品質のデータ</h3>
+                    <p>厳選された専門評価者による高精度なアノテーションで、AIモデルの性能を最大化します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <span class="material-icons">handshake</span>
+                    </div>
+                    <h3>伴走型サポート</h3>
+                    <p>専任コンサルタントがプロジェクト開始から完了まで、きめ細やかにサポートします。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <span class="material-icons">speed</span>
+                    </div>
+                    <h3>迅速なデリバリー</h3>
+                    <p>効率化されたワークフローにより、品質を保ちながらスピーディーな納品を実現します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details -->
+    <section class="details">
+        <div class="container">
+            <div class="details-grid">
+                <div class="details-image">
+                    <span class="material-icons">model_training</span>
+                </div>
+                <div class="details-content">
+                    <div class="number">01</div>
+                    <h3>カスタマイズされた<br>トレーニングプログラム</h3>
+                    <p>お客様のAIモデルの特性と目標に合わせて、最適なトレーニングプログラムを設計。ドメイン固有の知識を持つ評価者チームが、精度の高いフィードバックを提供します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="details">
+        <div class="container">
+            <div class="details-grid reverse">
+                <div class="details-image">
+                    <span class="material-icons">analytics</span>
+                </div>
+                <div class="details-content">
+                    <div class="number">02</div>
+                    <h3>継続的な品質モニタリング</h3>
+                    <p>リアルタイムの品質管理ダッシュボードで、アノテーション品質を可視化。定期的なキャリブレーションにより、一貫した評価基準を維持します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="details">
+        <div class="container">
+            <div class="details-grid">
+                <div class="details-image">
+                    <span class="material-icons">sync</span>
+                </div>
+                <div class="details-content">
+                    <div class="number">03</div>
+                    <h3>シームレスな<br>ワークフロー統合</h3>
+                    <p>既存のML開発パイプラインとスムーズに連携。API経由でデータを受け渡し、開発サイクルを中断することなく品質向上を実現します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs -->
+    <section class="specs">
+        <div class="container">
+            <div class="specs-header">
+                <p class="subtitle">SPECIFICATIONS</p>
+                <h2>サービス仕様</h2>
+            </div>
+            <div class="specs-table">
+                <div class="spec-row">
+                    <div class="label">対応言語</div>
+                    <div class="value">日本語、英語、中国語、その他多言語対応</div>
+                </div>
+                <div class="spec-row">
+                    <div class="label">対応タスク</div>
+                    <div class="value">テキスト分類、要約評価、対話評価、コード評価、マルチモーダル</div>
+                </div>
+                <div class="spec-row">
+                    <div class="label">最小ロット</div>
+                    <div class="value">1,000サンプル〜</div>
+                </div>
+                <div class="spec-row">
+                    <div class="label">納期目安</div>
+                    <div class="value">2週間〜（ボリュームにより変動）</div>
+                </div>
+                <div class="spec-row">
+                    <div class="label">品質保証</div>
+                    <div class="value">95%以上の一致率を保証</div>
+                </div>
+                <div class="spec-row">
+                    <div class="label">セキュリティ</div>
+                    <div class="value">SOC2 Type II準拠、NDA対応</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="testimonials-header">
+                <p class="subtitle">TESTIMONIALS</p>
+                <h2>お客様の声</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="quote">"品質とスピードの両立が難しいと思っていましたが、Uravationは両方を高いレベルで実現してくれました。おかげでモデルの精度が大幅に向上しました。"</p>
+                    <div class="author">
+                        <div class="avatar">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <div class="info">
+                            <div class="name">田中 太郎</div>
+                            <div class="company">株式会社テックイノベーション ML責任者</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="quote">"専門的な知識を持つ評価者チームのおかげで、ドメイン固有の微妙なニュアンスも正確に捉えたデータが得られました。"</p>
+                    <div class="author">
+                        <div class="avatar">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <div class="info">
+                            <div class="name">鈴木 花子</div>
+                            <div class="company">AIスタートアップ CTO</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>AIの可能性を、ともに広げる</h2>
+            <p>まずはお気軽にご相談ください</p>
+            <a href="#" class="cta-btn">お問い合わせ</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">URAVATION</div>
+                    <p>AIトレーニングで、未来を創る。<br>高品質なデータとプロフェッショナルなサポートで、お客様のAI開発を支援します。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>PRODUCT</h4>
+                    <a href="#">サービス概要</a>
+                    <a href="#">料金プラン</a>
+                    <a href="#">導入事例</a>
+                </div>
+                <div class="footer-links">
+                    <h4>COMPANY</h4>
+                    <a href="#">会社概要</a>
+                    <a href="#">採用情報</a>
+                    <a href="#">ニュース</a>
+                </div>
+                <div class="footer-links">
+                    <h4>SUPPORT</h4>
+                    <a href="#">お問い合わせ</a>
+                    <a href="#">よくある質問</a>
+                    <a href="#">プライバシー</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Uravation Inc. All rights reserved.</p>
+                <p class="reference">Design inspired by <a href="https://studio.design/ja/store/templates/yAXq1M6q72" target="_blank">STUDIO 商品紹介LP｜インテリア・雑貨</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TRAINING SUMMIT 2025 | Uravation - モバイルファーストイベント</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #00D4AA;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --gray: #f5f5f7;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        /* Mobile First - スマホ特化型 */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header - Fixed Bottom */
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+        }
+
+        .fixed-bottom-bar .event-info {
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .fixed-bottom-bar .event-info strong {
+            display: block;
+            font-size: 0.875rem;
+        }
+
+        .fixed-bottom-bar .cta-btn {
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #FF8F66);
+            color: white;
+            padding: 4rem 0 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .event-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .event-date {
+            background: white;
+            color: var(--primary);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin: 2rem 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .event-date .date {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .event-date .details {
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        /* Countdown */
+        .countdown {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .countdown-item .number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--secondary);
+        }
+
+        .countdown-item .label {
+            font-size: 0.625rem;
+            opacity: 0.7;
+        }
+
+        /* Section */
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Topics Card */
+        .topic-card {
+            background: var(--gray);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-card .number {
+            background: var(--primary);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-card p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Speakers */
+        .speaker-scroll {
+            overflow-x: auto;
+            padding: 0 1rem;
+            margin: 0 -1rem;
+        }
+
+        .speaker-list {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .speaker-card {
+            flex-shrink: 0;
+            width: 200px;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .speaker-card .image {
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speaker-card .image .material-icons {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .speaker-card .info {
+            padding: 1rem;
+        }
+
+        .speaker-card .company {
+            font-size: 0.625rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .speaker-card .name {
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .speaker-card .title {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Schedule */
+        .schedule-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .schedule-item .time {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.875rem;
+            white-space: nowrap;
+        }
+
+        .schedule-item .content h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .schedule-item .content p {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Registration Form */
+        .registration {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 6rem;
+        }
+
+        .registration .section-title h2 {
+            color: white;
+        }
+
+        .registration .section-title p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 1rem;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .info-card {
+            background: var(--gray);
+            padding: 1.25rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-card .material-icons {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .info-card .text {
+            font-size: 0.875rem;
+        }
+
+        .info-card .text strong {
+            display: block;
+            font-size: 0.75rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray);
+            padding: 2rem 0 5rem;
+            text-align: center;
+        }
+
+        footer .logo {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        footer .reference {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+            font-size: 0.625rem;
+            color: #999;
+        }
+
+        footer .reference a {
+            color: var(--primary);
+        }
+
+        /* Desktop */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 640px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .countdown-item .number {
+                font-size: 3rem;
+            }
+
+            .fixed-bottom-bar {
+                max-width: 640px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 1rem 1rem 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="event-badge">ONLINE EVENT</div>
+            <h1>
+                AI TRAINING<br>SUMMIT 2025
+                <span>AIトレーニングの最前線を体験する1日</span>
+            </h1>
+            <div class="event-date">
+                <div class="date">3.15</div>
+                <div class="details">
+                    <strong>2025年3月15日（土）</strong>
+                    13:00 - 18:00 オンライン開催
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown -->
+    <section class="countdown">
+        <div class="container">
+            <div class="countdown-title">開催まであと</div>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <div class="number">102</div>
+                    <div class="label">DAYS</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number">14</div>
+                    <div class="label">HOURS</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number">32</div>
+                    <div class="label">MINS</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>イベントトピック</h2>
+                <p>最新のAIトレーニング事情をお届け</p>
+            </div>
+
+            <div class="topic-card">
+                <div class="number">1</div>
+                <h3>RLHFの実践と応用</h3>
+                <p>人間のフィードバックを活用した強化学習の最新手法と実践的なアプローチを解説します。</p>
+            </div>
+
+            <div class="topic-card">
+                <div class="number">2</div>
+                <h3>高品質データセットの構築</h3>
+                <p>AIモデルの性能を最大化するためのデータ収集・アノテーション戦略をご紹介します。</p>
+            </div>
+
+            <div class="topic-card">
+                <div class="number">3</div>
+                <h3>AI評価者の育成プログラム</h3>
+                <p>企業内でAI評価人材を育成するための効果的なトレーニングプログラムを公開します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers -->
+    <section class="section" style="background: var(--gray);">
+        <div class="container">
+            <div class="section-title">
+                <h2>登壇者</h2>
+                <p>業界をリードする専門家たち</p>
+            </div>
+        </div>
+        <div class="speaker-scroll">
+            <div class="speaker-list" style="padding-left: calc((100% - 480px) / 2 + 1rem);">
+                <div class="speaker-card">
+                    <div class="image">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <div class="info">
+                        <div class="company">Uravation Inc.</div>
+                        <div class="name">佐藤 太郎</div>
+                        <div class="title">代表取締役 CEO</div>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="image">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <div class="info">
+                        <div class="company">AI Research Lab</div>
+                        <div class="name">鈴木 花子</div>
+                        <div class="title">主任研究員</div>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="image">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <div class="info">
+                        <div class="company">Tech Ventures</div>
+                        <div class="name">田中 健一</div>
+                        <div class="title">CTO</div>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="image">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <div class="info">
+                        <div class="company">Data Corp</div>
+                        <div class="name">山田 美咲</div>
+                        <div class="title">データサイエンティスト</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>タイムテーブル</h2>
+                <p>充実の5時間プログラム</p>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">13:00</div>
+                <div class="content">
+                    <h4>オープニング</h4>
+                    <p>イベント概要と本日の流れ</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">13:15</div>
+                <div class="content">
+                    <h4>基調講演：AIトレーニングの未来</h4>
+                    <p>佐藤 太郎（Uravation CEO）</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">14:00</div>
+                <div class="content">
+                    <h4>セッション1：RLHF実践ガイド</h4>
+                    <p>鈴木 花子（AI Research Lab）</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">15:00</div>
+                <div class="content">
+                    <h4>休憩 / ネットワーキング</h4>
+                    <p>オンラインで参加者交流</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">15:30</div>
+                <div class="content">
+                    <h4>セッション2：データ品質の重要性</h4>
+                    <p>田中 健一（Tech Ventures）</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">16:30</div>
+                <div class="content">
+                    <h4>パネルディスカッション</h4>
+                    <p>登壇者全員によるQ&A</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="time">17:30</div>
+                <div class="content">
+                    <h4>クロージング</h4>
+                    <p>まとめと今後の展望</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Info -->
+    <section class="section" style="background: var(--gray);">
+        <div class="container">
+            <div class="section-title">
+                <h2>開催概要</h2>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="material-icons">event</span>
+                    <div class="text">
+                        <strong>開催日時</strong>
+                        2025年3月15日（土）13:00-18:00
+                    </div>
+                </div>
+                <div class="info-card">
+                    <span class="material-icons">videocam</span>
+                    <div class="text">
+                        <strong>開催形式</strong>
+                        Zoomによるオンライン配信
+                    </div>
+                </div>
+                <div class="info-card">
+                    <span class="material-icons">payments</span>
+                    <div class="text">
+                        <strong>参加費</strong>
+                        無料（事前登録制）
+                    </div>
+                </div>
+                <div class="info-card">
+                    <span class="material-icons">groups</span>
+                    <div class="text">
+                        <strong>定員</strong>
+                        500名（先着順）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration -->
+    <section class="registration">
+        <div class="container">
+            <div class="section-title">
+                <h2>参加登録</h2>
+                <p>今すぐ無料で登録</p>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label>お名前 *</label>
+                    <input type="text" placeholder="山田 太郎">
+                </div>
+                <div class="form-group">
+                    <label>メールアドレス *</label>
+                    <input type="email" placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label>会社名</label>
+                    <input type="text" placeholder="株式会社○○">
+                </div>
+                <div class="form-group">
+                    <label>部署・役職</label>
+                    <input type="text" placeholder="開発部 マネージャー">
+                </div>
+                <button type="submit" class="submit-btn">無料で参加登録する</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo">URAVATION</div>
+            <p>AIトレーニングで、未来を創る</p>
+            <p class="reference">
+                Design inspired by <a href="https://studio.design/ja/store/templates/EVGOKvRWnr" target="_blank">STUDIO イベントサイト｜スマホ特化型</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Fixed Bottom Bar -->
+    <div class="fixed-bottom-bar">
+        <div class="event-info">
+            <strong>3月15日 13:00〜</strong>
+            参加無料・オンライン
+        </div>
+        <a href="#" class="cta-btn">今すぐ登録</a>
+    </div>
+</body>
+</html>
