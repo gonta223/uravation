@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate with Starter | Uravation AI Training</title>
+    <meta name="description" content="未来を切り拓く、人財を支援育成する。AI研修で企業の成長を支援。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --accent: #3B82F6;
+            --text: #1a1a1a;
+            --text-light: #6B7280;
+            --bg: #FFFFFF;
+            --bg-section: #F9FAFB;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 60px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 140px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-section) 0%, rgba(59,130,246,0.05) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-en {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+            margin-bottom: 40px;
+        }
+
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 60px;
+        }
+
+        .scroll-hint::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Section */
+        .section {
+            padding: 120px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-alt {
+            background: var(--bg-section);
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        /* Message */
+        .message-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .message-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.6;
+            position: sticky;
+            top: 120px;
+        }
+
+        .message-text p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 2.2;
+        }
+
+        /* Service */
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .service-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-header {
+            margin-bottom: 20px;
+        }
+
+        .service-header .label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .service-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .service-text {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+
+        .service-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .service-features .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .service-features .feature .material-icons {
+            font-size: 18px;
+            color: var(--accent);
+        }
+
+        .service-visual {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--bg-section), rgba(59,130,246,0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-visual .material-icons {
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+
+        /* Company */
+        .company-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+        }
+
+        .company-message {
+            position: sticky;
+            top: 120px;
+        }
+
+        .company-message h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .company-message p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .company-message .signature {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .company-info {
+            background: var(--bg-section);
+            padding: 50px;
+            border-radius: 16px;
+        }
+
+        .company-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row dt {
+            width: 140px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            flex-shrink: 0;
+        }
+
+        .info-row dd {
+            font-size: 0.95rem;
+        }
+
+        /* Contact */
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-intro {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 50px;
+            line-height: 2;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-label .badge {
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .form-label .required {
+            background: var(--primary);
+            color: white;
+        }
+
+        .form-label .optional {
+            background: var(--bg-section);
+            color: var(--text-light);
+        }
+
+        .form-label span:last-child {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .form-checkbox a {
+            color: var(--accent);
+        }
+
+        .submit-btn {
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            background: var(--bg-section);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand a {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-brand a:hover {
+            color: var(--text);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-nav a {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            opacity: 0.6;
+            background: var(--bg);
+        }
+
+        .footer-ref a {
+            color: inherit;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .message-content,
+            .service-item,
+            .company-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .service-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .message-title,
+            .company-message {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .section {
+                padding: 80px 20px;
+            }
+
+            .service-features {
+                grid-template-columns: 1fr;
+            }
+
+            .company-info {
+                padding: 30px 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-nav {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">URAVATION</div>
+        <nav>
+            <a href="#message">メッセージ</a>
+            <a href="#service">サービス</a>
+            <a href="#company">会社情報</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>未来を切り拓く、<br>人財を支援育成する</h1>
+            <p class="hero-en">Pioneering the future, supporting human resources.</p>
+            <p class="scroll-hint">Scroll</p>
+        </div>
+    </section>
+
+    <section class="section" id="message">
+        <p class="section-label">MESSAGE</p>
+        <div class="message-content">
+            <h2 class="message-title">「AIと人をつなぐ<br>研修パートナー」</h2>
+            <div class="message-text">
+                <p>
+                    私たちは、AI活用・人材育成の各分野において、長年培ってきた知見とノウハウを活かし、個人の能力や志向性を引き出し、企業のビジネス戦略に合った人材サポートを提供することで、両者にとっての最適なパートナーとなります。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="service">
+        <p class="section-label">SERVICE</p>
+        <h2 class="section-title">サービス</h2>
+        <div class="service-list">
+            <div class="service-item">
+                <div class="service-content">
+                    <div class="service-header">
+                        <p class="label">SERVICE-01</p>
+                        <h3>AI研修・人材育成事業</h3>
+                    </div>
+                    <p class="service-text">
+                        企業のニーズに合わせた研修プログラムから、階層別カリキュラム、実践的なワークショップまで、AI人材戦略に沿った総合的なサポートを提供します。
+                    </p>
+                    <div class="service-features">
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>経営層向けAI戦略研修</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>実践型ワークショップ</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>社内AI推進者育成</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>効果測定・フォローアップ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <span class="material-icons">school</span>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-content">
+                    <div class="service-header">
+                        <p class="label">SERVICE-02</p>
+                        <h3>DXコンサルティング事業</h3>
+                    </div>
+                    <p class="service-text">
+                        組織のAI活用に関する課題に対し、戦略立案から導入支援、定着化まで、様々なフェーズでの専門的なアドバイスを通じてDXの成功につながるサポートを行います。
+                    </p>
+                    <div class="service-features">
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>AI導入戦略策定</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>業務プロセス改善提案</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>ツール選定・導入支援</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">link</span>
+                            <span>継続的な運用サポート</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-visual">
+                    <span class="material-icons">insights</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="company">
+        <p class="section-label">COMPANY</p>
+        <h2 class="section-title">会社情報</h2>
+        <div class="company-content">
+            <div class="company-message">
+                <h3>私たちはAI活用に<br>寄り添うプロ集団です。</h3>
+                <p>
+                    私たちのAI研修事業は、人と技術との繋がりを大切にし、お客様と真剣に向き合っています。一人ひとりの能力を引き出すことに情熱を持って取り組んでいます。
+                </p>
+                <p>
+                    お客様が持つ可能性を最大限に引き出し、目標達成に向けてサポートすることが私たちの使命です。
+                </p>
+                <p class="signature">代表取締役CEO 佐藤 卓</p>
+            </div>
+            <div class="company-info">
+                <h3>会社概要</h3>
+                <dl>
+                    <div class="info-row">
+                        <dt>会社名</dt>
+                        <dd>Uravation株式会社</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>所在地</dt>
+                        <dd>〒150-0000<br>東京都渋谷区○○○ 1-2-3</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>連絡先</dt>
+                        <dd>info@uravation.com</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>代表者</dt>
+                        <dd>代表取締役CEO 佐藤 卓</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>事業内容</dt>
+                        <dd>AI研修・人材育成事業<br>DXコンサルティング事業</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt" id="contact">
+        <p class="section-label">CONTACT</p>
+        <h2 class="section-title">お問い合わせ</h2>
+        <div class="contact-content">
+            <p class="contact-intro">
+                弊社にご関心をお持ちいただき、ありがとうございます。<br>
+                サービスに関するご依頼やご相談など、お気軽にお問い合わせください。<br>
+                お問い合わせ内容の確認後、担当者よりご連絡いたします。
+            </p>
+            <form class="contact-form">
+                <div class="form-group">
+                    <div class="form-label">
+                        <span class="badge required">必須</span>
+                        <span>お名前</span>
+                    </div>
+                    <p class="form-hint">名字と名前を入力してください。</p>
+                    <input type="text" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <div class="form-label">
+                        <span class="badge optional">任意</span>
+                        <span>企業・団体名</span>
+                    </div>
+                    <p class="form-hint">所属する企業・団体名を入力してください。</p>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">
+                        <span class="badge required">必須</span>
+                        <span>メールアドレス</span>
+                    </div>
+                    <p class="form-hint">返信を受け取るメールアドレスを入力してください。</p>
+                    <input type="email" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <div class="form-label">
+                        <span class="badge optional">任意</span>
+                        <span>件名</span>
+                    </div>
+                    <p class="form-hint">お問い合わせの件名を入力してください。</p>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">
+                        <span class="badge required">必須</span>
+                        <span>お問い合わせ内容</span>
+                    </div>
+                    <p class="form-hint">お問い合わせの内容を入力してください。</p>
+                    <textarea placeholder="" required></textarea>
+                </div>
+                <label class="form-checkbox">
+                    <input type="checkbox" required>
+                    <span><a href="#">プライバシーポリシー</a>に同意する</span>
+                </label>
+                <button type="submit" class="submit-btn">送信する</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="logo">URAVATION</div>
+                <a href="#">プライバシーポリシー</a>
+            </div>
+            <div class="footer-nav">
+                <a href="#message">メッセージ</a>
+                <a href="#service">サービス</a>
+                <a href="#company">会社情報</a>
+                <a href="#contact">お問い合わせ</a>
+            </div>
+        </div>
+        <p class="footer-copyright">© Uravation Inc. All Rights Reserved.</p>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/dwQOVMdWDP" target="_blank">STUDIO スタートアップサイトWhite</a></p>
+</body>
+</html>

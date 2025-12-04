@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE TECH COMPANY | Uravation AI Training</title>
+    <meta name="description" content="テクノロジーで未来を創る。AI研修で企業のDXを支援。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --text: #111827;
+            --text-light: #6B7280;
+            --bg: #F9FAFB;
+            --white: #FFFFFF;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--white);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 40px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary);
+        }
+
+        .nav-cta .material-icons {
+            font-size: 18px;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 140px 40px 80px;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-en {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            letter-spacing: 0.2em;
+            opacity: 0.6;
+        }
+
+        /* Section Common */
+        .section {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+        }
+
+        /* Service */
+        .service {
+            background: var(--bg);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .service-card .label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Value */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .value-card {
+            background: var(--bg);
+            padding: 40px;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .value-number {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .value-number .label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+        }
+
+        .value-number .num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .value-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Works */
+        .works {
+            background: var(--text);
+            color: var(--white);
+        }
+
+        .works .section-label {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .works .section-title {
+            color: var(--white);
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .work-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .work-card .category {
+            font-size: 0.75rem;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .work-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .work-card p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        /* Company */
+        .company-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .company-message h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .company-message p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 24px;
+        }
+
+        .company-message .signature {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .company-info {
+            background: var(--bg);
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .company-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row dt {
+            width: 120px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .info-row dd {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        /* Recruit Banner */
+        .recruit-banner {
+            background: linear-gradient(135deg, var(--primary), #8B5CF6);
+            padding: 80px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .recruit-banner h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .recruit-banner p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .recruit-banner .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .recruit-banner .cta:hover {
+            transform: scale(1.05);
+        }
+
+        /* News */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .news-item {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            transition: background 0.3s;
+        }
+
+        .news-item:hover {
+            background: var(--bg);
+            margin: 0 -20px;
+            padding: 24px 20px;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .news-title {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .news-arrow {
+            color: var(--text-light);
+        }
+
+        /* Contact Marquee */
+        .contact-marquee {
+            background: var(--text);
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 0 40px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px;
+            background: var(--bg);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .footer-address {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 50%;
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        .footer-ref a {
+            color: inherit;
+        }
+
+        @media (max-width: 1024px) {
+            .service-grid,
+            .value-grid,
+            .works-grid,
+            .company-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            nav a:not(.nav-cta) {
+                display: none;
+            }
+
+            .section {
+                padding: 80px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">URAVATION</div>
+        <nav>
+            <a href="#service">事業内容</a>
+            <a href="#works">実績</a>
+            <a href="#company">会社概要</a>
+            <a href="#news">お知らせ</a>
+            <a href="#contact" class="nav-cta">
+                お問い合わせ
+                <span class="material-icons">arrow_forward</span>
+            </a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <p class="hero-label">Mission</p>
+        <h1>AIで<br>未来を創る。</h1>
+        <p class="hero-sub">
+            多くの企業が抱える人手不足や業務効率の課題。<br>
+            私たちはAI研修を通じて、<br>
+            企業のデジタル変革と人材育成を支援しています。
+        </p>
+        <p class="hero-en">Hello, Future</p>
+    </section>
+
+    <section class="section service" id="service">
+        <p class="section-label">SERVICE</p>
+        <h2 class="section-title">事業内容</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <p class="label">SERVICE-01</p>
+                <h3>AI研修事業</h3>
+                <p>経営層から現場担当者まで、階層別のカスタマイズ研修を提供。実践的なワークショップで、明日から使えるAIスキルを習得できます。</p>
+            </div>
+            <div class="service-card">
+                <p class="label">SERVICE-02</p>
+                <h3>DXコンサルティング</h3>
+                <p>AI導入戦略の立案から、業務フローの改善、効果測定まで。企業のデジタル変革を包括的にサポートします。</p>
+            </div>
+            <div class="service-card">
+                <p class="label">SERVICE-03</p>
+                <h3>人材育成支援</h3>
+                <p>社内AI推進リーダーの育成、継続的な学習プログラムの設計など、組織のAI活用力を持続的に高めます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="value">
+        <p class="section-label">VALUE</p>
+        <h2 class="section-title">私たちの強み</h2>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-number">
+                    <span class="label">VALUE</span>
+                    <span class="num">"01"</span>
+                </div>
+                <h3>最新AIへの深い知見</h3>
+                <p>ChatGPT、Claude、Geminiなど主要AIツールの最新動向をキャッチアップし、実務に即した活用法を提案します。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">
+                    <span class="label">VALUE</span>
+                    <span class="num">"02"</span>
+                </div>
+                <h3>豊富な研修実績</h3>
+                <p>大手製造業から金融機関まで、多様な業界での研修実績。業界特有の課題に対応したカリキュラムを設計します。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">
+                    <span class="label">VALUE</span>
+                    <span class="num">"03"</span>
+                </div>
+                <h3>実践重視のアプローチ</h3>
+                <p>座学だけでなく、実務課題を使ったハンズオン形式。研修後すぐに業務に活かせるスキルを身につけます。</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">
+                    <span class="label">VALUE</span>
+                    <span class="num">"04"</span>
+                </div>
+                <h3>継続的なサポート</h3>
+                <p>研修後のフォローアップ、質問対応、追加トレーニングなど、定着までしっかりサポートします。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section works" id="works">
+        <p class="section-label">WORKS</p>
+        <h2 class="section-title">実績</h2>
+        <div class="works-grid">
+            <div class="work-card">
+                <p class="category">Executive Training</p>
+                <h3>大手製造業の経営層向けAI戦略研修</h3>
+                <p>役員・部長クラス30名を対象に、AI時代の経営判断に必要な知識とビジョンを3ヶ月かけて習得。</p>
+            </div>
+            <div class="work-card">
+                <p class="category">Company-wide Training</p>
+                <h3>金融機関の全社AIリテラシー研修</h3>
+                <p>500名規模の全社員向け研修。部門別にカスタマイズしたカリキュラムで、組織全体のAI活用力を向上。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="company">
+        <p class="section-label">COMPANY</p>
+        <h2 class="section-title">会社概要</h2>
+        <div class="company-content">
+            <div class="company-message">
+                <h3>AIの力で、<br>人と企業の可能性を広げる。</h3>
+                <p>
+                    AI技術の急速な進化により、ビジネスのあり方は大きく変わりつつあります。しかし、技術だけでは変革は起こりません。それを使いこなす「人」の力が不可欠です。
+                </p>
+                <p>
+                    私たちは、AI研修を通じて、企業で働く一人ひとりがAIを味方につけ、より創造的で生産性の高い仕事ができるよう支援しています。
+                </p>
+                <p class="signature">代表取締役 佐藤 卓</p>
+            </div>
+            <div class="company-info">
+                <h3>会社情報</h3>
+                <dl>
+                    <div class="info-row">
+                        <dt>会社名</dt>
+                        <dd>Uravation株式会社</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>所在地</dt>
+                        <dd>東京都渋谷区○○○ 1-2-3</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>代表者</dt>
+                        <dd>代表取締役 佐藤 卓</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>設立</dt>
+                        <dd>2024年1月</dd>
+                    </div>
+                    <div class="info-row">
+                        <dt>事業内容</dt>
+                        <dd>AI研修事業<br>DXコンサルティング<br>人材育成支援</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <section class="recruit-banner">
+        <h2>ワクワクする未来を、ともに。</h2>
+        <p>AI研修のプロフェッショナルとして、一緒に働く仲間を募集しています。</p>
+        <a href="#" class="cta">
+            採用情報
+            <span class="material-icons">arrow_forward</span>
+        </a>
+    </section>
+
+    <section class="section" id="news">
+        <p class="section-label">NEWS</p>
+        <h2 class="section-title">お知らせ</h2>
+        <div class="news-list">
+            <a href="#" class="news-item">
+                <span class="news-date">2024.12.01</span>
+                <span class="news-title">代表の佐藤が「AI活用カンファレンス2024」に登壇します</span>
+                <span class="material-icons news-arrow">arrow_forward</span>
+            </a>
+            <a href="#" class="news-item">
+                <span class="news-date">2024.11.15</span>
+                <span class="news-title">新しい研修プログラム「プロンプトエンジニアリング実践講座」を開始</span>
+                <span class="material-icons news-arrow">arrow_forward</span>
+            </a>
+            <a href="#" class="news-item">
+                <span class="news-date">2024.11.01</span>
+                <span class="news-title">コーポレートサイトをリニューアルしました</span>
+                <span class="material-icons news-arrow">arrow_forward</span>
+            </a>
+        </div>
+    </section>
+
+    <a href="#contact" class="contact-marquee" id="contact">
+        <div class="marquee-track">
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+            <span class="marquee-item">Contact Us <span class="material-icons">arrow_forward</span></span>
+        </div>
+    </a>
+
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">URAVATION</div>
+                <p class="footer-address">東京都渋谷区○○○ 1-2-3</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">language</span></a>
+                <a href="#"><span class="material-icons">mail</span></a>
+            </div>
+        </div>
+        <p class="footer-copyright">© 2024 URAVATION Inc. All Rights Reserved.</p>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/exNWY1zWlB" target="_blank">STUDIO THEテックカンパニーMini</a></p>
+</body>
+</html>

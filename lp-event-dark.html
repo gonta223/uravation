@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CONFERENCE 2025 | Uravation</title>
+    <meta name="description" content="次世代AIカンファレンス。最新のAI活用事例と未来のビジネスを探る2日間。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B5CF6;
+            --accent: #F59E0B;
+            --bg: #0A0A0F;
+            --bg-card: #12121A;
+            --text: #FFFFFF;
+            --text-light: rgba(255,255,255,0.7);
+            --border: rgba(255,255,255,0.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--bg);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            background: rgba(10,10,15,0.9);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.05);
+            background: #7C3AED;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 160px 40px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(139,92,246,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(245,158,11,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        .hero-dates {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .hero-dates span {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-venue {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 50px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(139,92,246,0.4);
+        }
+
+        /* Section */
+        .section {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .section-title strong {
+            color: var(--accent);
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .about-text h3 strong {
+            color: var(--accent);
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        .about-visual {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, var(--bg-card), rgba(139,92,246,0.2));
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-visual .material-icons {
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.5;
+        }
+
+        /* Overview */
+        .overview {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 60px;
+            border: 1px solid var(--border);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .overview-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .overview-item dt {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .overview-item dd {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .overview-cta {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .overview-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .overview-cta a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Speakers */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .speaker-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .speaker-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speaker-image::before,
+        .speaker-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+        }
+
+        .speaker-image .material-icons {
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .speaker-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .speaker-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Sessions */
+        .session-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .session-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 30px;
+            transition: border-color 0.3s;
+        }
+
+        .session-card:hover {
+            border-color: var(--primary);
+        }
+
+        .session-time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .session-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .session-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .session-speaker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .session-speaker-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .session-speaker-img .material-icons {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .session-speaker span {
+            font-size: 0.9rem;
+        }
+
+        /* Ticket */
+        .ticket {
+            background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(245,158,11,0.1));
+            border-radius: 24px;
+            padding: 80px;
+            border: 1px solid var(--border);
+        }
+
+        .ticket-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .ticket-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .form-group .required {
+            background: var(--accent);
+            color: var(--bg);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        .submit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(139,92,246,0.4);
+        }
+
+        /* Sponsors */
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .sponsor-card {
+            aspect-ratio: 2/1;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        .footer-ref a {
+            color: inherit;
+        }
+
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .speakers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sponsors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            nav a:not(.nav-cta) {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 20px 80px;
+            }
+
+            .hero-dates {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .section {
+                padding: 80px 20px;
+            }
+
+            .overview {
+                padding: 40px 20px;
+            }
+
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .session-card {
+                grid-template-columns: 1fr;
+            }
+
+            .ticket {
+                padding: 40px 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .footer-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AI CONFERENCE</div>
+        <nav>
+            <a href="#overview">開催概要</a>
+            <a href="#speakers">登壇者</a>
+            <a href="#session">セッション</a>
+            <a href="#ticket" class="nav-cta">
+                申し込む
+                <span class="material-icons">arrow_forward</span>
+            </a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="gradient">AI</span> CONFERENCE<br>2025
+            </h1>
+            <p class="hero-sub">AIで変わる、ビジネスの未来</p>
+            <div class="hero-dates">
+                <span>2025.03.15 Sat</span>
+                <span>2025.03.16 Sun</span>
+            </div>
+            <p class="hero-venue">TOKYO CONVENTION HALL</p>
+            <a href="#ticket" class="hero-cta">
+                参加申し込みはこちら
+                <span class="material-icons">arrow_forward</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h3>次世代を切り拓く<br><strong>AI活用</strong>と<strong>ビジネス変革</strong></h3>
+                <p>
+                    本カンファレンスは、最新のAI活用事例を学び、業界の第一線で活躍する専門家や企業とつながるためのイベントです。<br><br>
+                    生成AI、データ分析、業務自動化など、幅広いテーマを取り上げ、実践的な知見と事例を交えながら紹介します。
+                </p>
+            </div>
+            <div class="about-visual">
+                <span class="material-icons">hub</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="overview">
+        <div class="section-header">
+            <p class="section-label">OVERVIEW</p>
+            <h2 class="section-title">開催概要</h2>
+        </div>
+        <div class="overview">
+            <dl class="overview-grid">
+                <div class="overview-item">
+                    <dt>日程</dt>
+                    <dd>2025年3月15日(土) - 3月16日(日)<br>※10:00開場</dd>
+                </div>
+                <div class="overview-item">
+                    <dt>会場</dt>
+                    <dd>TOKYO CONVENTION HALL<br>東京都千代田区○○ 1-2-3</dd>
+                </div>
+                <div class="overview-item">
+                    <dt>対象者</dt>
+                    <dd>ビジネスパーソン、エンジニア、<br>AI活用に関心のあるすべての方</dd>
+                </div>
+                <div class="overview-item">
+                    <dt>参加費</dt>
+                    <dd>早割チケット ¥15,000<br>一般チケット ¥20,000</dd>
+                </div>
+                <div class="overview-item">
+                    <dt>定員</dt>
+                    <dd>500名</dd>
+                </div>
+                <div class="overview-item">
+                    <dt>主催</dt>
+                    <dd>Uravation株式会社</dd>
+                </div>
+            </dl>
+            <div class="overview-cta">
+                <a href="#ticket">
+                    参加申し込みはこちら
+                    <span class="material-icons">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="speakers">
+        <div class="section-header">
+            <p class="section-label">SPEAKERS</p>
+            <h2 class="section-title"><strong>第一線で活躍する</strong>登壇者</h2>
+        </div>
+        <div class="speakers-grid">
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <h3>佐藤 卓</h3>
+                <p>Uravation Inc. CEO</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <h3>田中 美咲</h3>
+                <p>AI Innovation Lab</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <h3>山田 健一</h3>
+                <p>TechVentures Inc.</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <h3>鈴木 直人</h3>
+                <p>Digital Strategy Partners</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <h3>高橋 由美</h3>
+                <p>FutureAI Research</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <h3>中村 浩二</h3>
+                <p>Enterprise AI Solutions</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="session">
+        <div class="section-header">
+            <p class="section-label">SESSION</p>
+            <h2 class="section-title">注目の<strong>セッション</strong></h2>
+        </div>
+        <div class="session-list">
+            <div class="session-card">
+                <div class="session-time">10:00</div>
+                <div class="session-content">
+                    <h3>基調講演：生成AIがもたらすビジネス変革</h3>
+                    <p>ChatGPT登場から2年。企業のAI活用はどう変わったのか。最新事例と今後の展望を解説。</p>
+                    <div class="session-speaker">
+                        <div class="session-speaker-img">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <span>佐藤 卓 / Uravation Inc.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="session-card">
+                <div class="session-time">11:30</div>
+                <div class="session-content">
+                    <h3>パネルディスカッション：AI人材育成の最前線</h3>
+                    <p>組織全体でAIを活用するために必要な人材育成戦略について、各社の取り組みを紹介。</p>
+                    <div class="session-speaker">
+                        <div class="session-speaker-img">
+                            <span class="material-icons">groups</span>
+                        </div>
+                        <span>田中・山田・鈴木</span>
+                    </div>
+                </div>
+            </div>
+            <div class="session-card">
+                <div class="session-time">14:00</div>
+                <div class="session-content">
+                    <h3>ワークショップ：プロンプトエンジニアリング実践</h3>
+                    <p>ハンズオン形式で、業務で使える実践的なプロンプト設計テクニックを学びます。</p>
+                    <div class="session-speaker">
+                        <div class="session-speaker-img">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <span>高橋 由美 / FutureAI Research</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="sponsors">
+        <div class="section-header">
+            <p class="section-label">SPONSORS</p>
+            <h2 class="section-title">スポンサー</h2>
+        </div>
+        <div class="sponsors-grid">
+            <div class="sponsor-card">SPONSOR A</div>
+            <div class="sponsor-card">SPONSOR B</div>
+            <div class="sponsor-card">SPONSOR C</div>
+            <div class="sponsor-card">SPONSOR D</div>
+        </div>
+    </section>
+
+    <section class="section" id="ticket">
+        <div class="section-header">
+            <p class="section-label">TICKET</p>
+            <h2 class="section-title">参加申し込み</h2>
+        </div>
+        <div class="ticket">
+            <div class="ticket-content">
+                <form class="ticket-form">
+                    <div class="form-group">
+                        <label>お名前 <span class="required">必須</span></label>
+                        <input type="text" placeholder="山田 太郎" required>
+                    </div>
+                    <div class="form-group">
+                        <label>メールアドレス <span class="required">必須</span></label>
+                        <input type="email" placeholder="example@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>電話番号</label>
+                        <input type="tel" placeholder="090-0000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label>チケット種別 <span class="required">必須</span></label>
+                        <select required>
+                            <option value="">選択してください</option>
+                            <option value="early-2day">2日間早割チケット ¥15,000</option>
+                            <option value="regular-2day">2日間一般チケット ¥20,000</option>
+                            <option value="early-1day">1日券早割チケット ¥8,000</option>
+                            <option value="regular-1day">1日券一般チケット ¥12,000</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        この内容で申し込む
+                        <span class="material-icons">arrow_forward</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-nav">
+                <a href="#">ホーム</a>
+                <a href="#overview">開催概要</a>
+                <a href="#speakers">登壇者</a>
+                <a href="#session">セッション</a>
+                <a href="#">プライバシーポリシー</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">language</span></a>
+                <a href="#"><span class="material-icons">mail</span></a>
+                <a href="#"><span class="material-icons">share</span></a>
+            </div>
+        </div>
+        <p class="footer-copyright">© 2025 AI CONFERENCE. Powered by Uravation Inc.</p>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/RbrqEgnW4l" target="_blank">STUDIO イベント・セミナー｜ダーク</a></p>
+</body>
+</html>

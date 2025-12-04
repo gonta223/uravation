@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Training Portfolio | Uravation</title>
+    <meta name="description" content="AI研修のプロフェッショナル。あなたのビジネスにAIを。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --text: #1a1a1a;
+            --text-light: #666;
+            --bg: #FAFAFA;
+            --white: #FFFFFF;
+            --border: #E5E5E5;
+            --accent: #3B82F6;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--white);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 60px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 0.4em;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #E8F5E9;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .status-badge .emoji {
+            font-size: 1.2rem;
+        }
+
+        .hero-text {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        /* Work Section */
+        .section {
+            padding: 100px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .work-item {
+            background: var(--bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .work-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .work-image {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .work-image .material-icons {
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .work-info {
+            padding: 24px;
+        }
+
+        .work-info h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .work-info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--bg);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .skill-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .skill-card .material-icons {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .skill-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .tools {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .tools h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tools-list span {
+            background: var(--bg);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Profile */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .profile-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image .material-icons {
+            font-size: 6rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .profile-info h3 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .profile-info .name-en {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .profile-info .bio {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--bg);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-text p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .form-group .required {
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background: var(--text);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 60px;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .footer-ref {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        .footer-ref a {
+            color: inherit;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .work-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-main">URAVATION</span>
+            <span class="logo-sub">AI Training Specialist</span>
+        </div>
+        <nav>
+            <a href="#work">WORK</a>
+            <a href="#skill">SKILL</a>
+            <a href="#profile">PROFILE</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>
+                    Portfolio
+                    <span>AI Training & Consulting</span>
+                </h1>
+                <div class="status-badge">
+                    <span class="emoji">🚀</span>
+                    <span>現在、新規研修のご相談受付中です</span>
+                </div>
+                <p class="hero-text">
+                    AI活用の可能性を最大限に引き出す研修プログラムを提供。経営層向け意思決定支援から、現場実践型ワークショップまで、企業のデジタル変革を包括的にサポートいたします。
+                </p>
+            </div>
+            <div class="hero-image">
+                <!-- Visual element placeholder -->
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="work">
+        <div class="section-header">
+            <h2>WORK</h2>
+            <p>制作実績</p>
+        </div>
+        <div class="work-grid">
+            <div class="work-item">
+                <div class="work-image">
+                    <span class="material-icons">factory</span>
+                </div>
+                <div class="work-info">
+                    <h3>大手製造業A社</h3>
+                    <p>経営層向けAI戦略研修 / 3ヶ月プログラム</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-image">
+                    <span class="material-icons">account_balance</span>
+                </div>
+                <div class="work-info">
+                    <h3>金融機関B社</h3>
+                    <p>全社員向けAIリテラシー研修 / 500名規模</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-image">
+                    <span class="material-icons">rocket_launch</span>
+                </div>
+                <div class="work-info">
+                    <h3>ITスタートアップC社</h3>
+                    <p>プロンプトエンジニアリング実践講座</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-image">
+                    <span class="material-icons">local_hospital</span>
+                </div>
+                <div class="work-info">
+                    <h3>医療法人D</h3>
+                    <p>医療×AI 業務効率化ワークショップ</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-image">
+                    <span class="material-icons">school</span>
+                </div>
+                <div class="work-info">
+                    <h3>教育機関E大学</h3>
+                    <p>教職員向けAI活用研修</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-image">
+                    <span class="material-icons">store</span>
+                </div>
+                <div class="work-info">
+                    <h3>小売業F社</h3>
+                    <p>販売・マーケティングAI活用研修</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section skills" id="skill">
+        <div class="section-header">
+            <h2>SKILL</h2>
+            <p>スキル</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <span class="material-icons">psychology</span>
+                <h3>AI戦略コンサルティング</h3>
+                <p>経営課題に対するAI導入戦略の立案から、ROI分析、実行計画策定まで、包括的なコンサルティングを提供します。</p>
+            </div>
+            <div class="skill-card">
+                <span class="material-icons">groups</span>
+                <h3>研修プログラム設計</h3>
+                <p>階層別・部門別の最適なカリキュラム設計。座学からハンズオンまで、効果的な学習体験を設計します。</p>
+            </div>
+            <div class="skill-card">
+                <span class="material-icons">engineering</span>
+                <h3>実践ワークショップ</h3>
+                <p>実務課題を題材にしたワークショップ形式で、明日から使えるAI活用スキルを身につけていただきます。</p>
+            </div>
+        </div>
+        <div class="tools">
+            <h3>対応AI・ツール</h3>
+            <div class="tools-list">
+                <span>ChatGPT / GPT-4</span>
+                <span>Claude</span>
+                <span>Gemini</span>
+                <span>Microsoft Copilot</span>
+                <span>Midjourney</span>
+                <span>DALL-E</span>
+                <span>GitHub Copilot</span>
+                <span>Notion AI</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="profile">
+        <div class="section-header">
+            <h2>PROFILE</h2>
+            <p>プロフィール</p>
+        </div>
+        <div class="profile-content">
+            <div class="profile-image">
+                <span class="material-icons">person</span>
+            </div>
+            <div class="profile-info">
+                <h3>Uravation Inc.</h3>
+                <p class="name-en">AI Training & Consulting</p>
+                <div class="social-links">
+                    <a href="#"><span class="material-icons">language</span>Website</a>
+                    <a href="#"><span class="material-icons">mail</span>Email</a>
+                    <a href="#"><span class="material-icons">share</span>LinkedIn</a>
+                </div>
+                <p class="bio">
+                    企業のAI活用を支援するプロフェッショナル集団。大手企業での豊富な研修実績を持ち、経営層から現場担当者まで、あらゆる階層に対応した研修プログラムを提供しています。「AIを知る」から「AIを使いこなす」まで、段階的な学習設計で確実なスキル定着を実現。企業のデジタル変革を、人材育成の側面から強力にサポートします。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact" id="contact">
+        <div class="section-header">
+            <h2>CONTACT</h2>
+            <p>お問い合わせ</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-text">
+                <p>
+                    AI研修に関するご相談、お見積りのご依頼など、お気軽にお問い合わせください。<br><br>
+                    通常3営業日以内にご返信いたします。お急ぎの場合は、その旨をお問い合わせ内容にご記載ください。
+                </p>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label>お名前 <span class="required">必須</span></label>
+                    <input type="text" placeholder="山田 太郎" required>
+                </div>
+                <div class="form-group">
+                    <label>メールアドレス <span class="required">必須</span></label>
+                    <input type="email" placeholder="example@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>お問い合わせ内容 <span class="required">必須</span></label>
+                    <textarea placeholder="研修の目的、対象者、希望時期などをご記入ください" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    送信する
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-nav">
+                <a href="#work">WORK</a>
+                <a href="#skill">SKILL</a>
+                <a href="#profile">PROFILE</a>
+                <a href="#contact">CONTACT</a>
+            </div>
+            <p class="copyright">© 2024 URAVATION Inc.</p>
+        </div>
+    </footer>
+    <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/ZmoWvrlW6y" target="_blank">STUDIO ポートフォリオ｜Min.</a></p>
+</body>
+</html>
