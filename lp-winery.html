@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUVÉE VINEYARD | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #722F37; --primary-light: #8B4513; --gold: #C9A227; --dark: #1C1C1C; --text: #333; --text-light: #777; --cream: #FAF7F2; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; overflow-x: hidden; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fade-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in-left.visible { opacity: 1; transform: translateX(0); }
+        .fade-in-right { opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in-right.visible { opacity: 1; transform: translateX(0); }
+        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .scale-in.visible { opacity: 1; transform: scale(1); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; }
+
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); padding: 15px 20px; box-shadow: 0 -4px 30px rgba(0,0,0,0.3); z-index: 1000; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .fixed-cta-text { color: white; font-size: 1rem; }
+        .fixed-cta-text span { color: var(--gold); font-weight: 500; }
+        .fixed-cta-btn { background: var(--gold); color: var(--dark); padding: 12px 30px; text-decoration: none; font-weight: 500; transition: all 0.3s; }
+        .fixed-cta-btn:hover { transform: scale(1.05); }
+
+        header { background: var(--dark); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { padding: 15px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 0.1em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; transition: color 0.3s; }
+        nav a:hover { color: var(--gold); }
+        .btn-header { border: 1px solid var(--gold); color: var(--gold); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; transition: all 0.3s; }
+        .btn-header:hover { background: var(--gold); color: var(--dark); }
+
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A227' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.1em; animation: fadeInDown 1s ease; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero p { opacity: 0.9; margin-bottom: 40px; font-size: 1.1rem; letter-spacing: 0.05em; animation: fadeIn 1s ease 0.3s both; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn-gold { background: var(--gold); color: var(--dark); padding: 18px 55px; text-decoration: none; display: inline-block; letter-spacing: 0.1em; font-weight: 500; animation: fadeInUp 1s ease 0.5s both; transition: all 0.3s; position: relative; overflow: hidden; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-gold::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; }
+        .btn-gold:hover::before { left: 100%; }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(201, 162, 39, 0.4); }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--primary); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 400; color: var(--primary); }
+
+        .wines { background: var(--white); }
+        .wines-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .wine-card { text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .wine-card:hover { transform: translateY(-10px); }
+        .wine-image { height: 320px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .wine-image::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, transparent, rgba(201, 162, 39, 0.2)); opacity: 0; transition: opacity 0.4s; }
+        .wine-card:hover .wine-image::after { opacity: 1; }
+        .wine-image .material-icons { font-size: 80px; color: white; opacity: 0.4; transition: transform 0.4s; }
+        .wine-card:hover .wine-image .material-icons { transform: scale(1.1); }
+        .wine-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; color: var(--primary); }
+        .wine-card .grape { font-size: 0.85rem; color: var(--gold); margin-bottom: 10px; }
+        .wine-card p { font-size: 0.9rem; color: var(--text-light); }
+        .wine-price { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--primary); margin-top: 15px; }
+
+        .story { background: var(--cream); }
+        .story-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .story-image { height: 400px; background: linear-gradient(135deg, var(--gold), var(--primary)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .story-image::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: pulse 5s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .story-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
+        .story-text h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 25px; color: var(--primary); }
+        .story-text p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; }
+
+        .visit { background: var(--white); }
+        .visit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .visit-card { text-align: center; padding: 40px 25px; background: var(--cream); transition: all 0.4s; }
+        .visit-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .visit-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; transition: all 0.3s; }
+        .visit-card:hover .material-icons { color: var(--gold); transform: scale(1.1); }
+        .visit-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+        .visit-card p { font-size: 0.9rem; color: var(--text-light); }
+
+        .cta { background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .btn-white { background: white; color: var(--primary); padding: 18px 55px; text-decoration: none; display: inline-block; margin-top: 25px; font-weight: 500; transition: all 0.3s; }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255,255,255,0.3); }
+
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); margin-bottom: 20px; letter-spacing: 0.1em; }
+        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+        @media (max-width: 1024px) { .wines-grid { grid-template-columns: repeat(2, 1fr); } .story-content { grid-template-columns: 1fr; } .visit-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .wines-grid, .visit-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <div class="fixed-cta"><div class="fixed-cta-inner"><div class="fixed-cta-text">新作ワイン入荷！<span>会員様10%OFF</span></div><a href="#shop" class="fixed-cta-btn">ショップを見る</a></div></div>
+    <header><div class="container"><div class="header-inner"><div class="logo">CUVÉE</div><nav><ul><li><a href="#wines">Wines</a></li><li><a href="#story">Story</a></li><li><a href="#visit">Visit</a></li></ul></nav><a href="#shop" class="btn-header">Online Shop</a></div></div></header>
+    <section class="hero"><div class="container"><h1>CUVÉE VINEYARD</h1><p>自然の恵みと情熱が生み出す、至高のワイン</p><a href="#wines" class="btn-gold">ワインを見る</a></div></section>
+    <section id="wines" class="wines"><div class="container"><div class="section-header fade-in"><span class="en">WINES</span><h2>ワインコレクション</h2></div><div class="wines-grid">
+        <div class="wine-card fade-in stagger-1"><div class="wine-image"><span class="material-icons">wine_bar</span></div><h3>CUVÉE Rouge</h3><div class="grape">Cabernet Sauvignon</div><p>深みのある味わいと豊かなタンニン</p><div class="wine-price">¥5,500</div></div>
+        <div class="wine-card fade-in stagger-2"><div class="wine-image"><span class="material-icons">wine_bar</span></div><h3>CUVÉE Blanc</h3><div class="grape">Chardonnay</div><p>フルーティーで爽やかな白ワイン</p><div class="wine-price">¥4,800</div></div>
+        <div class="wine-card fade-in stagger-3"><div class="wine-image"><span class="material-icons">wine_bar</span></div><h3>CUVÉE Rosé</h3><div class="grape">Pinot Noir</div><p>華やかな香りとエレガントな味わい</p><div class="wine-price">¥4,200</div></div>
+    </div></div></section>
+    <section id="story" class="story"><div class="container"><div class="story-content"><div class="story-image fade-in-left"><span class="material-icons">terrain</span></div><div class="story-text fade-in-right"><h3>100年の歴史を持つ畑から</h3><p>私たちのブドウ畑は、温暖な気候と豊かな土壌に恵まれた丘陵地帯に位置しています。</p><p>代々受け継がれてきた伝統的な栽培方法と、最新の醸造技術を融合させ、唯一無二のワインを生み出しています。</p></div></div></div></section>
+    <section id="visit" class="visit"><div class="container"><div class="section-header fade-in"><span class="en">VISIT</span><h2>ワイナリー見学</h2></div><div class="visit-grid">
+        <div class="visit-card scale-in stagger-1"><span class="material-icons">tour</span><h3>ワイナリーツアー</h3><p>ブドウ畑から醸造所まで、ワイン造りの全工程をご案内</p></div>
+        <div class="visit-card scale-in stagger-2"><span class="material-icons">local_bar</span><h3>テイスティング</h3><p>5種類のワインをソムリエの解説付きで試飲</p></div>
+        <div class="visit-card scale-in stagger-3"><span class="material-icons">restaurant</span><h3>ペアリングランチ</h3><p>地元食材を使った料理とワインのマリアージュ</p></div>
+    </div></div></section>
+    <section class="cta" id="shop"><div class="container"><div class="fade-in"><h2>オンラインショップ</h2><p style="opacity: 0.9;">厳選されたワインをご自宅へお届けします</p><a href="#" class="btn-white">ショップを見る</a></div></div></section>
+    <footer><div class="container"><div class="footer-logo">CUVÉE VINEYARD</div><p>〒000-0000 ○○県○○市○○町1-2-3</p><p>TEL: 000-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+    </script>
+</body>
+</html>

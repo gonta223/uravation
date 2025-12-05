@@ -131,16 +131,60 @@
             z-index: 10;
         }
 
+        /* Thumbnail iframe container */
+        .card-thumbnail {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+
+        .card-thumbnail iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1440px;
+            height: 1080px;
+            transform: scale(0.28);
+            transform-origin: top left;
+            pointer-events: none;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card-thumbnail iframe.loaded {
+            opacity: 1;
+        }
+
+        .card-thumbnail::after {
+            content: 'Loading...';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--gray);
+            opacity: 0.5;
+        }
+
+        .card-thumbnail iframe.loaded + .card-thumbnail::after {
+            display: none;
+        }
+
         .design-card::before {
             content: '';
             position: absolute;
             inset: 0;
             opacity: 0;
             transition: opacity 0.5s ease;
+            z-index: 1;
         }
 
         .design-card:hover::before {
-            opacity: 1;
+            opacity: 0.85;
         }
 
         .design-card.brutalist::before {
@@ -588,6 +632,29 @@
         .design-card.realestate2::before { background: linear-gradient(135deg, #1E3A5F, #10B981); }
         .design-card.studioproduction::before { background: linear-gradient(135deg, #2563EB, #F97316); }
 
+        /* New LPs - Batch 93-102 */
+        .design-card.hotel::before { background: linear-gradient(135deg, #1E3A5F, #C9A962); }
+        .design-card.carrepair::before { background: linear-gradient(135deg, #DC2626, #1A1A1A); }
+        .design-card.reform::before { background: linear-gradient(135deg, #4A7C59, #A8D5BA); }
+        .design-card.farm::before { background: linear-gradient(135deg, #4A7C59, #F59E0B); }
+        .design-card.winery::before { background: linear-gradient(135deg, #722F37, #C9A962); }
+        .design-card.brewery::before { background: linear-gradient(135deg, #D97706, #1A1A1A); }
+        .design-card.outdoor::before { background: linear-gradient(135deg, #2F5233, #F97316); }
+        .design-card.coworking::before { background: linear-gradient(135deg, #7C3AED, #2563EB); }
+        .design-card.logistics::before { background: linear-gradient(135deg, #1E40AF, #F97316); }
+        .design-card.rental::before { background: linear-gradient(135deg, #E17055, #6C5CE7); }
+
+        .design-card.hotel:hover .card-content,
+        .design-card.carrepair:hover .card-content,
+        .design-card.reform:hover .card-content,
+        .design-card.farm:hover .card-content,
+        .design-card.winery:hover .card-content,
+        .design-card.brewery:hover .card-content,
+        .design-card.outdoor:hover .card-content,
+        .design-card.coworking:hover .card-content,
+        .design-card.logistics:hover .card-content,
+        .design-card.rental:hover .card-content { color: var(--white); }
+
         .design-card.beautysalon:hover .card-content,
         .design-card.clinic:hover .card-content,
         .design-card.lawfirm:hover .card-content,
@@ -639,12 +706,15 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            z-index: 2;
+            z-index: 3;
             transition: all 0.5s ease;
+            opacity: 0;
+            background: rgba(0,0,0,0.7);
         }
 
         .design-card:hover .card-content {
-            color: var(--black);
+            opacity: 1;
+            color: var(--white);
         }
 
         .design-card.cyber:hover .card-content,
@@ -656,6 +726,50 @@
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
             letter-spacing: 0.1em;
+        }
+
+        /* Always visible label on thumbnail */
+        .card-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .design-card:hover .card-label {
+            opacity: 0;
+        }
+
+        .card-label-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-label-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            backdrop-filter: blur(5px);
+            max-width: 70%;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-title {
@@ -814,7 +928,7 @@
     <section class="hero">
         <h1>
             DESIGNS
-            <span>100 Unique Design Variations</span>
+            <span>102 Unique Design Variations</span>
         </h1>
         <p>Explore different visual directions for the Uravation AI Training brand. Each design tells a unique story.</p>
     </section>
@@ -2377,6 +2491,166 @@
                 <div class="card-arrow">→</div>
             </div>
         </a>
+
+        <a href="lp-hotel.html" class="design-card hotel">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">93</div>
+                    <h3 class="card-title">Serene Hotel</h3>
+                    <p class="card-subtitle">ホテル・旅館向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Navy</span>
+                        <span class="card-tag">Gold</span>
+                        <span class="card-tag">Luxury</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-car-repair.html" class="design-card carrepair">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">94</div>
+                    <h3 class="card-title">Auto Tech</h3>
+                    <p class="card-subtitle">自動車整備工場向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Red</span>
+                        <span class="card-tag">Dark</span>
+                        <span class="card-tag">Industrial</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-reform.html" class="design-card reform">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">95</div>
+                    <h3 class="card-title">Renove</h3>
+                    <p class="card-subtitle">リフォーム会社向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Green</span>
+                        <span class="card-tag">Natural</span>
+                        <span class="card-tag">Warm</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-farm.html" class="design-card farm">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">96</div>
+                    <h3 class="card-title">Sunny Farm</h3>
+                    <p class="card-subtitle">農園・直売所向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Green</span>
+                        <span class="card-tag">Yellow</span>
+                        <span class="card-tag">Organic</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-winery.html" class="design-card winery">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">97</div>
+                    <h3 class="card-title">Cuvée Vineyard</h3>
+                    <p class="card-subtitle">ワイナリー向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Burgundy</span>
+                        <span class="card-tag">Gold</span>
+                        <span class="card-tag">Elegant</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-brewery.html" class="design-card brewery">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">98</div>
+                    <h3 class="card-title">Hopcraft Brewery</h3>
+                    <p class="card-subtitle">クラフトビール醸造所向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Amber</span>
+                        <span class="card-tag">Dark</span>
+                        <span class="card-tag">Craft</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-outdoor.html" class="design-card outdoor">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">99</div>
+                    <h3 class="card-title">Wild Trail</h3>
+                    <p class="card-subtitle">アウトドアショップ向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Green</span>
+                        <span class="card-tag">Orange</span>
+                        <span class="card-tag">Adventure</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-coworking.html" class="design-card coworking">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">100</div>
+                    <h3 class="card-title">Hive Workspace</h3>
+                    <p class="card-subtitle">コワーキングスペース向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Purple</span>
+                        <span class="card-tag">Modern</span>
+                        <span class="card-tag">Tech</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-logistics.html" class="design-card logistics">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">101</div>
+                    <h3 class="card-title">Swift Logistics</h3>
+                    <p class="card-subtitle">物流・運送会社向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Blue</span>
+                        <span class="card-tag">Orange</span>
+                        <span class="card-tag">Corporate</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
+
+        <a href="lp-rental.html" class="design-card rental">
+            <div class="card-content">
+                <div>
+                    <div class="card-number">102</div>
+                    <h3 class="card-title">Space Studio</h3>
+                    <p class="card-subtitle">レンタルスペース向け</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Coral</span>
+                        <span class="card-tag">Purple</span>
+                        <span class="card-tag">Creative</span>
+                    </div>
+                </div>
+                <div class="card-arrow">→</div>
+            </div>
+        </a>
     </div>
 
     <footer>
@@ -2389,6 +2663,53 @@
     </footer>
 
     <script>
+        // Lazy load thumbnails with Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '200px',
+            threshold: 0
+        };
+
+        const thumbnailObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const href = card.getAttribute('href');
+                    if (href && !card.querySelector('.card-thumbnail')) {
+                        // Create thumbnail with iframe
+                        const thumbnail = document.createElement('div');
+                        thumbnail.className = 'card-thumbnail';
+
+                        const iframe = document.createElement('iframe');
+                        iframe.src = href;
+                        iframe.onload = () => iframe.classList.add('loaded');
+
+                        thumbnail.appendChild(iframe);
+                        card.insertBefore(thumbnail, card.firstChild);
+
+                        // Create label overlay
+                        const content = card.querySelector('.card-content');
+                        const number = content?.querySelector('.card-number')?.textContent || '';
+                        const title = content?.querySelector('.card-title')?.textContent || '';
+
+                        const label = document.createElement('div');
+                        label.className = 'card-label';
+                        label.innerHTML = `
+                            <span class="card-label-number">${number}</span>
+                            <span class="card-label-title">${title}</span>
+                        `;
+                        card.appendChild(label);
+                    }
+                    thumbnailObserver.unobserve(card);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.design-card').forEach(card => {
+            thumbnailObserver.observe(card);
+        });
+
         // Card hover effect with mouse tracking
         document.querySelectorAll('.design-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
