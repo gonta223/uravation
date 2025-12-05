@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUILD Construction | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #FF6F00; --primary-dark: #E65100; --blue: #0D47A1; --dark: #1A1A1A; --text: #333; --text-light: #666; --bg: #F5F5F5; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Roboto', sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--primary); letter-spacing: 0.05em; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; font-weight: 700; }
+        .hero { padding: 130px 0 80px; background: var(--dark); color: white; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: var(--primary); clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%); opacity: 0.15; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; position: relative; }
+        .hero h1 { font-size: 3rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { opacity: 0.8; margin-bottom: 30px; }
+        .btn-primary { background: var(--primary); color: white; padding: 18px 45px; text-decoration: none; display: inline-block; font-weight: 700; }
+        .hero-image { height: 400px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.7; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: var(--bg); padding: 35px 25px; }
+        .service-icon { width: 60px; height: 60px; background: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .service-icon .material-icons { font-size: 28px; color: white; }
+        .service-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+        .service-card p { font-size: 0.9rem; color: var(--text-light); }
+        .numbers { background: var(--dark); color: white; }
+        .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+        .number-item { padding: 30px 20px; }
+        .number-value { font-family: 'Roboto', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--primary); margin-bottom: 10px; }
+        .number-item p { font-size: 0.9rem; opacity: 0.8; }
+        .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .work-card { background: var(--white); }
+        .work-image { height: 200px; background: linear-gradient(135deg, var(--primary), var(--blue)); display: flex; align-items: center; justify-content: center; }
+        .work-image .material-icons { font-size: 50px; color: white; opacity: 0.6; }
+        .work-info { padding: 25px; }
+        .work-info h4 { font-size: 1.1rem; margin-bottom: 8px; }
+        .work-info p { font-size: 0.85rem; color: var(--text-light); }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        .btn-dark { background: var(--dark); color: white; padding: 18px 45px; text-decoration: none; display: inline-block; font-weight: 700; margin-top: 20px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--primary); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .services-grid, .works-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .numbers-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .numbers-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">BUILD</div><nav><ul><li><a href="#services">事業内容</a></li><li><a href="#works">施工実績</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">無料見積り</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>確かな技術で<br><span>未来を建てる</span></h1><p>住宅から商業施設まで<br>50年の実績と信頼の施工技術。</p><a href="#contact" class="btn-primary">無料見積り</a></div><div class="hero-image"><span class="material-icons">construction</span></div></div></div></section>
+    <section id="services" class="services"><div class="container"><div class="section-header"><h2>事業内容</h2><p>あらゆる建築ニーズにお応えします</p></div><div class="services-grid">
+        <div class="service-card"><div class="service-icon"><span class="material-icons">home</span></div><h3>住宅建築</h3><p>新築戸建てからリフォームまで、理想の住まいを実現します。</p></div>
+        <div class="service-card"><div class="service-icon"><span class="material-icons">store</span></div><h3>商業施設</h3><p>店舗・オフィスビル・商業施設の設計施工を承ります。</p></div>
+        <div class="service-card"><div class="service-icon"><span class="material-icons">apartment</span></div><h3>マンション</h3><p>大規模修繕から新築まで、集合住宅の施工を行います。</p></div>
+    </div></div></section>
+    <section class="numbers"><div class="container"><div class="section-header"><h2 style="color: white;">実績</h2></div><div class="numbers-grid">
+        <div class="number-item"><div class="number-value">50</div><p>創業年数</p></div>
+        <div class="number-item"><div class="number-value">3,000+</div><p>施工実績</p></div>
+        <div class="number-item"><div class="number-value">150</div><p>一級建築士</p></div>
+        <div class="number-item"><div class="number-value">98%</div><p>顧客満足度</p></div>
+    </div></div></section>
+    <section id="works"><div class="container"><div class="section-header"><h2>施工実績</h2></div><div class="works-grid">
+        <div class="work-card"><div class="work-image"><span class="material-icons">home</span></div><div class="work-info"><h4>戸建て住宅 A邸</h4><p>東京都世田谷区 / 木造2階建て</p></div></div>
+        <div class="work-card"><div class="work-image"><span class="material-icons">store</span></div><div class="work-info"><h4>商業ビル</h4><p>東京都渋谷区 / RC造5階建て</p></div></div>
+        <div class="work-card"><div class="work-image"><span class="material-icons">apartment</span></div><div class="work-info"><h4>マンション大規模修繕</h4><p>東京都港区 / 外壁・防水工事</p></div></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>まずはお気軽にご相談ください</h2><p style="opacity: 0.9;">無料見積り・現地調査承ります</p><a href="#" class="btn-dark">無料見積り</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">BUILD</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>事業内容</h4><ul><li><a href="#">住宅建築</a></li><li><a href="#">商業施設</a></li><li><a href="#">マンション</a></li></ul></div><div class="footer-links"><h4>会社情報</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">施工実績</a></li><li><a href="#">採用情報</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

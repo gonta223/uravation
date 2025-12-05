@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ビューティーサロンLP - Uravation AI Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D4A5A5;
+            --primary-dark: #C89494;
+            --secondary: #A8C5B5;
+            --accent: #E8D4B8;
+            --dark: #2D2D2D;
+            --gray-700: #4A4A4A;
+            --gray-500: #757575;
+            --gray-300: #C4C4C4;
+            --gray-100: #F5F5F5;
+            --cream: #FDF9F6;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--dark);
+            line-height: 2;
+            background: var(--cream);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(253, 249, 246, 0.98);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray-500);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-dark);
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 0 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 480px;
+        }
+
+        .hero-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 18px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--dark);
+            padding: 18px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--gray-300);
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image-main {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 200px 200px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+
+        .hero-badge {
+            position: absolute;
+            bottom: 40px;
+            left: -40px;
+            background: var(--white);
+            padding: 24px 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .hero-badge h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .hero-badge p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        /* Services */
+        .services {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 48px 32px;
+            background: var(--cream);
+            border-radius: 24px;
+            transition: all 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(212, 165, 165, 0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .service-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        /* Menu */
+        .menu {
+            padding: 120px 0;
+            background: var(--cream);
+        }
+
+        .menu-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .menu-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .menu-text > p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-300);
+        }
+
+        .menu-item h4 {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .menu-item p {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        .menu-item-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.4s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:nth-child(1) { background: linear-gradient(135deg, #D4A5A5, #E8D4B8); }
+        .gallery-item:nth-child(2) { background: linear-gradient(135deg, #A8C5B5, #D4A5A5); }
+        .gallery-item:nth-child(3) { background: linear-gradient(135deg, #E8D4B8, #A8C5B5); }
+        .gallery-item:nth-child(4) { background: linear-gradient(135deg, #D4A5A5, #A8C5B5); }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 0;
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .testimonials .section-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .testimonials .section-title {
+            color: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-content {
+            font-size: 1rem;
+            margin-bottom: 24px;
+            font-style: italic;
+            opacity: 0.95;
+        }
+
+        .testimonial-author {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-info h5 {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        /* Access */
+        .access {
+            padding: 120px 0;
+            background: var(--cream);
+        }
+
+        .access-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .access-map {
+            width: 100%;
+            height: 400px;
+            background: var(--gray-300);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .access-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+        }
+
+        .access-details {
+            margin-bottom: 40px;
+        }
+
+        .access-row {
+            display: flex;
+            gap: 20px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-300);
+        }
+
+        .access-label {
+            width: 80px;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .access-value {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 120px 0;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .cta p {
+            color: var(--gray-500);
+            font-size: 1rem;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 60px 0 30px;
+            color: var(--gray-300);
+        }
+
+        .footer-content {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+        }
+
+        .footer-info {
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .footer-social a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .hero-badge {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-content {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .access-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">Bloom</div>
+                <nav>
+                    <ul>
+                        <li><a href="#services">MENU</a></li>
+                        <li><a href="#gallery">GALLERY</a></li>
+                        <li><a href="#access">ACCESS</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="header-cta">ご予約</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="hero-label">BEAUTY SALON</p>
+                    <h1>あなたの美しさを<br>もっと輝かせる</h1>
+                    <p>一人ひとりに寄り添ったカウンセリングと、熟練の技術で、あなただけの美しさを引き出します。</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-primary">
+                            ご予約はこちら
+                        </a>
+                        <a href="#" class="btn-outline">
+                            メニューを見る
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-main">💆‍♀️</div>
+                    <div class="hero-badge">
+                        <h4>15年</h4>
+                        <p>の実績</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">MENU</p>
+                <h2 class="section-title">施術メニュー</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💇‍♀️</div>
+                    <h3>カット</h3>
+                    <p>丁寧なカウンセリングで、あなたに似合うスタイルをご提案します。</p>
+                    <p class="service-price">¥5,500〜</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>カラー</h3>
+                    <p>トレンドカラーから自然なカラーまで、幅広くご対応いたします。</p>
+                    <p class="service-price">¥7,700〜</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>トリートメント</h3>
+                    <p>ダメージケアから艶髪まで、髪質に合わせたケアをご提供。</p>
+                    <p class="service-price">¥4,400〜</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu">
+        <div class="container">
+            <div class="menu-content">
+                <div class="menu-image">💅</div>
+                <div class="menu-text">
+                    <h2>Special Menu</h2>
+                    <p>季節限定のスペシャルメニューや、人気のセットメニューをご用意しております。</p>
+                    <div class="menu-list">
+                        <div class="menu-item">
+                            <div>
+                                <h4>カット + カラー</h4>
+                                <p>リタッチまたはフルカラー</p>
+                            </div>
+                            <span class="menu-item-price">¥11,000〜</span>
+                        </div>
+                        <div class="menu-item">
+                            <div>
+                                <h4>カット + パーマ</h4>
+                                <p>デジタルパーマ対応可</p>
+                            </div>
+                            <span class="menu-item-price">¥13,200〜</span>
+                        </div>
+                        <div class="menu-item">
+                            <div>
+                                <h4>フルコース</h4>
+                                <p>カット + カラー + トリートメント</p>
+                            </div>
+                            <span class="menu-item-price">¥16,500〜</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">GALLERY</p>
+                <h2 class="section-title">スタイルギャラリー</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">👩</div>
+                <div class="gallery-item">👩‍🦱</div>
+                <div class="gallery-item">👩‍🦰</div>
+                <div class="gallery-item">👱‍♀️</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">VOICE</p>
+                <h2 class="section-title">お客様の声</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">「いつも丁寧にカウンセリングしてくださり、希望通りのスタイルになります。リラックスできる空間も大好きです。」</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👩</div>
+                        <div class="testimonial-info">
+                            <h5>Y.K様</h5>
+                            <p>30代女性</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content">「髪の悩みを相談したら、最適なトリートメントを提案してくれました。髪がサラサラになって大満足です。」</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👩‍🦱</div>
+                        <div class="testimonial-info">
+                            <h5>M.S様</h5>
+                            <p>40代女性</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="access" id="access">
+        <div class="container">
+            <div class="access-content">
+                <div class="access-map">📍</div>
+                <div class="access-info">
+                    <h2>Access</h2>
+                    <div class="access-details">
+                        <div class="access-row">
+                            <span class="access-label">住所</span>
+                            <span class="access-value">東京都渋谷区神宮前1-2-3<br>メゾンブルーム 2F</span>
+                        </div>
+                        <div class="access-row">
+                            <span class="access-label">電話</span>
+                            <span class="access-value">03-XXXX-XXXX</span>
+                        </div>
+                        <div class="access-row">
+                            <span class="access-label">営業時間</span>
+                            <span class="access-value">10:00〜20:00（最終受付 19:00）</span>
+                        </div>
+                        <div class="access-row">
+                            <span class="access-label">定休日</span>
+                            <span class="access-value">毎週火曜日・第3水曜日</span>
+                        </div>
+                        <div class="access-row">
+                            <span class="access-label">アクセス</span>
+                            <span class="access-value">表参道駅 A2出口より徒歩5分</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>ご予約・お問い合わせ</h2>
+            <p>ご予約はお電話またはオンラインにて承っております。お気軽にお問い合わせください。</p>
+            <a href="#" class="btn-primary">
+                オンライン予約
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Bloom</div>
+                <p class="footer-info">東京都渋谷区神宮前1-2-3 メゾンブルーム 2F<br>TEL: 03-XXXX-XXXX</p>
+                <div class="footer-social">
+                    <a href="#">Instagram</a>
+                    <a href="#">LINE</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Original Design: <a href="https://store.studio.design" target="_blank">STUDIO Store</a> - Beauty Salon Template</p>
+                <p>&copy; 2024 Bloom. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

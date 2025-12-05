@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLORA Flower Shop | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --pink: #E8B4B8; --pink-dark: #C48B8F; --green: #8FAE7E; --cream: #FDF9F5; --text: #4A4A4A; --text-light: #888; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--pink-dark); letter-spacing: 0.1em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; }
+        .btn-header { background: var(--pink); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-size: 0.85rem; }
+        .hero { padding: 150px 0 80px; text-align: center; }
+        .hero-icon { width: 100px; height: 100px; background: linear-gradient(135deg, var(--pink), var(--pink-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; }
+        .hero-icon .material-icons { font-size: 50px; color: white; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; margin-bottom: 20px; }
+        .hero p { color: var(--text-light); margin-bottom: 40px; }
+        .btn-primary { background: var(--pink); color: white; padding: 16px 45px; border-radius: 30px; text-decoration: none; display: inline-block; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--pink-dark); letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; }
+        .products { background: var(--white); }
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .product-card { text-align: center; }
+        .product-image { height: 280px; background: linear-gradient(135deg, var(--pink), var(--green)); border-radius: 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        .product-image .material-icons { font-size: 60px; color: white; opacity: 0.7; }
+        .product-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .product-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 10px; }
+        .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--pink-dark); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: var(--white); padding: 40px 30px; border-radius: 20px; text-align: center; }
+        .service-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--pink), var(--pink-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .service-icon .material-icons { font-size: 30px; color: white; }
+        .service-card h3 { font-size: 1.1rem; margin-bottom: 15px; }
+        .service-card p { font-size: 0.9rem; color: var(--text-light); }
+        .gallery { background: var(--white); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { aspect-ratio: 1; background: linear-gradient(135deg, var(--pink), var(--green)); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .gallery-item .material-icons { font-size: 40px; color: white; opacity: 0.7; }
+        .access-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .access-map { height: 300px; background: linear-gradient(135deg, var(--pink), var(--green)); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+        .access-map .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .access-info h3 { font-size: 1.5rem; margin-bottom: 25px; }
+        .access-list { list-style: none; }
+        .access-list li { display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .access-list .material-icons { color: var(--pink-dark); }
+        footer { background: var(--text); color: white; padding: 50px 0 25px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .footer-brand .logo { color: var(--pink); margin-bottom: 10px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; }
+        .footer-social { display: flex; gap: 15px; }
+        .footer-social a { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--pink); text-decoration: none; }
+        @media (max-width: 1024px) { .products-grid, .services-grid { grid-template-columns: repeat(2, 1fr); } .access-content { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .products-grid, .services-grid, .gallery-grid { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 20px; text-align: center; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">FLORA</div><nav><ul><li><a href="#products">商品</a></li><li><a href="#services">サービス</a></li><li><a href="#access">アクセス</a></li></ul></nav><a href="#contact" class="btn-header">オーダー</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-icon"><span class="material-icons">local_florist</span></div><h1>花のある暮らしを</h1><p>季節のお花で、日常に彩りを添えます</p><a href="#products" class="btn-primary">商品を見る</a></div></section>
+    <section id="products" class="products"><div class="container"><div class="section-header"><span class="en">Products</span><h2>商品</h2></div><div class="products-grid">
+        <div class="product-card"><div class="product-image"><span class="material-icons">local_florist</span></div><h3>季節のブーケ</h3><p>旬のお花を束ねた花束</p><span class="product-price">¥3,300〜</span></div>
+        <div class="product-card"><div class="product-image"><span class="material-icons">local_florist</span></div><h3>アレンジメント</h3><p>そのまま飾れるアレンジ</p><span class="product-price">¥4,400〜</span></div>
+        <div class="product-card"><div class="product-image"><span class="material-icons">local_florist</span></div><h3>観葉植物</h3><p>グリーンで癒しの空間を</p><span class="product-price">¥2,200〜</span></div>
+    </div></div></section>
+    <section id="services"><div class="container"><div class="section-header"><span class="en">Services</span><h2>サービス</h2></div><div class="services-grid">
+        <div class="service-card"><div class="service-icon"><span class="material-icons">favorite</span></div><h3>ウェディング</h3><p>ブーケから会場装花まで</p></div>
+        <div class="service-card"><div class="service-icon"><span class="material-icons">local_shipping</span></div><h3>配送サービス</h3><p>ギフトやお供えに</p></div>
+        <div class="service-card"><div class="service-icon"><span class="material-icons">store</span></div><h3>定期便</h3><p>毎月届く季節のお花</p></div>
+    </div></div></section>
+    <section id="gallery" class="gallery"><div class="container"><div class="section-header"><span class="en">Gallery</span><h2>ギャラリー</h2></div><div class="gallery-grid">
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+    </div></div></section>
+    <section id="access"><div class="container"><div class="section-header"><span class="en">Access</span><h2>店舗情報</h2></div><div class="access-content"><div class="access-map"><span class="material-icons">map</span></div><div class="access-info"><h3>FLORA</h3><ul class="access-list">
+        <li><span class="material-icons">location_on</span><span>〒150-0001 東京都渋谷区○○1-2-3</span></li>
+        <li><span class="material-icons">schedule</span><span>10:00〜19:00</span></li>
+        <li><span class="material-icons">event_busy</span><span>定休日：火曜日</span></li>
+        <li><span class="material-icons">phone</span><span>03-1234-5678</span></li>
+    </ul></div></div></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">FLORA</div><p>花のある暮らしをお届けします</p></div><div class="footer-social"><a href="#"><span class="material-icons">photo_camera</span></a><a href="#"><span class="material-icons">alternate_email</span></a></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE Hair Salon | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #2C2C2C; --gold: #C9A962; --gold-light: #F5EFE0; --text: #2C2C2C; --text-light: #757575; --bg: #FAFAF8; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--bg); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--primary); letter-spacing: 0.2em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 30px; text-decoration: none; font-size: 0.85rem; }
+        .hero { height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--gold-light), var(--white)); }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1.3; margin-bottom: 25px; }
+        .hero p { color: var(--text-light); margin-bottom: 40px; }
+        .btn-primary { background: var(--primary); color: white; padding: 18px 50px; text-decoration: none; display: inline-block; letter-spacing: 0.1em; }
+        .hero-image { height: 550px; background: linear-gradient(135deg, var(--primary), #4A4A4A); display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 120px; color: var(--gold); opacity: 0.5; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; }
+        .menu { background: var(--white); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid #eee; }
+        .menu-item h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .menu-item p { font-size: 0.85rem; color: var(--text-light); }
+        .menu-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
+        .stylists-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .stylist-card { text-align: center; }
+        .stylist-photo { width: 180px; height: 180px; background: linear-gradient(135deg, var(--primary), #4A4A4A); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
+        .stylist-photo .material-icons { font-size: 60px; color: var(--gold); opacity: 0.5; }
+        .stylist-card h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .stylist-card p { font-size: 0.85rem; color: var(--text-light); }
+        .gallery { background: var(--white); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { aspect-ratio: 1; background: linear-gradient(135deg, var(--gold-light), var(--bg)); display: flex; align-items: center; justify-content: center; }
+        .gallery-item .material-icons { font-size: 40px; color: var(--gold); opacity: 0.5; }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .btn-gold { background: var(--gold); color: var(--primary); padding: 18px 50px; text-decoration: none; display: inline-block; margin-top: 30px; }
+        footer { background: #1A1A1A; color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand .logo { color: white; margin-bottom: 15px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--gold); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .menu-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .stylists-grid, .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .stylists-grid, .gallery-grid, .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">LUXE</div><nav><ul><li><a href="#menu">Menu</a></li><li><a href="#stylists">Stylists</a></li><li><a href="#gallery">Gallery</a></li></ul></nav><a href="#contact" class="btn-header">予約</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>あなたらしい<br>美しさを引き出す</h1><p>経験豊富なスタイリストが、一人ひとりの魅力を<br>最大限に引き出すスタイルをご提案します。</p><a href="#contact" class="btn-primary">予約する</a></div><div class="hero-image"><span class="material-icons">content_cut</span></div></div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><span class="en">Menu</span><h2>メニュー</h2></div><div class="menu-grid">
+        <div class="menu-item"><div><h3>カット</h3><p>シャンプー・ブロー込み</p></div><span class="menu-price">¥6,600〜</span></div>
+        <div class="menu-item"><div><h3>カラー</h3><p>ファッションカラー</p></div><span class="menu-price">¥8,800〜</span></div>
+        <div class="menu-item"><div><h3>パーマ</h3><p>デジタルパーマ</p></div><span class="menu-price">¥11,000〜</span></div>
+        <div class="menu-item"><div><h3>トリートメント</h3><p>髪質改善トリートメント</p></div><span class="menu-price">¥5,500〜</span></div>
+    </div></div></section>
+    <section id="stylists"><div class="container"><div class="section-header"><span class="en">Stylists</span><h2>スタイリスト</h2></div><div class="stylists-grid">
+        <div class="stylist-card"><div class="stylist-photo"><span class="material-icons">person</span></div><h4>山田 太郎</h4><p>店長 / 20年</p></div>
+        <div class="stylist-card"><div class="stylist-photo"><span class="material-icons">person</span></div><h4>鈴木 花子</h4><p>トップスタイリスト / 15年</p></div>
+        <div class="stylist-card"><div class="stylist-photo"><span class="material-icons">person</span></div><h4>佐藤 一郎</h4><p>スタイリスト / 8年</p></div>
+        <div class="stylist-card"><div class="stylist-photo"><span class="material-icons">person</span></div><h4>田中 美咲</h4><p>スタイリスト / 5年</p></div>
+    </div></div></section>
+    <section id="gallery" class="gallery"><div class="container"><div class="section-header"><span class="en">Gallery</span><h2>スタイルギャラリー</h2></div><div class="gallery-grid">
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+        <div class="gallery-item"><span class="material-icons">image</span></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>ご予約・お問い合わせ</h2><p style="opacity: 0.8;">お電話またはWebからご予約ください</p><a href="#" class="btn-gold">Web予約</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">LUXE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>Menu</h4><ul><li><a href="#">カット</a></li><li><a href="#">カラー</a></li><li><a href="#">パーマ</a></li></ul></div><div class="footer-links"><h4>Information</h4><ul><li><a href="#">スタイリスト</a></li><li><a href="#">サロン情報</a></li><li><a href="#">アクセス</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

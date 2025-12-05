@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDGE Digital Agency | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #00C853; --primary-dark: #00A844; --purple: #9C27B0; --dark: #0D0D0D; --text: #FFF; --text-muted: rgba(255,255,255,0.7); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--dark); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(13,13,13,0.95); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: var(--dark); padding: 10px 25px; border-radius: 25px; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        .hero { padding: 180px 0 120px; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 50%; left: 50%; width: 600px; height: 600px; background: var(--primary); filter: blur(200px); opacity: 0.15; border-radius: 50%; transform: translate(-50%, -50%); }
+        .hero-content { text-align: center; position: relative; }
+        .hero h1 { font-family: 'Outfit', sans-serif; font-size: 4.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 25px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { color: var(--text-muted); margin-bottom: 40px; font-size: 1.2rem; }
+        .btn-primary { background: var(--primary); color: var(--dark); padding: 18px 50px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 600; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .section-header p { color: var(--text-muted); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: rgba(255,255,255,0.05); padding: 40px 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .service-card .material-icons { font-size: 48px; color: var(--primary); margin-bottom: 20px; }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .service-card p { font-size: 0.9rem; color: var(--text-muted); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; background: rgba(255,255,255,0.03); padding: 60px 40px; border-radius: 20px; }
+        .stat-item .number { font-family: 'Outfit', sans-serif; font-size: 3.5rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+        .stat-item p { font-size: 0.9rem; color: var(--text-muted); }
+        .cta { text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 20px; }
+        footer { padding: 50px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .footer-bottom { font-size: 0.85rem; color: var(--text-muted); }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .services-grid, .stats-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.8rem; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">EDGE</div><nav><ul><li><a href="#services">Services</a></li><li><a href="#contact">Contact</a></li></ul></nav><a href="#contact" class="btn-header">相談する</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><h1>Digital<br><span>Transformation</span></h1><p>ビジネスの未来を切り拓くデジタルパートナー</p><a href="#contact" class="btn-primary">無料相談</a></div></div></section>
+    <section id="services"><div class="container"><div class="section-header"><h2>Services</h2><p>デジタル戦略のトータルサポート</p></div><div class="services-grid">
+        <div class="service-card"><span class="material-icons">web</span><h3>Web Development</h3><p>最新技術で高品質なWebサイトを開発</p></div>
+        <div class="service-card"><span class="material-icons">phone_iphone</span><h3>App Development</h3><p>iOS/Androidアプリの設計・開発</p></div>
+        <div class="service-card"><span class="material-icons">campaign</span><h3>Digital Marketing</h3><p>データドリブンなマーケティング戦略</p></div>
+    </div></div></section>
+    <section><div class="container"><div class="stats-grid">
+        <div class="stat-item"><div class="number">200+</div><p>プロジェクト実績</p></div>
+        <div class="stat-item"><div class="number">50+</div><p>専門家チーム</p></div>
+        <div class="stat-item"><div class="number">10年</div><p>業界経験</p></div>
+        <div class="stat-item"><div class="number">98%</div><p>顧客満足度</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>プロジェクトを始めましょう</h2><p style="color: var(--text-muted);">まずは無料相談から</p><a href="#" class="btn-primary" style="margin-top: 30px;">お問い合わせ</a></div></section>
+    <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

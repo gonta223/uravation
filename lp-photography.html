@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRAME Photography Studio | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --dark: #1A1A1A;
+            --gray: #888888;
+            --light-gray: #E5E5E5;
+            --white: #FFFFFF;
+            --accent: #B8A080;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--white);
+            background: var(--black);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 25px 0;
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--white);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 50px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--dark), var(--black));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg .material-icons {
+            font-size: 300px;
+            color: var(--accent);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            opacity: 0.7;
+            margin-bottom: 50px;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            border: 1px solid var(--white);
+            color: var(--white);
+            padding: 18px 60px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            writing-mode: vertical-rl;
+            opacity: 0.5;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 60px;
+            background: var(--white);
+            margin: 15px auto 0;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* Sections */
+        section {
+            padding: 150px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header .en {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--dark), #2A2A2A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .gallery-img .material-icons {
+            font-size: 60px;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Services */
+        .services {
+            background: var(--dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 50px 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+
+        .service-icon .material-icons {
+            font-size: 32px;
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+        }
+
+        .service-card p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .about-image {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--dark), #2A2A2A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image .material-icons {
+            font-size: 100px;
+            color: var(--accent);
+            opacity: 0.2;
+        }
+
+        .about-text .en {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .about-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .about-text p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .about-signature {
+            margin-top: 40px;
+        }
+
+        .about-signature .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .about-signature .title {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--dark);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .price-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .price-card:hover {
+            border-color: var(--accent);
+        }
+
+        .price-card.featured {
+            border-color: var(--accent);
+            position: relative;
+        }
+
+        .price-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--black);
+            padding: 5px 20px;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        .price-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .price-card .desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .price-card .price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .price-card .price span {
+            font-size: 1rem;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .price-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--black);
+            padding: 15px 40px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--white);
+        }
+
+        /* Contact */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-info h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .contact-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-details .material-icons {
+            color: var(--accent);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 20px 0;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--gray);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        .contact-form button {
+            background: var(--accent);
+            color: var(--black);
+            border: none;
+            padding: 18px 50px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .footer-copy a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">FRAME</div>
+                <nav>
+                    <ul>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg">
+            <span class="material-icons">photo_camera</span>
+        </div>
+        <div class="hero-content">
+            <h1>CAPTURE<br>THE MOMENT</h1>
+            <p>一瞬を永遠に。あなただけの物語を写真に。</p>
+            <a href="#contact" class="btn-outline">Book Now</a>
+        </div>
+        <div class="scroll-indicator">SCROLL</div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Selected Works</span>
+                <h2>Gallery</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item wide">
+                    <div class="gallery-img">
+                        <span class="material-icons">image</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Wedding</h3>
+                        <p>Bridal Photography</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <span class="material-icons">image</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Portrait</h3>
+                        <p>Personal Portrait</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <span class="material-icons">image</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Family</h3>
+                        <p>Family Photography</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-img">
+                        <span class="material-icons">image</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Commercial</h3>
+                        <p>Product Photography</p>
+                    </div>
+                </div>
+                <div class="gallery-item wide">
+                    <div class="gallery-img">
+                        <span class="material-icons">image</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Event</h3>
+                        <p>Event Photography</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">What We Offer</span>
+                <h2>Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span class="material-icons">favorite</span>
+                    </div>
+                    <h3>Wedding</h3>
+                    <p>人生で最も特別な日を、美しく永遠に残します。前撮りから当日撮影まで対応。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h3>Portrait</h3>
+                    <p>プロフィール写真、宣材写真など。あなたの魅力を最大限に引き出します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span class="material-icons">family_restroom</span>
+                    </div>
+                    <h3>Family</h3>
+                    <p>七五三、お宮参り、記念日など。家族の大切な瞬間を形に残します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <span class="material-icons">store</span>
+                    </div>
+                    <h3>Commercial</h3>
+                    <p>商品撮影、広告撮影。ブランドイメージを高めるビジュアルを制作。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <span class="material-icons">person</span>
+                </div>
+                <div class="about-text">
+                    <span class="en">About Photographer</span>
+                    <h2>光と影で描く、<br>あなただけの物語</h2>
+                    <p>FRAMEは2010年の設立以来、東京を拠点に活動するフォトグラフィースタジオです。</p>
+                    <p>私たちは、技術だけでなく、被写体との対話を大切にしています。一人ひとりの個性や、その瞬間だけの表情を引き出すこと。それが私たちの仕事です。</p>
+                    <p>カメラを通して見える世界は、いつも新鮮で美しい。その感動をあなたと共有できることを楽しみにしています。</p>
+                    <div class="about-signature">
+                        <div class="name">Takeshi Yamamoto</div>
+                        <div class="title">Founder & Photographer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Price List</span>
+                <h2>Pricing</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Basic</h3>
+                    <p class="desc">ポートレート・プロフィール撮影</p>
+                    <div class="price">¥25,000<span>〜</span></div>
+                    <ul class="price-features">
+                        <li>撮影時間 1時間</li>
+                        <li>撮影カット数 30枚</li>
+                        <li>レタッチ済み写真 10枚</li>
+                        <li>データお渡し</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary">Book Now</a>
+                </div>
+                <div class="price-card featured">
+                    <h3>Standard</h3>
+                    <p class="desc">ファミリー・記念日撮影</p>
+                    <div class="price">¥50,000<span>〜</span></div>
+                    <ul class="price-features">
+                        <li>撮影時間 2時間</li>
+                        <li>撮影カット数 100枚</li>
+                        <li>レタッチ済み写真 30枚</li>
+                        <li>アルバム制作</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary">Book Now</a>
+                </div>
+                <div class="price-card">
+                    <h3>Premium</h3>
+                    <p class="desc">ウェディング・商業撮影</p>
+                    <div class="price">¥150,000<span>〜</span></div>
+                    <ul class="price-features">
+                        <li>撮影時間 1日</li>
+                        <li>撮影カット数 無制限</li>
+                        <li>全データお渡し</li>
+                        <li>プレミアムアルバム</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <p>撮影のご依頼・お問い合わせはこちらから。<br>お気軽にご連絡ください。</p>
+                    <ul class="contact-details">
+                        <li>
+                            <span class="material-icons">location_on</span>
+                            <span>東京都渋谷区○○1-2-3 ○○ビル5F</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">phone</span>
+                            <span>03-1234-5678</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">email</span>
+                            <span>info@frame-photo.jp</span>
+                        </li>
+                        <li>
+                            <span class="material-icons">schedule</span>
+                            <span>10:00 - 19:00（定休日：水曜）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="お名前">
+                        <input type="email" placeholder="メールアドレス">
+                        <input type="text" placeholder="撮影希望日">
+                        <textarea placeholder="お問い合わせ内容"></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">FRAME</div>
+                <div class="footer-social">
+                    <a href="#"><span class="material-icons">photo_camera</span></a>
+                    <a href="#"><span class="material-icons">play_arrow</span></a>
+                    <a href="#"><span class="material-icons">chat</span></a>
+                </div>
+                <div class="footer-copy">
+                    Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

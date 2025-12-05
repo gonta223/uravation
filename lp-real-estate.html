@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不動産LP - Uravation AI Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1A365D;
+            --primary-light: #2A4A7C;
+            --secondary: #C6A962;
+            --dark: #0D1B2A;
+            --gray-800: #1F2937;
+            --gray-600: #4B5563;
+            --gray-400: #9CA3AF;
+            --gray-200: #E5E7EB;
+            --gray-100: #F3F4F6;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Poppins', sans-serif;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-cta {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: #B39952;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="none" stroke="rgba(255,255,255,0.05)" x="10" y="10" width="80" height="80"/></svg>') repeat;
+            background-size: 100px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--secondary);
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 18px 36px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-gold:hover {
+            background: #B39952;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--white);
+            padding: 18px 36px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--white);
+        }
+
+        .hero-property {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-image {
+            height: 240px;
+            background: linear-gradient(135deg, #E5E7EB, #D1D5DB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .property-details {
+            padding: 28px;
+            color: var(--dark);
+        }
+
+        .property-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .property-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .property-location {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .property-location .material-icons {
+            font-size: 16px;
+        }
+
+        .property-specs {
+            display: flex;
+            gap: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .spec {
+            text-align: center;
+        }
+
+        .spec-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        /* Search */
+        .search {
+            padding: 60px 0;
+            background: var(--gray-100);
+        }
+
+        .search-form {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 16px;
+            align-items: end;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-light);
+        }
+
+        /* Properties */
+        .properties {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .property-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .property-card .property-image {
+            height: 200px;
+            position: relative;
+        }
+
+        .property-card .property-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+        }
+
+        .property-card .property-details {
+            padding: 24px;
+        }
+
+        .property-card .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .property-card .property-price span {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            font-weight: 400;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .features .section-label {
+            color: var(--secondary);
+        }
+
+        .features .section-title {
+            color: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 32px;
+            color: var(--secondary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 80px 0;
+            background: var(--gray-100);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-text h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .contact-text p {
+            color: var(--gray-600);
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-item-icon .material-icons {
+            color: var(--primary);
+        }
+
+        .contact-item h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .contact-item p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .contact-form {
+            background: var(--gray-100);
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .contact-form h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 16px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--white);
+        }
+
+        .contact-form textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: var(--primary-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 80px 0 40px;
+            color: var(--gray-400);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+        }
+
+        .footer-links h4 {
+            color: var(--white);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-800);
+            padding-top: 40px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-property {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .search-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">ESTATE</div>
+                <nav>
+                    <ul>
+                        <li><a href="#properties">物件一覧</a></li>
+                        <li><a href="#features">選ばれる理由</a></li>
+                        <li><a href="#contact">お問い合わせ</a></li>
+                        <li><a href="#">会社概要</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="header-cta">無料相談</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-label">Premium Real Estate</span>
+                    <h1>理想の住まいを<br>見つけませんか</h1>
+                    <p>厳選された物件と、経験豊富なスタッフが、あなたの理想の住まい探しを全力でサポートいたします。</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-gold">
+                            物件を探す
+                            <span class="material-icons">search</span>
+                        </a>
+                        <a href="#" class="btn-outline">
+                            無料相談
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-property">
+                    <div class="property-image">🏠</div>
+                    <div class="property-details">
+                        <span class="property-badge">NEW</span>
+                        <h3 class="property-title">パークハイム表参道</h3>
+                        <p class="property-location">
+                            <span class="material-icons">location_on</span>
+                            渋谷区神宮前
+                        </p>
+                        <div class="property-specs">
+                            <div class="spec">
+                                <div class="spec-value">3LDK</div>
+                                <div class="spec-label">間取り</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">85.2㎡</div>
+                                <div class="spec-label">面積</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">12階</div>
+                                <div class="spec-label">階数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="search">
+        <div class="container">
+            <form class="search-form">
+                <div class="form-group">
+                    <label>エリア</label>
+                    <select>
+                        <option>東京都</option>
+                        <option>神奈川県</option>
+                        <option>千葉県</option>
+                        <option>埼玉県</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>物件タイプ</label>
+                    <select>
+                        <option>マンション</option>
+                        <option>一戸建て</option>
+                        <option>土地</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>価格帯</label>
+                    <select>
+                        <option>〜3,000万円</option>
+                        <option>3,000万円〜5,000万円</option>
+                        <option>5,000万円〜8,000万円</option>
+                        <option>8,000万円〜</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>間取り</label>
+                    <select>
+                        <option>1R/1K</option>
+                        <option>1LDK/2DK</option>
+                        <option>2LDK/3DK</option>
+                        <option>3LDK〜</option>
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">
+                    <span class="material-icons">search</span>
+                    検索
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section class="properties" id="properties">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <p class="section-label">Featured Properties</p>
+                    <h2 class="section-title">おすすめ物件</h2>
+                </div>
+                <a href="#" class="view-all">
+                    すべて見る
+                    <span class="material-icons">arrow_forward</span>
+                </a>
+            </div>
+            <div class="properties-grid">
+                <div class="property-card">
+                    <div class="property-image">
+                        <span class="property-badge">NEW</span>
+                        🏢
+                    </div>
+                    <div class="property-details">
+                        <p class="property-price">6,980万円<span> 〜</span></p>
+                        <h3 class="property-title">グランドメゾン恵比寿</h3>
+                        <p class="property-location">
+                            <span class="material-icons">location_on</span>
+                            渋谷区恵比寿 | 徒歩5分
+                        </p>
+                        <div class="property-specs">
+                            <div class="spec">
+                                <div class="spec-value">2LDK</div>
+                                <div class="spec-label">間取り</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">68.5㎡</div>
+                                <div class="spec-label">面積</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">8階</div>
+                                <div class="spec-label">階数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image" style="background: linear-gradient(135deg, #D1D5DB, #9CA3AF);">
+                        <span class="property-badge" style="background: var(--primary);">人気</span>
+                        🏠
+                    </div>
+                    <div class="property-details">
+                        <p class="property-price">8,500万円<span> 〜</span></p>
+                        <h3 class="property-title">シティタワー麻布十番</h3>
+                        <p class="property-location">
+                            <span class="material-icons">location_on</span>
+                            港区麻布十番 | 徒歩3分
+                        </p>
+                        <div class="property-specs">
+                            <div class="spec">
+                                <div class="spec-value">3LDK</div>
+                                <div class="spec-label">間取り</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">92.3㎡</div>
+                                <div class="spec-label">面積</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">15階</div>
+                                <div class="spec-label">階数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image" style="background: linear-gradient(135deg, #9CA3AF, #6B7280);">
+                        🏢
+                    </div>
+                    <div class="property-details">
+                        <p class="property-price">4,280万円<span> 〜</span></p>
+                        <h3 class="property-title">プラウド目黒</h3>
+                        <p class="property-location">
+                            <span class="material-icons">location_on</span>
+                            品川区上大崎 | 徒歩7分
+                        </p>
+                        <div class="property-specs">
+                            <div class="spec">
+                                <div class="spec-value">1LDK</div>
+                                <div class="spec-label">間取り</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">45.8㎡</div>
+                                <div class="spec-label">面積</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">5階</div>
+                                <div class="spec-label">階数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header" style="display: block; text-align: center;">
+                <p class="section-label">Why Choose Us</p>
+                <h2 class="section-title">選ばれる理由</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">verified</span>
+                    </div>
+                    <h3>厳選された物件</h3>
+                    <p>当社独自の基準で厳選した、良質な物件のみをご紹介します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">support_agent</span>
+                    </div>
+                    <h3>専任スタッフ</h3>
+                    <p>経験豊富なスタッフが、物件探しから契約まで一貫してサポート。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">attach_money</span>
+                    </div>
+                    <h3>仲介手数料割引</h3>
+                    <p>Web限定の特別プランで、仲介手数料を最大50%割引。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">schedule</span>
+                    </div>
+                    <h3>スピード対応</h3>
+                    <p>お問い合わせから24時間以内に専任スタッフからご連絡。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">15,000+</div>
+                    <div class="stat-label">取扱物件数</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">顧客満足度</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">25年</div>
+                    <div class="stat-label">業界経験</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">50,000+</div>
+                    <div class="stat-label">成約実績</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-text">
+                    <h2>お気軽にご相談ください</h2>
+                    <p>物件探しのご相談、内覧のご予約など、お気軽にお問い合わせください。専任スタッフが丁寧にご対応いたします。</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <span class="material-icons">phone</span>
+                            </div>
+                            <div>
+                                <h4>お電話でのお問い合わせ</h4>
+                                <p>0120-XXX-XXX（9:00〜21:00）</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <span class="material-icons">email</span>
+                            </div>
+                            <div>
+                                <h4>メールでのお問い合わせ</h4>
+                                <p>info@estate-example.jp</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <span class="material-icons">location_on</span>
+                            </div>
+                            <div>
+                                <h4>本社所在地</h4>
+                                <p>東京都港区赤坂1-2-3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>お問い合わせフォーム</h3>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>お名前</label>
+                                <input type="text" placeholder="山田 太郎">
+                            </div>
+                            <div class="form-group">
+                                <label>電話番号</label>
+                                <input type="tel" placeholder="090-XXXX-XXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>メールアドレス</label>
+                            <input type="email" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>ご相談内容</label>
+                            <textarea placeholder="物件に関するご質問やご希望条件をお聞かせください"></textarea>
+                        </div>
+                        <button type="submit">送信する</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">ESTATE</div>
+                    <p>厳選された物件と経験豊富なスタッフが、あなたの理想の住まい探しをサポートします。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>物件情報</h4>
+                    <ul>
+                        <li><a href="#">新築マンション</a></li>
+                        <li><a href="#">中古マンション</a></li>
+                        <li><a href="#">一戸建て</a></li>
+                        <li><a href="#">土地</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>サポート</h4>
+                    <ul>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">お問い合わせ</a></li>
+                        <li><a href="#">来店予約</a></li>
+                        <li><a href="#">オンライン相談</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>会社情報</h4>
+                    <ul>
+                        <li><a href="#">会社概要</a></li>
+                        <li><a href="#">店舗一覧</a></li>
+                        <li><a href="#">採用情報</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Original Design: <a href="https://store.studio.design" target="_blank">STUDIO Store</a> - Real Estate Template</p>
+                <p>&copy; 2024 ESTATE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

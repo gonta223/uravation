@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRESTIGE Motors | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1A1A1A; --gold: #B8860B; --gold-light: #DAA520; --silver: #C0C0C0; --text: #1A1A1A; --text-light: #666; --bg: #F5F5F5; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--primary); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); letter-spacing: 0.2em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .btn-header { border: 1px solid var(--gold); color: var(--gold); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; }
+        .hero { height: 100vh; display: flex; align-items: center; background: var(--primary); color: white; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 60%; height: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); opacity: 0.1; clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%); }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 400; line-height: 1.3; margin-bottom: 25px; letter-spacing: 0.05em; }
+        .hero p { color: var(--silver); margin-bottom: 40px; }
+        .btn-gold { background: var(--gold); color: var(--primary); padding: 18px 50px; text-decoration: none; display: inline-block; letter-spacing: 0.1em; }
+        .hero-image { height: 400px; background: linear-gradient(135deg, #333, var(--primary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 120px; color: var(--gold); opacity: 0.5; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; }
+        .cars { background: var(--white); }
+        .cars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .car-card { background: var(--bg); }
+        .car-image { height: 220px; background: linear-gradient(135deg, #333, var(--primary)); display: flex; align-items: center; justify-content: center; }
+        .car-image .material-icons { font-size: 80px; color: var(--gold); opacity: 0.5; }
+        .car-info { padding: 30px; }
+        .car-info h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .car-info p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .car-price { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); }
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .service-card { text-align: center; padding: 40px 25px; background: var(--white); }
+        .service-card .material-icons { font-size: 40px; color: var(--gold); margin-bottom: 15px; }
+        .service-card h4 { font-size: 1rem; margin-bottom: 10px; }
+        .service-card p { font-size: 0.85rem; color: var(--text-light); }
+        .showroom { background: var(--white); }
+        .showroom-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .showroom-image { height: 400px; background: linear-gradient(135deg, #333, var(--primary)); display: flex; align-items: center; justify-content: center; }
+        .showroom-image .material-icons { font-size: 80px; color: var(--gold); opacity: 0.5; }
+        .showroom-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 20px; }
+        .showroom-info p { color: var(--text-light); margin-bottom: 15px; }
+        .showroom-list { list-style: none; margin-top: 25px; }
+        .showroom-list li { display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .showroom-list .material-icons { color: var(--gold); }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        footer { background: #0A0A0A; color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand .logo { margin-bottom: 15px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--gold); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .cars-grid, .showroom-content { grid-template-columns: 1fr; } .hero-image, .showroom-image { display: none; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .services-grid, .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">PRESTIGE</div><nav><ul><li><a href="#cars">在庫車両</a></li><li><a href="#services">サービス</a></li><li><a href="#showroom">店舗</a></li></ul></nav><a href="#contact" class="btn-header">お問い合わせ</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>The Art of<br>Driving Excellence</h1><p>厳選されたプレミアムカーで、<br>特別なカーライフをお届けします。</p><a href="#cars" class="btn-gold">在庫を見る</a></div><div class="hero-image"><span class="material-icons">directions_car</span></div></div></div></section>
+    <section id="cars" class="cars"><div class="container"><div class="section-header"><span class="en">Stock</span><h2>在庫車両</h2></div><div class="cars-grid">
+        <div class="car-card"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>Mercedes-Benz S-Class</h3><p>2023年式 / 走行5,000km / AMGライン</p><span class="car-price">¥12,800,000</span></div></div>
+        <div class="car-card"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>BMW 7 Series</h3><p>2022年式 / 走行12,000km / Mスポーツ</p><span class="car-price">¥9,800,000</span></div></div>
+        <div class="car-card"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>Porsche Cayenne</h3><p>2023年式 / 走行8,000km / スポーツクロノ</p><span class="car-price">¥14,500,000</span></div></div>
+    </div></div></section>
+    <section id="services"><div class="container"><div class="section-header"><span class="en">Services</span><h2>サービス</h2></div><div class="services-grid">
+        <div class="service-card"><span class="material-icons">search</span><h4>車両探し</h4><p>ご希望の車両をお探しします</p></div>
+        <div class="service-card"><span class="material-icons">sell</span><h4>買取・下取</h4><p>高価買取いたします</p></div>
+        <div class="service-card"><span class="material-icons">build</span><h4>整備・点検</h4><p>専門スタッフが対応</p></div>
+        <div class="service-card"><span class="material-icons">payments</span><h4>ローン</h4><p>各種ローン取扱い</p></div>
+    </div></div></section>
+    <section id="showroom" class="showroom"><div class="container"><div class="showroom-content"><div class="showroom-image"><span class="material-icons">store</span></div><div class="showroom-info"><span class="en">Showroom</span><h3>ショールームのご案内</h3><p>ゆったりとした空間で、お気に入りの1台をお探しください。</p><ul class="showroom-list">
+        <li><span class="material-icons">location_on</span><span>〒150-0001 東京都渋谷区○○1-2-3</span></li>
+        <li><span class="material-icons">schedule</span><span>10:00〜19:00（水曜定休）</span></li>
+        <li><span class="material-icons">phone</span><span>03-1234-5678</span></li>
+    </ul></div></div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>お気軽にお問い合わせください</h2><p style="color: var(--silver); margin-bottom: 30px;">ご来店予約・お見積りはこちら</p><a href="#" class="btn-gold">お問い合わせ</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">PRESTIGE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>メニュー</h4><ul><li><a href="#">在庫車両</a></li><li><a href="#">買取査定</a></li><li><a href="#">整備・点検</a></li></ul></div><div class="footer-links"><h4>店舗情報</h4><ul><li><a href="#">ショールーム</a></li><li><a href="#">アクセス</a></li><li><a href="#">会社概要</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

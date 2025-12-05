@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCH Design Studio | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #E67E22;
+            --gray: #95A5A6;
+            --light: #ECF0F1;
+            --text: #2C3E50;
+            --text-light: #7F8C8D;
+            --white: #FFFFFF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--white); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid var(--light); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--primary); letter-spacing: 0.2em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 30px; text-decoration: none; font-size: 0.85rem; }
+        .hero { height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--light), var(--white)); }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1.3; margin-bottom: 25px; }
+        .hero p { color: var(--text-light); margin-bottom: 40px; }
+        .btn-primary { background: var(--primary); color: white; padding: 18px 50px; text-decoration: none; display: inline-block; }
+        .hero-image { height: 500px; background: linear-gradient(135deg, var(--primary), #34495E); display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 120px; color: var(--accent); opacity: 0.5; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--accent); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; }
+        .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .work-card { position: relative; overflow: hidden; }
+        .work-image { height: 300px; background: linear-gradient(135deg, var(--gray), var(--primary)); display: flex; align-items: center; justify-content: center; }
+        .work-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .work-info { padding: 25px 0; }
+        .work-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .work-info p { font-size: 0.85rem; color: var(--text-light); }
+        .services { background: var(--light); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: white; padding: 50px 40px; text-align: center; }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; }
+        .service-card p { color: var(--text-light); font-size: 0.9rem; }
+        .process-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .process-item { text-align: center; }
+        .process-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--accent); margin-bottom: 15px; }
+        .process-item h4 { font-size: 1.1rem; margin-bottom: 10px; }
+        .process-item p { font-size: 0.85rem; color: var(--text-light); }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .btn-white { background: white; color: var(--primary); padding: 18px 50px; text-decoration: none; display: inline-block; }
+        footer { background: #1A252F; color: white; padding: 60px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand .logo { color: white; margin-bottom: 15px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--accent); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-bottom p { font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .works-grid, .services-grid, .process-timeline { grid-template-columns: 1fr; } .hero-image { display: none; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">ARCH</div>
+                <nav><ul><li><a href="#works">Works</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+                <a href="#contact" class="btn-header">お問い合わせ</a>
+            </div>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <h1>空間に、<br>想いを刻む</h1>
+                    <p>住宅から商業施設まで、クライアントの想いを形にする<br>建築設計事務所です。</p>
+                    <a href="#contact" class="btn-primary">無料相談</a>
+                </div>
+                <div class="hero-image"><span class="material-icons">architecture</span></div>
+            </div>
+        </div>
+    </section>
+    <section id="works">
+        <div class="container">
+            <div class="section-header"><span class="en">Works</span><h2>実績紹介</h2></div>
+            <div class="works-grid">
+                <div class="work-card"><div class="work-image"><span class="material-icons">home</span></div><div class="work-info"><h3>N邸</h3><p>東京都渋谷区 / 住宅</p></div></div>
+                <div class="work-card"><div class="work-image"><span class="material-icons">store</span></div><div class="work-info"><h3>CAFE BLOOM</h3><p>東京都目黒区 / 店舗</p></div></div>
+                <div class="work-card"><div class="work-image"><span class="material-icons">business</span></div><div class="work-info"><h3>○○オフィス</h3><p>東京都港区 / オフィス</p></div></div>
+            </div>
+        </div>
+    </section>
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header"><span class="en">Services</span><h2>サービス</h2></div>
+            <div class="services-grid">
+                <div class="service-card"><h3>住宅設計</h3><p>新築・リノベーション。ライフスタイルに合わせた理想の住まいを設計します。</p></div>
+                <div class="service-card"><h3>店舗設計</h3><p>カフェ、レストラン、ショップなど。ブランドイメージを空間で表現します。</p></div>
+                <div class="service-card"><h3>オフィス設計</h3><p>働きやすさと創造性を両立したオフィス空間をデザインします。</p></div>
+            </div>
+        </div>
+    </section>
+    <section id="process">
+        <div class="container">
+            <div class="section-header"><span class="en">Process</span><h2>設計の流れ</h2></div>
+            <div class="process-timeline">
+                <div class="process-item"><div class="process-num">01</div><h4>ヒアリング</h4><p>ご要望をじっくりお伺いします</p></div>
+                <div class="process-item"><div class="process-num">02</div><h4>プランニング</h4><p>基本設計・お見積りを作成</p></div>
+                <div class="process-item"><div class="process-num">03</div><h4>実施設計</h4><p>詳細な図面を作成します</p></div>
+                <div class="process-item"><div class="process-num">04</div><h4>施工・完成</h4><p>現場監理を行い完成へ</p></div>
+            </div>
+        </div>
+    </section>
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>まずはお気軽にご相談ください</h2>
+            <p style="opacity: 0.8; margin-bottom: 30px;">初回相談は無料です</p>
+            <a href="#" class="btn-white">お問い合わせ</a>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand"><div class="logo">ARCH</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div>
+                <div class="footer-links"><h4>Services</h4><ul><li><a href="#">住宅設計</a></li><li><a href="#">店舗設計</a></li><li><a href="#">オフィス設計</a></li></ul></div>
+                <div class="footer-links"><h4>Information</h4><ul><li><a href="#">実績紹介</a></li><li><a href="#">会社概要</a></li><li><a href="#">お問い合わせ</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</p></div>
+        </div>
+    </footer>
+</body>
+</html>

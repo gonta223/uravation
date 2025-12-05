@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARKLE Cleaning | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #00BCD4; --primary-dark: #0097A7; --yellow: #FFD54F; --dark: #263238; --text: #37474F; --text-light: #78909C; --bg: #ECEFF1; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--primary); }
+        .logo span { color: var(--yellow); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 130px 0 80px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+        .hero p { opacity: 0.9; margin-bottom: 30px; }
+        .btn-primary { background: var(--yellow); color: var(--dark); padding: 16px 40px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 600; }
+        .hero-image { height: 350px; background: rgba(255,255,255,0.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.8; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: var(--bg); padding: 35px 25px; border-radius: 20px; text-align: center; }
+        .service-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .service-icon .material-icons { font-size: 32px; color: white; }
+        .service-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+        .service-card p { font-size: 0.9rem; color: var(--text-light); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .price-card { background: var(--white); padding: 40px 30px; border-radius: 20px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .price-card.popular { background: var(--primary); color: white; transform: scale(1.05); }
+        .price-card.popular .price-label { background: var(--yellow); color: var(--dark); }
+        .price-label { display: inline-block; background: var(--primary); color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; }
+        .price-card h3 { font-size: 1.3rem; margin-bottom: 20px; }
+        .price-amount { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 600; margin-bottom: 20px; }
+        .price-amount span { font-size: 1rem; font-weight: 400; }
+        .price-features { list-style: none; text-align: left; margin-bottom: 25px; }
+        .price-features li { padding: 8px 0; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
+        .price-features .material-icons { font-size: 18px; color: var(--primary); }
+        .price-card.popular .price-features .material-icons { color: var(--yellow); }
+        .flow { background: var(--white); }
+        .flow-steps { display: flex; justify-content: center; gap: 30px; }
+        .flow-step { text-align: center; flex: 1; max-width: 200px; }
+        .flow-number { width: 50px; height: 50px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.2rem; }
+        .flow-step h4 { font-size: 1rem; margin-bottom: 8px; }
+        .flow-step p { font-size: 0.85rem; color: var(--text-light); }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 40px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 600; margin-top: 20px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--primary); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .services-grid, .pricing-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .price-card.popular { transform: none; } .flow-steps { flex-wrap: wrap; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">SPARKLE<span>.</span></div><nav><ul><li><a href="#services">サービス</a></li><li><a href="#pricing">料金</a></li><li><a href="#flow">ご利用の流れ</a></li></ul></nav><a href="#contact" class="btn-header">無料見積り</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>プロの技術で<br>ピカピカに。</h1><p>ハウスクリーニング・オフィス清掃まで<br>お掃除のプロにおまかせください。</p><a href="#contact" class="btn-primary">無料見積りはこちら</a></div><div class="hero-image"><span class="material-icons">cleaning_services</span></div></div></div></section>
+    <section id="services" class="services"><div class="container"><div class="section-header"><h2>サービス内容</h2><p>住まいからオフィスまで幅広く対応</p></div><div class="services-grid">
+        <div class="service-card"><div class="service-icon"><span class="material-icons">home</span></div><h3>ハウスクリーニング</h3><p>キッチン、浴室、トイレなど水回りを中心に徹底清掃</p></div>
+        <div class="service-card"><div class="service-icon"><span class="material-icons">business</span></div><h3>オフィス清掃</h3><p>定期清掃からワンタイム清掃まで対応</p></div>
+        <div class="service-card"><div class="service-icon"><span class="material-icons">ac_unit</span></div><h3>エアコンクリーニング</h3><p>分解洗浄でカビ・ホコリを徹底除去</p></div>
+    </div></div></section>
+    <section id="pricing"><div class="container"><div class="section-header"><h2>料金プラン</h2><p>明瞭な価格設定</p></div><div class="pricing-grid">
+        <div class="price-card"><span class="price-label">ワンルーム</span><h3>一人暮らし向け</h3><div class="price-amount">¥15,000<span>〜</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>水回り3点セット</li><li><span class="material-icons">check_circle</span>所要時間 約2時間</li><li><span class="material-icons">check_circle</span>1名で対応</li></ul></div>
+        <div class="price-card popular"><span class="price-label">人気No.1</span><h3>ファミリー向け</h3><div class="price-amount">¥35,000<span>〜</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>水回り全て</li><li><span class="material-icons">check_circle</span>所要時間 約4時間</li><li><span class="material-icons">check_circle</span>2名で対応</li></ul></div>
+        <div class="price-card"><span class="price-label">エアコン</span><h3>単品メニュー</h3><div class="price-amount">¥12,000<span>〜</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>壁掛けタイプ</li><li><span class="material-icons">check_circle</span>所要時間 約1時間</li><li><span class="material-icons">check_circle</span>抗菌コート付</li></ul></div>
+    </div></div></section>
+    <section id="flow" class="flow"><div class="container"><div class="section-header"><h2>ご利用の流れ</h2></div><div class="flow-steps">
+        <div class="flow-step"><div class="flow-number">1</div><h4>お問い合わせ</h4><p>電話・WEBから</p></div>
+        <div class="flow-step"><div class="flow-number">2</div><h4>無料見積り</h4><p>現地確認も可能</p></div>
+        <div class="flow-step"><div class="flow-number">3</div><h4>日程調整</h4><p>ご都合に合わせて</p></div>
+        <div class="flow-step"><div class="flow-number">4</div><h4>作業実施</h4><p>プロが丁寧に清掃</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>まずは無料見積りから</h2><p style="opacity: 0.9;">お気軽にお問い合わせください</p><a href="#" class="btn-white">無料見積り</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">SPARKLE<span>.</span></div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>サービス</h4><ul><li><a href="#">ハウスクリーニング</a></li><li><a href="#">オフィス清掃</a></li><li><a href="#">エアコン洗浄</a></li></ul></div><div class="footer-links"><h4>会社情報</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">実績紹介</a></li><li><a href="#">採用情報</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

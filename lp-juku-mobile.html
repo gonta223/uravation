@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDY+ Online School | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #6366F1; --primary-dark: #4F46E5; --green: #10B981; --orange: #F59E0B; --dark: #1E293B; --text: #334155; --text-light: #64748B; --bg: #F1F5F9; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 500px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Nunito', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+        .btn-header { background: var(--primary); color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+        .hero { padding: 100px 0 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Nunito', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .hero p { opacity: 0.95; margin-bottom: 25px; font-size: 0.95rem; }
+        .btn-white { background: white; color: var(--primary); padding: 14px 35px; border-radius: 25px; text-decoration: none; display: inline-block; font-weight: 700; }
+        section { padding: 60px 0; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+        .features-list { display: flex; flex-direction: column; gap: 20px; }
+        .feature-item { background: var(--white); padding: 25px; border-radius: 16px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .feature-icon { width: 50px; height: 50px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .feature-icon .material-icons { font-size: 24px; color: white; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 5px; }
+        .feature-item p { font-size: 0.85rem; color: var(--text-light); }
+        .pricing { background: var(--white); }
+        .price-card { background: var(--bg); padding: 30px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
+        .price-card.popular { background: var(--primary); color: white; }
+        .price-badge { display: inline-block; background: var(--green); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; margin-bottom: 15px; }
+        .price-card h3 { font-size: 1.2rem; margin-bottom: 15px; }
+        .price-amount { font-family: 'Nunito', sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; }
+        .price-amount span { font-size: 1rem; font-weight: 400; }
+        .price-features { list-style: none; text-align: left; margin-bottom: 25px; }
+        .price-features li { padding: 8px 0; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
+        .price-features .material-icons { font-size: 18px; color: var(--green); }
+        .price-card.popular .price-features .material-icons { color: white; }
+        .btn-primary { background: var(--primary); color: white; padding: 14px 35px; border-radius: 25px; text-decoration: none; display: inline-block; font-weight: 600; width: 100%; }
+        .price-card.popular .btn-primary { background: white; color: var(--primary); }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 60px 0; }
+        .cta h2 { font-size: 1.5rem; margin-bottom: 15px; }
+        footer { background: var(--dark); color: white; padding: 30px 0 20px; text-align: center; }
+        .footer-bottom { font-size: 0.8rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">STUDY+</div><a href="#contact" class="btn-header">無料体験</a></div></div></header>
+    <section class="hero"><div class="container"><h1>いつでもどこでも<br>学べるオンライン塾</h1><p>スマホ1つで始められる新しい学習スタイル</p><a href="#contact" class="btn-white">7日間無料体験</a></div></section>
+    <section><div class="container"><div class="section-header"><h2>STUDY+の特徴</h2></div><div class="features-list">
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">phone_iphone</span></div><div><h4>スマホで簡単学習</h4><p>通学中や隙間時間に学べる</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">video_call</span></div><div><h4>ライブ授業</h4><p>リアルタイムで質問できる</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">psychology</span></div><div><h4>AI学習管理</h4><p>苦手を分析して最適な問題を出題</p></div></div>
+    </div></div></section>
+    <section class="pricing"><div class="container"><div class="section-header"><h2>料金プラン</h2></div>
+        <div class="price-card"><span class="price-badge">ライト</span><h3>週1回プラン</h3><div class="price-amount">¥9,800<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>週1回ライブ授業</li><li><span class="material-icons">check_circle</span>動画見放題</li></ul><a href="#" class="btn-primary">このプランを選ぶ</a></div>
+        <div class="price-card popular"><span class="price-badge">人気</span><h3>週3回プラン</h3><div class="price-amount">¥19,800<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>週3回ライブ授業</li><li><span class="material-icons">check_circle</span>質問し放題</li></ul><a href="#" class="btn-primary">このプランを選ぶ</a></div>
+    </div></section>
+    <section class="cta" id="contact"><div class="container"><h2>7日間無料で体験</h2><p style="opacity: 0.9;">今すぐ始めよう</p><a href="#" class="btn-white" style="margin-top: 20px;">無料体験を申し込む</a></div></section>
+    <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

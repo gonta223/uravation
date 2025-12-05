@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCEL Academy | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #3F51B5; --primary-dark: #303F9F; --orange: #FF9800; --green: #4CAF50; --dark: #1A237E; --text: #333; --text-light: #666; --bg: #F5F7FA; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Quicksand', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--orange); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        .hero { padding: 130px 0 80px; background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+        .hero p { opacity: 0.9; margin-bottom: 30px; }
+        .btn-primary { background: var(--orange); color: white; padding: 16px 40px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 600; }
+        .hero-image { height: 350px; background: rgba(255,255,255,0.15); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.9; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+        .courses { background: var(--white); }
+        .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .course-card { background: var(--bg); padding: 35px 25px; border-radius: 20px; text-align: center; }
+        .course-badge { display: inline-block; background: var(--primary); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; margin-bottom: 15px; }
+        .course-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
+        .course-price { font-family: 'Quicksand', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        .course-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-light); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .feature-card { background: var(--white); padding: 35px 20px; border-radius: 20px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .feature-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; }
+        .feature-icon .material-icons { font-size: 28px; color: white; }
+        .feature-card h4 { font-size: 1rem; margin-bottom: 8px; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-light); }
+        .results { background: var(--white); }
+        .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; text-align: center; }
+        .result-item { padding: 30px 20px; }
+        .result-number { font-family: 'Quicksand', sans-serif; font-size: 3rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+        .result-item p { font-size: 0.9rem; color: var(--text-light); }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 40px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 600; margin-top: 20px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--orange); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--orange); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .courses-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .features-grid, .results-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .features-grid, .results-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">ACCEL</div><nav><ul><li><a href="#courses">コース</a></li><li><a href="#features">特徴</a></li><li><a href="#results">実績</a></li></ul></nav><a href="#contact" class="btn-header">無料体験</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>志望校合格へ<br>確実にアクセル</h1><p>一人ひとりに合わせた個別指導で<br>目標達成をサポートします。</p><a href="#contact" class="btn-primary">無料体験授業</a></div><div class="hero-image"><span class="material-icons">school</span></div></div></div></section>
+    <section id="courses" class="courses"><div class="container"><div class="section-header"><h2>コース案内</h2><p>学年・目標に合わせた指導</p></div><div class="courses-grid">
+        <div class="course-card"><span class="course-badge">小学生</span><h3>中学受験コース</h3><p>難関中学合格を目指す本格指導</p><div class="course-price">¥28,000<span>/月〜</span></div></div>
+        <div class="course-card"><span class="course-badge">中学生</span><h3>高校受験コース</h3><p>内申対策から入試対策まで</p><div class="course-price">¥32,000<span>/月〜</span></div></div>
+        <div class="course-card"><span class="course-badge">高校生</span><h3>大学受験コース</h3><p>志望校合格に向けた戦略的指導</p><div class="course-price">¥38,000<span>/月〜</span></div></div>
+    </div></div></section>
+    <section id="features"><div class="container"><div class="section-header"><h2>ACCELの特徴</h2></div><div class="features-grid">
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">person</span></div><h4>完全個別指導</h4><p>1対1または1対2の個別指導</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">edit_note</span></div><h4>カリキュラム作成</h4><p>オーダーメイドの学習計画</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">trending_up</span></div><h4>成績保証制度</h4><p>成績アップを保証</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">access_time</span></div><h4>自習室完備</h4><p>いつでも利用可能</p></div>
+    </div></div></section>
+    <section id="results" class="results"><div class="container"><div class="section-header"><h2>合格実績</h2></div><div class="results-grid">
+        <div class="result-item"><div class="result-number">95%</div><p>第一志望合格率</p></div>
+        <div class="result-item"><div class="result-number">+20</div><p>平均偏差値UP</p></div>
+        <div class="result-item"><div class="result-number">500+</div><p>年間合格者数</p></div>
+        <div class="result-item"><div class="result-number">15年</div><p>指導実績</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>まずは無料体験授業へ</h2><p style="opacity: 0.9;">お気軽にお問い合わせください</p><a href="#" class="btn-white">無料体験予約</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo" style="color: white;">ACCEL</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>コース</h4><ul><li><a href="#">中学受験</a></li><li><a href="#">高校受験</a></li><li><a href="#">大学受験</a></li></ul></div><div class="footer-links"><h4>情報</h4><ul><li><a href="#">講師紹介</a></li><li><a href="#">教室案内</a></li><li><a href="#">合格実績</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

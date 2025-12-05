@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORGE Fitness | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #FF4136; --lime: #CDDC39; --dark: #111; --text: #FFF; --text-muted: rgba(255,255,255,0.7); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--dark); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; font-weight: 700; }
+        .hero { padding: 150px 0 100px; text-align: center; }
+        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; margin-bottom: 25px; letter-spacing: 0.05em; }
+        .hero p { color: var(--text-muted); margin-bottom: 35px; }
+        .btn-primary { background: var(--lime); color: var(--dark); padding: 18px 45px; text-decoration: none; display: inline-block; font-weight: 700; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.1em; margin-bottom: 15px; }
+        .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .program-card { background: rgba(255,255,255,0.05); padding: 40px 30px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .program-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin-bottom: 15px; }
+        .program-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+        .program-price { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary); }
+        .stats { background: var(--primary); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+        .stat-item .number { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; margin-bottom: 10px; }
+        .stat-item p { font-size: 0.9rem; opacity: 0.9; }
+        .cta { background: var(--primary); text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; margin-bottom: 20px; }
+        .btn-dark { background: var(--dark); color: white; padding: 18px 50px; text-decoration: none; display: inline-block; font-weight: 700; margin-top: 20px; }
+        footer { background: var(--dark); padding: 50px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .footer-bottom { font-size: 0.85rem; color: var(--text-muted); }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .programs-grid, .stats-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3.5rem; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">FORGE</div><nav><ul><li><a href="#programs">Programs</a></li><li><a href="#contact">Contact</a></li></ul></nav><a href="#contact" class="btn-header">無料体験</a></div></div></header>
+    <section class="hero"><div class="container"><h1>FORGE YOUR BODY</h1><p>限界を超え、理想の自分を手に入れる。本気で変わりたいあなたのためのジム。</p><a href="#contact" class="btn-primary">無料体験はこちら</a></div></section>
+    <section id="programs"><div class="container"><div class="section-header"><h2>PROGRAMS</h2></div><div class="programs-grid">
+        <div class="program-card"><h3>PERSONAL</h3><p>マンツーマンで徹底指導</p><div class="program-price">¥8,000/回</div></div>
+        <div class="program-card"><h3>GROUP</h3><p>仲間と一緒にトレーニング</p><div class="program-price">¥12,000/月</div></div>
+        <div class="program-card"><h3>24H GYM</h3><p>いつでも自由に</p><div class="program-price">¥9,800/月</div></div>
+    </div></div></section>
+    <section class="stats"><div class="container"><div class="stats-grid">
+        <div class="stat-item"><div class="number">3,000+</div><p>会員数</p></div>
+        <div class="stat-item"><div class="number">50+</div><p>トレーナー</p></div>
+        <div class="stat-item"><div class="number">24H</div><p>営業時間</p></div>
+        <div class="stat-item"><div class="number">98%</div><p>満足度</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>START YOUR JOURNEY</h2><p style="opacity: 0.9;">無料体験でジムの雰囲気を体感</p><a href="#" class="btn-dark">無料体験予約</a></div></section>
+    <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

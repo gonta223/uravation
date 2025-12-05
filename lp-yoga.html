@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOW Yoga Studio | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --sage: #9CAF88;
+            --sage-light: #E8EFE4;
+            --sand: #E5DDD3;
+            --terracotta: #C4A484;
+            --text: #3C4035;
+            --text-light: #7A7E74;
+            --white: #FFFFFF;
+            --cream: #FAF9F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.9;
+            background: var(--cream);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: transparent;
+            padding: 25px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: 0.2em;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--sage);
+        }
+
+        .btn-header {
+            background: var(--sage);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+
+        .btn-header:hover {
+            background: #8AA077;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--sage-light) 0%, var(--sand) 100%);
+            position: relative;
+            padding: 100px 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            letter-spacing: 0.1em;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            line-height: 2;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--sage);
+            color: var(--white);
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #8AA077;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(156, 175, 136, 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image-main {
+            width: 100%;
+            height: 550px;
+            background: linear-gradient(135deg, var(--sage), #8AA077);
+            border-radius: 200px 200px 30px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-main .material-icons {
+            font-size: 150px;
+            color: white;
+            opacity: 0.7;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .en {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--sage);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+
+        /* About */
+        .about {
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            height: 450px;
+            background: linear-gradient(135deg, var(--sage-light), var(--sand));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image .material-icons {
+            font-size: 100px;
+            color: var(--sage);
+            opacity: 0.5;
+        }
+
+        .about-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        /* Programs */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .program-image {
+            height: 220px;
+            background: linear-gradient(135deg, var(--sage), #8AA077);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .program-image .material-icons {
+            font-size: 60px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .program-content {
+            padding: 30px;
+        }
+
+        .program-level {
+            display: inline-block;
+            background: var(--sage-light);
+            color: var(--sage);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+        }
+
+        .program-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .program-content p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .program-time {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--sage);
+        }
+
+        .program-time .material-icons {
+            font-size: 18px;
+        }
+
+        /* Benefits */
+        .benefits {
+            background: var(--white);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 40px 25px;
+            background: var(--cream);
+            border-radius: 20px;
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .benefit-icon .material-icons {
+            font-size: 30px;
+            color: white;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .benefit-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .price-card {
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--sage-light);
+            transition: all 0.3s;
+        }
+
+        .price-card:hover {
+            border-color: var(--sage);
+        }
+
+        .price-card.featured {
+            border-color: var(--sage);
+            position: relative;
+        }
+
+        .price-card.featured::before {
+            content: 'おすすめ';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--sage);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+        }
+
+        .price-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .price-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .price-amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--sage);
+            margin-bottom: 25px;
+        }
+
+        .price-amount span {
+            font-size: 1rem;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .price-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--sage-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features .material-icons {
+            color: var(--sage);
+            font-size: 18px;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            border: 2px solid var(--sage);
+            color: var(--sage);
+            padding: 14px 40px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--sage);
+            color: white;
+        }
+
+        /* Studio */
+        .studio-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .studio-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--sage-light), var(--sand));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .studio-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .studio-item .material-icons {
+            font-size: 40px;
+            color: var(--sage);
+            opacity: 0.5;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--sage), #8AA077);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .btn-white {
+            display: inline-block;
+            background: white;
+            color: var(--sage);
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-links h4 {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: var(--sage);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .footer-bottom a {
+            color: var(--sage);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content,
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .programs-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .studio-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .programs-grid,
+            .pricing-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .studio-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .studio-item.large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">FLOW</div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#studio">Studio</a></li>
+                    </ul>
+                </nav>
+                <a href="#trial" class="btn-header">体験予約</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Breathe,<br>Move,<br>Flow</h1>
+                    <p>忙しい毎日の中で、心と体を整える時間を。<br>初心者から経験者まで、あなたのペースで<br>ヨガを楽しめるスタジオです。</p>
+                    <a href="#trial" class="btn-primary">体験レッスンを予約</a>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-main">
+                        <span class="material-icons">self_improvement</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <span class="material-icons">spa</span>
+                </div>
+                <div class="about-text">
+                    <span class="en">About</span>
+                    <h3>心地よい空間で<br>自分と向き合う時間を</h3>
+                    <p>FLOWは「日常に溶け込むヨガ」をコンセプトに、2018年に東京・代官山にオープンしました。</p>
+                    <p>木の温もりを感じる落ち着いた空間で、経験豊富なインストラクターが丁寧に指導します。初心者の方も、ブランクのある方も、お気軽にお越しください。</p>
+                    <p>ヨガを通じて、心身のバランスを整え、日々の生活がより豊かになることを願っています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Programs</span>
+                <h2>クラス紹介</h2>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-image">
+                        <span class="material-icons">accessibility_new</span>
+                    </div>
+                    <div class="program-content">
+                        <span class="program-level">初心者向け</span>
+                        <h3>ベーシックヨガ</h3>
+                        <p>基本のポーズと呼吸法を学ぶ、初めての方にぴったりのクラス。</p>
+                        <div class="program-time">
+                            <span class="material-icons">schedule</span>
+                            60分
+                        </div>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-image" style="background: linear-gradient(135deg, var(--terracotta), #D4B49A);">
+                        <span class="material-icons">nights_stay</span>
+                    </div>
+                    <div class="program-content">
+                        <span class="program-level">リラックス</span>
+                        <h3>リストラティブヨガ</h3>
+                        <p>プロップスを使い、深いリラックス状態へ導くクラス。</p>
+                        <div class="program-time">
+                            <span class="material-icons">schedule</span>
+                            75分
+                        </div>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <span class="material-icons">whatshot</span>
+                    </div>
+                    <div class="program-content">
+                        <span class="program-level">中級者向け</span>
+                        <h3>パワーヨガ</h3>
+                        <p>動きのあるポーズで筋力アップ。しっかり動きたい方へ。</p>
+                        <div class="program-time">
+                            <span class="material-icons">schedule</span>
+                            60分
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Benefits</span>
+                <h2>ヨガの効果</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <span class="material-icons">psychology</span>
+                    </div>
+                    <h4>ストレス軽減</h4>
+                    <p>呼吸と動きを合わせることで心が落ち着きます</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <span class="material-icons">fitness_center</span>
+                    </div>
+                    <h4>体幹強化</h4>
+                    <p>インナーマッスルが鍛えられ姿勢が改善します</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <span class="material-icons">hotel</span>
+                    </div>
+                    <h4>睡眠の質向上</h4>
+                    <p>深いリラックスで質の良い睡眠が得られます</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <span class="material-icons">directions_run</span>
+                    </div>
+                    <h4>柔軟性アップ</h4>
+                    <p>続けることで体が柔らかくなっていきます</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Pricing</span>
+                <h2>料金プラン</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3 class="price-name">ドロップイン</h3>
+                    <p class="price-desc">1回ずつ気軽に参加</p>
+                    <div class="price-amount">¥3,300<span>/回</span></div>
+                    <ul class="price-features">
+                        <li><span class="material-icons">check</span>全クラス受講可</li>
+                        <li><span class="material-icons">check</span>マットレンタル込み</li>
+                        <li><span class="material-icons">check</span>予約制</li>
+                    </ul>
+                    <a href="#trial" class="btn-outline">詳しく見る</a>
+                </div>
+                <div class="price-card featured">
+                    <h3 class="price-name">月4回プラン</h3>
+                    <p class="price-desc">週1回ペースに最適</p>
+                    <div class="price-amount">¥9,900<span>/月</span></div>
+                    <ul class="price-features">
+                        <li><span class="material-icons">check</span>月4回まで受講</li>
+                        <li><span class="material-icons">check</span>マットレンタル込み</li>
+                        <li><span class="material-icons">check</span>繰越可能</li>
+                    </ul>
+                    <a href="#trial" class="btn-outline">詳しく見る</a>
+                </div>
+                <div class="price-card">
+                    <h3 class="price-name">通い放題</h3>
+                    <p class="price-desc">たくさん通いたい方へ</p>
+                    <div class="price-amount">¥15,400<span>/月</span></div>
+                    <ul class="price-features">
+                        <li><span class="material-icons">check</span>全クラス通い放題</li>
+                        <li><span class="material-icons">check</span>マットレンタル込み</li>
+                        <li><span class="material-icons">check</span>優先予約</li>
+                    </ul>
+                    <a href="#trial" class="btn-outline">詳しく見る</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="studio">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Studio</span>
+                <h2>スタジオ紹介</h2>
+            </div>
+            <div class="studio-gallery">
+                <div class="studio-item large">
+                    <span class="material-icons">home</span>
+                </div>
+                <div class="studio-item">
+                    <span class="material-icons">meeting_room</span>
+                </div>
+                <div class="studio-item">
+                    <span class="material-icons">shower</span>
+                </div>
+                <div class="studio-item">
+                    <span class="material-icons">checkroom</span>
+                </div>
+                <div class="studio-item">
+                    <span class="material-icons">local_cafe</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="trial">
+        <div class="container">
+            <h2>体験レッスン受付中</h2>
+            <p>初回体験 ¥1,100（税込）</p>
+            <a href="#" class="btn-white">体験を予約する</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">FLOW</div>
+                    <p>〒150-0033 東京都渋谷区代官山○○1-2-3<br>TEL: 03-1234-5678</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Programs</h4>
+                    <ul>
+                        <li><a href="#">ベーシックヨガ</a></li>
+                        <li><a href="#">リストラティブヨガ</a></li>
+                        <li><a href="#">パワーヨガ</a></li>
+                        <li><a href="#">マタニティヨガ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="#">料金プラン</a></li>
+                        <li><a href="#">スケジュール</a></li>
+                        <li><a href="#">インストラクター</a></li>
+                        <li><a href="#">アクセス</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Others</h4>
+                    <ul>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">お知らせ</a></li>
+                        <li><a href="#">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

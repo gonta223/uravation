@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRILLIANCE Jewelry | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F5E6C8; --rose: #B76E79; --dark: #1C1C1C; --text: #333; --text-light: #888; --bg: #FDFBF7; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); letter-spacing: 0.15em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .btn-header { border: 1px solid var(--gold); color: var(--gold); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .hero { padding: 150px 0 100px; background: linear-gradient(135deg, var(--dark), #2A2A2A); color: white; position: relative; }
+        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, var(--bg), transparent); }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 400; line-height: 1.3; margin-bottom: 25px; letter-spacing: 0.05em; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { color: rgba(255,255,255,0.7); margin-bottom: 40px; font-size: 0.95rem; }
+        .btn-gold { background: var(--gold); color: var(--dark); padding: 16px 45px; text-decoration: none; display: inline-block; letter-spacing: 0.1em; font-size: 0.9rem; }
+        .hero-image { height: 450px; background: linear-gradient(135deg, var(--gold), var(--rose)); border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.6; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; }
+        .collection { background: var(--white); }
+        .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .collection-card { text-align: center; }
+        .collection-image { height: 320px; background: linear-gradient(135deg, var(--gold), var(--rose)); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; }
+        .collection-image .material-icons { font-size: 60px; color: white; opacity: 0.6; }
+        .collection-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 10px; letter-spacing: 0.1em; }
+        .collection-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .collection-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .service-card { background: var(--white); padding: 40px 25px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .service-card .material-icons { font-size: 36px; color: var(--gold); margin-bottom: 15px; }
+        .service-card h4 { font-size: 1rem; margin-bottom: 10px; }
+        .service-card p { font-size: 0.85rem; color: var(--text-light); }
+        .bridal { background: var(--white); }
+        .bridal-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .bridal-image { height: 400px; background: linear-gradient(135deg, var(--rose), var(--gold)); display: flex; align-items: center; justify-content: center; }
+        .bridal-image .material-icons { font-size: 80px; color: white; opacity: 0.6; }
+        .bridal-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 20px; }
+        .bridal-info p { color: var(--text-light); margin-bottom: 25px; }
+        .bridal-list { list-style: none; }
+        .bridal-list li { display: flex; gap: 12px; padding: 10px 0; font-size: 0.9rem; }
+        .bridal-list .material-icons { color: var(--gold); font-size: 20px; }
+        .cta { background: var(--dark); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .cta p { color: rgba(255,255,255,0.7); margin-bottom: 30px; }
+        footer { background: #0A0A0A; color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand .logo { margin-bottom: 15px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; }
+        .footer-links h4 { font-size: 0.85rem; margin-bottom: 20px; color: var(--gold); letter-spacing: 0.1em; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .bridal-content, .collection-grid { grid-template-columns: 1fr; } .hero-image, .bridal-image { display: none; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .services-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">BRILLIANCE</div><nav><ul><li><a href="#collection">コレクション</a></li><li><a href="#bridal">ブライダル</a></li><li><a href="#services">サービス</a></li></ul></nav><a href="#contact" class="btn-header">来店予約</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>Eternal<br><span>Brilliance</span></h1><p>永遠の輝きを、あなたに。<br>厳選されたダイヤモンドと職人の技が織りなす至高のジュエリー。</p><a href="#collection" class="btn-gold">コレクションを見る</a></div><div class="hero-image"><span class="material-icons">diamond</span></div></div></div></section>
+    <section id="collection" class="collection"><div class="container"><div class="section-header"><span class="en">Collection</span><h2>コレクション</h2></div><div class="collection-grid">
+        <div class="collection-card"><div class="collection-image"><span class="material-icons">diamond</span></div><h3>Diamond Ring</h3><p>ダイヤモンドリング</p><span class="collection-price">¥180,000〜</span></div>
+        <div class="collection-card"><div class="collection-image"><span class="material-icons">diamond</span></div><h3>Pearl Necklace</h3><p>パールネックレス</p><span class="collection-price">¥85,000〜</span></div>
+        <div class="collection-card"><div class="collection-image"><span class="material-icons">diamond</span></div><h3>Gold Bracelet</h3><p>ゴールドブレスレット</p><span class="collection-price">¥120,000〜</span></div>
+    </div></div></section>
+    <section id="services"><div class="container"><div class="section-header"><span class="en">Services</span><h2>サービス</h2></div><div class="services-grid">
+        <div class="service-card"><span class="material-icons">design_services</span><h4>オーダーメイド</h4><p>世界に一つだけのジュエリーを</p></div>
+        <div class="service-card"><span class="material-icons">build</span><h4>リペア</h4><p>大切なジュエリーの修理</p></div>
+        <div class="service-card"><span class="material-icons">autorenew</span><h4>リフォーム</h4><p>デザインの作り替え</p></div>
+        <div class="service-card"><span class="material-icons">cleaning_services</span><h4>クリーニング</h4><p>輝きを取り戻す</p></div>
+    </div></div></section>
+    <section id="bridal" class="bridal"><div class="container"><div class="bridal-content"><div class="bridal-image"><span class="material-icons">favorite</span></div><div class="bridal-info"><span class="en">Bridal</span><h3>ブライダルジュエリー</h3><p>人生の特別な瞬間を彩る、エンゲージリング・マリッジリング。おふたりの想いをカタチにします。</p><ul class="bridal-list"><li><span class="material-icons">check</span>エンゲージリング</li><li><span class="material-icons">check</span>マリッジリング</li><li><span class="material-icons">check</span>セミオーダー対応</li><li><span class="material-icons">check</span>刻印サービス無料</li></ul></div></div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>来店のご予約</h2><p>ゆっくりとご覧いただくために、ご予約をおすすめしております。</p><a href="#" class="btn-gold">来店予約</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">BRILLIANCE</div><p>〒104-0061 東京都中央区銀座○-○-○<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>Collection</h4><ul><li><a href="#">リング</a></li><li><a href="#">ネックレス</a></li><li><a href="#">ブレスレット</a></li></ul></div><div class="footer-links"><h4>Information</h4><ul><li><a href="#">店舗情報</a></li><li><a href="#">ブライダル</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

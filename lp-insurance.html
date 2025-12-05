@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRUST Insurance | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1565C0; --primary-dark: #0D47A1; --green: #43A047; --orange: #FB8C00; --dark: #1A237E; --text: #263238; --text-light: #607D8B; --bg: #FAFAFA; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Roboto', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .logo .material-icons { color: var(--green); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 130px 0 80px; background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.5; margin-bottom: 20px; }
+        .hero p { opacity: 0.9; margin-bottom: 30px; }
+        .btn-primary { background: var(--orange); color: white; padding: 16px 40px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: 600; }
+        .hero-image { height: 350px; background: rgba(255,255,255,0.15); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.8; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+        .products { background: var(--white); }
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .product-card { background: var(--bg); padding: 30px 20px; border-radius: 15px; text-align: center; border: 2px solid transparent; transition: all 0.3s; }
+        .product-card:hover { border-color: var(--primary); }
+        .product-icon { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; }
+        .product-icon .material-icons { font-size: 28px; color: white; }
+        .product-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .product-card p { font-size: 0.85rem; color: var(--text-light); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feature-card { background: var(--white); padding: 40px 30px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .feature-number { font-family: 'Roboto', sans-serif; font-size: 3rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+        .feature-card p { font-size: 0.9rem; color: var(--text-light); }
+        .consultation { background: var(--white); }
+        .consultation-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .consultation-image { height: 300px; background: linear-gradient(135deg, var(--primary), var(--dark)); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .consultation-image .material-icons { font-size: 80px; color: white; opacity: 0.7; }
+        .consultation-info h3 { font-size: 1.8rem; margin-bottom: 20px; }
+        .consultation-info p { color: var(--text-light); margin-bottom: 20px; }
+        .consultation-list { list-style: none; }
+        .consultation-list li { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+        .consultation-list .material-icons { color: var(--green); }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--dark)); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 40px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: 600; margin-top: 20px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--orange); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--orange); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .consultation-content { grid-template-columns: 1fr; } .hero-image, .consultation-image { display: none; } .products-grid { grid-template-columns: repeat(2, 1fr); } .features-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .products-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo"><span class="material-icons">verified_user</span>TRUST</div><nav><ul><li><a href="#products">商品</a></li><li><a href="#features">選ばれる理由</a></li><li><a href="#consultation">相談</a></li></ul></nav><a href="#contact" class="btn-header">無料相談</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>あなたの未来を<br>守る保険選び</h1><p>ライフプランに合わせた最適な保険を<br>専門スタッフがご提案いたします。</p><a href="#contact" class="btn-primary">無料相談はこちら</a></div><div class="hero-image"><span class="material-icons">shield</span></div></div></div></section>
+    <section id="products" class="products"><div class="container"><div class="section-header"><h2>取扱商品</h2><p>様々な保険商品からお選びいただけます</p></div><div class="products-grid">
+        <div class="product-card"><div class="product-icon"><span class="material-icons">favorite</span></div><h3>生命保険</h3><p>万が一に備えて</p></div>
+        <div class="product-card"><div class="product-icon"><span class="material-icons">local_hospital</span></div><h3>医療保険</h3><p>入院・手術に備えて</p></div>
+        <div class="product-card"><div class="product-icon"><span class="material-icons">directions_car</span></div><h3>自動車保険</h3><p>事故のリスクに</p></div>
+        <div class="product-card"><div class="product-icon"><span class="material-icons">home</span></div><h3>火災保険</h3><p>住まいを守る</p></div>
+    </div></div></section>
+    <section id="features"><div class="container"><div class="section-header"><h2>選ばれる理由</h2></div><div class="features-grid">
+        <div class="feature-card"><div class="feature-number">30+</div><h3>取扱保険会社</h3><p>30社以上の保険会社から最適なプランをご提案</p></div>
+        <div class="feature-card"><div class="feature-number">0円</div><h3>相談料無料</h3><p>何度ご相談いただいても費用は一切かかりません</p></div>
+        <div class="feature-card"><div class="feature-number">15年</div><h3>実績と信頼</h3><p>創業15年、延べ10万件以上のご相談実績</p></div>
+    </div></div></section>
+    <section id="consultation" class="consultation"><div class="container"><div class="consultation-content"><div class="consultation-image"><span class="material-icons">support_agent</span></div><div class="consultation-info"><h3>まずは無料相談から</h3><p>保険のプロが丁寧にご説明いたします。オンライン相談も対応可能です。</p><ul class="consultation-list"><li><span class="material-icons">check_circle</span>来店・訪問どちらも対応</li><li><span class="material-icons">check_circle</span>オンライン相談可能</li><li><span class="material-icons">check_circle</span>土日祝も営業</li><li><span class="material-icons">check_circle</span>キッズスペース完備</li></ul></div></div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>保険の見直し、ご相談ください</h2><p style="opacity: 0.9;">専門スタッフが親身に対応いたします</p><a href="#" class="btn-white">無料相談予約</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo" style="color: white;"><span class="material-icons">verified_user</span>TRUST</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>商品</h4><ul><li><a href="#">生命保険</a></li><li><a href="#">医療保険</a></li><li><a href="#">自動車保険</a></li></ul></div><div class="footer-links"><h4>会社情報</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">店舗案内</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

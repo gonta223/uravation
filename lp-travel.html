@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOYAGE Travel | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1976D2; --primary-dark: #0D47A1; --accent: #FF5722; --text: #263238; --text-light: #607D8B; --bg: #FAFAFA; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; border-radius: 25px; text-decoration: none; }
+        .hero { height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='80' cy='20' r='30' fill='%23fff' opacity='0.05'/%3E%3Ccircle cx='20' cy='80' r='40' fill='%23fff' opacity='0.05'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 40px; }
+        .btn-white { background: white; color: var(--primary); padding: 18px 50px; border-radius: 30px; text-decoration: none; display: inline-block; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .destinations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .dest-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .dest-image { height: 200px; background: linear-gradient(135deg, var(--primary), #42A5F5); display: flex; align-items: center; justify-content: center; }
+        .dest-image .material-icons { font-size: 60px; color: white; opacity: 0.7; }
+        .dest-info { padding: 25px; }
+        .dest-info h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .dest-info p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .dest-price { color: var(--accent); font-weight: 700; font-size: 1.3rem; }
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .feature-card { text-align: center; padding: 30px 20px; }
+        .feature-icon { width: 70px; height: 70px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .feature-icon .material-icons { font-size: 30px; color: white; }
+        .feature-card h4 { font-size: 1rem; margin-bottom: 10px; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-light); }
+        .cta { background: linear-gradient(135deg, var(--accent), #FF7043); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        footer { background: var(--text); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 1024px) { .destinations-grid, .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .destinations-grid, .features-grid, .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">VOYAGE</div><nav><ul><li><a href="#destinations">ツアー</a></li><li><a href="#features">選ばれる理由</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">相談する</a></div></div></header>
+    <section class="hero"><div class="hero-content"><h1>新しい世界へ、<br>旅に出よう</h1><p>心に残る特別な旅を、あなたにお届けします。<br>オーダーメイドのプランで、夢の旅行を実現。</p><a href="#destinations" class="btn-white">ツアーを見る</a></div></section>
+    <section id="destinations"><div class="container"><div class="section-header"><h2>人気のツアー</h2></div><div class="destinations-grid">
+        <div class="dest-card"><div class="dest-image"><span class="material-icons">landscape</span></div><div class="dest-info"><h3>イタリア周遊 8日間</h3><p>ローマ・フィレンツェ・ヴェネツィアを巡る</p><span class="dest-price">¥298,000〜</span></div></div>
+        <div class="dest-card"><div class="dest-image" style="background: linear-gradient(135deg, #4CAF50, #8BC34A);"><span class="material-icons">forest</span></div><div class="dest-info"><h3>バリ島 リゾート 5日間</h3><p>ヴィラ滞在で極上のひとときを</p><span class="dest-price">¥158,000〜</span></div></div>
+        <div class="dest-card"><div class="dest-image" style="background: linear-gradient(135deg, #FF5722, #FF9800);"><span class="material-icons">wb_sunny</span></div><div class="dest-info"><h3>ハワイ 6日間</h3><p>王道のホノルル満喫プラン</p><span class="dest-price">¥198,000〜</span></div></div>
+    </div></div></section>
+    <section id="features" class="features"><div class="container"><div class="section-header"><h2>選ばれる理由</h2></div><div class="features-grid">
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">edit</span></div><h4>オーダーメイド</h4><p>ご要望に合わせたプランを作成</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">support_agent</span></div><h4>24時間サポート</h4><p>旅行中も安心のサポート体制</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">verified</span></div><h4>安心の品質</h4><p>厳選したホテル・航空会社</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">payments</span></div><h4>明朗会計</h4><p>追加料金なしの安心価格</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>あなただけの旅をつくりませんか？</h2><p style="opacity: 0.9; margin-bottom: 30px;">お気軽にご相談ください</p><a href="#" class="btn-white">無料相談</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo" style="color: white;">VOYAGE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>ツアー</h4><ul><li><a href="#">ヨーロッパ</a></li><li><a href="#">アジア</a></li><li><a href="#">アメリカ</a></li></ul></div><div class="footer-links"><h4>サービス</h4><ul><li><a href="#">オーダーメイド</a></li><li><a href="#">グループ旅行</a></li><li><a href="#">ハネムーン</a></li></ul></div><div class="footer-links"><h4>会社情報</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

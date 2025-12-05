@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWIFT Moving | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #FF6B00; --primary-dark: #E55A00; --blue: #1E88E5; --dark: #1A1A1A; --text: #333; --text-light: #666; --bg: #F5F5F5; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        .hero { padding: 130px 0 80px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; margin-bottom: 30px; }
+        .btn-primary { background: var(--white); color: var(--primary); padding: 16px 40px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: 600; }
+        .hero-image { height: 350px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.9; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+        .plans { background: var(--white); }
+        .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .plan-card { background: var(--bg); padding: 40px 30px; border-radius: 15px; text-align: center; }
+        .plan-card.popular { background: var(--primary); color: white; }
+        .plan-badge { display: inline-block; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; }
+        .plan-card.popular .plan-badge { background: white; color: var(--primary); }
+        .plan-card h3 { font-size: 1.3rem; margin-bottom: 15px; }
+        .plan-price { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 20px; }
+        .plan-price span { font-size: 1rem; font-weight: 400; }
+        .plan-features { list-style: none; text-align: left; margin-bottom: 25px; }
+        .plan-features li { padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .plan-card.popular .plan-features li { border-color: rgba(255,255,255,0.2); }
+        .plan-features .material-icons { font-size: 18px; color: var(--primary); }
+        .plan-card.popular .plan-features .material-icons { color: white; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .feature-card { background: var(--white); padding: 35px 20px; border-radius: 15px; text-align: center; }
+        .feature-icon { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; }
+        .feature-icon .material-icons { font-size: 28px; color: white; }
+        .feature-card h4 { font-size: 1rem; margin-bottom: 8px; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-light); }
+        .flow { background: var(--white); }
+        .flow-steps { display: flex; justify-content: center; gap: 20px; }
+        .flow-step { flex: 1; max-width: 180px; text-align: center; position: relative; }
+        .flow-step:not(:last-child)::after { content: ''; position: absolute; top: 25px; right: -20px; width: 20px; height: 2px; background: var(--primary); }
+        .flow-number { width: 50px; height: 50px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; }
+        .flow-step h4 { font-size: 0.95rem; margin-bottom: 5px; }
+        .flow-step p { font-size: 0.8rem; color: var(--text-light); }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 40px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: 600; margin-top: 20px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
+        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--primary); }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .plans-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .features-grid { grid-template-columns: repeat(2, 1fr); } .flow-steps { flex-wrap: wrap; } .flow-step::after { display: none; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .features-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">SWIFT</div><nav><ul><li><a href="#plans">プラン</a></li><li><a href="#features">特徴</a></li><li><a href="#flow">流れ</a></li></ul></nav><a href="#contact" class="btn-header">無料見積り</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>安心・丁寧・<br>スピーディー</h1><p>お引越しのプロが大切なお荷物を<br>新しいお住まいへお届けします。</p><a href="#contact" class="btn-primary">無料見積りはこちら</a></div><div class="hero-image"><span class="material-icons">local_shipping</span></div></div></div></section>
+    <section id="plans" class="plans"><div class="container"><div class="section-header"><h2>引越しプラン</h2><p>お客様に合わせた最適なプランをご用意</p></div><div class="plans-grid">
+        <div class="plan-card"><span class="plan-badge">単身</span><h3>シングルプラン</h3><div class="plan-price">¥29,800<span>〜</span></div><ul class="plan-features"><li><span class="material-icons">check</span>ワンルーム〜1K</li><li><span class="material-icons">check</span>荷造り・荷解きなし</li><li><span class="material-icons">check</span>スタッフ1名</li></ul></div>
+        <div class="plan-card popular"><span class="plan-badge">人気No.1</span><h3>ファミリープラン</h3><div class="plan-price">¥79,800<span>〜</span></div><ul class="plan-features"><li><span class="material-icons">check</span>2LDK〜3LDK</li><li><span class="material-icons">check</span>荷造りサービス付</li><li><span class="material-icons">check</span>スタッフ3名</li></ul></div>
+        <div class="plan-card"><span class="plan-badge">法人</span><h3>オフィスプラン</h3><div class="plan-price">¥150,000<span>〜</span></div><ul class="plan-features"><li><span class="material-icons">check</span>オフィス移転</li><li><span class="material-icons">check</span>IT機器対応</li><li><span class="material-icons">check</span>休日対応可</li></ul></div>
+    </div></div></section>
+    <section id="features"><div class="container"><div class="section-header"><h2>選ばれる理由</h2></div><div class="features-grid">
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">verified</span></div><h4>安心補償</h4><p>万が一の破損も補償</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">schedule</span></div><h4>時間厳守</h4><p>時間通りにお伺い</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">recycling</span></div><h4>不用品回収</h4><p>引越しと同時に処分</p></div>
+        <div class="feature-card"><div class="feature-icon"><span class="material-icons">payments</span></div><h4>明瞭価格</h4><p>追加料金なし</p></div>
+    </div></div></section>
+    <section id="flow" class="flow"><div class="container"><div class="section-header"><h2>ご利用の流れ</h2></div><div class="flow-steps">
+        <div class="flow-step"><div class="flow-number">1</div><h4>お問い合わせ</h4><p>電話・WEBから</p></div>
+        <div class="flow-step"><div class="flow-number">2</div><h4>訪問見積り</h4><p>無料でお見積り</p></div>
+        <div class="flow-step"><div class="flow-number">3</div><h4>ご契約</h4><p>プラン決定</p></div>
+        <div class="flow-step"><div class="flow-number">4</div><h4>引越し当日</h4><p>丁寧に作業</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>まずは無料見積りから</h2><p style="opacity: 0.9;">お気軽にお問い合わせください</p><a href="#" class="btn-white">無料見積り</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo" style="color: white;">SWIFT</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 0120-123-456</p></div><div class="footer-links"><h4>プラン</h4><ul><li><a href="#">単身プラン</a></li><li><a href="#">ファミリープラン</a></li><li><a href="#">オフィスプラン</a></li></ul></div><div class="footer-links"><h4>情報</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">よくある質問</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

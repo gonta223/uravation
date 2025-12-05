@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERENE Spa | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #7B8C7B; --primary-dark: #5A6B5A; --gold: #C4A77D; --cream: #FAF8F5; --dark: #2C2C2C; --text: #4A4A4A; --text-light: #8C8C8C; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 2; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.15em; font-weight: 300; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .btn-header { border: 1px solid var(--primary); color: var(--primary); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .hero { padding: 150px 0 100px; background: var(--white); }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1.4; margin-bottom: 25px; letter-spacing: 0.05em; }
+        .hero p { color: var(--text-light); margin-bottom: 35px; font-size: 0.95rem; }
+        .btn-primary { background: var(--primary); color: white; padding: 16px 45px; text-decoration: none; display: inline-block; letter-spacing: 0.1em; font-size: 0.9rem; }
+        .hero-image { height: 500px; background: linear-gradient(135deg, var(--primary), var(--gold)); display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.5; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--primary); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; }
+        .menu { background: var(--white); }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .menu-card { text-align: center; padding: 40px 30px; background: var(--cream); }
+        .menu-icon { width: 70px; height: 70px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .menu-icon .material-icons { font-size: 30px; color: white; }
+        .menu-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 15px; letter-spacing: 0.1em; }
+        .menu-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
+        .menu-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feature-card { background: var(--white); padding: 40px 30px; text-align: center; }
+        .feature-number { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .feature-card h4 { font-size: 1rem; margin-bottom: 10px; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-light); }
+        .access { background: var(--white); }
+        .access-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .access-map { height: 350px; background: linear-gradient(135deg, var(--primary), var(--gold)); display: flex; align-items: center; justify-content: center; }
+        .access-map .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .access-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 25px; }
+        .access-list { list-style: none; }
+        .access-list li { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .access-list .material-icons { color: var(--primary); font-size: 20px; }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 20px; font-weight: 300; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 45px; text-decoration: none; display: inline-block; letter-spacing: 0.1em; margin-top: 20px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        .footer-brand .logo { color: white; margin-bottom: 15px; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.7; }
+        .footer-links h4 { font-size: 0.85rem; margin-bottom: 20px; color: var(--gold); letter-spacing: 0.1em; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .menu-grid, .features-grid, .access-content { grid-template-columns: 1fr; } .hero-image, .access-map { display: none; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">SERENE</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#features">特徴</a></li><li><a href="#access">アクセス</a></li></ul></nav><a href="#contact" class="btn-header">ご予約</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>心と体に<br>癒しのひとときを</h1><p>日常から離れ、静寂の中で<br>本来の自分を取り戻す極上のリラクゼーション。</p><a href="#contact" class="btn-primary">ご予約はこちら</a></div><div class="hero-image"><span class="material-icons">spa</span></div></div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><span class="en">Menu</span><h2>施術メニュー</h2></div><div class="menu-grid">
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">self_improvement</span></div><h3>Aroma Treatment</h3><p>厳選されたオイルで全身をほぐす<br>アロマトリートメント</p><span class="menu-price">60min ¥9,800〜</span></div>
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">face</span></div><h3>Facial Care</h3><p>美肌へ導く<br>フェイシャルトリートメント</p><span class="menu-price">60min ¥8,800〜</span></div>
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">hot_tub</span></div><h3>Body Scrub</h3><p>古い角質を取り除き<br>すべすべの肌へ</p><span class="menu-price">45min ¥7,500〜</span></div>
+    </div></div></section>
+    <section id="features"><div class="container"><div class="section-header"><span class="en">Features</span><h2>SERENEの特徴</h2></div><div class="features-grid">
+        <div class="feature-card"><div class="feature-number">01</div><h4>完全個室</h4><p>プライベート空間で安心してお過ごしいただけます</p></div>
+        <div class="feature-card"><div class="feature-number">02</div><h4>オーガニック</h4><p>肌に優しいオーガニック製品を使用</p></div>
+        <div class="feature-card"><div class="feature-number">03</div><h4>経験豊富</h4><p>国家資格を持つセラピストが担当</p></div>
+    </div></div></section>
+    <section id="access" class="access"><div class="container"><div class="access-content"><div class="access-map"><span class="material-icons">map</span></div><div class="access-info"><span class="en">Access</span><h3>店舗情報</h3><ul class="access-list">
+        <li><span class="material-icons">location_on</span><span>〒150-0001 東京都渋谷区○○1-2-3 ビル5F</span></li>
+        <li><span class="material-icons">schedule</span><span>11:00〜21:00（最終受付20:00）</span></li>
+        <li><span class="material-icons">event_busy</span><span>定休日：火曜日</span></li>
+        <li><span class="material-icons">phone</span><span>03-1234-5678</span></li>
+    </ul></div></div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>ご予約・お問い合わせ</h2><p style="opacity: 0.9;">オンライン予約を承っております</p><a href="#" class="btn-white">ご予約はこちら</a></div></section>
+    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">SERENE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>Menu</h4><ul><li><a href="#">アロマ</a></li><li><a href="#">フェイシャル</a></li><li><a href="#">ボディスクラブ</a></li></ul></div><div class="footer-links"><h4>Information</h4><ul><li><a href="#">アクセス</a></li><li><a href="#">スタッフ紹介</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

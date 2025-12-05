@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody Music School | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5750D9;
+            --secondary: #FF6B9D;
+            --dark: #1F1F2E;
+            --text: #2D2D3A;
+            --text-light: #6B6B7B;
+            --bg: #FAFAFF;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(108, 99, 255, 0.1);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, var(--bg) 0%, #E8E6FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.1) 0%, transparent 60%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(255, 107, 157, 0.15));
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 16px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image-main {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-main .material-icons {
+            font-size: 150px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .floating-note {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-note .material-icons {
+            color: var(--primary);
+        }
+
+        .floating-note.n1 { top: 10%; left: -20px; animation-delay: 0s; }
+        .floating-note.n2 { top: 40%; right: -30px; animation-delay: 1s; }
+        .floating-note.n3 { bottom: 10%; left: 10%; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .en {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        /* Features */
+        .features {
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 36px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Courses */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .course-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.15);
+        }
+
+        .course-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .course-image .material-icons {
+            font-size: 60px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .course-info {
+            padding: 25px;
+        }
+
+        .course-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .course-info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .course-price {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .course-price .amount {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .course-price .unit {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Teachers */
+        .teachers {
+            background: var(--white);
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .teacher-card {
+            text-align: center;
+        }
+
+        .teacher-photo {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .teacher-photo .material-icons {
+            font-size: 60px;
+            color: white;
+            opacity: 0.7;
+        }
+
+        .teacher-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .teacher-card .instrument {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .teacher-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-stars {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar .material-icons {
+            color: white;
+        }
+
+        .testimonial-info h5 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .testimonial-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='20' cy='80' r='15' fill='%23fff' opacity='0.1'/%3E%3Ccircle cx='80' cy='30' r='20' fill='%23fff' opacity='0.1'/%3E%3C/svg%3E");
+        }
+
+        .cta .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-links h4 {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .footer-bottom a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .courses-grid,
+            .teachers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .features-grid,
+            .courses-grid,
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <span class="material-icons">music_note</span>
+                    </div>
+                    <span class="logo-text">Melody</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">特徴</a></li>
+                        <li><a href="#courses">コース</a></li>
+                        <li><a href="#teachers">講師</a></li>
+                        <li><a href="#voice">生徒の声</a></li>
+                    </ul>
+                </nav>
+                <a href="#trial" class="btn-header">無料体験</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="material-icons" style="font-size: 16px;">verified</span>
+                        初心者歓迎・入会金0円
+                    </div>
+                    <h1><span>音楽のある暮らし</span>を<br>はじめよう</h1>
+                    <p>初心者から上級者まで、一人ひとりに合わせたレッスン。<br>あなたの「弾きたい」を全力でサポートします。</p>
+                    <div class="hero-buttons">
+                        <a href="#trial" class="btn-primary">
+                            無料体験に申し込む
+                            <span class="material-icons" style="font-size: 18px;">arrow_forward</span>
+                        </a>
+                        <a href="#courses" class="btn-outline">コースを見る</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-main">
+                        <span class="material-icons">piano</span>
+                    </div>
+                    <div class="floating-note n1">
+                        <span class="material-icons">music_note</span>
+                    </div>
+                    <div class="floating-note n2">
+                        <span class="material-icons">headphones</span>
+                    </div>
+                    <div class="floating-note n3">
+                        <span class="material-icons">queue_music</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Features</span>
+                <h2>Melodyが選ばれる理由</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">schedule</span>
+                    </div>
+                    <h3>自由な予約システム</h3>
+                    <p>Webから24時間いつでも予約・変更OK。忙しい方でも通いやすい。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h3>マンツーマンレッスン</h3>
+                    <p>完全個人レッスンで、あなたのペースに合わせて丁寧に指導します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <span class="material-icons">emoji_events</span>
+                    </div>
+                    <h3>現役プロ講師</h3>
+                    <p>演奏・指導の両方で経験豊富なプロ講師が丁寧にレッスン。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Courses</span>
+                <h2>レッスンコース</h2>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <span class="material-icons">piano</span>
+                    </div>
+                    <div class="course-info">
+                        <h4>ピアノコース</h4>
+                        <p>クラシックからポップスまで幅広く対応</p>
+                        <div class="course-price">
+                            <span class="amount">¥8,800</span>
+                            <span class="unit">〜/月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image" style="background: linear-gradient(135deg, #FF6B9D, #FF8E53);">
+                        <span class="material-icons">music_note</span>
+                    </div>
+                    <div class="course-info">
+                        <h4>ギターコース</h4>
+                        <p>アコースティック・エレキ対応</p>
+                        <div class="course-price">
+                            <span class="amount">¥8,800</span>
+                            <span class="unit">〜/月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image" style="background: linear-gradient(135deg, #4ECDC4, #44A08D);">
+                        <span class="material-icons">mic</span>
+                    </div>
+                    <div class="course-info">
+                        <h4>ボーカルコース</h4>
+                        <p>発声から歌唱テクニックまで</p>
+                        <div class="course-price">
+                            <span class="amount">¥9,900</span>
+                            <span class="unit">〜/月</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <span class="material-icons">audiotrack</span>
+                    </div>
+                    <div class="course-info">
+                        <h4>バイオリンコース</h4>
+                        <p>初心者も安心の基礎から丁寧に</p>
+                        <div class="course-price">
+                            <span class="amount">¥11,000</span>
+                            <span class="unit">〜/月</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="teachers" class="teachers">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Teachers</span>
+                <h2>講師紹介</h2>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h4>山田 美咲</h4>
+                    <p class="instrument">ピアノ</p>
+                    <p>音楽大学卒業後、国内外でコンサート活動。指導歴15年。</p>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo" style="background: linear-gradient(135deg, #FF6B9D, #FF8E53);">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h4>鈴木 健太</h4>
+                    <p class="instrument">ギター</p>
+                    <p>プロギタリストとして活動中。初心者への指導に定評あり。</p>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo" style="background: linear-gradient(135deg, #4ECDC4, #44A08D);">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h4>田中 さくら</h4>
+                    <p class="instrument">ボーカル</p>
+                    <p>劇団四季出身。声楽から ポップスまで幅広く指導。</p>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <span class="material-icons">person</span>
+                    </div>
+                    <h4>佐藤 優</h4>
+                    <p class="instrument">バイオリン</p>
+                    <p>オーケストラでの演奏経験を持ち、丁寧な指導が好評。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="voice">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">Voice</span>
+                <h2>生徒の声</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">全くの初心者でしたが、先生が優しく教えてくれるので、半年で憧れの曲が弾けるようになりました！</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <div class="testimonial-info">
+                            <h5>M.Kさん（30代女性）</h5>
+                            <p>ピアノコース</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">仕事帰りに通えるので続けやすいです。予約も簡単で、振替もできるのがありがたい。</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <div class="testimonial-info">
+                            <h5>T.Sさん（40代男性）</h5>
+                            <p>ギターコース</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">発表会で人前で歌う自信がつきました。先生のおかげで歌うことがもっと好きになりました。</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <span class="material-icons">person</span>
+                        </div>
+                        <div class="testimonial-info">
+                            <h5>A.Yさん（20代女性）</h5>
+                            <p>ボーカルコース</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="trial">
+        <div class="container">
+            <h2>まずは無料体験レッスンへ</h2>
+            <p>楽器がなくてもOK！お気軽にお越しください</p>
+            <a href="#" class="btn-white">
+                無料体験を予約する
+                <span class="material-icons" style="font-size: 18px;">arrow_forward</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-text">Melody Music School</div>
+                    <p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p>
+                </div>
+                <div class="footer-links">
+                    <h4>コース</h4>
+                    <ul>
+                        <li><a href="#">ピアノ</a></li>
+                        <li><a href="#">ギター</a></li>
+                        <li><a href="#">ボーカル</a></li>
+                        <li><a href="#">バイオリン</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>スクール情報</h4>
+                    <ul>
+                        <li><a href="#">講師紹介</a></li>
+                        <li><a href="#">料金</a></li>
+                        <li><a href="#">アクセス</a></li>
+                        <li><a href="#">発表会</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>その他</h4>
+                    <ul>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">お知らせ</a></li>
+                        <li><a href="#">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

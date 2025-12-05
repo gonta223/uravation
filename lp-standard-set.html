@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAFT Workshop | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #E67E22; --primary-dark: #D35400; --teal: #1ABC9C; --dark: #2C3E50; --text: #34495E; --text-light: #7F8C8D; --bg: #ECF0F1; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'DM Sans', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 130px 0 80px; background: var(--primary); color: white; }
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; margin-bottom: 30px; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 40px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: 600; }
+        .hero-image { height: 350px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        .hero-image .material-icons { font-size: 100px; color: white; opacity: 0.9; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+        .workshops { background: var(--white); }
+        .workshops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .workshop-card { background: var(--bg); padding: 35px 25px; border-radius: 15px; text-align: center; }
+        .workshop-icon { width: 70px; height: 70px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .workshop-icon .material-icons { font-size: 32px; color: white; }
+        .workshop-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+        .workshop-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .workshop-price { font-family: 'DM Sans', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--primary); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .feature-card { background: var(--white); padding: 30px 20px; border-radius: 15px; text-align: center; }
+        .feature-card .material-icons { font-size: 36px; color: var(--teal); margin-bottom: 15px; }
+        .feature-card h4 { font-size: 1rem; margin-bottom: 8px; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-light); }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-bottom { font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .hero-content, .workshops-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .features-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">CRAFT</div><nav><ul><li><a href="#workshops">ワークショップ</a></li><li><a href="#features">特徴</a></li></ul></nav><a href="#contact" class="btn-header">予約する</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-content"><div><h1>手作りの<br>楽しさを体験</h1><p>初心者から経験者まで楽しめる<br>ものづくりワークショップ</p><a href="#contact" class="btn-white">ワークショップを予約</a></div><div class="hero-image"><span class="material-icons">handyman</span></div></div></div></section>
+    <section id="workshops" class="workshops"><div class="container"><div class="section-header"><h2>ワークショップ一覧</h2><p>様々な体験をご用意</p></div><div class="workshops-grid">
+        <div class="workshop-card"><div class="workshop-icon"><span class="material-icons">palette</span></div><h3>陶芸体験</h3><p>電動ろくろで器を作る</p><div class="workshop-price">¥5,500</div></div>
+        <div class="workshop-card"><div class="workshop-icon"><span class="material-icons">content_cut</span></div><h3>レザークラフト</h3><p>革小物を手作り</p><div class="workshop-price">¥4,800</div></div>
+        <div class="workshop-card"><div class="workshop-icon"><span class="material-icons">carpenter</span></div><h3>木工体験</h3><p>オリジナル家具作り</p><div class="workshop-price">¥6,000</div></div>
+    </div></div></section>
+    <section id="features"><div class="container"><div class="section-header"><h2>当ワークショップの特徴</h2></div><div class="features-grid">
+        <div class="feature-card"><span class="material-icons">person</span><h4>少人数制</h4><p>最大6名の少人数</p></div>
+        <div class="feature-card"><span class="material-icons">build</span><h4>道具完備</h4><p>手ぶらでOK</p></div>
+        <div class="feature-card"><span class="material-icons">school</span><h4>初心者歓迎</h4><p>丁寧にサポート</p></div>
+        <div class="feature-card"><span class="material-icons">card_giftcard</span><h4>作品は持ち帰り</h4><p>その日にお持ち帰り</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>ものづくり体験をはじめよう</h2><p style="opacity: 0.9;">お気軽にご予約ください</p><a href="#" class="btn-white" style="margin-top: 20px;">予約する</a></div></section>
+    <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>
