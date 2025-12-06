@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE BEAUTY | エステサロン</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #b8860b; --secondary: #d4a84b; --accent: #1a1a1a; --dark: #8b6914; --light: #faf8f5; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.9; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 18px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: var(--primary); letter-spacing: 0.15em; }
+        nav a { margin-left: 35px; text-decoration: none; color: #888; font-size: 0.85rem; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 130px 50px 80px; position: relative; }
+        .hero::before { content: '✨'; position: absolute; right: 10%; top: 20%; font-size: 8rem; opacity: 0.2; animation: glow 2s ease-in-out infinite; }
+        @keyframes glow { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.4; } }
+        .hero-content { max-width: 500px; color: var(--white); }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 500; margin-bottom: 25px; line-height: 1.5; letter-spacing: 0.1em; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 0.95rem; margin-bottom: 35px; opacity: 0.9; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,255,255,0.3); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 500; color: var(--primary); margin-bottom: 15px; letter-spacing: 0.2em; }
+        .menu { background: var(--light); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .menu-card { background: var(--white); padding: 40px 30px; text-align: center; transition: all 0.4s ease; }
+        .menu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(184,134,11,0.15); }
+        .menu-card span { font-size: 3rem; display: block; margin-bottom: 20px; }
+        .menu-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 10px; color: var(--dark); letter-spacing: 0.1em; }
+        .menu-card .price { font-size: 1.3rem; color: var(--primary); margin-bottom: 15px; }
+        .menu-card p { color: #888; font-size: 0.85rem; }
+        footer { background: var(--accent); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; letter-spacing: 0.15em; margin-bottom: 20px; }
+        footer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 8px; }
+        .copyright { opacity: 0.4; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--primary); color: var(--white); }
+        .fixed-cta .trial { border: 1px solid var(--primary); color: var(--primary); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">LUXE BEAUTY</div>
+        <nav><a href="#menu">メニュー</a><a href="#about">サロン紹介</a><a href="#contact">ご予約</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>あなたの美しさを<br>引き出す</h1>
+            <p>フェイシャル・ボディ・痩身まで。確かな技術で、理想の美しさをサポートします。</p>
+            <a href="#contact" class="cta-btn">初回体験予約</a>
+        </div>
+    </section>
+    <section class="menu section" id="menu">
+        <div class="section-title fade-in"><h2>MENU</h2></div>
+        <div class="menu-grid">
+            <div class="menu-card fade-in"><span>💆‍♀️</span><h3>フェイシャル</h3><p class="price">¥12,000〜</p><p>美肌・リフトアップ</p></div>
+            <div class="menu-card fade-in"><span>💪</span><h3>ボディケア</h3><p class="price">¥15,000〜</p><p>全身リラクゼーション</p></div>
+            <div class="menu-card fade-in"><span>✨</span><h3>痩身エステ</h3><p class="price">¥18,000〜</p><p>キャビテーション・EMS</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">LUXE BEAUTY</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 LUXE BEAUTY</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="reserve"><span class="material-icons">event</span>予約</a>
+        <a href="#trial" class="trial"><span class="material-icons">redeem</span>初回体験</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

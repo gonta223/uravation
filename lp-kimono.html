@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅 MIYABI | 着物レンタル</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #8b2252; --secondary: #a84873; --accent: #c9a227; --dark: #5a1636; --light: #fdf5f8; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.9; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 18px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 15px rgba(139,34,82,0.1); }
+        .logo { font-family: 'Noto Serif JP', serif; font-size: 1.6rem; font-weight: 600; color: var(--primary); }
+        nav a { margin-left: 35px; text-decoration: none; color: #888; font-size: 0.9rem; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 130px 50px 80px; position: relative; }
+        .hero::before { content: '👘'; position: absolute; right: 10%; top: 20%; font-size: 10rem; opacity: 0.15; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Noto Serif JP', serif; font-size: 2.8rem; font-weight: 600; margin-bottom: 25px; line-height: 1.5; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1rem; margin-bottom: 35px; opacity: 0.9; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--dark); padding: 18px 40px; text-decoration: none; font-weight: 500; border-radius: 3px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(201,162,39,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Noto Serif JP', serif; font-size: 2rem; font-weight: 600; color: var(--primary); margin-bottom: 15px; }
+        .plans { background: var(--light); }
+        .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .plan-card { background: var(--white); border-radius: 10px; padding: 40px 30px; text-align: center; transition: all 0.4s ease; border-top: 4px solid transparent; }
+        .plan-card:hover { transform: translateY(-10px); border-top-color: var(--accent); box-shadow: 0 20px 40px rgba(139,34,82,0.15); }
+        .plan-card span { font-size: 3.5rem; display: block; margin-bottom: 20px; }
+        .plan-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; margin-bottom: 10px; color: var(--primary); }
+        .plan-card .price { font-size: 1.5rem; font-weight: 600; color: var(--dark); margin-bottom: 15px; }
+        .plan-card p { color: #888; font-size: 0.85rem; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--primary); color: var(--white); }
+        .fixed-cta .catalog { border: 2px solid var(--primary); color: var(--primary); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">👘 雅 MIYABI</div>
+        <nav><a href="#plans">プラン</a><a href="#gallery">ギャラリー</a><a href="#contact">ご予約</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>日本の美を<br>身にまとう</h1>
+            <p>成人式・結婚式・観光など、特別な日を彩る着物レンタル。着付け・ヘアセット込みで安心。</p>
+            <a href="#contact" class="cta-btn"><span class="material-icons">event</span>来店予約</a>
+        </div>
+    </section>
+    <section class="plans section" id="plans">
+        <div class="section-title fade-in"><h2>プラン</h2></div>
+        <div class="plans-grid">
+            <div class="plan-card fade-in"><span>🎎</span><h3>成人式プラン</h3><p class="price">¥98,000〜</p><p>振袖・着付け・ヘアメイク込み</p></div>
+            <div class="plan-card fade-in"><span>💒</span><h3>結婚式プラン</h3><p class="price">¥58,000〜</p><p>留袖・訪問着・着付け込み</p></div>
+            <div class="plan-card fade-in"><span>⛩️</span><h3>観光プラン</h3><p class="price">¥9,800〜</p><p>街歩き用着物・着付け込み</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">👘 雅 MIYABI</div>
+        <p>〒000-0000 京都府○○区△△1-2-3</p>
+        <p>TEL: 075-123-4567</p>
+        <p class="copyright">&copy; 2024 雅 MIYABI</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="reserve"><span class="material-icons">event</span>予約</a>
+        <a href="#catalog" class="catalog"><span class="material-icons">photo_library</span>カタログ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

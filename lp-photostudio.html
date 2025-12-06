@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIGHT BOX | フォトスタジオ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a1a; --secondary: #333; --accent: #c9a227; --light: #f8f8f8; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.9; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 18px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--primary); letter-spacing: 0.1em; }
+        nav a { margin-left: 35px; text-decoration: none; color: #888; font-size: 0.9rem; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 130px 50px 80px; position: relative; }
+        .hero::before { content: '📷'; position: absolute; right: 10%; top: 20%; font-size: 10rem; opacity: 0.1; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 500; margin-bottom: 25px; line-height: 1.4; letter-spacing: 0.05em; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1rem; margin-bottom: 35px; opacity: 0.8; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--accent); color: var(--accent); padding: 18px 40px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--primary); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; color: var(--primary); margin-bottom: 15px; letter-spacing: 0.15em; }
+        .menu { background: var(--light); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .menu-card { background: var(--white); transition: all 0.4s ease; }
+        .menu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .menu-image { height: 200px; background: linear-gradient(135deg, #ddd, #bbb); display: flex; align-items: center; justify-content: center; }
+        .menu-image span { font-size: 4rem; }
+        .menu-info { padding: 30px; text-align: center; }
+        .menu-info h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 10px; color: var(--primary); letter-spacing: 0.1em; }
+        .menu-info p { color: #888; font-size: 0.85rem; margin-bottom: 15px; }
+        .menu-price { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--primary); }
+        footer { background: var(--primary); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; letter-spacing: 0.15em; margin-bottom: 20px; }
+        footer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 8px; }
+        .copyright { opacity: 0.4; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--primary); color: var(--white); }
+        .fixed-cta .gallery { border: 1px solid var(--primary); color: var(--primary); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">LIGHT BOX</div>
+        <nav><a href="#menu">メニュー</a><a href="#gallery">ギャラリー</a><a href="#contact">ご予約</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>大切な瞬間を<br>美しく残す</h1>
+            <p>七五三・成人式・家族写真など。プロのカメラマンが、一生の思い出を最高の形でお届けします。</p>
+            <a href="#contact" class="cta-btn">予約する</a>
+        </div>
+    </section>
+    <section class="menu section" id="menu">
+        <div class="section-title fade-in"><h2>MENU</h2></div>
+        <div class="menu-grid">
+            <div class="menu-card fade-in"><div class="menu-image"><span>👶</span></div><div class="menu-info"><h3>お宮参り・百日祝い</h3><p>赤ちゃんの成長を記念に</p><p class="menu-price">¥19,800〜</p></div></div>
+            <div class="menu-card fade-in"><div class="menu-image"><span>🎎</span></div><div class="menu-info"><h3>七五三</h3><p>お子様の晴れ姿を</p><p class="menu-price">¥25,800〜</p></div></div>
+            <div class="menu-card fade-in"><div class="menu-image"><span>👘</span></div><div class="menu-info"><h3>成人式</h3><p>人生の節目を美しく</p><p class="menu-price">¥35,800〜</p></div></div>
+            <div class="menu-card fade-in"><div class="menu-image"><span>👨‍👩‍👧‍👦</span></div><div class="menu-info"><h3>家族写真</h3><p>家族の絆を形に</p><p class="menu-price">¥15,800〜</p></div></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">LIGHT BOX</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 LIGHT BOX</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="reserve"><span class="material-icons">event</span>予約</a>
+        <a href="#gallery" class="gallery"><span class="material-icons">photo_library</span>ギャラリー</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

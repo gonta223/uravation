@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAIL GARDEN | ネイルサロン</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #9c27b0; --secondary: #ce93d8; --accent: #ff4081; --dark: #7b1fa2; --light: #f3e5f5; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.9; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 18px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 15px rgba(156,39,176,0.1); }
+        .logo { font-family: 'Quicksand', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: #888; font-size: 0.9rem; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '💅'; position: absolute; right: 10%; top: 20%; font-size: 8rem; opacity: 0.2; animation: sparkle 2s ease-in-out infinite; }
+        @keyframes sparkle { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(5deg); } }
+        .hero-content { max-width: 500px; color: var(--white); }
+        .hero h1 { font-family: 'Quicksand', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1rem; margin-bottom: 30px; opacity: 0.9; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--white); padding: 16px 35px; text-decoration: none; font-weight: 600; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,64,129,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Quicksand', sans-serif; font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .menu { background: var(--light); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
+        .menu-card { background: var(--white); border-radius: 20px; padding: 35px 25px; text-align: center; transition: all 0.4s ease; }
+        .menu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(156,39,176,0.15); }
+        .menu-card span { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .menu-card h3 { font-family: 'Quicksand', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; color: var(--dark); }
+        .menu-card .price { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+        .menu-card p { color: #888; font-size: 0.85rem; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Quicksand', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--primary); color: var(--white); }
+        .fixed-cta .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">💅 NAIL GARDEN</div>
+        <nav><a href="#menu">メニュー</a><a href="#design">デザイン</a><a href="#contact">ご予約</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>指先から<br>輝きを</h1>
+            <p>ジェルネイル・スカルプ・ネイルケアまで。トレンドデザインからシンプルまで幅広く対応。</p>
+            <a href="#contact" class="cta-btn"><span class="material-icons">event</span>予約する</a>
+        </div>
+    </section>
+    <section class="menu section" id="menu">
+        <div class="section-title fade-in"><h2>MENU</h2></div>
+        <div class="menu-grid">
+            <div class="menu-card fade-in"><span>💎</span><h3>ジェルネイル</h3><p class="price">¥5,500〜</p><p>ワンカラー / グラデーション</p></div>
+            <div class="menu-card fade-in"><span>🎨</span><h3>アートネイル</h3><p class="price">¥7,800〜</p><p>定額デザインコース</p></div>
+            <div class="menu-card fade-in"><span>✨</span><h3>スカルプチュア</h3><p class="price">¥9,800〜</p><p>長さ出し・補強</p></div>
+            <div class="menu-card fade-in"><span>🌸</span><h3>ハンドケア</h3><p class="price">¥3,300〜</p><p>甘皮処理・保湿</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">💅 NAIL GARDEN</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 NAIL GARDEN</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="reserve"><span class="material-icons">event</span>予約</a>
+        <a href="#instagram" class="instagram"><span class="material-icons">photo_camera</span>Instagram</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>
