@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMIC STATION | 快適空間で漫画三昧</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1e1b4b;
+            --light: #f5f3ff;
+            --white: #ffffff;
+        }
+        body { font-family: 'M PLUS Rounded 1c', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(99,102,241,0.2); }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '📚';
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20rem;
+            opacity: 0.2;
+        }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .cta-btn.primary { background: var(--white); color: var(--primary); }
+        .cta-btn.secondary { background: transparent; color: var(--white); border: 2px solid var(--white); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .features { background: var(--light); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(99,102,241,0.15); }
+        .feature-emoji { font-size: 3.5rem; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--dark); }
+        .feature-card p { color: #666; font-size: 0.95rem; }
+        
+        .rooms { background: var(--white); }
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .room-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 40px 30px;
+            color: var(--white);
+            transition: all 0.4s ease;
+        }
+        .room-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(99,102,241,0.3); }
+        .room-card h3 { font-size: 1.5rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .room-card p { opacity: 0.9; margin-bottom: 20px; }
+        .room-price { font-size: 2rem; font-weight: 700; }
+        .room-price span { font-size: 1rem; opacity: 0.8; }
+        .room-features { margin-top: 20px; }
+        .room-features li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.95rem; }
+        .room-features li::before { content: '✓'; color: var(--accent); }
+        
+        .pricing { background: var(--dark); color: var(--white); }
+        .pricing .section-title h2 { color: var(--white); }
+        .pricing-table {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .pricing-row:last-child { border-bottom: none; }
+        .pricing-cell { padding: 20px; text-align: center; }
+        .pricing-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            font-weight: 700;
+        }
+        .pricing-cell.type { background: rgba(255,255,255,0.05); font-weight: 500; }
+        
+        footer {
+            background: #0f0d24;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo { font-size: 2rem; font-weight: 800; margin-bottom: 20px; color: var(--secondary); }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .member { background: var(--accent); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .section { padding: 60px 20px; }
+            .section-title h2 { font-size: 1.8rem; }
+            .pricing-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">📖 COMIC STATION</div>
+        <nav>
+            <a href="#features">施設紹介</a>
+            <a href="#rooms">ブース</a>
+            <a href="#pricing">料金</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="material-icons">auto_stories</span>
+                蔵書10万冊以上
+            </div>
+            <h1>漫画に没頭できる<br>至福の空間</h1>
+            <p>最新作から名作まで10万冊以上の漫画が読み放題。快適な個室ブースで思う存分お楽しみください。</p>
+            <div class="hero-btns">
+                <a href="#pricing" class="cta-btn primary">料金を見る</a>
+                <a href="#member" class="cta-btn secondary">会員登録</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>快適設備が充実</h2>
+            <p>長時間でも快適に過ごせる環境をご用意</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in stagger-1">
+                <div class="feature-emoji">📚</div>
+                <h3>10万冊読み放題</h3>
+                <p>少年・少女・青年漫画から話題の最新作まで豊富なラインナップ。</p>
+            </div>
+            <div class="feature-card fade-in stagger-2">
+                <div class="feature-emoji">☕</div>
+                <h3>ドリンク飲み放題</h3>
+                <p>コーヒー、紅茶、ソフトドリンク各種が無料で飲み放題。</p>
+            </div>
+            <div class="feature-card fade-in stagger-3">
+                <div class="feature-emoji">🛋️</div>
+                <h3>フラットシート</h3>
+                <p>完全フラットで横になれる快適シート完備。仮眠も◎</p>
+            </div>
+            <div class="feature-card fade-in stagger-4">
+                <div class="feature-emoji">🌐</div>
+                <h3>高速Wi-Fi</h3>
+                <p>全席無料Wi-Fi完備。リモートワークにも最適。</p>
+            </div>
+            <div class="feature-card fade-in stagger-1">
+                <div class="feature-emoji">🎮</div>
+                <h3>オンラインゲーム</h3>
+                <p>PCブースでは人気オンラインゲームも楽しめます。</p>
+            </div>
+            <div class="feature-card fade-in stagger-2">
+                <div class="feature-emoji">🚿</div>
+                <h3>シャワールーム</h3>
+                <p>清潔なシャワールーム完備。アメニティも充実。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rooms section" id="rooms">
+        <div class="section-title fade-in">
+            <h2>ブースタイプ</h2>
+            <p>用途に合わせて選べる3タイプ</p>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card fade-in stagger-1">
+                <h3>🪑 オープン席</h3>
+                <p>リーズナブルに漫画を楽しみたい方に</p>
+                <div class="room-price">¥280<span>/30分</span></div>
+                <ul class="room-features">
+                    <li>漫画読み放題</li>
+                    <li>ドリンク飲み放題</li>
+                    <li>Wi-Fi利用可</li>
+                </ul>
+            </div>
+            <div class="room-card fade-in stagger-2">
+                <h3>🛋️ リクライニング</h3>
+                <p>ゆったりリラックスしたい方に</p>
+                <div class="room-price">¥380<span>/30分</span></div>
+                <ul class="room-features">
+                    <li>リクライニングシート</li>
+                    <li>漫画読み放題</li>
+                    <li>ドリンク飲み放題</li>
+                </ul>
+            </div>
+            <div class="room-card fade-in stagger-3">
+                <h3>🛏️ フラット個室</h3>
+                <p>完全プライベート空間で過ごしたい方に</p>
+                <div class="room-price">¥500<span>/30分</span></div>
+                <ul class="room-features">
+                    <li>完全個室</li>
+                    <li>フラットマット</li>
+                    <li>PC・TV付き</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing section" id="pricing">
+        <div class="section-title fade-in">
+            <h2>お得なパック料金</h2>
+            <p>長時間利用がお得です</p>
+        </div>
+        <div class="pricing-table fade-in">
+            <div class="pricing-row">
+                <div class="pricing-cell pricing-header">パック</div>
+                <div class="pricing-cell pricing-header">一般</div>
+                <div class="pricing-cell pricing-header">会員</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell type">3時間パック</div>
+                <div class="pricing-cell">¥1,200</div>
+                <div class="pricing-cell">¥980</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell type">6時間パック</div>
+                <div class="pricing-cell">¥1,800</div>
+                <div class="pricing-cell">¥1,500</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell type">ナイトパック</div>
+                <div class="pricing-cell">¥2,200</div>
+                <div class="pricing-cell">¥1,800</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell type">フリータイム</div>
+                <div class="pricing-cell">¥2,500</div>
+                <div class="pricing-cell">¥2,000</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">📖 COMIC STATION</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 COMIC STATION All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話
+        </a>
+        <a href="#member" class="member">
+            <span class="material-icons">card_membership</span>
+            会員登録
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

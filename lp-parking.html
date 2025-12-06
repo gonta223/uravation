@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パークスペース | 月極・時間貸し駐車場</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #ff6f00;
+            --secondary: #ffa726;
+            --accent: #ffcc02;
+            --dark: #e65100;
+            --light: #fff3e0;
+            --white: #ffffff;
+            --gray: #37474f;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(255,111,0,0.2); }
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo .material-icons { font-size: 2rem; }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+        }
+        .hero::before {
+            content: '🅿️';
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15rem;
+            opacity: 0.15;
+        }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .cta-btn.primary { background: var(--white); color: var(--primary); }
+        .cta-btn.secondary { background: transparent; border: 2px solid var(--white); color: var(--white); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--gray); margin-bottom: 15px; }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .types { background: var(--light); }
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .type-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .type-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,111,0,0.15); }
+        .type-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 30px;
+            color: var(--white);
+        }
+        .type-header h3 { font-size: 1.5rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .type-header p { opacity: 0.9; }
+        .type-body { padding: 30px; }
+        .type-price { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
+        .type-price span { font-size: 1rem; color: #666; }
+        .type-features { list-style: none; }
+        .type-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: #555;
+        }
+        .type-features li .material-icons { color: var(--primary); font-size: 1.2rem; }
+        
+        .features { background: var(--white); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .feature-icon .material-icons { font-size: 2rem; color: var(--primary); }
+        .feature-item h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .feature-item p { color: #666; font-size: 0.9rem; }
+        
+        .search { background: var(--gray); color: var(--white); text-align: center; }
+        .search h2 { font-size: 2rem; margin-bottom: 30px; }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        .search-box button {
+            padding: 15px 30px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-box button:hover { background: var(--dark); }
+        
+        footer {
+            background: #263238;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .search-btn { background: var(--primary); color: var(--white); }
+        .fixed-cta .contact { background: var(--gray); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 60px 20px; }
+            .search-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="material-icons">local_parking</span>
+            パークスペース
+        </div>
+        <nav>
+            <a href="#types">駐車場タイプ</a>
+            <a href="#features">特徴</a>
+            <a href="#search">駐車場検索</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>あなたの街の<br>駐車場を探す</h1>
+            <p>月極・時間貸し駐車場を全国1,000箇所以上展開。あなたのカーライフをサポートします。</p>
+            <div class="hero-btns">
+                <a href="#search" class="cta-btn primary">
+                    <span class="material-icons">search</span>
+                    駐車場を探す
+                </a>
+                <a href="#monthly" class="cta-btn secondary">
+                    <span class="material-icons">calendar_month</span>
+                    月極契約
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="types section" id="types">
+        <div class="section-title fade-in">
+            <h2>駐車場タイプ</h2>
+            <p>用途に合わせて選べる2タイプ</p>
+        </div>
+        <div class="types-grid">
+            <div class="type-card fade-in stagger-1">
+                <div class="type-header">
+                    <h3><span class="material-icons">schedule</span>時間貸し</h3>
+                    <p>お買い物やお出かけに便利</p>
+                </div>
+                <div class="type-body">
+                    <div class="type-price">¥200<span>/30分〜</span></div>
+                    <ul class="type-features">
+                        <li><span class="material-icons">check_circle</span>24時間入出庫可能</li>
+                        <li><span class="material-icons">check_circle</span>最大料金設定あり</li>
+                        <li><span class="material-icons">check_circle</span>クレジットカード対応</li>
+                        <li><span class="material-icons">check_circle</span>アプリで空き確認</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="type-card fade-in stagger-2">
+                <div class="type-header" style="background: linear-gradient(135deg, #37474f, #546e7a);">
+                    <h3><span class="material-icons">calendar_month</span>月極</h3>
+                    <p>通勤・自宅用に安心の固定駐車場</p>
+                </div>
+                <div class="type-body">
+                    <div class="type-price">¥15,000<span>/月〜</span></div>
+                    <ul class="type-features">
+                        <li><span class="material-icons">check_circle</span>専用スペース確保</li>
+                        <li><span class="material-icons">check_circle</span>車庫証明取得可</li>
+                        <li><span class="material-icons">check_circle</span>口座振替対応</li>
+                        <li><span class="material-icons">check_circle</span>24時間利用可能</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item fade-in stagger-1">
+                <div class="feature-icon">
+                    <span class="material-icons">location_on</span>
+                </div>
+                <h3>全国1,000箇所以上</h3>
+                <p>駅近・繁華街など便利な場所に展開</p>
+            </div>
+            <div class="feature-item fade-in stagger-2">
+                <div class="feature-icon">
+                    <span class="material-icons">security</span>
+                </div>
+                <h3>セキュリティ万全</h3>
+                <p>防犯カメラ・照明で安心</p>
+            </div>
+            <div class="feature-item fade-in stagger-3">
+                <div class="feature-icon">
+                    <span class="material-icons">phone_android</span>
+                </div>
+                <h3>アプリで便利</h3>
+                <p>空き状況確認・決済がスマホで完結</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="search section" id="search">
+        <h2 class="fade-in">🔍 駐車場を探す</h2>
+        <div class="search-box fade-in">
+            <input type="text" placeholder="住所・駅名・施設名で検索">
+            <button>検索</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">パークスペース</div>
+        <p>お問い合わせ: 0120-123-456</p>
+        <p class="copyright">&copy; 2024 パークスペース All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#search" class="search-btn">
+            <span class="material-icons">search</span>
+            駐車場検索
+        </a>
+        <a href="#contact" class="contact">
+            <span class="material-icons">mail</span>
+            お問い合わせ
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

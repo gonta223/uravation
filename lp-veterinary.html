@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ひまわり動物病院 | 大切な家族の健康を守ります</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #ff9800;
+            --secondary: #ffb74d;
+            --accent: #fff3e0;
+            --dark: #e65100;
+            --light: #fff8e1;
+            --white: #ffffff;
+            --brown: #5d4037;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(255,152,0,0.2); }
+        .logo {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo .material-icons { font-size: 2rem; }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '🐕 🐈 🐰';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            font-size: 5rem;
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            color: var(--dark);
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.5rem;
+            color: var(--brown);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .features { background: var(--light); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,152,0,0.2); }
+        .feature-emoji { font-size: 3.5rem; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--brown); }
+        .feature-card p { color: #666; font-size: 0.95rem; }
+        
+        .services { background: var(--white); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: var(--accent);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .service-item:hover { background: var(--primary); color: var(--white); transform: scale(1.02); }
+        .service-item .material-icons { color: var(--dark); font-size: 1.8rem; transition: color 0.3s; }
+        .service-item:hover .material-icons { color: var(--white); }
+        
+        .emergency {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+        .emergency h2 { font-size: 2rem; margin-bottom: 20px; }
+        .emergency p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
+        .emergency-tel {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--white);
+            color: var(--dark);
+            padding: 20px 40px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .emergency-tel .material-icons { font-size: 2.5rem; animation: ring 1s infinite; }
+        @keyframes ring { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
+        
+        .info-section { background: var(--light); }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .info-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .info-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--brown);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-card h3 .material-icons { color: var(--primary); }
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table td { padding: 10px 0; border-bottom: 1px solid #eee; }
+        
+        footer {
+            background: var(--brown);
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .reserve { background: var(--brown); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 60px 20px; }
+            .section-title h2 { font-size: 1.8rem; }
+            .emergency-tel { font-size: 1.5rem; padding: 15px 25px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="material-icons">pets</span>
+            ひまわり動物病院
+        </div>
+        <nav>
+            <a href="#features">当院の特徴</a>
+            <a href="#services">診療内容</a>
+            <a href="#info">診療案内</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>大切な家族の<br>健康を守ります</h1>
+            <p>犬・猫をはじめ、小動物まで幅広く診療。予防医療から高度医療まで、飼い主様と動物に寄り添った医療を提供します。</p>
+            <a href="#reserve" class="cta-btn">
+                <span class="material-icons">calendar_today</span>
+                予約する
+            </a>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>当院が選ばれる理由</h2>
+            <p>動物たちと飼い主様に寄り添った医療を</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in stagger-1">
+                <div class="feature-emoji">🏥</div>
+                <h3>最新医療設備</h3>
+                <p>CT・MRI・超音波など最新設備を完備。精密な検査と診断が可能です。</p>
+            </div>
+            <div class="feature-card fade-in stagger-2">
+                <div class="feature-emoji">👨‍⚕️</div>
+                <h3>専門医在籍</h3>
+                <p>各分野の専門医が在籍。高度な医療にも対応いたします。</p>
+            </div>
+            <div class="feature-card fade-in stagger-3">
+                <div class="feature-emoji">🌙</div>
+                <h3>夜間救急対応</h3>
+                <p>夜間・休日も救急対応。急な体調変化にも安心です。</p>
+            </div>
+            <div class="feature-card fade-in stagger-4">
+                <div class="feature-emoji">💕</div>
+                <h3>ストレスフリー</h3>
+                <p>待合室は犬猫別。動物たちのストレスを軽減します。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services section" id="services">
+        <div class="section-title fade-in">
+            <h2>診療内容</h2>
+            <p>幅広い診療科目に対応しています</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-item fade-in stagger-1">
+                <span class="material-icons">vaccines</span>
+                <span>予防接種</span>
+            </div>
+            <div class="service-item fade-in stagger-2">
+                <span class="material-icons">healing</span>
+                <span>一般診療</span>
+            </div>
+            <div class="service-item fade-in stagger-3">
+                <span class="material-icons">medical_services</span>
+                <span>外科手術</span>
+            </div>
+            <div class="service-item fade-in stagger-4">
+                <span class="material-icons">monitor_heart</span>
+                <span>健康診断</span>
+            </div>
+            <div class="service-item fade-in stagger-1">
+                <span class="material-icons">content_cut</span>
+                <span>避妊・去勢</span>
+            </div>
+            <div class="service-item fade-in stagger-2">
+                <span class="material-icons">cleaning_services</span>
+                <span>歯科処置</span>
+            </div>
+            <div class="service-item fade-in stagger-3">
+                <span class="material-icons">spa</span>
+                <span>皮膚科</span>
+            </div>
+            <div class="service-item fade-in stagger-4">
+                <span class="material-icons">favorite</span>
+                <span>循環器科</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="emergency section">
+        <h2 class="fade-in">🚨 夜間救急対応</h2>
+        <p class="fade-in">夜間・休日の緊急時もご連絡ください</p>
+        <a href="tel:03-1234-5678" class="emergency-tel fade-in">
+            <span class="material-icons">phone</span>
+            03-1234-5678
+        </a>
+    </section>
+
+    <section class="info-section section" id="info">
+        <div class="section-title fade-in">
+            <h2>診療案内</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card fade-in stagger-1">
+                <h3><span class="material-icons">schedule</span>診療時間</h3>
+                <table class="hours-table">
+                    <tr><td>午前</td><td>9:00 〜 12:00</td></tr>
+                    <tr><td>午後</td><td>16:00 〜 19:00</td></tr>
+                    <tr><td>休診</td><td>水曜・祝日午後</td></tr>
+                </table>
+            </div>
+            <div class="info-card fade-in stagger-2">
+                <h3><span class="material-icons">location_on</span>アクセス</h3>
+                <p>〒123-4567<br>東京都○○区△△1-2-3</p>
+                <p style="margin-top: 10px;">○○駅 徒歩5分<br>駐車場5台完備</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🐾 ひまわり動物病院</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 ひまわり動物病院 All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話予約
+        </a>
+        <a href="#reserve" class="reserve">
+            <span class="material-icons">event</span>
+            Web予約
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大黒屋 | 質預かり・買取・販売</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #333333;
+            --accent: #d4af37;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 40%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23d4af37' stroke-width='0.5' opacity='0.2'/%3E%3C/svg%3E") repeat;
+        }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .cta-btn.primary { background: var(--accent); color: var(--dark); }
+        .cta-btn.secondary { background: transparent; border: 1px solid var(--white); color: var(--white); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .services { background: var(--light); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .service-card {
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .service-header {
+            background: var(--primary);
+            padding: 30px;
+            color: var(--white);
+            text-align: center;
+        }
+        .service-header h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .service-header p { opacity: 0.8; font-size: 0.9rem; }
+        .service-body { padding: 30px; }
+        .service-body ul { list-style: none; }
+        .service-body li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .service-body li:last-child { border-bottom: none; }
+        .service-body li .material-icons { color: var(--accent); font-size: 1.2rem; }
+        
+        .items { background: var(--white); }
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .item-card {
+            text-align: center;
+            padding: 25px 15px;
+            background: var(--light);
+            transition: all 0.3s ease;
+        }
+        .item-card:hover { background: var(--primary); color: var(--white); }
+        .item-card .icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .item-card h4 { font-size: 1rem; }
+        
+        .trust { background: var(--dark); color: var(--white); }
+        .trust .section-title h2 { color: var(--white); }
+        .trust-grid {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .trust-item { text-align: center; }
+        .trust-item .number {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .trust-item p { opacity: 0.8; }
+        
+        footer {
+            background: #050505;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .estimate { background: var(--accent); color: var(--dark); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">大黒屋</div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#items">取扱品目</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="material-icons">verified</span>
+                創業50年の信頼と実績
+            </div>
+            <h1>大切な品を<br>賢く活用</h1>
+            <p>質預かりなら、大切な品物を手放さずにお金を借りられます。もちろん買取も高価査定。お気軽にご相談ください。</p>
+            <div class="hero-btns">
+                <a href="#estimate" class="cta-btn primary">
+                    <span class="material-icons">calculate</span>
+                    無料査定
+                </a>
+                <a href="#pawn" class="cta-btn secondary">
+                    <span class="material-icons">account_balance</span>
+                    質預かり
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services section" id="services">
+        <div class="section-title fade-in">
+            <h2>サービス内容</h2>
+            <p>お客様のニーズに合わせた3つのサービス</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in stagger-1">
+                <div class="service-header">
+                    <h3>質預かり</h3>
+                    <p>品物を担保にお金を借りる</p>
+                </div>
+                <div class="service-body">
+                    <ul>
+                        <li><span class="material-icons">check_circle</span>審査不要・即日融資</li>
+                        <li><span class="material-icons">check_circle</span>信用情報に影響なし</li>
+                        <li><span class="material-icons">check_circle</span>品物は返却可能</li>
+                        <li><span class="material-icons">check_circle</span>金利：月1.5%〜</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card fade-in stagger-2">
+                <div class="service-header" style="background: var(--accent); color: var(--dark);">
+                    <h3>買取</h3>
+                    <p>不要な品物を現金化</p>
+                </div>
+                <div class="service-body">
+                    <ul>
+                        <li><span class="material-icons">check_circle</span>その場で現金お渡し</li>
+                        <li><span class="material-icons">check_circle</span>相場に基づく適正価格</li>
+                        <li><span class="material-icons">check_circle</span>出張買取も対応</li>
+                        <li><span class="material-icons">check_circle</span>査定料無料</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card fade-in stagger-3">
+                <div class="service-header">
+                    <h3>販売</h3>
+                    <p>お得に良品をゲット</p>
+                </div>
+                <div class="service-body">
+                    <ul>
+                        <li><span class="material-icons">check_circle</span>ブランド品多数</li>
+                        <li><span class="material-icons">check_circle</span>定価の30〜70%OFF</li>
+                        <li><span class="material-icons">check_circle</span>品質保証付き</li>
+                        <li><span class="material-icons">check_circle</span>分割払い対応</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="items section" id="items">
+        <div class="section-title fade-in">
+            <h2>取扱品目</h2>
+        </div>
+        <div class="items-grid">
+            <div class="item-card fade-in stagger-1">
+                <div class="icon">💎</div>
+                <h4>宝石・貴金属</h4>
+            </div>
+            <div class="item-card fade-in stagger-2">
+                <div class="icon">⌚</div>
+                <h4>高級時計</h4>
+            </div>
+            <div class="item-card fade-in stagger-3">
+                <div class="icon">👜</div>
+                <h4>ブランドバッグ</h4>
+            </div>
+            <div class="item-card fade-in stagger-4">
+                <div class="icon">📱</div>
+                <h4>スマートフォン</h4>
+            </div>
+            <div class="item-card fade-in stagger-1">
+                <div class="icon">💻</div>
+                <h4>パソコン</h4>
+            </div>
+            <div class="item-card fade-in stagger-2">
+                <div class="icon">📷</div>
+                <h4>カメラ</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust section">
+        <div class="section-title fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
+        <div class="trust-grid">
+            <div class="trust-item fade-in stagger-1">
+                <div class="number">50年</div>
+                <p>創業からの歴史</p>
+            </div>
+            <div class="trust-item fade-in stagger-2">
+                <div class="number">10万件</div>
+                <p>年間取引実績</p>
+            </div>
+            <div class="trust-item fade-in stagger-3">
+                <div class="number">98%</div>
+                <p>お客様満足度</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">大黒屋</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 大黒屋 All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話相談
+        </a>
+        <a href="#estimate" class="estimate">
+            <span class="material-icons">calculate</span>
+            無料査定
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

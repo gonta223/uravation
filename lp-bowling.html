@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRIKE BOWL | 最新設備のボウリング場</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #ff5722;
+            --secondary: #ff9800;
+            --accent: #ffeb3b;
+            --dark: #1a1a2e;
+            --blue: #2196f3;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(255,87,34,0.2); }
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .hero::before {
+            content: '🎳';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.1;
+            animation: roll 5s ease-in-out infinite;
+        }
+        @keyframes roll { 0%, 100% { transform: translateX(-200px) rotate(0deg); } 50% { transform: translateX(200px) rotate(360deg); } }
+        .hero-content { position: relative; z-index: 1; color: var(--white); }
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .features { background: #f5f5f5; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,87,34,0.15); }
+        .feature-emoji { font-size: 3.5rem; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--dark); }
+        .feature-card p { color: #666; font-size: 0.95rem; }
+        
+        .lanes { background: var(--dark); color: var(--white); }
+        .lanes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .lane-card {
+            background: linear-gradient(135deg, rgba(255,87,34,0.2), rgba(255,152,0,0.2));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .lane-card:hover { transform: scale(1.02); border-color: var(--primary); }
+        .lane-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--accent); }
+        .lane-card p { color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .lane-price { font-size: 2rem; font-weight: 700; color: var(--secondary); }
+        .lane-price span { font-size: 1rem; color: rgba(255,255,255,0.5); }
+        
+        .pricing { background: var(--white); }
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .pricing-card {
+            border: 2px solid #eee;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .pricing-card.popular {
+            border-color: var(--primary);
+            position: relative;
+        }
+        .pricing-card.popular::before {
+            content: '人気No.1';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .pricing-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .pricing-card .price { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
+        .pricing-card .price span { font-size: 1rem; color: #666; }
+        .pricing-card ul { list-style: none; text-align: left; margin-bottom: 30px; }
+        .pricing-card li { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+        .pricing-card li .material-icons { color: var(--primary); font-size: 1.2rem; }
+        
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .reserve { background: var(--blue); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 3rem; }
+            .section { padding: 60px 20px; }
+            .section-title h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎳 STRIKE BOWL</div>
+        <nav>
+            <a href="#features">施設紹介</a>
+            <a href="#lanes">レーン</a>
+            <a href="#pricing">料金</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>LET'S BOWLING!</h1>
+            <p>最新設備と快適空間で、最高のボウリング体験を</p>
+            <a href="#reserve" class="cta-btn">
+                <span class="material-icons">event</span>
+                レーン予約
+            </a>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>FACILITY</h2>
+            <p>充実の設備とサービス</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in stagger-1">
+                <div class="feature-emoji">🎯</div>
+                <h3>全40レーン完備</h3>
+                <p>最新のレーン設備で、待ち時間なく快適にプレイできます。</p>
+            </div>
+            <div class="feature-card fade-in stagger-2">
+                <div class="feature-emoji">👟</div>
+                <h3>シューズ無料</h3>
+                <p>清潔なレンタルシューズを無料でご利用いただけます。</p>
+            </div>
+            <div class="feature-card fade-in stagger-3">
+                <div class="feature-emoji">🍔</div>
+                <h3>フードコート</h3>
+                <p>ボウリングの合間に楽しめる充実のフードメニュー。</p>
+            </div>
+            <div class="feature-card fade-in stagger-4">
+                <div class="feature-emoji">🎮</div>
+                <h3>ゲームセンター</h3>
+                <p>最新ゲームマシンも併設。一日中遊べます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="lanes section" id="lanes">
+        <div class="section-title fade-in">
+            <h2 style="color: var(--accent);">LANE TYPE</h2>
+            <p style="color: rgba(255,255,255,0.7);">シーンに合わせて選べるレーン</p>
+        </div>
+        <div class="lanes-grid">
+            <div class="lane-card fade-in stagger-1">
+                <h3>スタンダードレーン</h3>
+                <p>通常のボウリングを楽しむ定番レーン</p>
+                <div class="lane-price">¥600<span>/1ゲーム</span></div>
+            </div>
+            <div class="lane-card fade-in stagger-2">
+                <h3>ブラックライトレーン</h3>
+                <p>光と音楽で盛り上がるパーティーレーン</p>
+                <div class="lane-price">¥800<span>/1ゲーム</span></div>
+            </div>
+            <div class="lane-card fade-in stagger-3">
+                <h3>VIPレーン</h3>
+                <p>個室感覚のプライベート空間</p>
+                <div class="lane-price">¥1,200<span>/1ゲーム</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing section" id="pricing">
+        <div class="section-title fade-in">
+            <h2>PRICE PLAN</h2>
+            <p>お得なパック料金</p>
+        </div>
+        <div class="pricing-cards">
+            <div class="pricing-card fade-in stagger-1">
+                <h3>ライトパック</h3>
+                <div class="price">¥1,500<span>/人</span></div>
+                <ul>
+                    <li><span class="material-icons">check_circle</span>2ゲーム</li>
+                    <li><span class="material-icons">check_circle</span>シューズレンタル</li>
+                    <li><span class="material-icons">check_circle</span>ドリンク1杯</li>
+                </ul>
+            </div>
+            <div class="pricing-card popular fade-in stagger-2">
+                <h3>スタンダードパック</h3>
+                <div class="price">¥2,500<span>/人</span></div>
+                <ul>
+                    <li><span class="material-icons">check_circle</span>投げ放題（2時間）</li>
+                    <li><span class="material-icons">check_circle</span>シューズレンタル</li>
+                    <li><span class="material-icons">check_circle</span>ドリンクバー</li>
+                </ul>
+            </div>
+            <div class="pricing-card fade-in stagger-3">
+                <h3>プレミアムパック</h3>
+                <div class="price">¥4,000<span>/人</span></div>
+                <ul>
+                    <li><span class="material-icons">check_circle</span>投げ放題（3時間）</li>
+                    <li><span class="material-icons">check_circle</span>シューズレンタル</li>
+                    <li><span class="material-icons">check_circle</span>フード＆ドリンク付き</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🎳 STRIKE BOWL</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 STRIKE BOWL All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話予約
+        </a>
+        <a href="#reserve" class="reserve">
+            <span class="material-icons">event</span>
+            Web予約
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>武道館 正心 | 空手・柔道・剣道</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #333333;
+            --accent: #c41e3a;
+            --gold: #c9a227;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+        }
+        .hero::before {
+            content: '🥋';
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12rem;
+            opacity: 0.1;
+        }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 16px 35px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(196,30,58,0.3); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: #666; font-size: 1rem; }
+        
+        .disciplines { background: var(--light); }
+        .disciplines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .discipline-card {
+            background: var(--white);
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .discipline-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .discipline-image {
+            height: 200px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+        .discipline-body { padding: 30px; }
+        .discipline-card h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .discipline-card p { color: #666; font-size: 0.95rem; }
+        
+        .values { background: var(--primary); color: var(--white); }
+        .values .section-title h2 { color: var(--white); }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .value-item h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        .value-item p { opacity: 0.8; }
+        
+        .classes { background: var(--white); }
+        .classes-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .class-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .class-item h4 { font-size: 1.1rem; }
+        .class-item span { color: var(--accent); font-weight: 700; }
+        
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .trial { background: var(--accent); color: var(--white); }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .section { padding: 60px 20px; }
+            .values-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">武道館 正心</div>
+        <nav>
+            <a href="#disciplines">稽古内容</a>
+            <a href="#classes">クラス</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>心技体を<br>鍛える</h1>
+            <p>空手・柔道・剣道の三道を学べる総合武道場。4歳から大人まで、初心者歓迎。礼儀作法も身につきます。</p>
+            <a href="#trial" class="cta-btn">
+                <span class="material-icons">sports_martial_arts</span>
+                無料体験申込
+            </a>
+        </div>
+    </section>
+
+    <section class="disciplines section" id="disciplines">
+        <div class="section-title fade-in">
+            <h2>稽古内容</h2>
+            <p>三道から選べます</p>
+        </div>
+        <div class="disciplines-grid">
+            <div class="discipline-card fade-in stagger-1">
+                <div class="discipline-image">🥋</div>
+                <div class="discipline-body">
+                    <h3>空手道</h3>
+                    <p>突き・蹴りの基本から型・組手まで。心身を鍛え、強い精神力を養います。</p>
+                </div>
+            </div>
+            <div class="discipline-card fade-in stagger-2">
+                <div class="discipline-image">🤼</div>
+                <div class="discipline-body">
+                    <h3>柔道</h3>
+                    <p>投げ技・固め技を学び、受け身で身を守る術を習得。護身術にも。</p>
+                </div>
+            </div>
+            <div class="discipline-card fade-in stagger-3">
+                <div class="discipline-image">⚔️</div>
+                <div class="discipline-body">
+                    <h3>剣道</h3>
+                    <p>竹刀を通じて礼法と集中力を養成。日本の伝統文化を体験できます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values section">
+        <div class="section-title fade-in">
+            <h2>武道の心</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-item fade-in stagger-1">
+                <h3>礼</h3>
+                <p>礼に始まり礼に終わる<br>感謝と敬意の心</p>
+            </div>
+            <div class="value-item fade-in stagger-2">
+                <h3>義</h3>
+                <p>正しいことを貫く<br>強い意志と勇気</p>
+            </div>
+            <div class="value-item fade-in stagger-3">
+                <h3>忍</h3>
+                <p>困難に耐え抜く<br>不屈の精神</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="classes section" id="classes">
+        <div class="section-title fade-in">
+            <h2>クラス・料金</h2>
+        </div>
+        <div class="classes-list fade-in">
+            <div class="class-item">
+                <div>
+                    <h4>キッズクラス（4歳〜小学生）</h4>
+                    <p>火・木 16:00-17:00</p>
+                </div>
+                <span>¥6,600/月</span>
+            </div>
+            <div class="class-item">
+                <div>
+                    <h4>ジュニアクラス（中学・高校生）</h4>
+                    <p>月・水・金 18:00-19:30</p>
+                </div>
+                <span>¥8,800/月</span>
+            </div>
+            <div class="class-item">
+                <div>
+                    <h4>一般クラス（18歳以上）</h4>
+                    <p>月・水・金 19:30-21:00</p>
+                </div>
+                <span>¥9,900/月</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">武道館 正心</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 武道館 正心 All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#trial" class="trial">
+            <span class="material-icons">sports_martial_arts</span>
+            無料体験
+        </a>
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話相談
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

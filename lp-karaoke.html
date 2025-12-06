@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOCAL BOX | 最高の音響で歌おう</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #9c27b0;
+            --secondary: #e91e63;
+            --accent: #00bcd4;
+            --dark: #1a1a2e;
+            --neon-pink: #ff0080;
+            --neon-blue: #00ffff;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #fff; line-height: 1.8; background: var(--dark); }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26,26,46,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 30px rgba(156,39,176,0.3); }
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #aaa;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--neon-pink); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #2d1f3d 50%, var(--dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(233,30,99,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0,188,212,0.3) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 6rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--accent), var(--neon-pink));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards, shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: rgba(255,255,255,0.8);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn.primary {
+            background: linear-gradient(90deg, var(--neon-pink), var(--secondary));
+            color: var(--white);
+        }
+        .cta-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,0,128,0.4); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-title p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+        
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .room-card {
+            background: linear-gradient(135deg, rgba(156,39,176,0.2) 0%, rgba(0,188,212,0.2) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .room-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 20px 40px rgba(255,0,128,0.2);
+        }
+        .room-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .room-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .room-card .capacity { color: var(--neon-blue); font-size: 0.9rem; margin-bottom: 15px; }
+        .room-card p { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 20px; }
+        .room-price { font-size: 1.5rem; font-weight: 700; color: var(--neon-pink); }
+        .room-price span { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+        
+        .features { background: linear-gradient(180deg, var(--dark) 0%, #2d1f3d 100%); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover { background: rgba(255,0,128,0.1); transform: translateX(10px); }
+        .feature-item .material-icons { font-size: 2.5rem; color: var(--neon-blue); }
+        .feature-item h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .feature-item p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+        
+        .pricing {
+            background: var(--dark);
+        }
+        .pricing-table {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .pricing-row:last-child { border-bottom: none; }
+        .pricing-cell {
+            padding: 20px;
+            text-align: center;
+        }
+        .pricing-header { background: linear-gradient(90deg, var(--primary), var(--secondary)); font-weight: 700; }
+        .pricing-cell.time { background: rgba(255,255,255,0.05); font-weight: 500; }
+        
+        footer {
+            background: #0d0d1a;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .copyright { color: rgba(255,255,255,0.3); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: rgba(26,26,46,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.3);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: linear-gradient(90deg, var(--neon-pink), var(--secondary)); color: var(--white); }
+        .fixed-cta .reserve { background: var(--neon-blue); color: var(--dark); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 3rem; }
+            .section { padding: 60px 20px; }
+            .section-title h2 { font-size: 2rem; }
+            .hero-btns { flex-direction: column; }
+            .pricing-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">VOCAL BOX</div>
+        <nav>
+            <a href="#rooms">ルーム</a>
+            <a href="#features">設備</a>
+            <a href="#pricing">料金</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>SING YOUR HEART OUT</h1>
+            <p>最高の音響設備と空間で、最高のカラオケ体験を</p>
+            <div class="hero-btns">
+                <a href="#reserve" class="cta-btn primary">
+                    <span class="material-icons">event</span>
+                    今すぐ予約
+                </a>
+                <a href="#rooms" class="cta-btn secondary">
+                    <span class="material-icons">meeting_room</span>
+                    ルームを見る
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="rooms">
+        <div class="section-title fade-in">
+            <h2>ROOM LINEUP</h2>
+            <p>用途に合わせて選べる多彩なルーム</p>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card fade-in stagger-1">
+                <div class="room-icon">🎤</div>
+                <h3>スタンダードルーム</h3>
+                <div class="capacity">2〜6名</div>
+                <p>友達同士やカップルに最適。高音質スピーカー完備。</p>
+                <div class="room-price">¥300〜<span>/30分</span></div>
+            </div>
+            <div class="room-card fade-in stagger-2">
+                <div class="room-icon">🎸</div>
+                <h3>パーティールーム</h3>
+                <div class="capacity">6〜15名</div>
+                <p>大人数での宴会に。大画面モニター＆ミラーボール付き。</p>
+                <div class="room-price">¥500〜<span>/30分</span></div>
+            </div>
+            <div class="room-card fade-in stagger-3">
+                <div class="room-icon">👑</div>
+                <h3>VIPルーム</h3>
+                <div class="capacity">4〜10名</div>
+                <p>完全個室の贅沢空間。ソファ席とドリンクバー付き。</p>
+                <div class="room-price">¥800〜<span>/30分</span></div>
+            </div>
+            <div class="room-card fade-in stagger-4">
+                <div class="room-icon">🎬</div>
+                <h3>シアタールーム</h3>
+                <div class="capacity">2〜8名</div>
+                <p>200インチスクリーンで映画鑑賞もOK。</p>
+                <div class="room-price">¥600〜<span>/30分</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>FEATURES</h2>
+            <p>こだわりの設備とサービス</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item fade-in stagger-1">
+                <span class="material-icons">speaker</span>
+                <div>
+                    <h4>最新音響システム</h4>
+                    <p>JBLスピーカー完備</p>
+                </div>
+            </div>
+            <div class="feature-item fade-in stagger-2">
+                <span class="material-icons">restaurant</span>
+                <div>
+                    <h4>フードメニュー</h4>
+                    <p>100種類以上のメニュー</p>
+                </div>
+            </div>
+            <div class="feature-item fade-in stagger-3">
+                <span class="material-icons">local_bar</span>
+                <div>
+                    <h4>ドリンクバー</h4>
+                    <p>50種類飲み放題</p>
+                </div>
+            </div>
+            <div class="feature-item fade-in stagger-4">
+                <span class="material-icons">music_note</span>
+                <div>
+                    <h4>最新曲対応</h4>
+                    <p>毎週新曲追加</p>
+                </div>
+            </div>
+            <div class="feature-item fade-in stagger-1">
+                <span class="material-icons">wifi</span>
+                <div>
+                    <h4>Free Wi-Fi</h4>
+                    <p>高速回線完備</p>
+                </div>
+            </div>
+            <div class="feature-item fade-in stagger-2">
+                <span class="material-icons">phone_android</span>
+                <div>
+                    <h4>スマホ連携</h4>
+                    <p>アプリで簡単操作</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing section" id="pricing">
+        <div class="section-title fade-in">
+            <h2>PRICING</h2>
+            <p>お得な料金プラン</p>
+        </div>
+        <div class="pricing-table fade-in">
+            <div class="pricing-row">
+                <div class="pricing-cell pricing-header">時間帯</div>
+                <div class="pricing-cell pricing-header">一般</div>
+                <div class="pricing-cell pricing-header">会員</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell time">平日昼（11:00-18:00）</div>
+                <div class="pricing-cell">¥300/30分</div>
+                <div class="pricing-cell">¥200/30分</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell time">平日夜（18:00-翌5:00）</div>
+                <div class="pricing-cell">¥400/30分</div>
+                <div class="pricing-cell">¥300/30分</div>
+            </div>
+            <div class="pricing-row">
+                <div class="pricing-cell time">土日祝</div>
+                <div class="pricing-cell">¥500/30分</div>
+                <div class="pricing-cell">¥400/30分</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">VOCAL BOX</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 VOCAL BOX All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話予約
+        </a>
+        <a href="#reserve" class="reserve">
+            <span class="material-icons">event</span>
+            Web予約
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

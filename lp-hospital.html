@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あおぞらクリニック | 地域のかかりつけ医</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --accent: #48cae4;
+            --dark: #023e8a;
+            --light: #f0f9ff;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(0,119,182,0.15); padding: 10px 50px; }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo .material-icons { font-size: 2rem; color: var(--secondary); }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E") repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.1s forwards;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .features {
+            background: var(--light);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,119,182,0.15); }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .feature-icon .material-icons { font-size: 2.5rem; color: var(--white); }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--dark); }
+        .feature-card p { color: #666; font-size: 0.95rem; }
+        
+        .departments {
+            background: var(--white);
+        }
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .dept-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 25px;
+            background: var(--light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .dept-item:hover { background: var(--primary); color: var(--white); transform: scale(1.02); }
+        .dept-item:hover .material-icons { color: var(--white); }
+        .dept-item .material-icons { color: var(--primary); font-size: 2rem; transition: color 0.3s; }
+        
+        .info-section {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--white);
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .info-table td:first-child { font-weight: 500; width: 100px; }
+        
+        .access-map {
+            width: 100%;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        footer {
+            background: #1a1a2e;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo { font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent); }
+        .footer-info { margin-bottom: 30px; color: rgba(255,255,255,0.7); }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .reserve { background: var(--secondary); color: var(--white); }
+        .fixed-cta a:hover { transform: translateY(-2px); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .section { padding: 60px 20px; }
+            .section-title h2 { font-size: 1.8rem; }
+            .fixed-cta { padding: 15px 20px; gap: 10px; }
+            .fixed-cta a { padding: 12px 20px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="material-icons">local_hospital</span>
+            あおぞらクリニック
+        </div>
+        <nav>
+            <a href="#features">当院の特徴</a>
+            <a href="#departments">診療科目</a>
+            <a href="#info">診療案内</a>
+            <a href="#access">アクセス</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="material-icons">verified</span>
+                地域密着30年の信頼
+            </div>
+            <h1>あなたの健康を<br>やさしく見守ります</h1>
+            <p>内科・小児科・皮膚科など幅広い診療科目で、お子様からご高齢の方まで、ご家族皆様の健康をサポートいたします。</p>
+            <a href="#reserve" class="cta-btn">Web予約はこちら</a>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>当院が選ばれる理由</h2>
+            <p>患者様に寄り添った医療を提供します</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in stagger-1">
+                <div class="feature-icon">
+                    <span class="material-icons">schedule</span>
+                </div>
+                <h3>当日予約OK</h3>
+                <p>急な体調不良でも安心。Web・電話で当日予約が可能です。</p>
+            </div>
+            <div class="feature-card fade-in stagger-2">
+                <div class="feature-icon">
+                    <span class="material-icons">family_restroom</span>
+                </div>
+                <h3>幅広い診療</h3>
+                <p>内科から小児科まで、ご家族全員のかかりつけ医として対応。</p>
+            </div>
+            <div class="feature-card fade-in stagger-3">
+                <div class="feature-icon">
+                    <span class="material-icons">medical_services</span>
+                </div>
+                <h3>最新設備</h3>
+                <p>レントゲン、エコー、内視鏡など充実した検査設備を完備。</p>
+            </div>
+            <div class="feature-card fade-in stagger-4">
+                <div class="feature-icon">
+                    <span class="material-icons">accessible</span>
+                </div>
+                <h3>バリアフリー</h3>
+                <p>車椅子対応、エレベーター完備で安心してご来院いただけます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="departments section" id="departments">
+        <div class="section-title fade-in">
+            <h2>診療科目</h2>
+            <p>各種診療に対応しております</p>
+        </div>
+        <div class="dept-grid">
+            <div class="dept-item fade-in stagger-1">
+                <span class="material-icons">healing</span>
+                <span>一般内科</span>
+            </div>
+            <div class="dept-item fade-in stagger-2">
+                <span class="material-icons">child_care</span>
+                <span>小児科</span>
+            </div>
+            <div class="dept-item fade-in stagger-3">
+                <span class="material-icons">face</span>
+                <span>皮膚科</span>
+            </div>
+            <div class="dept-item fade-in stagger-4">
+                <span class="material-icons">visibility</span>
+                <span>眼科</span>
+            </div>
+            <div class="dept-item fade-in stagger-1">
+                <span class="material-icons">coronavirus</span>
+                <span>アレルギー科</span>
+            </div>
+            <div class="dept-item fade-in stagger-2">
+                <span class="material-icons">vaccines</span>
+                <span>予防接種</span>
+            </div>
+            <div class="dept-item fade-in stagger-3">
+                <span class="material-icons">monitor_heart</span>
+                <span>健康診断</span>
+            </div>
+            <div class="dept-item fade-in stagger-4">
+                <span class="material-icons">science</span>
+                <span>各種検査</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section section" id="info">
+        <div class="section-title fade-in">
+            <h2 style="color: #fff;">診療案内</h2>
+            <p style="color: rgba(255,255,255,0.8);">診療時間・アクセス情報</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-card fade-in stagger-1">
+                <h3><span class="material-icons">schedule</span>診療時間</h3>
+                <table class="info-table">
+                    <tr><td>午前</td><td>9:00 〜 12:30</td></tr>
+                    <tr><td>午後</td><td>14:30 〜 18:00</td></tr>
+                    <tr><td>休診</td><td>日曜・祝日・水曜午後</td></tr>
+                </table>
+            </div>
+            <div class="info-card fade-in stagger-2" id="access">
+                <h3><span class="material-icons">location_on</span>アクセス</h3>
+                <p style="margin-bottom: 15px;">〒123-4567<br>東京都○○区△△1-2-3<br>○○駅 徒歩5分</p>
+                <div class="access-map">
+                    <span class="material-icons" style="font-size: 4rem; opacity: 0.5;">map</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">あおぞらクリニック</div>
+        <div class="footer-info">
+            <p>〒123-4567 東京都○○区△△1-2-3</p>
+            <p>TEL: 03-1234-5678</p>
+        </div>
+        <p class="copyright">&copy; 2024 あおぞらクリニック All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            03-1234-5678
+        </a>
+        <a href="#reserve" class="reserve">
+            <span class="material-icons">event</span>
+            Web予約
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

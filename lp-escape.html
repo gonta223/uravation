@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESCAPE MYSTERY | 体験型謎解き脱出ゲーム</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #8b0000;
+            --secondary: #dc143c;
+            --accent: #ffd700;
+            --dark: #0a0a0a;
+            --gray: #1a1a1a;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #fff; line-height: 1.8; background: var(--dark); }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 30px rgba(139,0,0,0.3); }
+        .logo {
+            font-family: 'Creepster', cursive;
+            font-size: 2rem;
+            color: var(--secondary);
+            text-shadow: 2px 2px 10px rgba(220,20,60,0.5);
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #888;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--secondary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(139,0,0,0.3) 0%, transparent 50%),
+                linear-gradient(180deg, var(--dark) 0%, var(--gray) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .hero::before {
+            content: '🔐';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.05;
+            animation: shake 0.5s ease-in-out infinite;
+        }
+        @keyframes shake { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            text-shadow: 3px 3px 20px rgba(220,20,60,0.5);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.8);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .hero-timer {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards, blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 18px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            border: 2px solid var(--secondary);
+        }
+        .cta-btn:hover { background: transparent; box-shadow: 0 0 30px rgba(220,20,60,0.5); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Creepster', cursive;
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
+        
+        .rooms { background: var(--gray); }
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .room-card {
+            background: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .room-card:hover { transform: translateY(-10px); border-color: var(--secondary); box-shadow: 0 20px 40px rgba(139,0,0,0.3); }
+        .room-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .room-body { padding: 30px; }
+        .room-difficulty {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .room-difficulty span { color: var(--accent); }
+        .room-difficulty span.empty { color: #333; }
+        .room-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .room-card p { color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.95rem; }
+        .room-meta { display: flex; gap: 20px; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        .room-meta span { display: flex; align-items: center; gap: 5px; }
+        
+        .how-section { background: var(--dark); }
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .how-step {
+            text-align: center;
+            padding: 30px;
+            background: var(--gray);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        .how-step:hover { border-color: var(--secondary); }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .how-step h4 { font-size: 1.2rem; margin-bottom: 10px; }
+        .how-step p { color: rgba(255,255,255,0.6); font-size: 0.95rem; }
+        
+        footer {
+            background: #050505;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Creepster', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        .copyright { color: rgba(255,255,255,0.3); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.5);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--gray); color: var(--white); border: 1px solid var(--secondary); }
+        .fixed-cta .reserve { background: var(--secondary); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-timer { font-size: 2rem; }
+            .section { padding: 60px 20px; }
+            .section-title h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ESCAPE MYSTERY</div>
+        <nav>
+            <a href="#rooms">ルーム一覧</a>
+            <a href="#how">遊び方</a>
+            <a href="#reserve">予約</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CAN YOU ESCAPE?</h1>
+            <p>制限時間内に全ての謎を解き、部屋から脱出せよ</p>
+            <div class="hero-timer">⏱ 60:00</div>
+            <a href="#reserve" class="cta-btn">
+                <span class="material-icons">lock_open</span>
+                予約して挑戦する
+            </a>
+        </div>
+    </section>
+
+    <section class="rooms section" id="rooms">
+        <div class="section-title fade-in">
+            <h2>ESCAPE ROOMS</h2>
+            <p>全5種類の部屋から選べる</p>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card fade-in stagger-1">
+                <div class="room-image">🏚️</div>
+                <div class="room-body">
+                    <div class="room-difficulty">
+                        <span>★</span><span>★</span><span class="empty">★</span><span class="empty">★</span><span class="empty">★</span>
+                    </div>
+                    <h3>廃病院の怪</h3>
+                    <p>閉鎖された病院に閉じ込められた。ここから脱出するには、この場所に隠された秘密を解き明かす必要がある...</p>
+                    <div class="room-meta">
+                        <span><span class="material-icons">schedule</span>60分</span>
+                        <span><span class="material-icons">groups</span>2-6名</span>
+                    </div>
+                </div>
+            </div>
+            <div class="room-card fade-in stagger-2">
+                <div class="room-image">🏛️</div>
+                <div class="room-body">
+                    <div class="room-difficulty">
+                        <span>★</span><span>★</span><span>★</span><span class="empty">★</span><span class="empty">★</span>
+                    </div>
+                    <h3>古代遺跡の秘宝</h3>
+                    <p>伝説の秘宝が眠る古代遺跡。数々のトラップを潜り抜け、秘宝を手に入れろ！</p>
+                    <div class="room-meta">
+                        <span><span class="material-icons">schedule</span>70分</span>
+                        <span><span class="material-icons">groups</span>2-8名</span>
+                    </div>
+                </div>
+            </div>
+            <div class="room-card fade-in stagger-3">
+                <div class="room-image">🚀</div>
+                <div class="room-body">
+                    <div class="room-difficulty">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span class="empty">★</span>
+                    </div>
+                    <h3>宇宙船からの脱出</h3>
+                    <p>故障した宇宙船。酸素が切れる前にシステムを復旧し、地球に帰還せよ！</p>
+                    <div class="room-meta">
+                        <span><span class="material-icons">schedule</span>60分</span>
+                        <span><span class="material-icons">groups</span>3-6名</span>
+                    </div>
+                </div>
+            </div>
+            <div class="room-card fade-in stagger-4">
+                <div class="room-image">🎭</div>
+                <div class="room-body">
+                    <div class="room-difficulty">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <h3>仮面舞踏会の殺人</h3>
+                    <p>華やかな舞踏会で起きた殺人事件。真犯人を暴き、この館から脱出せよ。最高難度！</p>
+                    <div class="room-meta">
+                        <span><span class="material-icons">schedule</span>90分</span>
+                        <span><span class="material-icons">groups</span>4-10名</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-section section" id="how">
+        <div class="section-title fade-in">
+            <h2>HOW TO PLAY</h2>
+            <p>初めての方でも安心</p>
+        </div>
+        <div class="how-steps">
+            <div class="how-step fade-in stagger-1">
+                <div class="step-number">1</div>
+                <h4>予約する</h4>
+                <p>Webまたは電話でお好きな部屋と日時を予約</p>
+            </div>
+            <div class="how-step fade-in stagger-2">
+                <div class="step-number">2</div>
+                <h4>ルール説明</h4>
+                <p>スタッフが遊び方を丁寧に説明します</p>
+            </div>
+            <div class="how-step fade-in stagger-3">
+                <div class="step-number">3</div>
+                <h4>謎を解く</h4>
+                <p>制限時間内に部屋の謎を解き明かせ！</p>
+            </div>
+            <div class="how-step fade-in stagger-4">
+                <div class="step-number">4</div>
+                <h4>脱出成功！</h4>
+                <p>全ての謎を解いて脱出！記念撮影も◎</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">🔐 ESCAPE MYSTERY</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 ESCAPE MYSTERY All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話予約
+        </a>
+        <a href="#reserve" class="reserve">
+            <span class="material-icons">event</span>
+            Web予約
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPACE BOX | トランクルーム・収納スペース</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #5c6bc0;
+            --secondary: #7986cb;
+            --accent: #ffab40;
+            --dark: #3949ab;
+            --light: #e8eaf6;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(92,107,192,0.2); }
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+        }
+        .hero::before {
+            content: '📦';
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15rem;
+            opacity: 0.15;
+        }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .hero-price {
+            background: rgba(255,255,255,0.2);
+            padding: 20px 30px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .hero-price span { font-size: 2.5rem; font-weight: 700; }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #333;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.7s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .sizes { background: var(--light); }
+        .sizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .size-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+        }
+        .size-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .size-card.popular { border-color: var(--accent); position: relative; }
+        .size-card.popular::before {
+            content: '人気No.1';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .size-icon { font-size: 3rem; margin-bottom: 15px; }
+        .size-card h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--dark); }
+        .size-card .size { color: #666; margin-bottom: 20px; }
+        .size-card .price { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .size-card .price span { font-size: 1rem; color: #666; }
+        .size-card .example { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; color: #888; font-size: 0.9rem; }
+        
+        .features { background: var(--white); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 30px;
+            background: var(--light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover { background: var(--primary); color: var(--white); }
+        .feature-card:hover .material-icons { color: var(--accent); }
+        .feature-card .material-icons { font-size: 2.5rem; color: var(--primary); transition: color 0.3s; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .feature-card p { font-size: 0.9rem; opacity: 0.8; }
+        
+        footer {
+            background: #1a237e;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .estimate { background: var(--accent); color: #333; }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SPACE BOX</div>
+        <nav>
+            <a href="#sizes">サイズ・料金</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>お部屋スッキリ<br>収納革命</h1>
+            <p>荷物が増えてお部屋が狭い...そんなお悩みを解決。24時間出し入れ自由なトランクルームで、ゆとりある暮らしを。</p>
+            <div class="hero-price">
+                月額 <span>¥3,300</span> 〜
+            </div>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">search</span>
+                空き状況を確認
+            </a>
+        </div>
+    </section>
+
+    <section class="sizes section" id="sizes">
+        <div class="section-title fade-in">
+            <h2>サイズ・料金</h2>
+            <p>収納量に合わせて選べる4サイズ</p>
+        </div>
+        <div class="sizes-grid">
+            <div class="size-card fade-in stagger-1">
+                <div class="size-icon">📦</div>
+                <h3>Sサイズ</h3>
+                <div class="size">約0.5畳</div>
+                <div class="price">¥3,300<span>/月</span></div>
+                <div class="example">段ボール約10箱分</div>
+            </div>
+            <div class="size-card popular fade-in stagger-2">
+                <div class="size-icon">📦📦</div>
+                <h3>Mサイズ</h3>
+                <div class="size">約1畳</div>
+                <div class="price">¥6,600<span>/月</span></div>
+                <div class="example">自転車+季節家電</div>
+            </div>
+            <div class="size-card fade-in stagger-3">
+                <div class="size-icon">📦📦📦</div>
+                <h3>Lサイズ</h3>
+                <div class="size">約2畳</div>
+                <div class="price">¥11,000<span>/月</span></div>
+                <div class="example">家具+家電一式</div>
+            </div>
+            <div class="size-card fade-in stagger-4">
+                <div class="size-icon">🏠</div>
+                <h3>XLサイズ</h3>
+                <div class="size">約4畳</div>
+                <div class="price">¥19,800<span>/月</span></div>
+                <div class="example">引越し荷物一式</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features section" id="features">
+        <div class="section-title fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in stagger-1">
+                <span class="material-icons">schedule</span>
+                <div>
+                    <h3>24時間出し入れ自由</h3>
+                    <p>早朝でも深夜でもいつでも利用可能</p>
+                </div>
+            </div>
+            <div class="feature-card fade-in stagger-2">
+                <span class="material-icons">ac_unit</span>
+                <div>
+                    <h3>空調完備</h3>
+                    <p>年中快適な温度・湿度で荷物を保管</p>
+                </div>
+            </div>
+            <div class="feature-card fade-in stagger-3">
+                <span class="material-icons">security</span>
+                <div>
+                    <h3>セキュリティ万全</h3>
+                    <p>防犯カメラ・ICカード認証で安心</p>
+                </div>
+            </div>
+            <div class="feature-card fade-in stagger-4">
+                <span class="material-icons">local_shipping</span>
+                <div>
+                    <h3>搬入サポート</h3>
+                    <p>重い荷物もスタッフがお手伝い</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">SPACE BOX</div>
+        <p>フリーダイヤル: 0120-123-456</p>
+        <p class="copyright">&copy; 2024 SPACE BOX All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:0120-123-456" class="tel">
+            <span class="material-icons">phone</span>
+            電話相談
+        </a>
+        <a href="#estimate" class="estimate">
+            <span class="material-icons">calculate</span>
+            見積もり
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>靴工房 匠 | 熟練職人による靴修理</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #5d4037;
+            --secondary: #8d6e63;
+            --accent: #d7ccc8;
+            --dark: #3e2723;
+            --light: #efebe9;
+            --white: #ffffff;
+            --gold: #c9a227;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 20px rgba(93,64,55,0.15); }
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20,80 Q50,20 80,80' fill='none' stroke='%23c9a227' stroke-width='0.5' opacity='0.2'/%3E%3C/svg%3E") repeat;
+            opacity: 0.3;
+        }
+        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 16px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        
+        .services { background: var(--light); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .service-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(93,64,55,0.15); }
+        .service-header {
+            background: var(--primary);
+            padding: 25px;
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .service-header h3 { font-size: 1.2rem; }
+        .service-price { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+        .service-body { padding: 25px; }
+        .service-body p { color: #666; margin-bottom: 15px; }
+        .service-time { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 0.9rem; }
+        
+        .craftsman { background: var(--white); }
+        .craftsman-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .craftsman-quote {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-style: italic;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 30px;
+        }
+        .craftsman-quote::before, .craftsman-quote::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            opacity: 0.3;
+        }
+        .craftsman-quote::before { top: 0; left: 0; }
+        .craftsman-quote::after { bottom: -20px; right: 0; }
+        .craftsman-info { color: #666; }
+        .craftsman-info strong { color: var(--dark); }
+        
+        .flow { background: var(--dark); color: var(--white); }
+        .flow .section-title h2 { color: var(--white); }
+        .flow-steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .flow-step {
+            text-align: center;
+            max-width: 200px;
+        }
+        .flow-number {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        .flow-step h4 { margin-bottom: 10px; }
+        .flow-step p { font-size: 0.9rem; opacity: 0.8; }
+        
+        footer {
+            background: #1a0f0a;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: var(--primary); color: var(--white); }
+        .fixed-cta .line { background: #06c755; color: var(--white); border-radius: 50px; }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">靴工房 匠</div>
+        <nav>
+            <a href="#services">修理メニュー</a>
+            <a href="#craftsman">職人紹介</a>
+            <a href="#flow">ご利用の流れ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="material-icons">workspace_premium</span>
+                創業40年の確かな技術
+            </div>
+            <h1>大切な靴を<br>蘇らせます</h1>
+            <p>熟練の職人が、お客様の大切な靴を丁寧に修理いたします。ソール交換からかかと修理まで、どんな靴もお任せください。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">mail</span>
+                無料見積もり
+            </a>
+        </div>
+    </section>
+
+    <section class="services section" id="services">
+        <div class="section-title fade-in">
+            <h2>修理メニュー</h2>
+            <p>様々な修理に対応いたします</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in stagger-1">
+                <div class="service-header">
+                    <h3>👠 かかと修理</h3>
+                    <span class="service-price">¥1,500〜</span>
+                </div>
+                <div class="service-body">
+                    <p>すり減ったかかとを交換。歩きやすさが復活します。</p>
+                    <div class="service-time">
+                        <span class="material-icons">schedule</span>
+                        最短10分
+                    </div>
+                </div>
+            </div>
+            <div class="service-card fade-in stagger-2">
+                <div class="service-header">
+                    <h3>👞 ソール交換</h3>
+                    <span class="service-price">¥8,000〜</span>
+                </div>
+                <div class="service-body">
+                    <p>靴底全体を交換。お気に入りの靴が新品同様に。</p>
+                    <div class="service-time">
+                        <span class="material-icons">schedule</span>
+                        約1週間
+                    </div>
+                </div>
+            </div>
+            <div class="service-card fade-in stagger-3">
+                <div class="service-header">
+                    <h3>✨ 靴磨き</h3>
+                    <span class="service-price">¥800〜</span>
+                </div>
+                <div class="service-body">
+                    <p>プロの技で艶やかに。革靴の輝きを取り戻します。</p>
+                    <div class="service-time">
+                        <span class="material-icons">schedule</span>
+                        約15分
+                    </div>
+                </div>
+            </div>
+            <div class="service-card fade-in stagger-4">
+                <div class="service-header">
+                    <h3>🔧 ファスナー修理</h3>
+                    <span class="service-price">¥2,000〜</span>
+                </div>
+                <div class="service-body">
+                    <p>ブーツのファスナー交換・修理を承ります。</p>
+                    <div class="service-time">
+                        <span class="material-icons">schedule</span>
+                        約3日
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="craftsman section" id="craftsman">
+        <div class="section-title fade-in">
+            <h2>職人の想い</h2>
+        </div>
+        <div class="craftsman-content fade-in">
+            <p class="craftsman-quote">一足一足、お客様の思い出と共に歩んできた靴。その靴に新しい命を吹き込むことが、私の使命です。</p>
+            <p class="craftsman-info"><strong>代表職人 山田太郎</strong><br>靴修理歴40年。国家資格「靴・バッグ修理士」取得。</p>
+        </div>
+    </section>
+
+    <section class="flow section" id="flow">
+        <div class="section-title fade-in">
+            <h2>ご利用の流れ</h2>
+        </div>
+        <div class="flow-steps">
+            <div class="flow-step fade-in stagger-1">
+                <div class="flow-number">1</div>
+                <h4>ご来店・お問い合わせ</h4>
+                <p>店舗へ直接お持ちいただくか、LINEで写真をお送りください。</p>
+            </div>
+            <div class="flow-step fade-in stagger-2">
+                <div class="flow-number">2</div>
+                <h4>診断・お見積もり</h4>
+                <p>状態を確認し、最適な修理方法と料金をご提案します。</p>
+            </div>
+            <div class="flow-step fade-in stagger-3">
+                <div class="flow-number">3</div>
+                <h4>修理作業</h4>
+                <p>熟練の職人が丁寧に修理いたします。</p>
+            </div>
+            <div class="flow-step fade-in stagger-4">
+                <div class="flow-number">4</div>
+                <h4>お渡し</h4>
+                <p>修理完了後、ご連絡いたします。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">靴工房 匠</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 靴工房 匠 All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話相談
+        </a>
+        <a href="#line" class="line">
+            <span class="material-icons">send</span>
+            LINE見積もり
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

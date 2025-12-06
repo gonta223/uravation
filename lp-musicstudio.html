@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOUND WAVE STUDIO | 音楽スタジオ・レコーディング</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --purple: #9c27b0;
+            --light: #0f3460;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #fff; line-height: 1.8; background: var(--primary); }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26,26,46,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { box-shadow: 0 2px 30px rgba(233,69,96,0.2); }
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--light) 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '🎵';
+            position: absolute;
+            right: 10%;
+            top: 30%;
+            font-size: 10rem;
+            opacity: 0.1;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero-content { max-width: 600px; position: relative; z-index: 1; }
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 4rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(233,69,96,0.4); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        .section-title p { color: rgba(255,255,255,0.7); font-size: 1rem; }
+        
+        .studios { background: var(--secondary); }
+        .studios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .studio-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .studio-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .studio-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .studio-body { padding: 30px; }
+        .studio-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .studio-card p { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 20px; }
+        .studio-price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .studio-price span { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+        
+        .services { background: var(--primary); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .service-item {
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .service-item:hover { background: rgba(233,69,96,0.1); }
+        .service-item .material-icons { font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
+        .service-item h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .service-item p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        
+        footer {
+            background: #0a0a15;
+            color: var(--white);
+            padding: 60px 50px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        .copyright { color: rgba(255,255,255,0.3); font-size: 0.9rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.3);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .tel { background: rgba(255,255,255,0.1); color: var(--white); }
+        .fixed-cta .reserve { background: var(--accent); color: var(--white); }
+        
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.5rem; }
+            .section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SOUND WAVE STUDIO</div>
+        <nav>
+            <a href="#studios">スタジオ</a>
+            <a href="#services">サービス</a>
+            <a href="#contact">予約</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CREATE YOUR<br>SOUND</h1>
+            <p>バンド練習からレコーディングまで。プロ仕様の機材と空間で、あなたの音楽を形にします。</p>
+            <a href="#reserve" class="cta-btn">
+                <span class="material-icons">event</span>
+                スタジオ予約
+            </a>
+        </div>
+    </section>
+
+    <section class="studios section" id="studios">
+        <div class="section-title fade-in">
+            <h2>STUDIO ROOMS</h2>
+            <p>用途に合わせて選べるスタジオ</p>
+        </div>
+        <div class="studios-grid">
+            <div class="studio-card fade-in stagger-1">
+                <div class="studio-image">🎸</div>
+                <div class="studio-body">
+                    <h3>Aスタジオ</h3>
+                    <p>バンド練習に最適な30畳の広々空間。最大8名まで利用可能。</p>
+                    <div class="studio-price">¥3,000<span>/h</span></div>
+                </div>
+            </div>
+            <div class="studio-card fade-in stagger-2">
+                <div class="studio-image">🎹</div>
+                <div class="studio-body">
+                    <h3>Bスタジオ</h3>
+                    <p>個人練習・少人数向け15畳。グランドピアノ常設。</p>
+                    <div class="studio-price">¥1,500<span>/h</span></div>
+                </div>
+            </div>
+            <div class="studio-card fade-in stagger-3">
+                <div class="studio-image">🎙️</div>
+                <div class="studio-body">
+                    <h3>RECスタジオ</h3>
+                    <p>本格レコーディング対応。エンジニア常駐。</p>
+                    <div class="studio-price">¥8,000<span>/h〜</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services section" id="services">
+        <div class="section-title fade-in">
+            <h2>SERVICES</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-item fade-in stagger-1">
+                <span class="material-icons">mic</span>
+                <h3>レコーディング</h3>
+                <p>プロ仕様の機材で高品質な音源制作</p>
+            </div>
+            <div class="service-item fade-in stagger-2">
+                <span class="material-icons">tune</span>
+                <h3>ミキシング</h3>
+                <p>経験豊富なエンジニアによる音作り</p>
+            </div>
+            <div class="service-item fade-in stagger-3">
+                <span class="material-icons">music_note</span>
+                <h3>機材レンタル</h3>
+                <p>アンプ・エフェクター等各種機材完備</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">SOUND WAVE STUDIO</div>
+        <p>〒123-4567 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 SOUND WAVE STUDIO All Rights Reserved.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="tel:03-1234-5678" class="tel">
+            <span class="material-icons">phone</span>
+            電話予約
+        </a>
+        <a href="#reserve" class="reserve">
+            <span class="material-icons">event</span>
+            Web予約
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>

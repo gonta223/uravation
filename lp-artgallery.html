@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALLERY NOVA | 現代アートギャラリー</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #000000;
+            --secondary: #333333;
+            --accent: #ffffff;
+            --gray: #888888;
+            --light: #f5f5f5;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: transparent;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled { background: var(--white); padding: 20px 50px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        header.scrolled .logo, header.scrolled nav a { color: var(--primary); }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 5px;
+        }
+        nav a {
+            margin-left: 40px;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 0.6; }
+        
+        .hero {
+            min-height: 100vh;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 50px 80px;
+            position: relative;
+            text-align: center;
+        }
+        .hero-content { position: relative; z-index: 1; color: var(--white); }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 400;
+            letter-spacing: 10px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+        }
+        .hero p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeIn 2s ease 0.5s forwards;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        
+        .section { padding: 120px 50px; }
+        .section-title { text-align: center; margin-bottom: 80px; }
+        .section-title h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+        }
+        .section-title p { color: var(--gray); font-size: 0.9rem; letter-spacing: 2px; }
+        
+        .exhibitions { background: var(--white); }
+        .exhibition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .exhibition-card {
+            transition: all 0.4s ease;
+        }
+        .exhibition-card:hover { transform: translateY(-10px); }
+        .exhibition-image {
+            height: 400px;
+            background: var(--light);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+        .exhibition-date { color: var(--gray); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .exhibition-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .exhibition-card p { color: var(--gray); font-size: 0.9rem; }
+        
+        .about { background: var(--light); }
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-content p {
+            font-size: 1rem;
+            line-height: 2.5;
+            color: var(--secondary);
+        }
+        
+        .info { background: var(--primary); color: var(--white); }
+        .info .section-title h2 { color: var(--white); }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .info-item h3 {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        .info-item p { font-size: 0.95rem; line-height: 2; }
+        
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 60px 50px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+        .copyright { color: var(--gray); font-size: 0.8rem; margin-top: 30px; }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            transition: bottom 0.5s ease;
+            z-index: 999;
+        }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .fixed-cta .contact { background: var(--primary); color: var(--white); }
+        .fixed-cta .sns { background: var(--light); color: var(--primary); }
+        
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            nav { display: none; }
+            .hero h1 { font-size: 2.5rem; letter-spacing: 5px; }
+            .section { padding: 80px 20px; }
+            .exhibition-grid, .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GALLERY NOVA</div>
+        <nav>
+            <a href="#exhibitions">EXHIBITIONS</a>
+            <a href="#about">ABOUT</a>
+            <a href="#info">INFO</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>GALLERY<br>NOVA</h1>
+            <p>CONTEMPORARY ART SPACE</p>
+        </div>
+    </section>
+
+    <section class="exhibitions section" id="exhibitions">
+        <div class="section-title fade-in">
+            <h2>EXHIBITIONS</h2>
+            <p>開催中・開催予定の展覧会</p>
+        </div>
+        <div class="exhibition-grid">
+            <div class="exhibition-card fade-in stagger-1">
+                <div class="exhibition-image">🎨</div>
+                <div class="exhibition-date">2024.12.01 - 2024.12.28</div>
+                <h3>境界の向こう側</h3>
+                <p>山田花子 個展</p>
+            </div>
+            <div class="exhibition-card fade-in stagger-2">
+                <div class="exhibition-image">🖼️</div>
+                <div class="exhibition-date">2025.01.10 - 2025.02.15</div>
+                <h3>都市と記憶</h3>
+                <p>グループ展</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about section" id="about">
+        <div class="section-title fade-in">
+            <h2>ABOUT</h2>
+        </div>
+        <div class="about-content fade-in">
+            <p>GALLERY NOVAは、現代アートを中心に国内外の新進作家から確立されたアーティストまで、幅広い表現を紹介するギャラリーです。アートを通じた新しい価値観との出会いをご提供いたします。</p>
+        </div>
+    </section>
+
+    <section class="info section" id="info">
+        <div class="section-title fade-in">
+            <h2>INFO</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-item fade-in stagger-1">
+                <h3>HOURS</h3>
+                <p>火 - 土 11:00 - 19:00<br>日 11:00 - 17:00<br>月曜休廊</p>
+            </div>
+            <div class="info-item fade-in stagger-2">
+                <h3>ACCESS</h3>
+                <p>〒150-0001<br>東京都渋谷区神宮前1-2-3<br>表参道駅 徒歩5分</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">GALLERY NOVA</div>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 GALLERY NOVA</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact" class="contact">CONTACT</a>
+        <a href="#sns" class="sns">
+            <span class="material-icons">photo_camera</span>
+            INSTAGRAM
+        </a>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>
