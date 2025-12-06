@@ -3,74 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOYAGE Travel | Uravation AI Training LP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>トラベルジャーニー | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #1976D2; --primary-dark: #0D47A1; --accent: #FF5722; --text: #263238; --text-light: #607D8B; --bg: #FAFAFA; --white: #FFF; }
+        :root { --primary: #0077b6; --secondary: #023e8a; --accent: #00b4d8; --coral: #ff6b6b; --sand: #f8f4e3; --text: #2d3436; --text-light: #636e72; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--bg); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; overflow-x: hidden; background: var(--white); font-weight: 300; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        header { background: transparent; padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { background: var(--white); box-shadow: 0 2px 20px rgba(0,119,182,0.15); }
+        header.scrolled .logo, header.scrolled nav a { color: var(--primary); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.6rem; color: var(--white); font-weight: 700; transition: color 0.3s; }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
-        .btn-header { background: var(--primary); color: white; padding: 12px 28px; border-radius: 25px; text-decoration: none; }
-        .hero { height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='80' cy='20' r='30' fill='%23fff' opacity='0.05'/%3E%3Ccircle cx='20' cy='80' r='40' fill='%23fff' opacity='0.05'/%3E%3C/svg%3E"); }
-        .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; margin: 0 auto; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; margin-bottom: 20px; }
-        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 40px; }
-        .btn-white { background: white; color: var(--primary); padding: 18px 50px; border-radius: 30px; text-decoration: none; display: inline-block; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 15px; }
-        .destinations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .dest-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .dest-image { height: 200px; background: linear-gradient(135deg, var(--primary), #42A5F5); display: flex; align-items: center; justify-content: center; }
-        .dest-image .material-icons { font-size: 60px; color: white; opacity: 0.7; }
-        .dest-info { padding: 25px; }
-        .dest-info h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .dest-info p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
-        .dest-price { color: var(--accent); font-weight: 700; font-size: 1.3rem; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { opacity: 0.7; }
+        .btn-header { background: var(--coral); color: var(--white); padding: 12px 28px; text-decoration: none; font-weight: 700; font-size: 0.85rem; border-radius: 50px; transition: all 0.3s; }
+        .btn-header:hover { background: #ff5252; transform: translateY(-2px); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 150px; background: linear-gradient(to top, rgba(255,255,255,0.1), transparent); }
+        .hero::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E"); }
+        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .hero-content { color: var(--white); }
+        .hero-tagline { font-family: 'Poppins', sans-serif; font-size: 0.9rem; letter-spacing: 0.2em; margin-bottom: 20px; opacity: 0.8; opacity: 0; animation: fadeIn 1s ease 0.3s forwards; }
+        .hero h1 { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 25px; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .hero p { font-size: 1rem; opacity: 0.9; margin-bottom: 35px; opacity: 0; animation: fadeInUp 1s ease 0.7s forwards; }
+        .btn-hero { background: var(--coral); color: var(--white); padding: 18px 45px; text-decoration: none; font-weight: 700; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; opacity: 0; animation: fadeInUp 1s ease 0.9s forwards; }
+        .btn-hero:hover { background: #ff5252; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .hero-visual { opacity: 0; animation: scaleIn 1s ease 0.5s forwards; }
+        .hero-destinations { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .destination-card { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; text-align: center; backdrop-filter: blur(10px); transition: all 0.4s; }
+        .destination-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-5px); }
+        .destination-card .material-icons { font-size: 40px; color: var(--accent); margin-bottom: 10px; }
+        .destination-card h3 { font-size: 1rem; margin-bottom: 5px; }
+        .destination-card p { font-size: 0.8rem; opacity: 0.7; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 10px; display: block; font-weight: 600; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; }
+        .tours { background: var(--sand); }
+        .tours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .tour-card { background: var(--white); border-radius: 20px; overflow: hidden; transition: all 0.4s; }
+        .tour-card:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .tour-image { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .tour-card:nth-child(1) .tour-image { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .tour-card:nth-child(2) .tour-image { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+        .tour-card:nth-child(3) .tour-image { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .tour-image .material-icons { font-size: 80px; color: rgba(255,255,255,0.3); }
+        .tour-badge { position: absolute; top: 15px; left: 15px; background: var(--coral); color: var(--white); padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+        .tour-content { padding: 30px; }
+        .tour-content h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
+        .tour-content p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .tour-info { display: flex; justify-content: space-between; align-items: center; }
+        .tour-price { font-family: 'Poppins', sans-serif; font-size: 1.5rem; color: var(--primary); font-weight: 700; }
+        .tour-price span { font-size: 0.8rem; color: var(--text-light); font-weight: 400; }
+        .btn-tour { background: var(--accent); color: var(--white); padding: 10px 20px; text-decoration: none; font-size: 0.85rem; font-weight: 600; border-radius: 50px; transition: all 0.3s; }
+        .btn-tour:hover { background: var(--primary); }
         .features { background: var(--white); }
         .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
         .feature-card { text-align: center; padding: 30px 20px; }
-        .feature-icon { width: 70px; height: 70px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-        .feature-icon .material-icons { font-size: 30px; color: white; }
-        .feature-card h4 { font-size: 1rem; margin-bottom: 10px; }
+        .feature-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent), var(--primary)); margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .feature-icon .material-icons { font-size: 35px; color: var(--white); }
+        .feature-card h3 { font-size: 1rem; margin-bottom: 10px; font-weight: 700; }
         .feature-card p { font-size: 0.85rem; color: var(--text-light); }
-        .cta { background: linear-gradient(135deg, var(--accent), #FF7043); color: white; text-align: center; padding: 80px 0; }
-        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
-        footer { background: var(--text); color: white; padding: 50px 0 25px; }
-        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
-        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
-        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; }
-        .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 10px; }
-        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
-        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); text-align: center; color: var(--white); }
+        .cta h2 { font-size: 2rem; margin-bottom: 15px; font-weight: 700; }
+        .cta p { font-size: 1rem; margin-bottom: 30px; opacity: 0.9; }
+        .btn-cta { background: var(--coral); color: var(--white); padding: 18px 50px; text-decoration: none; font-weight: 700; font-size: 1rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-cta:hover { background: #ff5252; transform: translateY(-3px); }
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
+        .fixed-cta-text { color: var(--text); font-size: 0.9rem; }
+        .fixed-cta-text span { color: var(--coral); font-weight: 700; }
+        .btn-fixed { background: var(--coral); color: var(--white); padding: 12px 30px; text-decoration: none; font-weight: 700; font-size: 0.9rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+        .btn-fixed:hover { background: #ff5252; }
+        footer { background: var(--secondary); color: var(--white); padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.6; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.4; }
         .footer-bottom a { color: var(--accent); text-decoration: none; }
-        @media (max-width: 1024px) { .destinations-grid, .features-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .destinations-grid, .features-grid, .footer-content { grid-template-columns: 1fr; } }
+        @media (max-width: 1024px) { .tours-grid { grid-template-columns: 1fr; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero-inner { grid-template-columns: 1fr; text-align: center; } .hero h1 { font-size: 2.5rem; } .hero-visual { display: none; } .features-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">VOYAGE</div><nav><ul><li><a href="#destinations">ツアー</a></li><li><a href="#features">選ばれる理由</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">相談する</a></div></div></header>
-    <section class="hero"><div class="hero-content"><h1>新しい世界へ、<br>旅に出よう</h1><p>心に残る特別な旅を、あなたにお届けします。<br>オーダーメイドのプランで、夢の旅行を実現。</p><a href="#destinations" class="btn-white">ツアーを見る</a></div></section>
-    <section id="destinations"><div class="container"><div class="section-header"><h2>人気のツアー</h2></div><div class="destinations-grid">
-        <div class="dest-card"><div class="dest-image"><span class="material-icons">landscape</span></div><div class="dest-info"><h3>イタリア周遊 8日間</h3><p>ローマ・フィレンツェ・ヴェネツィアを巡る</p><span class="dest-price">¥298,000〜</span></div></div>
-        <div class="dest-card"><div class="dest-image" style="background: linear-gradient(135deg, #4CAF50, #8BC34A);"><span class="material-icons">forest</span></div><div class="dest-info"><h3>バリ島 リゾート 5日間</h3><p>ヴィラ滞在で極上のひとときを</p><span class="dest-price">¥158,000〜</span></div></div>
-        <div class="dest-card"><div class="dest-image" style="background: linear-gradient(135deg, #FF5722, #FF9800);"><span class="material-icons">wb_sunny</span></div><div class="dest-info"><h3>ハワイ 6日間</h3><p>王道のホノルル満喫プラン</p><span class="dest-price">¥198,000〜</span></div></div>
+    <header><div class="container"><div class="header-inner"><div class="logo">TRAVEL JOURNEY</div><nav><ul><li><a href="#tours">ツアー</a></li><li><a href="#features">特徴</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">相談予約</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-content"><p class="hero-tagline">YOUR JOURNEY STARTS HERE</p><h1>最高の旅を<br>あなたに</h1><p>国内から海外まで、あなただけの特別な旅をプロデュース。<br>経験豊富なスタッフが、忘れられない思い出づくりをお手伝いします。</p><a href="#tours" class="btn-hero"><span class="material-icons">search</span>ツアーを探す</a></div><div class="hero-visual"><div class="hero-destinations"><div class="destination-card"><span class="material-icons">beach_access</span><h3>リゾート</h3><p>ハワイ・沖縄など</p></div><div class="destination-card"><span class="material-icons">location_city</span><h3>都市観光</h3><p>ヨーロッパ・アジア</p></div><div class="destination-card"><span class="material-icons">hiking</span><h3>アクティビティ</h3><p>自然体験ツアー</p></div><div class="destination-card"><span class="material-icons">hot_tub</span><h3>温泉旅行</h3><p>国内温泉地</p></div></div></div></div></div></section>
+    <section id="tours" class="tours"><div class="container"><div class="section-header fade-in"><span class="en">POPULAR TOURS</span><h2>人気ツアー</h2></div><div class="tours-grid">
+        <div class="tour-card fade-in stagger-1"><div class="tour-image"><span class="material-icons">beach_access</span><span class="tour-badge">人気No.1</span></div><div class="tour-content"><h3>ハワイ5日間</h3><p>ワイキキビーチ滞在・オプショナルツアー付き</p><div class="tour-info"><div class="tour-price">¥198,000<span>〜</span></div><a href="#contact" class="btn-tour">詳細</a></div></div></div>
+        <div class="tour-card fade-in stagger-2"><div class="tour-image"><span class="material-icons">location_city</span><span class="tour-badge">おすすめ</span></div><div class="tour-content"><h3>イタリア周遊8日間</h3><p>ローマ・フィレンツェ・ベネチアを巡る</p><div class="tour-info"><div class="tour-price">¥298,000<span>〜</span></div><a href="#contact" class="btn-tour">詳細</a></div></div></div>
+        <div class="tour-card fade-in stagger-3"><div class="tour-image"><span class="material-icons">hot_tub</span><span class="tour-badge">NEW</span></div><div class="tour-content"><h3>箱根温泉2日間</h3><p>露天風呂付き客室・贅沢会席付き</p><div class="tour-info"><div class="tour-price">¥39,800<span>〜</span></div><a href="#contact" class="btn-tour">詳細</a></div></div></div>
     </div></div></section>
-    <section id="features" class="features"><div class="container"><div class="section-header"><h2>選ばれる理由</h2></div><div class="features-grid">
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">edit</span></div><h4>オーダーメイド</h4><p>ご要望に合わせたプランを作成</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">support_agent</span></div><h4>24時間サポート</h4><p>旅行中も安心のサポート体制</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">verified</span></div><h4>安心の品質</h4><p>厳選したホテル・航空会社</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">payments</span></div><h4>明朗会計</h4><p>追加料金なしの安心価格</p></div>
+    <section id="features" class="features"><div class="container"><div class="section-header fade-in"><span class="en">WHY CHOOSE US</span><h2>選ばれる理由</h2></div><div class="features-grid">
+        <div class="feature-card fade-in stagger-1"><div class="feature-icon"><span class="material-icons">support_agent</span></div><h3>専任スタッフ</h3><p>経験豊富なスタッフが旅行プランをご提案</p></div>
+        <div class="feature-card fade-in stagger-2"><div class="feature-icon"><span class="material-icons">verified</span></div><h3>安心サポート</h3><p>現地でのトラブルも24時間対応</p></div>
+        <div class="feature-card fade-in stagger-3"><div class="feature-icon"><span class="material-icons">savings</span></div><h3>お得な価格</h3><p>団体割引・早期予約割引あり</p></div>
+        <div class="feature-card fade-in stagger-4"><div class="feature-icon"><span class="material-icons">edit_note</span></div><h3>オーダーメイド</h3><p>お客様だけのオリジナルプラン作成</p></div>
     </div></div></section>
-    <section class="cta" id="contact"><div class="container"><h2>あなただけの旅をつくりませんか？</h2><p style="opacity: 0.9; margin-bottom: 30px;">お気軽にご相談ください</p><a href="#" class="btn-white">無料相談</a></div></section>
-    <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo" style="color: white;">VOYAGE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>ツアー</h4><ul><li><a href="#">ヨーロッパ</a></li><li><a href="#">アジア</a></li><li><a href="#">アメリカ</a></li></ul></div><div class="footer-links"><h4>サービス</h4><ul><li><a href="#">オーダーメイド</a></li><li><a href="#">グループ旅行</a></li><li><a href="#">ハネムーン</a></li></ul></div><div class="footer-links"><h4>会社情報</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <section id="contact" class="cta fade-in"><div class="container"><h2>まずはお気軽にご相談ください</h2><p>ご希望に合わせた最適なプランをご提案します</p><a href="tel:000-000-0000" class="btn-cta"><span class="material-icons">phone</span>000-000-0000</a></div></section>
+    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>相談無料</span>｜お気軽にお問い合わせください</div><a href="tel:000-000-0000" class="btn-fixed"><span class="material-icons">phone</span>今すぐ相談</a></div></div></div>
+    <footer><div class="container"><div class="footer-logo">TRAVEL JOURNEY</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 000-000-0000 / 営業時間: 10:00-19:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+    </script>
 </body>
 </html>

@@ -4,154 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ひまわり保育園 | Uravation AI Training LP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root {
-            --primary: #FF9800;
-            --primary-light: #FFF3E0;
-            --green: #8BC34A;
-            --pink: #F48FB1;
-            --sky: #81D4FA;
-            --text: #5D4037;
-            --text-light: #8D6E63;
-            --bg: #FFFBF5;
-            --white: #FFFFFF;
-        }
+        :root { --primary: #ff9f43; --secondary: #ee5a24; --green: #78e08f; --blue: #60a3bc; --pink: #ff6b9d; --cream: #fff9f0; --text: #2d3436; --text-light: #636e72; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--bg); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; overflow-x: hidden; background: var(--cream); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(255,152,0,0.1); }
+        header { background: var(--white); padding: 12px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { box-shadow: 0 2px 20px rgba(255,159,67,0.2); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 10px; }
-        .logo-icon { width: 50px; height: 50px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .logo-icon .material-icons { color: white; }
-        .logo-text { font-family: 'Quicksand', sans-serif; font-size: 1.4rem; font-weight: 600; color: var(--primary); }
+        .logo { font-family: 'Nunito', sans-serif; font-size: 1.6rem; color: var(--primary); font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .logo .material-icons { font-size: 28px; color: var(--secondary); }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
-        .btn-header { background: var(--primary); color: white; padding: 12px 28px; border-radius: 25px; text-decoration: none; }
-        .hero { padding: 140px 0 80px; background: linear-gradient(180deg, var(--primary-light), var(--bg)); position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 20%; right: 5%; width: 150px; height: 150px; background: var(--sky); border-radius: 50%; opacity: 0.3; }
-        .hero::after { content: ''; position: absolute; bottom: 10%; left: 10%; width: 100px; height: 100px; background: var(--pink); border-radius: 50%; opacity: 0.3; }
-        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: white; padding: 8px 20px; border-radius: 20px; font-size: 0.85rem; color: var(--primary); margin-bottom: 20px; }
-        .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.5; margin-bottom: 20px; }
-        .hero h1 span { color: var(--primary); }
-        .hero p { color: var(--text-light); margin-bottom: 30px; }
-        .btn-primary { background: var(--primary); color: white; padding: 16px 40px; border-radius: 30px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-        .hero-image { height: 400px; background: linear-gradient(135deg, var(--primary), #FFB74D); border-radius: 30px; display: flex; align-items: center; justify-content: center; }
-        .hero-image .material-icons { font-size: 120px; color: white; opacity: 0.8; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; }
-        .section-header p { color: var(--text-light); }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .btn-header { background: var(--primary); color: var(--white); padding: 12px 28px; text-decoration: none; font-weight: 700; font-size: 0.85rem; border-radius: 50px; transition: all 0.3s; }
+        .btn-header:hover { background: var(--secondary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .hero-content { color: var(--white); }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: var(--secondary); padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 25px; opacity: 0; animation: bounceIn 0.8s ease 0.3s forwards; }
+        .hero h1 { font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 800; line-height: 1.3; margin-bottom: 20px; opacity: 0; animation: fadeInUp 0.8s ease 0.5s forwards; }
+        .hero p { font-size: 1rem; opacity: 0.95; margin-bottom: 35px; opacity: 0; animation: fadeInUp 0.8s ease 0.7s forwards; }
+        .btn-hero { background: var(--white); color: var(--secondary); padding: 18px 45px; text-decoration: none; font-weight: 700; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; opacity: 0; animation: fadeInUp 0.8s ease 0.9s forwards; }
+        .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .hero-visual { opacity: 0; animation: scaleIn 1s ease 0.5s forwards; }
+        .hero-icons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .hero-icon-box { background: rgba(255,255,255,0.2); padding: 30px; border-radius: 20px; text-align: center; backdrop-filter: blur(10px); transition: all 0.4s; animation: float 3s ease-in-out infinite; }
+        .hero-icon-box:nth-child(2) { animation-delay: 0.5s; }
+        .hero-icon-box:nth-child(3) { animation-delay: 1s; }
+        .hero-icon-box:nth-child(4) { animation-delay: 1.5s; }
+        .hero-icon-box:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+        .hero-icon-box .material-icons { font-size: 40px; color: var(--white); margin-bottom: 10px; }
+        .hero-icon-box span { font-size: 0.85rem; color: var(--white); display: block; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.5); } 60% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; } .stagger-4 { transition-delay: 0.4s; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: var(--primary); letter-spacing: 0.15em; margin-bottom: 10px; display: block; font-weight: 700; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; }
         .features { background: var(--white); }
         .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .feature-card { background: var(--bg); padding: 40px 30px; border-radius: 20px; text-align: center; }
-        .feature-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #FFB74D); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-        .feature-icon .material-icons { font-size: 36px; color: white; }
-        .feature-card h3 { font-size: 1.2rem; margin-bottom: 15px; }
+        .feature-card { background: var(--cream); padding: 40px 30px; border-radius: 20px; text-align: center; transition: all 0.4s; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .feature-card:nth-child(1) { border-top: 4px solid var(--primary); }
+        .feature-card:nth-child(2) { border-top: 4px solid var(--green); }
+        .feature-card:nth-child(3) { border-top: 4px solid var(--blue); }
+        .feature-icon { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .feature-card:nth-child(1) .feature-icon { background: var(--primary); }
+        .feature-card:nth-child(2) .feature-icon { background: var(--green); }
+        .feature-card:nth-child(3) .feature-icon { background: var(--blue); }
+        .feature-icon .material-icons { font-size: 40px; color: var(--white); }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; }
         .feature-card p { font-size: 0.9rem; color: var(--text-light); }
-        .daily-schedule { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; }
-        .schedule-item { display: flex; gap: 20px; padding: 20px; background: var(--white); border-radius: 15px; }
-        .schedule-time { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--primary); min-width: 80px; }
-        .schedule-item h4 { font-size: 1rem; margin-bottom: 5px; }
-        .schedule-item p { font-size: 0.85rem; color: var(--text-light); }
-        .gallery { background: var(--white); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .gallery-item { aspect-ratio: 1; background: linear-gradient(135deg, var(--primary-light), var(--sky)); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .gallery-item .material-icons { font-size: 40px; color: var(--primary); opacity: 0.5; }
-        .cta { background: linear-gradient(135deg, var(--primary), #FFB74D); color: white; text-align: center; padding: 80px 0; border-radius: 30px 30px 0 0; }
-        .cta h2 { font-size: 2rem; margin-bottom: 15px; }
-        .btn-white { background: white; color: var(--primary); padding: 16px 40px; border-radius: 30px; text-decoration: none; display: inline-block; margin-top: 20px; }
-        footer { background: var(--text); color: white; padding: 50px 0 25px; }
-        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
-        .footer-brand p { font-size: 0.9rem; opacity: 0.7; margin-top: 15px; }
-        .footer-links h4 { font-size: 0.9rem; margin-bottom: 20px; color: var(--primary); }
-        .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 10px; }
-        .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
-        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .programs { background: var(--cream); }
+        .programs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .program-card { background: var(--white); border-radius: 20px; overflow: hidden; transition: all 0.4s; }
+        .program-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .program-image { height: 150px; display: flex; align-items: center; justify-content: center; }
+        .program-card:nth-child(1) .program-image { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .program-card:nth-child(2) .program-image { background: linear-gradient(135deg, var(--green), #2ecc71); }
+        .program-card:nth-child(3) .program-image { background: linear-gradient(135deg, var(--blue), #3498db); }
+        .program-card:nth-child(4) .program-image { background: linear-gradient(135deg, var(--pink), #e84393); }
+        .program-image .material-icons { font-size: 60px; color: rgba(255,255,255,0.5); }
+        .program-content { padding: 25px; text-align: center; }
+        .program-content h3 { font-size: 1rem; margin-bottom: 8px; font-weight: 700; }
+        .program-content p { font-size: 0.85rem; color: var(--text-light); }
+        .info { background: var(--white); }
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .info-card { padding: 30px; border: 2px solid var(--cream); border-radius: 15px; }
+        .info-card h3 { font-size: 1.1rem; margin-bottom: 20px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .info-card h3 .material-icons { font-size: 24px; }
+        .info-list { list-style: none; }
+        .info-list li { padding: 10px 0; border-bottom: 1px solid var(--cream); font-size: 0.9rem; display: flex; justify-content: space-between; }
+        .info-list li:last-child { border-bottom: none; }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); text-align: center; color: var(--white); }
+        .cta h2 { font-family: 'Nunito', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .cta p { font-size: 1rem; margin-bottom: 30px; opacity: 0.95; }
+        .btn-cta { background: var(--white); color: var(--secondary); padding: 18px 50px; text-decoration: none; font-weight: 700; font-size: 1rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
+        .fixed-cta-text { color: var(--text); font-size: 0.9rem; }
+        .fixed-cta-text span { color: var(--secondary); font-weight: 700; }
+        .btn-fixed { background: var(--primary); color: var(--white); padding: 12px 30px; text-decoration: none; font-weight: 700; font-size: 0.9rem; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+        .btn-fixed:hover { background: var(--secondary); }
+        footer { background: #2d3436; color: var(--white); padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Nunito', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; color: var(--primary); }
+        footer p { font-size: 0.9rem; opacity: 0.6; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.4; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
-        @media (max-width: 1024px) { .hero-content, .features-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .daily-schedule, .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .daily-schedule, .gallery-grid, .footer-content { grid-template-columns: 1fr; } }
+        @media (max-width: 1024px) { .features-grid { grid-template-columns: 1fr; } .programs-grid { grid-template-columns: repeat(2, 1fr); } .info-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero-inner { grid-template-columns: 1fr; text-align: center; } .hero h1 { font-size: 2rem; } .hero-visual { display: none; } .programs-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-inner">
-                <div class="logo"><div class="logo-icon"><span class="material-icons">child_care</span></div><span class="logo-text">ひまわり保育園</span></div>
-                <nav><ul><li><a href="#features">特徴</a></li><li><a href="#schedule">一日の流れ</a></li><li><a href="#gallery">園の様子</a></li></ul></nav>
-                <a href="#contact" class="btn-header">見学予約</a>
-            </div>
-        </div>
-    </header>
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div>
-                    <div class="hero-badge"><span class="material-icons" style="font-size: 16px;">favorite</span>令和7年度 入園児募集中</div>
-                    <h1><span>笑顔あふれる</span><br>毎日を子どもたちに</h1>
-                    <p>一人ひとりの個性を大切に、のびのびと成長できる<br>温かい保育を目指しています。</p>
-                    <a href="#contact" class="btn-primary">見学を予約する<span class="material-icons" style="font-size: 18px;">arrow_forward</span></a>
-                </div>
-                <div class="hero-image"><span class="material-icons">child_friendly</span></div>
-            </div>
-        </div>
-    </section>
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header"><h2>ひまわり保育園の特徴</h2><p>子どもたちの健やかな成長をサポートします</p></div>
-            <div class="features-grid">
-                <div class="feature-card"><div class="feature-icon"><span class="material-icons">nature</span></div><h3>自然とふれあう</h3><p>広い園庭で虫や植物に触れ、自然の中で遊びながら学びます。</p></div>
-                <div class="feature-card"><div class="feature-icon"><span class="material-icons">restaurant</span></div><h3>手作り給食</h3><p>栄養士が考えたバランスの良い給食を、毎日手作りで提供します。</p></div>
-                <div class="feature-card"><div class="feature-icon"><span class="material-icons">groups</span></div><h3>少人数保育</h3><p>一人ひとりに寄り添い、きめ細やかな保育を行います。</p></div>
-            </div>
-        </div>
-    </section>
-    <section id="schedule">
-        <div class="container">
-            <div class="section-header"><h2>一日の流れ</h2></div>
-            <div class="daily-schedule">
-                <div class="schedule-item"><div class="schedule-time">7:30</div><div><h4>順次登園</h4><p>元気にごあいさつ</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">9:30</div><div><h4>朝の会</h4><p>お歌を歌って元気に</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">10:00</div><div><h4>設定保育</h4><p>製作・運動・お散歩など</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">11:30</div><div><h4>給食</h4><p>みんなで美味しく</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">13:00</div><div><h4>お昼寝</h4><p>ぐっすりお休み</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">15:00</div><div><h4>おやつ</h4><p>手作りおやつ</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">16:00</div><div><h4>自由遊び</h4><p>お友達と遊ぼう</p></div></div>
-                <div class="schedule-item"><div class="schedule-time">18:30</div><div><h4>順次降園</h4><p>また明日ね</p></div></div>
-            </div>
-        </div>
-    </section>
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <div class="section-header"><h2>園の様子</h2></div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><span class="material-icons">image</span></div>
-                <div class="gallery-item"><span class="material-icons">image</span></div>
-                <div class="gallery-item"><span class="material-icons">image</span></div>
-                <div class="gallery-item"><span class="material-icons">image</span></div>
-            </div>
-        </div>
-    </section>
-    <section class="cta" id="contact">
-        <div class="container">
-            <h2>園見学受付中</h2>
-            <p style="opacity: 0.9;">お気軽にお問い合わせください</p>
-            <a href="#" class="btn-white">見学を予約する</a>
-        </div>
-    </section>
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand"><div class="logo-text" style="color: white; font-size: 1.3rem;">ひまわり保育園</div><p>〒000-0000 東京都○○区○○1-2-3<br>TEL: 03-1234-5678</p></div>
-                <div class="footer-links"><h4>園について</h4><ul><li><a href="#">保育理念</a></li><li><a href="#">一日の流れ</a></li><li><a href="#">年間行事</a></li></ul></div>
-                <div class="footer-links"><h4>入園案内</h4><ul><li><a href="#">募集要項</a></li><li><a href="#">園見学</a></li><li><a href="#">アクセス</a></li></ul></div>
-            </div>
-            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
-        </div>
-    </footer>
+    <header><div class="container"><div class="header-inner"><div class="logo"><span class="material-icons">child_care</span>ひまわり保育園</div><nav><ul><li><a href="#features">特徴</a></li><li><a href="#programs">プログラム</a></li><li><a href="#info">園の情報</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">見学予約</a></div></div></header>
+    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-content"><div class="hero-badge"><span class="material-icons">stars</span>園児募集中</div><h1>子どもたちの<br>笑顔あふれる<br>毎日を</h1><p>「遊びの中から学ぶ」をモットーに、<br>お子様一人ひとりの個性を大切にした保育を行っています。</p><a href="#contact" class="btn-hero"><span class="material-icons">event</span>見学を予約する</a></div><div class="hero-visual"><div class="hero-icons"><div class="hero-icon-box"><span class="material-icons">emoji_nature</span><span>自然体験</span></div><div class="hero-icon-box"><span class="material-icons">music_note</span><span>音楽遊び</span></div><div class="hero-icon-box"><span class="material-icons">palette</span><span>創作活動</span></div><div class="hero-icon-box"><span class="material-icons">directions_run</span><span>運動遊び</span></div></div></div></div></div></section>
+    <section id="features" class="features"><div class="container"><div class="section-header fade-in"><span class="en">FEATURES</span><h2>園の特徴</h2></div><div class="features-grid">
+        <div class="feature-card fade-in stagger-1"><div class="feature-icon"><span class="material-icons">favorite</span></div><h3>少人数制保育</h3><p>一人ひとりに寄り添った丁寧な保育で、お子様の成長をサポートします。</p></div>
+        <div class="feature-card fade-in stagger-2"><div class="feature-icon"><span class="material-icons">restaurant</span></div><h3>自園調理の給食</h3><p>栄養士監修のもと、安心・安全な手作り給食を毎日提供しています。</p></div>
+        <div class="feature-card fade-in stagger-3"><div class="feature-icon"><span class="material-icons">schedule</span></div><h3>延長保育対応</h3><p>働くパパ・ママをサポート。19時まで延長保育をご利用いただけます。</p></div>
+    </div></div></section>
+    <section id="programs" class="programs"><div class="container"><div class="section-header fade-in"><span class="en">PROGRAMS</span><h2>保育プログラム</h2></div><div class="programs-grid">
+        <div class="program-card fade-in stagger-1"><div class="program-image"><span class="material-icons">menu_book</span></div><div class="program-content"><h3>知育あそび</h3><p>絵本の読み聞かせや言葉遊び</p></div></div>
+        <div class="program-card fade-in stagger-2"><div class="program-image"><span class="material-icons">sports_soccer</span></div><div class="program-content"><h3>体育あそび</h3><p>楽しく体を動かす活動</p></div></div>
+        <div class="program-card fade-in stagger-3"><div class="program-image"><span class="material-icons">music_note</span></div><div class="program-content"><h3>リトミック</h3><p>音楽に合わせた表現活動</p></div></div>
+        <div class="program-card fade-in stagger-4"><div class="program-image"><span class="material-icons">brush</span></div><div class="program-content"><h3>造形あそび</h3><p>創造力を育む制作活動</p></div></div>
+    </div></div></section>
+    <section id="info" class="info"><div class="container"><div class="section-header fade-in"><span class="en">INFORMATION</span><h2>園の情報</h2></div><div class="info-grid">
+        <div class="info-card fade-in"><h3><span class="material-icons">access_time</span>開園時間</h3><ul class="info-list"><li><span>通常保育</span><span>7:30〜18:00</span></li><li><span>延長保育</span><span>18:00〜19:00</span></li><li><span>土曜保育</span><span>7:30〜17:00</span></li></ul></div>
+        <div class="info-card fade-in"><h3><span class="material-icons">groups</span>対象年齢・定員</h3><ul class="info-list"><li><span>0歳児</span><span>6名</span></li><li><span>1〜2歳児</span><span>12名</span></li><li><span>3〜5歳児</span><span>各15名</span></li></ul></div>
+    </div></div></section>
+    <section id="contact" class="cta fade-in"><div class="container"><h2>まずは見学にお越しください</h2><p>園の雰囲気を実際にご覧いただけます</p><a href="tel:000-000-0000" class="btn-cta"><span class="material-icons">phone</span>000-000-0000</a></div></section>
+    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>園児募集中</span>｜見学随時受付しています</div><a href="tel:000-000-0000" class="btn-fixed"><span class="material-icons">phone</span>見学予約</a></div></div></div>
+    <footer><div class="container"><div class="footer-logo">ひまわり保育園</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 000-000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+    </script>
 </body>
 </html>

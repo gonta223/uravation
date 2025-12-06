@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWER GYM パワージム | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #ff4d4d; --secondary: #cc0000; --dark: #1a1a1a; --accent: #ffd700; --gray: #2d2d2d; --text: #fff; --text-dark: #333; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; overflow-x: hidden; background: var(--dark); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: rgba(26,26,26,0.95); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { box-shadow: 0 2px 20px rgba(255,77,77,0.3); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.05em; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .btn-header { background: var(--primary); color: var(--white); padding: 12px 30px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.3s; }
+        .btn-header:hover { background: var(--secondary); transform: translateY(-2px); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--gray) 100%); display: flex; align-items: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff4d4d' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .hero-content { color: var(--white); }
+        .hero-badge { display: inline-block; background: var(--primary); padding: 8px 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 25px; letter-spacing: 0.1em; opacity: 0; animation: slideInLeft 0.8s ease 0.3s forwards; }
+        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; margin-bottom: 20px; letter-spacing: 0.02em; opacity: 0; animation: fadeInUp 0.8s ease 0.5s forwards; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1rem; opacity: 0.8; margin-bottom: 30px; opacity: 0; animation: fadeInUp 0.8s ease 0.7s forwards; }
+        .hero-price { background: var(--gray); padding: 25px 30px; margin-bottom: 30px; opacity: 0; animation: fadeInUp 0.8s ease 0.9s forwards; }
+        .hero-price .label { font-size: 0.8rem; opacity: 0.7; margin-bottom: 5px; }
+        .hero-price .price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--accent); }
+        .hero-price .price span { font-size: 1rem; color: var(--white); }
+        .btn-hero { background: var(--primary); color: var(--white); padding: 18px 50px; text-decoration: none; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; opacity: 0; animation: fadeInUp 0.8s ease 1.1s forwards; }
+        .btn-hero:hover { background: var(--secondary); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,77,77,0.4); }
+        .hero-visual { opacity: 0; animation: scaleIn 1s ease 0.5s forwards; }
+        .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .stat-box { background: var(--gray); padding: 30px; text-align: center; border-left: 3px solid var(--primary); }
+        .stat-box .number { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--primary); }
+        .stat-box .label { font-size: 0.85rem; opacity: 0.7; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; } .stagger-4 { transition-delay: 0.4s; }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--primary); letter-spacing: 0.15em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; }
+
+        .features { background: var(--gray); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .feature-card { background: var(--dark); padding: 35px 25px; text-align: center; border-top: 3px solid var(--primary); transition: all 0.4s; }
+        .feature-card:hover { transform: translateY(-10px); }
+        .feature-icon { width: 70px; height: 70px; background: var(--primary); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
+        .feature-icon .material-icons { font-size: 35px; color: var(--white); }
+        .feature-card h3 { font-size: 1rem; margin-bottom: 10px; font-weight: 700; }
+        .feature-card p { font-size: 0.85rem; opacity: 0.7; }
+
+        .programs { background: var(--dark); }
+        .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .program-card { background: var(--gray); overflow: hidden; transition: all 0.4s; }
+        .program-card:hover { transform: translateY(-10px); }
+        .program-image { height: 200px; display: flex; align-items: center; justify-content: center; }
+        .program-card:nth-child(1) .program-image { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .program-card:nth-child(2) .program-image { background: linear-gradient(135deg, #2196f3, #1565c0); }
+        .program-card:nth-child(3) .program-image { background: linear-gradient(135deg, var(--accent), #ff9800); }
+        .program-image .material-icons { font-size: 80px; color: rgba(255,255,255,0.3); }
+        .program-content { padding: 30px; }
+        .program-content h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
+        .program-content p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 15px; }
+        .program-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--primary); }
+
+        .plans { background: var(--gray); }
+        .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .plan-card { background: var(--dark); padding: 40px 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; position: relative; }
+        .plan-card.popular { border-color: var(--primary); }
+        .plan-card.popular::before { content: 'POPULAR'; position: absolute; top: 0; left: 50%; transform: translateX(-50%) translateY(-50%); background: var(--primary); padding: 5px 20px; font-size: 0.75rem; font-weight: 700; }
+        .plan-card:hover { transform: translateY(-10px); }
+        .plan-card h3 { font-size: 1.2rem; margin-bottom: 20px; font-weight: 700; }
+        .plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
+        .plan-price span { font-size: 1rem; color: var(--white); opacity: 0.7; }
+        .plan-features { list-style: none; margin-bottom: 30px; }
+        .plan-features li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+        .btn-plan { background: var(--primary); color: var(--white); padding: 15px 40px; text-decoration: none; font-weight: 700; display: inline-block; transition: all 0.3s; }
+        .btn-plan:hover { background: var(--secondary); }
+
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); text-align: center; }
+        .cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; margin-bottom: 15px; }
+        .cta p { font-size: 1rem; margin-bottom: 30px; opacity: 0.9; }
+        .btn-cta { background: var(--white); color: var(--primary); padding: 18px 50px; text-decoration: none; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; }
+        .btn-cta:hover { background: var(--accent); color: var(--dark); transform: translateY(-3px); }
+
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; border-top: 1px solid var(--primary); }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
+        .fixed-cta-text { color: var(--white); font-size: 0.9rem; }
+        .fixed-cta-text span { color: var(--accent); font-weight: 700; }
+        .btn-fixed { background: var(--primary); color: var(--white); padding: 12px 30px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+        .btn-fixed:hover { background: var(--secondary); }
+
+        footer { background: #0d0d0d; color: var(--white); padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.5; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.3; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+
+        @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } .programs-grid, .plans-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero-inner { grid-template-columns: 1fr; text-align: center; } .hero h1 { font-size: 3rem; } .hero-visual { display: none; } .features-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">POWER GYM</div><nav><ul><li><a href="#features">施設</a></li><li><a href="#programs">プログラム</a></li><li><a href="#plans">料金</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">無料体験</a></div></div></header>
+
+    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-content"><span class="hero-badge">入会金0円キャンペーン中</span><h1>CHANGE<br>YOUR <span>LIFE</span></h1><p>24時間営業・マシン完備のフィットネスジム。<br>初心者から上級者まで、あなたの目標達成をサポート。</p><div class="hero-price"><div class="label">月額料金</div><div class="price">¥6,980<span>/月（税込）</span></div></div><a href="#contact" class="btn-hero"><span class="material-icons">fitness_center</span>無料体験に申し込む</a></div><div class="hero-visual"><div class="hero-stats"><div class="stat-box"><div class="number">24H</div><div class="label">24時間営業</div></div><div class="stat-box"><div class="number">50+</div><div class="label">マシン台数</div></div><div class="stat-box"><div class="number">5</div><div class="label">スタジオ数</div></div><div class="stat-box"><div class="number">0</div><div class="label">入会金</div></div></div></div></div></div></section>
+
+    <section id="features" class="features"><div class="container"><div class="section-header fade-in"><span class="en">FACILITIES</span><h2>充実の施設</h2></div><div class="features-grid">
+        <div class="feature-card fade-in stagger-1"><div class="feature-icon"><span class="material-icons">fitness_center</span></div><h3>最新マシン完備</h3><p>有酸素・筋トレマシンを50台以上設置</p></div>
+        <div class="feature-card fade-in stagger-2"><div class="feature-icon"><span class="material-icons">schedule</span></div><h3>24時間営業</h3><p>早朝でも深夜でもいつでも利用可能</p></div>
+        <div class="feature-card fade-in stagger-3"><div class="feature-icon"><span class="material-icons">shower</span></div><h3>シャワー完備</h3><p>清潔なシャワールームを完備</p></div>
+        <div class="feature-card fade-in stagger-4"><div class="feature-icon"><span class="material-icons">lock</span></div><h3>セキュリティ万全</h3><p>ICカードによる入退館管理</p></div>
+    </div></div></section>
+
+    <section id="programs" class="programs"><div class="container"><div class="section-header fade-in"><span class="en">PROGRAMS</span><h2>プログラム</h2></div><div class="programs-grid">
+        <div class="program-card fade-in stagger-1"><div class="program-image"><span class="material-icons">fitness_center</span></div><div class="program-content"><h3>パーソナルトレーニング</h3><p>マンツーマンで目標達成をサポート</p><div class="program-price">¥5,500/回〜</div></div></div>
+        <div class="program-card fade-in stagger-2"><div class="program-image"><span class="material-icons">groups</span></div><div class="program-content"><h3>グループレッスン</h3><p>ヨガ・エアロビクス・ダンスなど</p><div class="program-price">無料（会員限定）</div></div></div>
+        <div class="program-card fade-in stagger-3"><div class="program-image"><span class="material-icons">restaurant</span></div><div class="program-content"><h3>食事指導</h3><p>専門トレーナーによる栄養アドバイス</p><div class="program-price">¥3,300/回〜</div></div></div>
+    </div></div></section>
+
+    <section id="plans" class="plans"><div class="container"><div class="section-header fade-in"><span class="en">MEMBERSHIP</span><h2>料金プラン</h2></div><div class="plans-grid">
+        <div class="plan-card fade-in stagger-1"><h3>デイタイム会員</h3><div class="plan-price">¥4,980<span>/月</span></div><ul class="plan-features"><li>平日10:00-17:00利用可</li><li>マシンエリア利用可</li><li>シャワー利用可</li></ul><a href="#contact" class="btn-plan">入会する</a></div>
+        <div class="plan-card popular fade-in stagger-2"><h3>レギュラー会員</h3><div class="plan-price">¥6,980<span>/月</span></div><ul class="plan-features"><li>24時間利用可</li><li>全エリア利用可</li><li>グループレッスン参加可</li></ul><a href="#contact" class="btn-plan">入会する</a></div>
+        <div class="plan-card fade-in stagger-3"><h3>プレミアム会員</h3><div class="plan-price">¥9,980<span>/月</span></div><ul class="plan-features"><li>24時間利用可</li><li>パーソナル月2回付き</li><li>タオル・ウェアレンタル付</li></ul><a href="#contact" class="btn-plan">入会する</a></div>
+    </div></div></section>
+
+    <section id="contact" class="cta fade-in"><div class="container"><h2>START YOUR JOURNEY</h2><p>まずは無料体験から。お気軽にお問い合わせください</p><a href="tel:000-000-0000" class="btn-cta"><span class="material-icons">phone</span>000-000-0000</a></div></section>
+
+    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>入会金0円</span>｜今だけキャンペーン実施中</div><a href="tel:000-000-0000" class="btn-fixed"><span class="material-icons">phone</span>無料体験予約</a></div></div></div>
+
+    <footer><div class="container"><div class="footer-logo">POWER GYM</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 000-000-0000 / 24時間営業</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+    </script>
+</body>
+</html>
