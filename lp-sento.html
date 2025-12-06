@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>湯処 富士乃湯 | 銭湯</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1e5799; --secondary: #5b9bd5; --accent: #e07b39; --cream: #f5f0e6; --dark: #2c3e50; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 2; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: #666; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '🗻'; position: absolute; right: 10%; top: 20%; font-size: 15rem; opacity: 0.15; }
+        .hero::after { content: '♨️'; position: absolute; left: 5%; bottom: 20%; font-size: 8rem; opacity: 0.2; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Noto Serif JP', serif; font-size: 2.8rem; font-weight: 500; margin-bottom: 25px; letter-spacing: 0.1em; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1rem; margin-bottom: 30px; opacity: 0.9; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--white); padding: 18px 40px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(224,123,57,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Noto Serif JP', serif; font-size: 2rem; color: var(--primary); margin-bottom: 15px; letter-spacing: 0.15em; }
+        .baths { background: var(--cream); }
+        .baths-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .bath-card { background: var(--white); padding: 30px; text-align: center; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .bath-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .bath-card span { font-size: 3.5rem; display: block; margin-bottom: 15px; }
+        .bath-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; color: var(--primary); margin-bottom: 10px; }
+        .bath-card p { color: #666; font-size: 0.9rem; }
+        .info { background: var(--white); }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; text-align: center; }
+        .info-item { padding: 25px; background: var(--cream); }
+        .info-item h3 { font-family: 'Noto Serif JP', serif; font-size: 1rem; color: var(--primary); margin-bottom: 10px; }
+        .info-item p { font-size: 0.9rem; color: #666; }
+        .info-item .price { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .visit { background: var(--primary); color: var(--white); }
+        .fixed-cta .map { background: var(--accent); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🗻 富士乃湯</div>
+        <nav><a href="#baths">お風呂</a><a href="#info">ご案内</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>心も体も<br>ぽかぽかに</h1>
+            <p>創業60年の老舗銭湯。富士山の壁画を眺めながら、日々の疲れを癒してください。</p>
+            <a href="#baths" class="cta-btn"><span class="material-icons">hot_tub</span>お風呂を見る</a>
+        </div>
+    </section>
+    <section class="baths section" id="baths">
+        <div class="section-title fade-in"><h2>お 風 呂</h2></div>
+        <div class="baths-grid">
+            <div class="bath-card fade-in"><span>♨️</span><h3>ジェットバス</h3><p>疲れた体をほぐす</p></div>
+            <div class="bath-card fade-in"><span>💨</span><h3>サウナ</h3><p>男女各1室完備</p></div>
+            <div class="bath-card fade-in"><span>❄️</span><h3>水風呂</h3><p>サウナ後に最適</p></div>
+            <div class="bath-card fade-in"><span>⚡</span><h3>電気風呂</h3><p>肩こりに効く</p></div>
+        </div>
+    </section>
+    <section class="info section" id="info">
+        <div class="section-title fade-in"><h2>ご 案 内</h2></div>
+        <div class="info-grid">
+            <div class="info-item fade-in"><h3>入浴料</h3><p class="price">¥520</p><p>大人（12歳以上）</p></div>
+            <div class="info-item fade-in"><h3>サウナ</h3><p class="price">+¥300</p><p>タオル付き</p></div>
+            <div class="info-item fade-in"><h3>営業時間</h3><p>15:00 - 24:00</p><p>定休日：木曜</p></div>
+            <div class="info-item fade-in"><h3>設備</h3><p>ドライヤー無料<br>貸しタオルあり</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">🗻 富士乃湯</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 富士乃湯</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#info" class="visit"><span class="material-icons">hot_tub</span>料金・営業時間</a>
+        <a href="#access" class="map"><span class="material-icons">map</span>アクセス</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

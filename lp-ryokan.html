@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老舗旅館 雅 | 日本旅館</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #2d4a3e; --secondary: #5d7b6f; --accent: #c9a227; --dark: #1a2e25; --light: #f5f7f6; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 2; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: 400; color: var(--primary); letter-spacing: 0.2em; }
+        nav a { margin-left: 35px; text-decoration: none; color: var(--secondary); font-size: 0.9rem; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 140px 50px 80px; position: relative; }
+        .hero::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 40%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="30" r="2" fill="%23c9a227" opacity="0.3"/><circle cx="70" cy="60" r="1.5" fill="%23c9a227" opacity="0.2"/><circle cx="40" cy="80" r="1" fill="%23c9a227" opacity="0.25"/></svg>'); opacity: 0.5; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Noto Serif JP', serif; font-size: 2.5rem; font-weight: 300; margin-bottom: 30px; letter-spacing: 0.2em; line-height: 1.8; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 0.95rem; margin-bottom: 40px; opacity: 0.85; letter-spacing: 0.05em; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--accent); color: var(--accent); padding: 18px 45px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.15em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--dark); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 120px 50px; }
+        .section-title { text-align: center; margin-bottom: 80px; }
+        .section-title h2 { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: 300; color: var(--primary); margin-bottom: 15px; letter-spacing: 0.3em; }
+        .section-title p { font-size: 0.85rem; color: var(--secondary); letter-spacing: 0.1em; }
+        .features { background: var(--light); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; max-width: 1000px; margin: 0 auto; }
+        .feature-item { text-align: center; }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 25px; }
+        .feature-item h3 { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 15px; color: var(--primary); letter-spacing: 0.15em; }
+        .feature-item p { color: var(--secondary); font-size: 0.85rem; }
+        .cuisine { background: var(--white); }
+        .cuisine-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .cuisine-content h3 { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; font-weight: 300; margin-bottom: 25px; color: var(--primary); letter-spacing: 0.2em; }
+        .cuisine-content p { color: var(--secondary); font-size: 0.95rem; margin-bottom: 40px; }
+        .cuisine-images { display: flex; gap: 20px; justify-content: center; }
+        .cuisine-images span { font-size: 4rem; }
+        footer { background: var(--dark); color: var(--white); padding: 80px 50px 40px; text-align: center; }
+        .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.3em; margin-bottom: 30px; }
+        footer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 10px; letter-spacing: 0.05em; }
+        .copyright { opacity: 0.4; margin-top: 40px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 25px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 10px; padding: 15px 35px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--primary); color: var(--white); }
+        .fixed-cta .tel { border: 1px solid var(--primary); color: var(--primary); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 1.8rem; } .section { padding: 80px 20px; } .features-grid { grid-template-columns: 1fr; gap: 40px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">旅館 雅</div>
+        <nav><a href="#features">おもてなし</a><a href="#cuisine">お料理</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>百年の歴史が紡ぐ<br>至高のおもてなし</h1>
+            <p>創業明治三十年。日本の伝統と美を守り続ける老舗旅館。静寂の中で、心からの安らぎをお届けいたします。</p>
+            <a href="#reserve" class="cta-btn">ご予約・お問合せ</a>
+        </div>
+    </section>
+    <section class="features section" id="features">
+        <div class="section-title fade-in"><h2>お も て な し</h2><p>心を込めて</p></div>
+        <div class="features-grid">
+            <div class="feature-item fade-in"><div class="feature-icon">🍵</div><h3>茶 室</h3><p>本格的な茶道体験</p></div>
+            <div class="feature-item fade-in"><div class="feature-icon">🏯</div><h3>数寄屋造り</h3><p>伝統建築の客室</p></div>
+            <div class="feature-item fade-in"><div class="feature-icon">🌸</div><h3>日本庭園</h3><p>四季折々の美</p></div>
+        </div>
+    </section>
+    <section class="cuisine section" id="cuisine">
+        <div class="section-title fade-in"><h2>お 料 理</h2><p>旬の味覚を堪能</p></div>
+        <div class="cuisine-content fade-in">
+            <h3>季節の会席料理</h3>
+            <p>地元の厳選食材を使用し、料理長が心を込めてお作りする会席料理。<br>目でも舌でもお楽しみいただけます。</p>
+            <div class="cuisine-images"><span>🍶</span><span>🍱</span><span>🐟</span><span>🍵</span></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">旅館 雅</div>
+        <p>〒000-0000 ○○県△△市○○町1-2-3</p>
+        <p>TEL: 0123-45-6789</p>
+        <p class="copyright">&copy; 2024 旅館 雅</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="reserve">ご予約</a>
+        <a href="tel:0123456789" class="tel"><span class="material-icons">phone</span>お電話</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

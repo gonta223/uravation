@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOBAL ENGLISH | 英会話スクール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1e3a5f; --secondary: #2c5282; --accent: #ed8936; --light: #f7fafc; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '🌍'; position: absolute; right: 10%; top: 25%; font-size: 12rem; opacity: 0.1; }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--white); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(237,137,54,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .courses { background: var(--light); }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .course-card { background: var(--white); border-radius: 15px; padding: 35px; text-align: center; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .course-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+        .course-card span { font-size: 3rem; display: block; margin-bottom: 15px; }
+        .course-card h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 10px; }
+        .course-card p { color: #666; font-size: 0.9rem; }
+        .teachers { background: var(--white); }
+        .teachers-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .teacher-item { text-align: center; }
+        .teacher-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; }
+        .teacher-avatar span { font-size: 2.5rem; }
+        .teacher-item h3 { font-size: 1rem; color: var(--primary); }
+        .teacher-item p { font-size: 0.85rem; color: #666; }
+        footer { background: var(--primary); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .trial { background: var(--primary); color: var(--white); }
+        .fixed-cta .contact { background: var(--accent); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🌍 GLOBAL ENGLISH</div>
+        <nav><a href="#courses">コース</a><a href="#teachers">講師</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Speak English<br>with Confidence</h1>
+            <p>ネイティブ講師とマンツーマンで学ぶ英会話。<br>日常会話からビジネス英語まで、あなたの目標に合わせたレッスン。</p>
+            <a href="#trial" class="cta-btn"><span class="material-icons">school</span>無料体験レッスン</a>
+        </div>
+    </section>
+    <section class="courses section" id="courses">
+        <div class="section-title fade-in"><h2>COURSES</h2></div>
+        <div class="courses-grid">
+            <div class="course-card fade-in"><span>💬</span><h3>日常英会話</h3><p>旅行や日常生活で使える英語を楽しく学ぶ</p></div>
+            <div class="course-card fade-in"><span>💼</span><h3>ビジネス英語</h3><p>会議やプレゼンで活かせる実践的英語</p></div>
+            <div class="course-card fade-in"><span>📝</span><h3>TOEIC対策</h3><p>スコアアップを目指す集中コース</p></div>
+            <div class="course-card fade-in"><span>👶</span><h3>キッズ英会話</h3><p>楽しみながら自然に英語が身につく</p></div>
+        </div>
+    </section>
+    <section class="teachers section" id="teachers">
+        <div class="section-title fade-in"><h2>TEACHERS</h2></div>
+        <div class="teachers-grid">
+            <div class="teacher-item fade-in"><div class="teacher-avatar"><span>👨‍🏫</span></div><h3>John Smith</h3><p>アメリカ出身 / 10年以上の指導経験</p></div>
+            <div class="teacher-item fade-in"><div class="teacher-avatar"><span>👩‍🏫</span></div><h3>Emma Brown</h3><p>イギリス出身 / ビジネス英語専門</p></div>
+            <div class="teacher-item fade-in"><div class="teacher-avatar"><span>👨‍🏫</span></div><h3>Mike Johnson</h3><p>カナダ出身 / TOEIC満点講師</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">🌍 GLOBAL ENGLISH</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 GLOBAL ENGLISH</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#trial" class="trial"><span class="material-icons">school</span>無料体験</a>
+        <a href="#contact" class="contact"><span class="material-icons">mail</span>お問合せ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

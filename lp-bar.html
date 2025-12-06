@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAR TWILIGHT | オーセンティックバー</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a1a; --secondary: #2d2d2d; --accent: #c9a227; --copper: #b87333; --light: #f5f5f5; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--white); line-height: 1.9; font-weight: 300; background: var(--primary); }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(26,26,26,0.95); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; color: var(--accent); letter-spacing: 0.2em; }
+        nav a { margin-left: 35px; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.85rem; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, #0d0d0d 100%); display: flex; align-items: center; padding: 140px 50px 80px; position: relative; }
+        .hero::before { content: '🥃'; position: absolute; right: 15%; top: 35%; font-size: 10rem; opacity: 0.08; }
+        .hero-content { max-width: 550px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.1em; line-height: 1.4; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 0.95rem; margin-bottom: 35px; opacity: 0.7; letter-spacing: 0.05em; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--accent); color: var(--accent); padding: 16px 40px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.15em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--primary); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400; color: var(--accent); margin-bottom: 15px; letter-spacing: 0.2em; }
+        .menu { background: var(--secondary); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto; }
+        .menu-category h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--accent); margin-bottom: 25px; letter-spacing: 0.15em; border-bottom: 1px solid rgba(201,162,39,0.3); padding-bottom: 10px; }
+        .menu-item { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .menu-item span { font-size: 0.9rem; }
+        .menu-item .price { color: var(--accent); }
+        .atmosphere { background: var(--primary); }
+        .atmosphere-content { max-width: 700px; margin: 0 auto; text-align: center; }
+        .atmosphere-content p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 40px; }
+        .atmosphere-images { display: flex; gap: 20px; justify-content: center; }
+        .atmosphere-images span { font-size: 3rem; }
+        footer { background: #0a0a0a; color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 25px; }
+        footer p { font-size: 0.85rem; opacity: 0.5; margin-bottom: 8px; }
+        .copyright { opacity: 0.3; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--secondary); padding: 15px 50px; display: flex; justify-content: center; gap: 25px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 10px; padding: 15px 30px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--accent); color: var(--primary); }
+        .fixed-cta .tel { border: 1px solid rgba(255,255,255,0.3); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BAR TWILIGHT</div>
+        <nav><a href="#menu">MENU</a><a href="#atmosphere">ABOUT</a><a href="#access">ACCESS</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>静寂の中で<br>極上の一杯を</h1>
+            <p>厳選されたウイスキーとカクテル。<br>大人のための隠れ家バーで、特別な夜をお過ごしください。</p>
+            <a href="#reserve" class="cta-btn">ご予約</a>
+        </div>
+    </section>
+    <section class="menu section" id="menu">
+        <div class="section-title fade-in"><h2>MENU</h2></div>
+        <div class="menu-grid">
+            <div class="menu-category fade-in"><h3>WHISKY</h3><div class="menu-item"><span>山崎 12年</span><span class="price">¥1,800</span></div><div class="menu-item"><span>マッカラン 18年</span><span class="price">¥2,500</span></div><div class="menu-item"><span>ラフロイグ 10年</span><span class="price">¥1,400</span></div></div>
+            <div class="menu-category fade-in"><h3>COCKTAIL</h3><div class="menu-item"><span>マティーニ</span><span class="price">¥1,200</span></div><div class="menu-item"><span>オールドファッションド</span><span class="price">¥1,300</span></div><div class="menu-item"><span>季節のカクテル</span><span class="price">¥1,400</span></div></div>
+        </div>
+    </section>
+    <section class="atmosphere section" id="atmosphere">
+        <div class="section-title fade-in"><h2>ATMOSPHERE</h2></div>
+        <div class="atmosphere-content fade-in">
+            <p>創業30年の歴史を持つオーセンティックバー。<br>重厚な木のカウンターと、経験豊富なバーテンダーが<br>あなたをお迎えします。</p>
+            <div class="atmosphere-images"><span>🥃</span><span>🍸</span><span>🍷</span></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">BAR TWILIGHT</div>
+        <p>〒000-0000 東京都○○区△△1-2-3 3F</p>
+        <p>OPEN: 18:00 - 2:00 (日祝休)</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 BAR TWILIGHT</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="reserve">ご予約</a>
+        <a href="tel:0312345678" class="tel"><span class="material-icons">phone</span>お電話</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

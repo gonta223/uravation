@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHRONOS | 時計店</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a2e; --secondary: #16213e; --accent: #c9a227; --dark: #0f0f1a; --light: #f5f5f5; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--primary); line-height: 2; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 500; color: var(--primary); letter-spacing: 0.2em; }
+        nav a { margin-left: 35px; text-decoration: none; color: #888; font-size: 0.85rem; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 140px 50px 80px; position: relative; }
+        .hero::before { content: '⌚'; position: absolute; right: 12%; top: 25%; font-size: 12rem; opacity: 0.08; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 2.8rem; font-weight: 400; margin-bottom: 30px; letter-spacing: 0.15em; line-height: 1.5; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 0.9rem; margin-bottom: 40px; opacity: 0.8; letter-spacing: 0.05em; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--accent); color: var(--accent); padding: 18px 50px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.15em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--dark); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 120px 50px; }
+        .section-title { text-align: center; margin-bottom: 80px; }
+        .section-title h2 { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 400; color: var(--primary); margin-bottom: 15px; letter-spacing: 0.3em; }
+        .brands { background: var(--light); }
+        .brands-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .brand-card { background: var(--white); padding: 40px 30px; text-align: center; transition: all 0.4s ease; }
+        .brand-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(26,26,46,0.1); }
+        .brand-card span { font-size: 3rem; display: block; margin-bottom: 20px; }
+        .brand-card h3 { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.15em; color: var(--primary); }
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; max-width: 900px; margin: 0 auto; text-align: center; }
+        .service-item span { font-size: 2.5rem; display: block; margin-bottom: 20px; }
+        .service-item h3 { font-size: 1rem; margin-bottom: 10px; color: var(--primary); letter-spacing: 0.1em; }
+        .service-item p { color: #888; font-size: 0.85rem; }
+        footer { background: var(--dark); color: var(--white); padding: 80px 50px 40px; text-align: center; }
+        .footer-logo { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 400; letter-spacing: 0.3em; margin-bottom: 30px; color: var(--accent); }
+        footer p { font-size: 0.8rem; opacity: 0.5; margin-bottom: 8px; letter-spacing: 0.05em; }
+        .copyright { opacity: 0.3; margin-top: 40px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 25px; box-shadow: 0 -5px 30px rgba(0,0,0,0.05); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 10px; padding: 15px 35px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--primary); color: var(--white); }
+        .fixed-cta .repair { border: 1px solid var(--primary); color: var(--primary); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 80px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CHRONOS</div>
+        <nav><a href="#brands">ブランド</a><a href="#services">サービス</a><a href="#store">ストア</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>時を刻む<br>芸術品</h1>
+            <p>世界の名門ブランドから厳選した逸品。<br>あなたの人生を共に歩む一本を。</p>
+            <a href="#brands" class="cta-btn">コレクションを見る</a>
+        </div>
+    </section>
+    <section class="brands section" id="brands">
+        <div class="section-title fade-in"><h2>BRANDS</h2></div>
+        <div class="brands-grid">
+            <div class="brand-card fade-in"><span>⌚</span><h3>ROLEX</h3></div>
+            <div class="brand-card fade-in"><span>⌚</span><h3>OMEGA</h3></div>
+            <div class="brand-card fade-in"><span>⌚</span><h3>TAG HEUER</h3></div>
+            <div class="brand-card fade-in"><span>⌚</span><h3>SEIKO</h3></div>
+            <div class="brand-card fade-in"><span>⌚</span><h3>GRAND SEIKO</h3></div>
+        </div>
+    </section>
+    <section class="services section" id="services">
+        <div class="section-title fade-in"><h2>SERVICES</h2></div>
+        <div class="services-grid">
+            <div class="service-item fade-in"><span>🔧</span><h3>オーバーホール</h3><p>定期的なメンテナンスで<br>末永くご愛用いただけます</p></div>
+            <div class="service-item fade-in"><span>💱</span><h3>買取・下取り</h3><p>ご不要になった時計を<br>高価買取いたします</p></div>
+            <div class="service-item fade-in"><span>🔋</span><h3>電池交換</h3><p>各種ブランド対応<br>即日お渡し可能</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">CHRONOS</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 CHRONOS</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="reserve">来店予約</a>
+        <a href="#repair" class="repair">修理依頼</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

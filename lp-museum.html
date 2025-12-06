@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSEUM OF ART | 美術館</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #2c2c2c; --secondary: #8b8b8b; --accent: #d4af37; --light: #fafafa; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--primary); line-height: 1.8; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.3s ease; }
+        header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.3em; }
+        nav a { margin-left: 40px; text-decoration: none; color: var(--secondary); font-size: 0.85rem; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: var(--light); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero-content { max-width: 600px; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; letter-spacing: 0.1em; margin-bottom: 25px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1rem; color: var(--secondary); margin-bottom: 35px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: var(--white); padding: 18px 45px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.15em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; letter-spacing: 0.2em; margin-bottom: 15px; }
+        .exhibitions { background: var(--white); }
+        .exhibitions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .exhibition-card { transition: all 0.4s ease; }
+        .exhibition-card:hover { transform: translateY(-10px); }
+        .exhibition-image { height: 300px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e8e8e8, #d0d0d0); margin-bottom: 25px; }
+        .exhibition-image .material-icons { font-size: 4rem; color: rgba(0,0,0,0.1); }
+        .exhibition-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; letter-spacing: 0.1em; margin-bottom: 10px; }
+        .exhibition-card p { font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px; }
+        .exhibition-date { font-size: 0.85rem; color: var(--accent); }
+        .info { background: var(--light); }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .info-item h3 { font-size: 0.85rem; letter-spacing: 0.15em; margin-bottom: 10px; color: var(--secondary); }
+        .info-item p { font-size: 1rem; }
+        footer { background: var(--primary); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.3em; margin-bottom: 25px; }
+        footer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 8px; }
+        .copyright { opacity: 0.4; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.3s ease; }
+        .fixed-cta .ticket { background: var(--primary); color: var(--white); }
+        .fixed-cta .info-btn { border: 1px solid var(--primary); color: var(--primary); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MUSEUM OF ART</div>
+        <nav><a href="#exhibitions">展覧会</a><a href="#info">ご利用案内</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>美との対話</h1>
+            <p>時代を超えた名作から現代アートまで。<br>静謐な空間で、芸術と向き合う特別な時間を。</p>
+            <a href="#exhibitions" class="cta-btn">現在の展覧会</a>
+        </div>
+    </section>
+    <section class="exhibitions section" id="exhibitions">
+        <div class="section-title fade-in"><h2>EXHIBITIONS</h2><p>開催中・今後の展覧会</p></div>
+        <div class="exhibitions-grid">
+            <div class="exhibition-card fade-in"><div class="exhibition-image"><span class="material-icons">palette</span></div><h3>印象派の光と影</h3><p>モネ、ルノワール、ドガの名作を一堂に</p><p class="exhibition-date">2024.10.1 - 2025.1.31</p></div>
+            <div class="exhibition-card fade-in"><div class="exhibition-image"><span class="material-icons">brush</span></div><h3>現代日本画の挑戦</h3><p>新進気鋭の作家たちによる企画展</p><p class="exhibition-date">2024.11.15 - 2025.2.28</p></div>
+        </div>
+    </section>
+    <section class="info section" id="info">
+        <div class="section-title fade-in"><h2>INFORMATION</h2></div>
+        <div class="info-grid">
+            <div class="info-item fade-in"><h3>開館時間</h3><p>10:00 - 18:00<br>（金曜は20:00まで）</p></div>
+            <div class="info-item fade-in"><h3>休館日</h3><p>毎週月曜日<br>（祝日の場合は翌日）</p></div>
+            <div class="info-item fade-in"><h3>入館料</h3><p>一般 1,500円<br>学生 1,000円</p></div>
+            <div class="info-item fade-in"><h3>アクセス</h3><p>○○駅より徒歩5分</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">MUSEUM OF ART</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 Museum of Art</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#ticket" class="ticket"><span class="material-icons">confirmation_number</span>チケット購入</a>
+        <a href="#info" class="info-btn"><span class="material-icons">info</span>ご利用案内</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+    </script>
+</body>
+</html>

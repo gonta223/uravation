@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTO SELECT | 中古車販売</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #d32f2f; --secondary: #ef5350; --accent: #ffc107; --dark: #b71c1c; --light: #ffebee; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 10px rgba(211,47,47,0.1); }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--primary); letter-spacing: 0.05em; }
+        nav a { margin-left: 30px; text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '🚗'; position: absolute; right: 10%; top: 25%; font-size: 12rem; opacity: 0.15; }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; margin-bottom: 20px; letter-spacing: 0.05em; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--dark); padding: 18px 40px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,193,7,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--primary); margin-bottom: 15px; letter-spacing: 0.05em; }
+        .featured { background: var(--light); }
+        .cars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .car-card { background: var(--white); border-radius: 15px; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(211,47,47,0.1); }
+        .car-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(211,47,47,0.2); }
+        .car-image { height: 180px; background: linear-gradient(135deg, #e0e0e0, #bdbdbd); display: flex; align-items: center; justify-content: center; position: relative; }
+        .car-image span { font-size: 5rem; }
+        .car-badge { position: absolute; top: 15px; left: 15px; background: var(--primary); color: var(--white); padding: 5px 12px; font-size: 0.75rem; font-weight: 700; }
+        .car-info { padding: 25px; }
+        .car-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .car-specs { display: flex; gap: 15px; color: #666; font-size: 0.85rem; margin-bottom: 15px; }
+        .car-price { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--primary); }
+        .car-price span { font-size: 0.9rem; color: #666; }
+        .strengths { background: var(--white); }
+        .strengths-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .strength-item span { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .strength-item h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--dark); }
+        .strength-item p { color: #666; font-size: 0.9rem; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 20px; letter-spacing: 0.05em; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .search { background: var(--primary); color: var(--white); }
+        .fixed-cta .sell { background: var(--accent); color: var(--dark); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 3rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🚗 AUTO SELECT</div>
+        <nav><a href="#featured">在庫車両</a><a href="#sell">買取</a><a href="#contact">お問合せ</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>あなたの一台<br>きっと見つかる</h1>
+            <p>厳選された高品質中古車を多数取り揃え。安心の保証付きで、納得のカーライフをサポートします。</p>
+            <a href="#featured" class="cta-btn"><span class="material-icons">search</span>在庫を見る</a>
+        </div>
+    </section>
+    <section class="featured section" id="featured">
+        <div class="section-title fade-in"><h2>PICK UP</h2></div>
+        <div class="cars-grid">
+            <div class="car-card fade-in"><div class="car-image"><span>🚙</span><div class="car-badge">おすすめ</div></div><div class="car-info"><h3>トヨタ プリウス</h3><div class="car-specs"><span>2022年式</span><span>3万km</span><span>ホワイト</span></div><p class="car-price">¥1,980,000 <span>(税込)</span></p></div></div>
+            <div class="car-card fade-in"><div class="car-image"><span>🚗</span><div class="car-badge">NEW</div></div><div class="car-info"><h3>ホンダ フィット</h3><div class="car-specs"><span>2021年式</span><span>2.5万km</span><span>ブルー</span></div><p class="car-price">¥1,480,000 <span>(税込)</span></p></div></div>
+            <div class="car-card fade-in"><div class="car-image"><span>🚐</span></div><div class="car-info"><h3>日産 セレナ</h3><div class="car-specs"><span>2020年式</span><span>4万km</span><span>ブラック</span></div><p class="car-price">¥2,380,000 <span>(税込)</span></p></div></div>
+        </div>
+    </section>
+    <section class="strengths section" id="strengths">
+        <div class="section-title fade-in"><h2>OUR STRENGTHS</h2></div>
+        <div class="strengths-grid">
+            <div class="strength-item fade-in"><span>✅</span><h3>全車保証付き</h3><p>1年間の走行距離無制限保証</p></div>
+            <div class="strength-item fade-in"><span>🔍</span><h3>徹底した検査</h3><p>100項目以上の品質チェック</p></div>
+            <div class="strength-item fade-in"><span>💰</span><h3>明朗会計</h3><p>総額表示で安心</p></div>
+            <div class="strength-item fade-in"><span>🔄</span><h3>下取り高価買取</h3><p>今のお車も高く買い取ります</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">🚗 AUTO SELECT</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 AUTO SELECT</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#search" class="search"><span class="material-icons">search</span>在庫検索</a>
+        <a href="#sell" class="sell"><span class="material-icons">sell</span>買取査定</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

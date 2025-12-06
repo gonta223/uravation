@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPSULE CUBE | カプセルホテル</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a2e; --secondary: #16213e; --accent: #0f3460; --neon: #00d9ff; --purple: #e94560; --light: #f0f0f0; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--white); line-height: 1.8; background: var(--primary); }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(26,26,46,0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--neon); }
+        nav a { margin-left: 30px; text-decoration: none; color: rgba(255,255,255,0.7); transition: color 0.3s; }
+        nav a:hover { color: var(--neon); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="10" width="20" height="30" rx="2" fill="none" stroke="%2300d9ff" stroke-width="0.5" opacity="0.2"/><rect x="40" y="20" width="20" height="30" rx="2" fill="none" stroke="%2300d9ff" stroke-width="0.5" opacity="0.15"/><rect x="70" y="15" width="20" height="30" rx="2" fill="none" stroke="%2300d9ff" stroke-width="0.5" opacity="0.1"/></svg>'); }
+        .hero-content { max-width: 600px; position: relative; z-index: 1; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero h1 span { color: var(--neon); }
+        .hero p { font-size: 1rem; margin-bottom: 30px; opacity: 0.8; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: transparent; border: 2px solid var(--neon); color: var(--neon); padding: 18px 40px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--neon); color: var(--primary); box-shadow: 0 0 30px rgba(0,217,255,0.5); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--neon); margin-bottom: 15px; }
+        .pods { background: var(--secondary); }
+        .pods-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .pod-card { background: var(--primary); border: 1px solid rgba(0,217,255,0.2); padding: 30px; transition: all 0.4s ease; }
+        .pod-card:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(0,217,255,0.2); transform: translateY(-5px); }
+        .pod-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--neon); margin-bottom: 15px; }
+        .pod-card p { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 20px; }
+        .pod-price { font-size: 1.5rem; font-weight: 700; }
+        .pod-price span { font-size: 0.8rem; opacity: 0.6; }
+        .facilities { background: var(--accent); }
+        .facilities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 25px; max-width: 900px; margin: 0 auto; text-align: center; }
+        .facility-item { padding: 25px; }
+        .facility-item span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        .facility-item p { font-size: 0.85rem; opacity: 0.8; }
+        footer { background: #0a0a15; color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--neon); margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.3); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--primary); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .book { background: var(--neon); color: var(--primary); }
+        .fixed-cta .check { border: 1px solid var(--purple); color: var(--purple); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CAPSULE CUBE</div>
+        <nav><a href="#pods">POD</a><a href="#facilities">設備</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>未来型<span>カプセル</span><br>ホテル体験</h1>
+            <p>最新設備を備えたプライベート空間。終電を逃した夜も、出張の拠点にも。駅徒歩1分の好立地。</p>
+            <a href="#pods" class="cta-btn"><span class="material-icons">bed</span>今すぐ予約</a>
+        </div>
+    </section>
+    <section class="pods section" id="pods">
+        <div class="section-title fade-in"><h2>POD TYPE</h2></div>
+        <div class="pods-grid">
+            <div class="pod-card fade-in"><h3>STANDARD POD</h3><p>TV・コンセント・WiFi完備<br>快適な睡眠環境</p><p class="pod-price">¥3,500 <span>/ 泊</span></p></div>
+            <div class="pod-card fade-in"><h3>PREMIUM POD</h3><p>広めの空間・デスク付き<br>ビジネス利用に最適</p><p class="pod-price">¥4,800 <span>/ 泊</span></p></div>
+            <div class="pod-card fade-in"><h3>LADIES POD</h3><p>女性専用フロア<br>セキュリティ万全</p><p class="pod-price">¥4,000 <span>/ 泊</span></p></div>
+        </div>
+    </section>
+    <section class="facilities section" id="facilities">
+        <div class="section-title fade-in"><h2>FACILITIES</h2></div>
+        <div class="facilities-grid">
+            <div class="facility-item fade-in"><span>🚿</span><p>シャワー</p></div>
+            <div class="facility-item fade-in"><span>🧴</span><p>アメニティ</p></div>
+            <div class="facility-item fade-in"><span>📶</span><p>Free WiFi</p></div>
+            <div class="facility-item fade-in"><span>🔐</span><p>ロッカー</p></div>
+            <div class="facility-item fade-in"><span>☕</span><p>ラウンジ</p></div>
+            <div class="facility-item fade-in"><span>🖨️</span><p>コピー機</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">CAPSULE CUBE</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 CAPSULE CUBE</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#book" class="book"><span class="material-icons">book_online</span>予約</a>
+        <a href="#check" class="check"><span class="material-icons">event_available</span>空室確認</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

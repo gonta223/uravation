@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEST ZERO | 害虫駆除</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #00695c; --secondary: #00897b; --accent: #ff5722; --dark: #004d40; --light: #e0f2f1; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '🐛'; position: absolute; right: 15%; top: 25%; font-size: 10rem; opacity: 0.1; text-decoration: line-through; }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--white); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,87,34,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .pests { background: var(--light); }
+        .pests-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; max-width: 900px; margin: 0 auto; }
+        .pest-card { background: var(--white); border-radius: 15px; padding: 30px 20px; text-align: center; transition: all 0.4s ease; }
+        .pest-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,105,92,0.15); }
+        .pest-card span { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .pest-card h3 { font-size: 1rem; color: var(--dark); }
+        .process { background: var(--white); }
+        .process-steps { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+        .process-step { text-align: center; width: 200px; }
+        .step-number { width: 60px; height: 60px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0 auto 15px; }
+        .process-step h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); }
+        .process-step p { font-size: 0.85rem; color: #666; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .emergency { background: var(--accent); color: var(--white); }
+        .fixed-cta .estimate { background: var(--primary); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🚫🐛 PEST ZERO</div>
+        <nav><a href="#pests">対応害虫</a><a href="#process">作業の流れ</a><a href="#contact">お問合せ</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>害虫の悩み<br>今日解決</h1>
+            <p>ゴキブリ・シロアリ・ネズミなど、あらゆる害虫を徹底駆除。最短即日対応で、快適な暮らしを取り戻します。</p>
+            <a href="#contact" class="cta-btn"><span class="material-icons">bug_report</span>今すぐ相談</a>
+        </div>
+    </section>
+    <section class="pests section" id="pests">
+        <div class="section-title fade-in"><h2>対応害虫</h2></div>
+        <div class="pests-grid">
+            <div class="pest-card fade-in"><span>🪳</span><h3>ゴキブリ</h3></div>
+            <div class="pest-card fade-in"><span>🐜</span><h3>シロアリ</h3></div>
+            <div class="pest-card fade-in"><span>🐁</span><h3>ネズミ</h3></div>
+            <div class="pest-card fade-in"><span>🐝</span><h3>ハチ</h3></div>
+            <div class="pest-card fade-in"><span>🦟</span><h3>蚊・ハエ</h3></div>
+        </div>
+    </section>
+    <section class="process section" id="process">
+        <div class="section-title fade-in"><h2>作業の流れ</h2></div>
+        <div class="process-steps">
+            <div class="process-step fade-in"><div class="step-number">1</div><h3>ご相談</h3><p>電話・LINEで24時間受付</p></div>
+            <div class="process-step fade-in"><div class="step-number">2</div><h3>現地調査</h3><p>無料で被害状況を確認</p></div>
+            <div class="process-step fade-in"><div class="step-number">3</div><h3>駆除作業</h3><p>プロの技術で徹底駆除</p></div>
+            <div class="process-step fade-in"><div class="step-number">4</div><h3>アフターケア</h3><p>再発防止と保証</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">🚫🐛 PEST ZERO</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 0120-123-456</p>
+        <p class="copyright">&copy; 2024 PEST ZERO</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="tel:0120123456" class="emergency"><span class="material-icons">phone</span>緊急対応</a>
+        <a href="#estimate" class="estimate"><span class="material-icons">calculate</span>無料見積</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUNGU LAB | 文具店</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #e91e63; --secondary: #f06292; --accent: #ffc107; --dark: #c2185b; --light: #fce4ec; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 10px rgba(233,30,99,0.1); }
+        .logo { font-family: 'Quicksand', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '✏️'; position: absolute; right: 10%; top: 20%; font-size: 10rem; opacity: 0.15; }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Quicksand', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--dark); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,193,7,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Quicksand', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .categories { background: var(--light); }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
+        .category-card { background: var(--white); border-radius: 20px; padding: 30px 20px; text-align: center; transition: all 0.4s ease; box-shadow: 0 5px 15px rgba(233,30,99,0.1); }
+        .category-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(233,30,99,0.2); }
+        .category-card span { font-size: 3rem; display: block; margin-bottom: 15px; }
+        .category-card h3 { font-family: 'Quicksand', sans-serif; font-size: 1rem; font-weight: 600; color: var(--dark); }
+        .featured { background: var(--white); }
+        .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; }
+        .featured-item { background: var(--light); border-radius: 20px; padding: 30px; text-align: center; }
+        .featured-item span { font-size: 3rem; display: block; margin-bottom: 15px; }
+        .featured-item h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); }
+        .featured-item p { font-family: 'Quicksand', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Quicksand', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .shop { background: var(--primary); color: var(--white); }
+        .fixed-cta .new { background: var(--accent); color: var(--dark); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">✏️ BUNGU LAB</div>
+        <nav><a href="#categories">カテゴリ</a><a href="#featured">人気商品</a><a href="#contact">お問合せ</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>文具で彩る<br>毎日を</h1>
+            <p>こだわりのペン、ノート、手帳など。書く楽しさ、使う喜びをお届けする文具専門店。</p>
+            <a href="#categories" class="cta-btn"><span class="material-icons">edit</span>商品を見る</a>
+        </div>
+    </section>
+    <section class="categories section" id="categories">
+        <div class="section-title fade-in"><h2>CATEGORIES</h2></div>
+        <div class="categories-grid">
+            <div class="category-card fade-in"><span>🖊️</span><h3>ペン</h3></div>
+            <div class="category-card fade-in"><span>📓</span><h3>ノート</h3></div>
+            <div class="category-card fade-in"><span>📅</span><h3>手帳</h3></div>
+            <div class="category-card fade-in"><span>📐</span><h3>定規・製図</h3></div>
+            <div class="category-card fade-in"><span>✂️</span><h3>文具小物</h3></div>
+            <div class="category-card fade-in"><span>🎨</span><h3>画材</h3></div>
+        </div>
+    </section>
+    <section class="featured section" id="featured">
+        <div class="section-title fade-in"><h2>PICK UP</h2></div>
+        <div class="featured-grid">
+            <div class="featured-item fade-in"><span>🖊️</span><h3>万年筆 初心者セット</h3><p>¥3,980</p></div>
+            <div class="featured-item fade-in"><span>📓</span><h3>MD用紙ノート A5</h3><p>¥1,320</p></div>
+            <div class="featured-item fade-in"><span>📅</span><h3>2025手帳 週間</h3><p>¥2,200</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">✏️ BUNGU LAB</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 BUNGU LAB</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#shop" class="shop"><span class="material-icons">shopping_bag</span>ショップ</a>
+        <a href="#new" class="new"><span class="material-icons">new_releases</span>新着</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

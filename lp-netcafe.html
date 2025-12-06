@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER SPACE | ネットカフェ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0a192f; --secondary: #112240; --accent: #64ffda; --blue: #57cbff; --dark: #020c1b; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--white); line-height: 1.8; background: var(--dark); }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(2,12,27,0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent); }
+        nav a { margin-left: 30px; text-decoration: none; color: rgba(255,255,255,0.6); transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '💻'; position: absolute; right: 15%; top: 25%; font-size: 10rem; opacity: 0.1; }
+        .hero-content { max-width: 600px; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 1rem; margin-bottom: 30px; opacity: 0.7; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; border: 2px solid var(--accent); color: var(--accent); padding: 18px 40px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--dark); box-shadow: 0 0 30px rgba(100,255,218,0.3); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
+        .booths { background: var(--primary); }
+        .booths-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .booth-card { background: var(--secondary); border: 1px solid rgba(100,255,218,0.1); padding: 30px; transition: all 0.4s ease; }
+        .booth-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(100,255,218,0.1); }
+        .booth-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--accent); margin-bottom: 15px; }
+        .booth-card p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 15px; }
+        .booth-price { font-size: 1.3rem; font-weight: 700; color: var(--blue); }
+        .booth-price span { font-size: 0.8rem; opacity: 0.7; }
+        .services { background: var(--secondary); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 25px; max-width: 900px; margin: 0 auto; text-align: center; }
+        .service-item { padding: 25px; background: var(--primary); border: 1px solid rgba(100,255,218,0.1); }
+        .service-item span { font-size: 2rem; display: block; margin-bottom: 10px; }
+        .service-item p { font-size: 0.8rem; color: rgba(255,255,255,0.7); }
+        footer { background: #010810; color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent); margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.3); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--primary); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .enter { background: var(--accent); color: var(--dark); }
+        .fixed-cta .price { border: 1px solid var(--blue); color: var(--blue); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CYBER SPACE</div>
+        <nav><a href="#booths">ブース</a><a href="#services">サービス</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>YOUR <span>PRIVATE</span><br>DIGITAL SPACE</h1>
+            <p>24時間営業・高速WiFi・フリードリンク。<br>仕事に、ゲームに、リラックスに。自分だけの空間を。</p>
+            <a href="#booths" class="cta-btn"><span class="material-icons">login</span>入店する</a>
+        </div>
+    </section>
+    <section class="booths section" id="booths">
+        <div class="section-title fade-in"><h2>BOOTH TYPE</h2></div>
+        <div class="booths-grid">
+            <div class="booth-card fade-in"><h3>OPEN SEAT</h3><p>オープンスペース<br>リーズナブルに利用</p><p class="booth-price">¥200 <span>/ 30分</span></p></div>
+            <div class="booth-card fade-in"><h3>PRIVATE BOOTH</h3><p>個室ブース<br>集中できる環境</p><p class="booth-price">¥300 <span>/ 30分</span></p></div>
+            <div class="booth-card fade-in"><h3>FLAT BOOTH</h3><p>フルフラット<br>横になってリラックス</p><p class="booth-price">¥350 <span>/ 30分</span></p></div>
+            <div class="booth-card fade-in"><h3>GAMING BOOTH</h3><p>ゲーミングPC完備<br>ハイスペック環境</p><p class="booth-price">¥450 <span>/ 30分</span></p></div>
+        </div>
+    </section>
+    <section class="services section" id="services">
+        <div class="section-title fade-in"><h2>FREE SERVICES</h2></div>
+        <div class="services-grid">
+            <div class="service-item fade-in"><span>☕</span><p>ドリンクバー</p></div>
+            <div class="service-item fade-in"><span>📶</span><p>高速WiFi</p></div>
+            <div class="service-item fade-in"><span>🔌</span><p>充電完備</p></div>
+            <div class="service-item fade-in"><span>📚</span><p>漫画読み放題</p></div>
+            <div class="service-item fade-in"><span>🚿</span><p>シャワー</p></div>
+            <div class="service-item fade-in"><span>🎮</span><p>ゲーム機</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">CYBER SPACE</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>24時間営業・年中無休</p>
+        <p class="copyright">&copy; 2024 CYBER SPACE</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#enter" class="enter"><span class="material-icons">login</span>入店</a>
+        <a href="#price" class="price"><span class="material-icons">payments</span>料金</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

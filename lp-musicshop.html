@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOUND WAVE | 楽器店</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #6a1b9a; --secondary: #8e24aa; --accent: #ffab00; --dark: #4a148c; --light: #f3e5f5; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--dark); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Righteous', sans-serif; font-size: 1.8rem; color: var(--white); }
+        nav a { margin-left: 30px; text-decoration: none; color: rgba(255,255,255,0.8); font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; overflow: hidden; }
+        .hero::before { content: '🎸'; position: absolute; right: 10%; top: 20%; font-size: 10rem; opacity: 0.12; animation: rock 3s ease-in-out infinite; }
+        @keyframes rock { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Righteous', sans-serif; font-size: 3.5rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--dark); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,171,0,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Righteous', sans-serif; font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
+        .instruments { background: var(--light); }
+        .instruments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .instrument-card { background: var(--white); border-radius: 20px; padding: 35px 25px; text-align: center; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(106,27,154,0.1); }
+        .instrument-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(106,27,154,0.2); }
+        .instrument-card span { font-size: 4rem; display: block; margin-bottom: 15px; }
+        .instrument-card h3 { font-family: 'Righteous', sans-serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--dark); }
+        .instrument-card p { color: #666; font-size: 0.85rem; }
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; text-align: center; }
+        .service-item span { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .service-item h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--dark); }
+        .service-item p { color: #666; font-size: 0.85rem; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Righteous', sans-serif; font-size: 2rem; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .shop { background: var(--primary); color: var(--white); }
+        .fixed-cta .lesson { background: var(--accent); color: var(--dark); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎵 SOUND WAVE</div>
+        <nav><a href="#instruments">楽器</a><a href="#services">サービス</a><a href="#contact">お問合せ</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>音楽のある<br>暮らしを</h1>
+            <p>ギター・ピアノ・ドラムなど、初心者からプロまで満足の品揃え。音楽教室も併設しています。</p>
+            <a href="#instruments" class="cta-btn"><span class="material-icons">music_note</span>楽器を探す</a>
+        </div>
+    </section>
+    <section class="instruments section" id="instruments">
+        <div class="section-title fade-in"><h2>INSTRUMENTS</h2></div>
+        <div class="instruments-grid">
+            <div class="instrument-card fade-in"><span>🎸</span><h3>ギター</h3><p>アコギ・エレキ・ベース</p></div>
+            <div class="instrument-card fade-in"><span>🎹</span><h3>キーボード</h3><p>ピアノ・シンセ・オルガン</p></div>
+            <div class="instrument-card fade-in"><span>🥁</span><h3>ドラム</h3><p>アコースティック・電子</p></div>
+            <div class="instrument-card fade-in"><span>🎺</span><h3>管楽器</h3><p>サックス・トランペット</p></div>
+            <div class="instrument-card fade-in"><span>🎻</span><h3>弦楽器</h3><p>バイオリン・チェロ</p></div>
+        </div>
+    </section>
+    <section class="services section" id="services">
+        <div class="section-title fade-in"><h2>SERVICES</h2></div>
+        <div class="services-grid">
+            <div class="service-item fade-in"><span>🔧</span><h3>リペア・メンテナンス</h3><p>楽器の修理・調整はお任せ</p></div>
+            <div class="service-item fade-in"><span>🎓</span><h3>音楽教室</h3><p>個人レッスン・グループレッスン</p></div>
+            <div class="service-item fade-in"><span>💱</span><h3>買取・下取り</h3><p>使わなくなった楽器を高価買取</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">🎵 SOUND WAVE</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 SOUND WAVE</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#shop" class="shop"><span class="material-icons">shopping_bag</span>ショップ</a>
+        <a href="#lesson" class="lesson"><span class="material-icons">school</span>レッスン</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

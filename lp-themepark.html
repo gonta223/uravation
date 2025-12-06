@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WONDER LAND | テーマパーク</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #ff6b6b; --secondary: #4ecdc4; --accent: #ffe66d; --purple: #9b59b6; --dark: #2c3e50; --light: #fff5f5; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Baloo 2', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 50%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; overflow: hidden; }
+        .hero::before { content: '🎢'; position: absolute; right: 5%; top: 15%; font-size: 12rem; opacity: 0.2; animation: bounce 2s ease-in-out infinite; }
+        .hero::after { content: '🎡'; position: absolute; left: 5%; bottom: 10%; font-size: 10rem; opacity: 0.15; animation: spin 20s linear infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Baloo 2', sans-serif; font-size: 4rem; font-weight: 800; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--dark); padding: 20px 45px; text-decoration: none; font-weight: 700; font-size: 1.1rem; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 40px rgba(255,230,109,0.5); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Baloo 2', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--dark); margin-bottom: 15px; }
+        .attractions { background: var(--light); }
+        .attractions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .attraction-card { background: var(--white); border-radius: 25px; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(255,107,107,0.15); }
+        .attraction-card:hover { transform: translateY(-15px) rotate(1deg); box-shadow: 0 25px 50px rgba(255,107,107,0.25); }
+        .attraction-image { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+        .attraction-image.red { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+        .attraction-image.blue { background: linear-gradient(135deg, #4ecdc4, #3dbdb5); }
+        .attraction-image.purple { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .attraction-image.yellow { background: linear-gradient(135deg, #ffe66d, #ffd93d); }
+        .attraction-info { padding: 25px; }
+        .attraction-info h3 { font-family: 'Baloo 2', sans-serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--dark); }
+        .attraction-info p { color: #666; font-size: 0.9rem; }
+        .attraction-tag { display: inline-block; background: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-top: 10px; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Baloo 2', sans-serif; font-size: 2rem; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .ticket { background: var(--primary); color: var(--white); }
+        .fixed-cta .map { background: var(--secondary); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">✨ WONDER LAND</div>
+        <nav><a href="#attractions">アトラクション</a><a href="#info">チケット</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>夢と魔法の<br>世界へ！</h1>
+            <p>大人も子供もワクワクが止まらない！<br>30以上のアトラクションで最高の思い出を。</p>
+            <a href="#attractions" class="cta-btn">🎉 チケット購入</a>
+        </div>
+    </section>
+    <section class="attractions section" id="attractions">
+        <div class="section-title fade-in"><h2>🎪 人気アトラクション</h2></div>
+        <div class="attractions-grid">
+            <div class="attraction-card fade-in"><div class="attraction-image red">🎢</div><div class="attraction-info"><h3>スカイコースター</h3><p>最高時速120km！絶叫系No.1</p><span class="attraction-tag">スリル</span></div></div>
+            <div class="attraction-card fade-in"><div class="attraction-image blue">🎡</div><div class="attraction-info"><h3>ドリーム観覧車</h3><p>園内を一望できる大観覧車</p><span class="attraction-tag">ファミリー</span></div></div>
+            <div class="attraction-card fade-in"><div class="attraction-image purple">🏰</div><div class="attraction-info"><h3>マジックキャッスル</h3><p>ファンタジーの世界を冒険</p><span class="attraction-tag">キッズ</span></div></div>
+            <div class="attraction-card fade-in"><div class="attraction-image yellow">💧</div><div class="attraction-info"><h3>スプラッシュマウンテン</h3><p>夏にぴったりの水系ライド</p><span class="attraction-tag">スリル</span></div></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">✨ WONDER LAND</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 WONDER LAND</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#ticket" class="ticket"><span class="material-icons">confirmation_number</span>チケット購入</a>
+        <a href="#map" class="map"><span class="material-icons">map</span>園内マップ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

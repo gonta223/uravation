@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVING CRAFT | 家具店</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #8d6e63; --secondary: #a1887f; --accent: #d4a574; --dark: #5d4037; --light: #efebe9; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.9; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 500; color: var(--dark); letter-spacing: 0.1em; }
+        nav a { margin-left: 35px; text-decoration: none; color: var(--secondary); font-size: 0.9rem; letter-spacing: 0.05em; transition: color 0.3s; }
+        nav a:hover { color: var(--dark); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 140px 50px 80px; position: relative; }
+        .hero::before { content: '🛋️'; position: absolute; right: 10%; top: 25%; font-size: 12rem; opacity: 0.1; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.1em; line-height: 1.5; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 0.95rem; margin-bottom: 35px; opacity: 0.9; letter-spacing: 0.03em; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--accent); color: var(--accent); padding: 18px 45px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--dark); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--dark); margin-bottom: 15px; letter-spacing: 0.2em; }
+        .products { background: var(--light); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; max-width: 1100px; margin: 0 auto; }
+        .product-card { background: var(--white); transition: all 0.4s ease; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(93,64,55,0.15); }
+        .product-image { height: 200px; background: linear-gradient(135deg, #d7ccc8, #bcaaa4); display: flex; align-items: center; justify-content: center; }
+        .product-image span { font-size: 5rem; }
+        .product-info { padding: 30px; text-align: center; }
+        .product-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; margin-bottom: 10px; color: var(--dark); letter-spacing: 0.1em; }
+        .product-info p { color: #888; font-size: 0.85rem; margin-bottom: 15px; }
+        .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--dark); }
+        footer { background: var(--dark); color: var(--white); padding: 70px 50px 40px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; letter-spacing: 0.15em; margin-bottom: 25px; }
+        footer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 8px; }
+        .copyright { opacity: 0.4; margin-top: 35px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 10px; padding: 15px 35px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .fixed-cta .catalog { background: var(--dark); color: var(--white); }
+        .fixed-cta .showroom { border: 1px solid var(--dark); color: var(--dark); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.2rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">LIVING CRAFT</div>
+        <nav><a href="#products">製品</a><a href="#concept">コンセプト</a><a href="#showroom">ショールーム</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>暮らしに寄り添う<br>家具を、あなたに</h1>
+            <p>上質な素材と熟練の技が生み出す、長く愛される家具。<br>あなたの空間を、より豊かに彩ります。</p>
+            <a href="#products" class="cta-btn">製品を見る</a>
+        </div>
+    </section>
+    <section class="products section" id="products">
+        <div class="section-title fade-in"><h2>PRODUCTS</h2></div>
+        <div class="products-grid">
+            <div class="product-card fade-in"><div class="product-image"><span>🛋️</span></div><div class="product-info"><h3>SOFA</h3><p>上質なくつろぎを</p><p class="product-price">¥198,000〜</p></div></div>
+            <div class="product-card fade-in"><div class="product-image"><span>🪑</span></div><div class="product-info"><h3>CHAIR</h3><p>美しい佇まい</p><p class="product-price">¥48,000〜</p></div></div>
+            <div class="product-card fade-in"><div class="product-image"><span>🛏️</span></div><div class="product-info"><h3>BED</h3><p>快適な眠りのために</p><p class="product-price">¥158,000〜</p></div></div>
+            <div class="product-card fade-in"><div class="product-image"><span>🗄️</span></div><div class="product-info"><h3>STORAGE</h3><p>美しい収納</p><p class="product-price">¥78,000〜</p></div></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">LIVING CRAFT</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 LIVING CRAFT</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#catalog" class="catalog"><span class="material-icons">menu_book</span>カタログ請求</a>
+        <a href="#showroom" class="showroom"><span class="material-icons">store</span>ショールーム</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMA PALACE | 映画館</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a2e; --secondary: #e94560; --accent: #ffd700; --dark: #0f0f23; --light: #f8f8f8; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--white); line-height: 1.8; background: var(--dark); }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(15,15,35,0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--secondary); letter-spacing: 0.1em; }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--white); font-size: 0.9rem; transition: color 0.3s; }
+        nav a:hover { color: var(--secondary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; overflow: hidden; }
+        .hero::before { content: '🎬'; position: absolute; right: 10%; top: 30%; font-size: 15rem; opacity: 0.05; }
+        .hero-content { max-width: 650px; }
+        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; letter-spacing: 0.1em; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero h1 span { color: var(--secondary); }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--secondary); color: var(--white); padding: 18px 40px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(233,69,96,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.1em; margin-bottom: 15px; }
+        .section-title p { color: rgba(255,255,255,0.7); }
+        .movies { background: var(--primary); }
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .movie-card { background: var(--dark); overflow: hidden; transition: all 0.4s ease; }
+        .movie-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .movie-poster { height: 350px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--secondary), #ff6b6b); }
+        .movie-poster .material-icons { font-size: 5rem; color: rgba(255,255,255,0.3); }
+        .movie-info { padding: 25px; }
+        .movie-info h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .movie-info p { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 15px; }
+        .movie-time { display: flex; gap: 10px; flex-wrap: wrap; }
+        .movie-time span { background: var(--secondary); padding: 5px 12px; font-size: 0.8rem; }
+        .features { background: var(--dark); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 30px; }
+        .feature-icon { font-size: 3rem; margin-bottom: 15px; }
+        .feature-item h3 { font-size: 1rem; margin-bottom: 10px; color: var(--accent); }
+        .feature-item p { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+        footer { background: #0a0a15; color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--secondary); margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--primary); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .reserve { background: var(--secondary); color: var(--white); }
+        .fixed-cta .schedule { background: var(--accent); color: var(--dark); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CINEMA PALACE</div>
+        <nav><a href="#movies">上映作品</a><a href="#features">設備</a><a href="#access">アクセス</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>最高の<span>映画体験</span>を<br>あなたに</h1>
+            <p>最新鋭の音響システムと大迫力スクリーンで、映画の世界に没入。プレミアムシートで極上のひとときを。</p>
+            <a href="#movies" class="cta-btn"><span class="material-icons">movie</span>上映スケジュール</a>
+        </div>
+    </section>
+    <section class="movies section" id="movies">
+        <div class="section-title fade-in"><h2>NOW SHOWING</h2><p>現在上映中の作品</p></div>
+        <div class="movies-grid">
+            <div class="movie-card fade-in"><div class="movie-poster"><span class="material-icons">movie</span></div><div class="movie-info"><h3>作品タイトル A</h3><p>アクション / 120分</p><div class="movie-time"><span>10:00</span><span>13:30</span><span>17:00</span><span>20:30</span></div></div></div>
+            <div class="movie-card fade-in"><div class="movie-poster"><span class="material-icons">movie</span></div><div class="movie-info"><h3>作品タイトル B</h3><p>ドラマ / 135分</p><div class="movie-time"><span>11:00</span><span>14:30</span><span>18:00</span></div></div></div>
+            <div class="movie-card fade-in"><div class="movie-poster"><span class="material-icons">movie</span></div><div class="movie-info"><h3>作品タイトル C</h3><p>アニメ / 105分</p><div class="movie-time"><span>09:30</span><span>12:00</span><span>15:00</span><span>19:00</span></div></div></div>
+        </div>
+    </section>
+    <section class="features section" id="features">
+        <div class="section-title fade-in"><h2>FEATURES</h2><p>最高の映画体験のために</p></div>
+        <div class="features-grid">
+            <div class="feature-item fade-in"><div class="feature-icon">🎥</div><h3>4K レーザー</h3><p>最新4Kプロジェクター</p></div>
+            <div class="feature-item fade-in"><div class="feature-icon">🔊</div><h3>Dolby Atmos</h3><p>立体音響システム</p></div>
+            <div class="feature-item fade-in"><div class="feature-icon">💺</div><h3>プレミアムシート</h3><p>電動リクライニング</p></div>
+            <div class="feature-item fade-in"><div class="feature-icon">🍿</div><h3>売店</h3><p>ポップコーン・ドリンク</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">CINEMA PALACE</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 CINEMA PALACE All Rights Reserved.</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="reserve"><span class="material-icons">confirmation_number</span>チケット予約</a>
+        <a href="#schedule" class="schedule"><span class="material-icons">schedule</span>上映時間</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

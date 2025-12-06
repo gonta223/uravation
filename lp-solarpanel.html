@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUN POWER | 太陽光発電</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #f57c00; --secondary: #ffb74d; --accent: #2e7d32; --dark: #e65100; --light: #fff3e0; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 10px rgba(245,124,0,0.1); }
+        .logo { font-family: 'Quicksand', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: #666; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; position: relative; }
+        .hero::before { content: '☀️'; position: absolute; right: 10%; top: 15%; font-size: 12rem; opacity: 0.2; animation: pulse 3s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .hero-content { max-width: 600px; color: var(--white); }
+        .hero h1 { font-family: 'Quicksand', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--white); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(46,125,50,0.4); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Quicksand', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .benefits { background: var(--light); }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .benefit-card { background: var(--white); border-radius: 20px; padding: 35px; text-align: center; transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(245,124,0,0.1); }
+        .benefit-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(245,124,0,0.2); }
+        .benefit-card span { font-size: 3rem; display: block; margin-bottom: 20px; }
+        .benefit-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--dark); }
+        .benefit-card p { color: #666; font-size: 0.9rem; }
+        .simulation { background: var(--white); text-align: center; }
+        .simulation-box { background: linear-gradient(135deg, var(--accent), #43a047); color: var(--white); padding: 50px; border-radius: 20px; max-width: 700px; margin: 0 auto; }
+        .simulation-box h3 { font-size: 1.5rem; margin-bottom: 20px; }
+        .simulation-box .amount { font-family: 'Quicksand', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 15px; }
+        .simulation-box p { font-size: 0.95rem; opacity: 0.9; }
+        footer { background: var(--dark); color: var(--white); padding: 60px 50px 30px; text-align: center; }
+        .footer-logo { font-family: 'Quicksand', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .estimate { background: var(--primary); color: var(--white); }
+        .fixed-cta .simulation { background: var(--accent); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.5rem; } .section { padding: 60px 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">☀️ SUN POWER</div>
+        <nav><a href="#benefits">メリット</a><a href="#simulation">シミュレーション</a><a href="#contact">お問合せ</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>太陽の恵みを<br>電気に変える</h1>
+            <p>電気代削減・売電収入・停電対策。太陽光発電で、賢くエコな暮らしを始めませんか？</p>
+            <a href="#simulation" class="cta-btn"><span class="material-icons">wb_sunny</span>無料シミュレーション</a>
+        </div>
+    </section>
+    <section class="benefits section" id="benefits">
+        <div class="section-title fade-in"><h2>太陽光のメリット</h2></div>
+        <div class="benefits-grid">
+            <div class="benefit-card fade-in"><span>💰</span><h3>電気代削減</h3><p>自家発電で電気代が年間10万円以上お得に</p></div>
+            <div class="benefit-card fade-in"><span>📈</span><h3>売電収入</h3><p>余った電気を売って副収入を得られる</p></div>
+            <div class="benefit-card fade-in"><span>🔋</span><h3>停電対策</h3><p>蓄電池併用で災害時も安心</p></div>
+            <div class="benefit-card fade-in"><span>🌍</span><h3>CO2削減</h3><p>環境に優しいクリーンエネルギー</p></div>
+        </div>
+    </section>
+    <section class="simulation section" id="simulation">
+        <div class="section-title fade-in"><h2>導入シミュレーション</h2></div>
+        <div class="simulation-box fade-in">
+            <h3>一般的な4人家族の場合</h3>
+            <p class="amount">年間 約15万円 削減</p>
+            <p>※5kWシステム導入時の目安です。実際の削減額は条件により異なります。</p>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">☀️ SUN POWER</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 0120-123-456</p>
+        <p class="copyright">&copy; 2024 SUN POWER</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#estimate" class="estimate"><span class="material-icons">calculate</span>無料見積</a>
+        <a href="#sim" class="simulation"><span class="material-icons">trending_up</span>シミュレーション</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
+</body>
+</html>

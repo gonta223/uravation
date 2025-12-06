@@ -3,147 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>本と珈琲 LIBRO | Uravation AI Training LP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>BOOK HAVEN | 書店</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #2c1810; --secondary: #5c3d2e; --accent: #c9a96e; --green: #4a6741; --cream: #f8f4ed; --paper: #fdfbf7; --text: #2c1810; --text-light: #6b5b4d; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Serif JP', serif; color: var(--text); line-height: 2; overflow-x: hidden; background: var(--cream); }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-
-        header { background: var(--paper); padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        header.scrolled { box-shadow: 0 2px 20px rgba(44,24,16,0.1); }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Libre Baskerville', serif; font-size: 1.5rem; color: var(--primary); }
-        nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { color: var(--text-light); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; transition: color 0.3s; }
-        nav a:hover { color: var(--primary); }
-        .btn-header { background: var(--primary); color: var(--white); padding: 10px 25px; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.08em; transition: all 0.3s; }
-        .btn-header:hover { background: var(--secondary); }
-
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; position: relative; }
-        .hero-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
-        .hero-content { color: var(--white); }
-        .hero-tagline { font-family: 'Libre Baskerville', serif; font-size: 0.85rem; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 25px; opacity: 0; animation: fadeIn 1s ease 0.3s forwards; }
-        .hero h1 { font-family: 'Libre Baskerville', serif; font-size: 2.8rem; font-weight: 400; line-height: 1.5; margin-bottom: 25px; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
-        .hero p { font-size: 0.95rem; opacity: 0.85; margin-bottom: 40px; line-height: 2.2; opacity: 0; animation: fadeInUp 1s ease 0.7s forwards; }
-        .btn-hero { display: inline-flex; align-items: center; gap: 12px; background: var(--accent); color: var(--primary); padding: 16px 40px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; transition: all 0.4s; opacity: 0; animation: fadeInUp 1s ease 0.9s forwards; }
-        .btn-hero:hover { background: var(--white); transform: translateY(-3px); }
-        .hero-visual { opacity: 0; animation: scaleIn 1.2s ease 0.5s forwards; }
-        .hero-books { display: flex; gap: 10px; justify-content: center; perspective: 1000px; }
-        .book { width: 80px; height: 120px; background: var(--accent); border-radius: 0 5px 5px 0; box-shadow: -5px 5px 15px rgba(0,0,0,0.3); transform: rotateY(-20deg); animation: bookFloat 4s ease-in-out infinite; }
-        .book:nth-child(2) { height: 130px; background: var(--green); animation-delay: 0.3s; }
-        .book:nth-child(3) { height: 110px; background: #8b4513; animation-delay: 0.6s; }
-        .book:nth-child(4) { height: 125px; background: #6b5b4d; animation-delay: 0.9s; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root { --primary: #4e342e; --secondary: #6d4c41; --accent: #d4a574; --dark: #3e2723; --light: #efebe9; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 2; font-weight: 300; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: var(--dark); }
+        nav a { margin-left: 35px; text-decoration: none; color: var(--secondary); font-size: 0.9rem; letter-spacing: 0.05em; transition: color 0.3s; }
+        nav a:hover { color: var(--dark); }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%); display: flex; align-items: center; padding: 140px 50px 80px; position: relative; }
+        .hero::before { content: '📚'; position: absolute; right: 10%; top: 20%; font-size: 10rem; opacity: 0.1; }
+        .hero-content { max-width: 550px; color: var(--white); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 500; margin-bottom: 25px; line-height: 1.4; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 0.95rem; margin-bottom: 35px; opacity: 0.9; letter-spacing: 0.03em; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--accent); color: var(--accent); padding: 18px 45px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; transition: all 0.3s ease; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .cta-btn:hover { background: var(--accent); color: var(--dark); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes bookFloat { 0%, 100% { transform: rotateY(-20deg) translateY(0); } 50% { transform: rotateY(-20deg) translateY(-10px); } }
-
-        .fade-in { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; }
-
-        section { padding: 100px 0; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header .en { font-family: 'Libre Baskerville', serif; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.25em; margin-bottom: 15px; display: block; }
-        .section-header h2 { font-size: 1.8rem; font-weight: 400; letter-spacing: 0.1em; }
-
-        .about { background: var(--paper); }
-        .about-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-        .about-inner p { font-size: 1rem; color: var(--text-light); line-height: 2.5; }
-
-        .features { background: var(--cream); }
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .feature-card { background: var(--paper); padding: 40px 30px; text-align: center; transition: all 0.4s; border: 1px solid rgba(0,0,0,0.05); }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .feature-icon { width: 60px; height: 60px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
-        .feature-icon .material-icons { font-size: 40px; color: var(--accent); }
-        .feature-card h3 { font-size: 1.1rem; margin-bottom: 15px; font-weight: 500; }
-        .feature-card p { font-size: 0.9rem; color: var(--text-light); }
-
-        .categories { background: var(--paper); }
-        .categories-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .category-card { display: flex; gap: 25px; padding: 30px; background: var(--cream); transition: all 0.4s; }
-        .category-card:hover { transform: translateX(10px); }
-        .category-icon { width: 60px; height: 60px; background: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .category-icon .material-icons { font-size: 28px; color: var(--accent); }
-        .category-content h3 { font-size: 1.1rem; margin-bottom: 8px; }
-        .category-content p { font-size: 0.85rem; color: var(--text-light); }
-
-        .cafe { background: var(--cream); }
-        .cafe-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .cafe-image { aspect-ratio: 4/3; background: linear-gradient(135deg, var(--secondary), var(--primary)); display: flex; align-items: center; justify-content: center; }
-        .cafe-image .material-icons { font-size: 80px; color: var(--accent); opacity: 0.4; }
-        .cafe-content h3 { font-size: 1.5rem; margin-bottom: 20px; font-weight: 400; }
-        .cafe-content p { font-size: 0.95rem; color: var(--text-light); line-height: 2.2; }
-
-        .cta { background: var(--primary); color: var(--white); text-align: center; }
-        .cta h2 { font-size: 1.6rem; font-weight: 400; margin-bottom: 15px; letter-spacing: 0.1em; }
-        .cta p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 30px; }
-        .cta-info { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; }
-        .cta-info-item { text-align: center; }
-        .cta-info-item .label { font-size: 0.7rem; opacity: 0.7; margin-bottom: 5px; }
-        .cta-info-item .value { font-family: 'Libre Baskerville', serif; font-size: 1.2rem; color: var(--accent); }
-        .btn-cta { background: var(--accent); color: var(--primary); padding: 16px 45px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; transition: all 0.4s; display: inline-flex; align-items: center; gap: 10px; }
-        .btn-cta:hover { background: var(--white); transform: translateY(-3px); }
-
-        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--paper); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; box-shadow: 0 -5px 20px rgba(0,0,0,0.08); }
-        .fixed-cta.visible { transform: translateY(0); }
-        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
-        .fixed-cta-text { color: var(--text); font-size: 0.85rem; }
-        .fixed-cta-text span { color: var(--secondary); }
-        .btn-fixed { background: var(--primary); color: var(--white); padding: 12px 25px; text-decoration: none; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
-        .btn-fixed:hover { background: var(--secondary); }
-
-        footer { background: #1a0f0a; color: var(--white); padding: 60px 0 30px; text-align: center; }
-        .footer-logo { font-family: 'Libre Baskerville', serif; font-size: 1.5rem; margin-bottom: 20px; }
-        footer p { font-size: 0.85rem; opacity: 0.5; margin-bottom: 8px; }
-        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; opacity: 0.3; }
-        .footer-bottom a { color: var(--accent); text-decoration: none; }
-
-        @media (max-width: 1024px) { .features-grid { grid-template-columns: 1fr; } .categories-grid { grid-template-columns: 1fr; } .cafe-inner { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { nav { display: none; } .hero-inner { grid-template-columns: 1fr; text-align: center; } .hero h1 { font-size: 2rem; } .hero-visual { display: none; } .cta-info { flex-direction: column; gap: 20px; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
+        .section { padding: 100px 50px; }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; color: var(--dark); margin-bottom: 15px; }
+        .genres { background: var(--light); }
+        .genres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
+        .genre-card { background: var(--white); padding: 30px 20px; text-align: center; transition: all 0.4s ease; }
+        .genre-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(78,52,46,0.15); }
+        .genre-card span { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .genre-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--dark); }
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 900px; margin: 0 auto; text-align: center; }
+        .feature-item span { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .feature-item h3 { font-size: 1rem; margin-bottom: 10px; color: var(--dark); }
+        .feature-item p { color: #888; font-size: 0.85rem; }
+        footer { background: var(--dark); color: var(--white); padding: 70px 50px 40px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 500; margin-bottom: 25px; }
+        footer p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 8px; }
+        .copyright { opacity: 0.4; margin-top: 35px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 10px; padding: 15px 35px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .fixed-cta .search { background: var(--dark); color: var(--white); }
+        .fixed-cta .event { border: 1px solid var(--dark); color: var(--dark); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2.2rem; } .section { padding: 60px 20px; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">LIBRO</div><nav><ul><li><a href="#about">当店について</a></li><li><a href="#categories">書籍</a></li><li><a href="#cafe">カフェ</a></li><li><a href="#contact">アクセス</a></li></ul></nav><a href="#contact" class="btn-header">店舗情報</a></div></div></header>
-
-    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-content"><p class="hero-tagline">BOOKS & COFFEE</p><h1>本と珈琲と<br>静かな時間</h1><p>街の喧騒を離れ、お気に入りの一冊と<br>香り高い珈琲とともに過ごす特別な時間。<br>ゆったりとした空間で、新しい本との出会いを。</p><a href="#categories" class="btn-hero"><span class="material-icons">menu_book</span>書籍を探す</a></div><div class="hero-visual"><div class="hero-books"><div class="book"></div><div class="book"></div><div class="book"></div><div class="book"></div></div></div></div></div></section>
-
-    <section id="about" class="about"><div class="container"><div class="about-inner fade-in"><p>本と珈琲 LIBROは、<br>本を愛するすべての人のための場所です。<br><br>厳選した書籍と、自家焙煎のスペシャルティコーヒー。<br>読書に没頭できる静かな空間で、<br>あなただけの特別な時間をお過ごしください。</p></div></div></section>
-
-    <section id="features" class="features"><div class="container"><div class="section-header fade-in"><span class="en">FEATURES</span><h2>当店の特徴</h2></div><div class="features-grid">
-        <div class="feature-card fade-in stagger-1"><div class="feature-icon"><span class="material-icons">auto_stories</span></div><h3>厳選された書籍</h3><p>店主が一冊一冊選び抜いた、<br>新刊から古典まで。</p></div>
-        <div class="feature-card fade-in stagger-2"><div class="feature-icon"><span class="material-icons">local_cafe</span></div><h3>自家焙煎珈琲</h3><p>毎朝焙煎する新鮮な豆で<br>淹れるスペシャルティコーヒー。</p></div>
-        <div class="feature-card fade-in stagger-3"><div class="feature-icon"><span class="material-icons">weekend</span></div><h3>読書に最適な空間</h3><p>静かで落ち着いた雰囲気の<br>読書専用スペース。</p></div>
-    </div></div></section>
-
-    <section id="categories" class="categories"><div class="container"><div class="section-header fade-in"><span class="en">CATEGORIES</span><h2>書籍カテゴリ</h2></div><div class="categories-grid">
-        <div class="category-card fade-in stagger-1"><div class="category-icon"><span class="material-icons">history_edu</span></div><div class="category-content"><h3>文学・小説</h3><p>国内外の名作から現代文学まで、幅広く取り揃えています。</p></div></div>
-        <div class="category-card fade-in stagger-2"><div class="category-icon"><span class="material-icons">psychology</span></div><div class="category-content"><h3>人文・思想</h3><p>哲学、歴史、社会学など、知的好奇心を刺激する一冊を。</p></div></div>
-        <div class="category-card fade-in stagger-1"><div class="category-icon"><span class="material-icons">photo_library</span></div><div class="category-content"><h3>アート・デザイン</h3><p>美術書、写真集、デザイン書を豊富にご用意。</p></div></div>
-        <div class="category-card fade-in stagger-2"><div class="category-icon"><span class="material-icons">child_care</span></div><div class="category-content"><h3>絵本・児童書</h3><p>大人も楽しめる絵本や、名作児童文学をセレクト。</p></div></div>
-    </div></div></section>
-
-    <section id="cafe" class="cafe"><div class="container"><div class="cafe-inner fade-in"><div class="cafe-image"><span class="material-icons">local_cafe</span></div><div class="cafe-content"><h3>併設カフェ</h3><p>自家焙煎のスペシャルティコーヒーと<br>手作りのスイーツをご用意しています。<br><br>購入前の本もカフェでご覧いただけます。<br>ゆっくりと本を選びながら、<br>至福のひとときをお過ごしください。</p></div></div></div></section>
-
-    <section id="contact" class="cta fade-in"><div class="container"><h2>ご来店お待ちしております</h2><p>本と珈琲の香りに包まれた空間で、お待ちしています</p><div class="cta-info"><div class="cta-info-item"><div class="label">OPEN</div><div class="value">10:00</div></div><div class="cta-info-item"><div class="label">CLOSE</div><div class="value">21:00</div></div><div class="cta-info-item"><div class="label">定休日</div><div class="value">火曜</div></div></div><a href="https://maps.google.com" class="btn-cta"><span class="material-icons">place</span>アクセスを見る</a></div></section>
-
-    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>カフェ併設</span>｜本を読みながらコーヒーを</div><a href="https://maps.google.com" class="btn-fixed"><span class="material-icons">place</span>店舗情報</a></div></div></div>
-
-    <footer><div class="container"><div class="footer-logo">LIBRO</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 000-000-0000 / 営業時間: 10:00-21:00（火曜定休）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
-
+    <header>
+        <div class="logo">📖 BOOK HAVEN</div>
+        <nav><a href="#genres">ジャンル</a><a href="#features">サービス</a><a href="#events">イベント</a></nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>本との出会いが<br>人生を変える</h1>
+            <p>厳選された書籍と、ゆったりとした空間。<br>あなたの次の一冊がきっと見つかります。</p>
+            <a href="#genres" class="cta-btn">本を探す</a>
+        </div>
+    </section>
+    <section class="genres section" id="genres">
+        <div class="section-title fade-in"><h2>ジャンル</h2></div>
+        <div class="genres-grid">
+            <div class="genre-card fade-in"><span>📖</span><h3>文学・小説</h3></div>
+            <div class="genre-card fade-in"><span>💼</span><h3>ビジネス</h3></div>
+            <div class="genre-card fade-in"><span>🔬</span><h3>科学・技術</h3></div>
+            <div class="genre-card fade-in"><span>🎨</span><h3>アート・デザイン</h3></div>
+            <div class="genre-card fade-in"><span>📚</span><h3>漫画</h3></div>
+            <div class="genre-card fade-in"><span>👶</span><h3>児童書</h3></div>
+        </div>
+    </section>
+    <section class="features section" id="features">
+        <div class="section-title fade-in"><h2>サービス</h2></div>
+        <div class="features-grid">
+            <div class="feature-item fade-in"><span>☕</span><h3>カフェ併設</h3><p>コーヒーを片手に読書を楽しめます</p></div>
+            <div class="feature-item fade-in"><span>📦</span><h3>お取り寄せ</h3><p>在庫のない本もお取り寄せ可能</p></div>
+            <div class="feature-item fade-in"><span>🎁</span><h3>ギフトラッピング</h3><p>贈り物にぴったりのラッピング</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-logo">📖 BOOK HAVEN</div>
+        <p>〒000-0000 東京都○○区△△1-2-3</p>
+        <p>TEL: 03-1234-5678</p>
+        <p class="copyright">&copy; 2024 BOOK HAVEN</p>
+    </footer>
+    <div class="fixed-cta">
+        <a href="#search" class="search"><span class="material-icons">search</span>在庫検索</a>
+        <a href="#event" class="event"><span class="material-icons">event</span>イベント</a>
+    </div>
     <script>
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         const fixedCta = document.querySelector('.fixed-cta');
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>
