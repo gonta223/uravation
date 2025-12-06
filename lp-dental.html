@@ -602,6 +602,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 25px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--primary); color: white; }
+        .fixed-cta .secondary { border: 2px solid var(--primary); color: var(--primary); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content,
@@ -736,33 +746,33 @@
 
     <section id="services" class="services">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>診療内容</h2>
                 <p>患者様のニーズに合わせた幅広い診療をご提供します</p>
             </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">healing</span>
                     </div>
                     <h3>一般歯科</h3>
                     <p>虫歯・歯周病治療を痛みに配慮しながら行います</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">child_care</span>
                     </div>
                     <h3>小児歯科</h3>
                     <p>お子様が怖がらない優しい診療を心がけています</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">auto_fix_high</span>
                     </div>
                     <h3>審美歯科</h3>
                     <p>ホワイトニング、セラミック治療で美しい歯に</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">straighten</span>
                     </div>
@@ -775,12 +785,12 @@
 
     <section id="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>当院の特徴</h2>
                 <p>安心して通っていただくために</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-image">
                         <span class="material-icons">volunteer_activism</span>
                     </div>
@@ -790,7 +800,7 @@
                         <p>表面麻酔や電動麻酔器を使用し、できる限り痛みを抑えた治療を行います。</p>
                     </div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-image">
                         <span class="material-icons">chat</span>
                     </div>
@@ -800,7 +810,7 @@
                         <p>治療前にしっかりとご説明し、ご納得いただいてから治療を開始します。</p>
                     </div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-image">
                         <span class="material-icons">cleaning_services</span>
                     </div>
@@ -816,7 +826,7 @@
 
     <section id="schedule" class="schedule">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>診療時間</h2>
                 <p>ご都合の良い時間にお越しください</p>
             </div>
@@ -860,7 +870,7 @@
 
     <section id="access">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>アクセス</h2>
                 <p>お気軽にお越しください</p>
             </div>
@@ -946,5 +956,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="primary"><span class="material-icons">event_available</span>Web予約</a>
+        <a href="tel:0312345678" class="secondary"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

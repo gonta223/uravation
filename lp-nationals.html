@@ -554,6 +554,13 @@
                 padding: 32px;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--text); color: white; }
     </style>
 </head>
 <body>
@@ -578,21 +585,21 @@
     <section class="services" id="service">
         <div class="services-inner">
             <div class="service-grid">
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">school</span>
                     </div>
                     <h2>基礎AI研修</h2>
                     <p>AI研修のプロ。実践的なカリキュラムとハンズオンで効果的な学びを提供します。ビジネスを成功へ導きます。</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">psychology</span>
                     </div>
                     <h2>AI活用コンサル</h2>
                     <p>AI活用戦略の専門家。業務プロセスを分析し、AIで効率化・競争力を高め、成果最大化に貢献します。</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">groups</span>
                     </div>
@@ -758,6 +765,9 @@
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/9BmqMmAqXG" target="_blank">STUDIO Nationals.mini</a></p>
 
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>問い合わせる</a>
+    </div>
     <script>
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
@@ -765,6 +775,11 @@
                 item.classList.toggle('active');
             });
         });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>

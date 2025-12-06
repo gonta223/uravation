@@ -586,6 +586,14 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 6px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
+        .fixed-cta .tel { border: 2px solid var(--primary); color: var(--primary); }
     </style>
 </head>
 <body>
@@ -618,17 +626,17 @@
         <p class="section-label">SERVICE</p>
         <h2 class="section-title">事業内容</h2>
         <div class="service-grid">
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <p class="label">SERVICE-01</p>
                 <h3>AI研修事業</h3>
                 <p>経営層から現場担当者まで、階層別のカスタマイズ研修を提供。実践的なワークショップで、明日から使えるAIスキルを習得できます。</p>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <p class="label">SERVICE-02</p>
                 <h3>DXコンサルティング</h3>
                 <p>AI導入戦略の立案から、業務フローの改善、効果測定まで。企業のデジタル変革を包括的にサポートします。</p>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <p class="label">SERVICE-03</p>
                 <h3>人材育成支援</h3>
                 <p>社内AI推進リーダーの育成、継続的な学習プログラムの設計など、組織のAI活用力を持続的に高めます。</p>
@@ -640,7 +648,7 @@
         <p class="section-label">VALUE</p>
         <h2 class="section-title">私たちの強み</h2>
         <div class="value-grid">
-            <div class="value-card">
+            <div class="value-card fade-in">
                 <div class="value-number">
                     <span class="label">VALUE</span>
                     <span class="num">"01"</span>
@@ -648,7 +656,7 @@
                 <h3>最新AIへの深い知見</h3>
                 <p>ChatGPT、Claude、Geminiなど主要AIツールの最新動向をキャッチアップし、実務に即した活用法を提案します。</p>
             </div>
-            <div class="value-card">
+            <div class="value-card fade-in">
                 <div class="value-number">
                     <span class="label">VALUE</span>
                     <span class="num">"02"</span>
@@ -656,7 +664,7 @@
                 <h3>豊富な研修実績</h3>
                 <p>大手製造業から金融機関まで、多様な業界での研修実績。業界特有の課題に対応したカリキュラムを設計します。</p>
             </div>
-            <div class="value-card">
+            <div class="value-card fade-in">
                 <div class="value-number">
                     <span class="label">VALUE</span>
                     <span class="num">"03"</span>
@@ -664,7 +672,7 @@
                 <h3>実践重視のアプローチ</h3>
                 <p>座学だけでなく、実務課題を使ったハンズオン形式。研修後すぐに業務に活かせるスキルを身につけます。</p>
             </div>
-            <div class="value-card">
+            <div class="value-card fade-in">
                 <div class="value-number">
                     <span class="label">VALUE</span>
                     <span class="num">"04"</span>
@@ -679,12 +687,12 @@
         <p class="section-label">WORKS</p>
         <h2 class="section-title">実績</h2>
         <div class="works-grid">
-            <div class="work-card">
+            <div class="work-card fade-in">
                 <p class="category">Executive Training</p>
                 <h3>大手製造業の経営層向けAI戦略研修</h3>
                 <p>役員・部長クラス30名を対象に、AI時代の経営判断に必要な知識とビジョンを3ヶ月かけて習得。</p>
             </div>
-            <div class="work-card">
+            <div class="work-card fade-in">
                 <p class="category">Company-wide Training</p>
                 <h3>金融機関の全社AIリテラシー研修</h3>
                 <p>500名規模の全社員向け研修。部門別にカスタマイズしたカリキュラムで、組織全体のAI活用力を向上。</p>
@@ -792,5 +800,16 @@
         <p class="footer-copyright">© 2024 URAVATION Inc. All Rights Reserved.</p>
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/exNWY1zWlB" target="_blank">STUDIO THEテックカンパニーMini</a></p>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>お問い合わせ</a>
+        <a href="tel:0312345678" class="tel"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

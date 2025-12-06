@@ -710,6 +710,13 @@
                 grid-template-columns: 1fr;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--light); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -812,42 +819,42 @@
                 <p>AIトレーニングのワークフローを効率化する包括的な機能セット</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="icon">
                         <span class="material-icons">edit_note</span>
                     </div>
                     <h3>スマートアノテーション</h3>
                     <p>AIアシスト機能で作業効率を最大3倍に。チーム間のキャリブレーションも自動化。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="icon">
                         <span class="material-icons">psychology</span>
                     </div>
                     <h3>RLHFワークフロー</h3>
                     <p>人間のフィードバックを効率的に収集・管理。ランキングやペア比較にも対応。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="icon">
                         <span class="material-icons">monitoring</span>
                     </div>
                     <h3>品質ダッシュボード</h3>
                     <p>リアルタイムで品質メトリクスを可視化。問題を早期発見し、迅速に対応。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="icon">
                         <span class="material-icons">groups</span>
                     </div>
                     <h3>チームコラボレーション</h3>
                     <p>役割ベースのアクセス制御とレビューワークフローでチーム作業を効率化。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="icon">
                         <span class="material-icons">api</span>
                     </div>
                     <h3>柔軟なAPI連携</h3>
                     <p>RESTful APIで既存のMLパイプラインとシームレスに統合。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="icon">
                         <span class="material-icons">security</span>
                     </div>
@@ -886,27 +893,27 @@
                     </ul>
                 </div>
                 <div class="integration-visual">
-                    <div class="integration-card">
+                    <div class="integration-card fade-in">
                         <span class="material-icons">cloud</span>
                         <span>AWS</span>
                     </div>
-                    <div class="integration-card">
+                    <div class="integration-card fade-in">
                         <span class="material-icons">cloud</span>
                         <span>GCP</span>
                     </div>
-                    <div class="integration-card">
+                    <div class="integration-card fade-in">
                         <span class="material-icons">cloud</span>
                         <span>Azure</span>
                     </div>
-                    <div class="integration-card">
+                    <div class="integration-card fade-in">
                         <span class="material-icons">smart_toy</span>
                         <span>OpenAI</span>
                     </div>
-                    <div class="integration-card">
+                    <div class="integration-card fade-in">
                         <span class="material-icons">psychology</span>
                         <span>Anthropic</span>
                     </div>
-                    <div class="integration-card">
+                    <div class="integration-card fade-in">
                         <span class="material-icons">hub</span>
                         <span>HuggingFace</span>
                     </div>
@@ -924,7 +931,7 @@
                 <p>チームの規模に合わせて選べる柔軟なプラン</p>
             </div>
             <div class="pricing-grid">
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <h3>Starter</h3>
                     <p class="description">小規模チーム向け</p>
                     <div class="price">¥50,000<span>/月</span></div>
@@ -936,7 +943,7 @@
                     </ul>
                     <a href="#" class="btn btn-outline">始める</a>
                 </div>
-                <div class="pricing-card popular">
+                <div class="pricing-card popular fade-in">
                     <h3>Pro</h3>
                     <p class="description">成長中のチーム向け</p>
                     <div class="price">¥150,000<span>/月</span></div>
@@ -949,7 +956,7 @@
                     </ul>
                     <a href="#" class="btn btn-primary">始める</a>
                 </div>
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <h3>Enterprise</h3>
                     <p class="description">大規模組織向け</p>
                     <div class="price">要相談</div>
@@ -1019,5 +1026,15 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#" class="consult"><span class="material-icons">rocket_launch</span>無料トライアル</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

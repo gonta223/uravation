@@ -702,6 +702,13 @@
                 justify-content: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 400; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--text); color: white; }
     </style>
 </head>
 <body>
@@ -750,21 +757,21 @@
             </a>
         </div>
         <div class="blog-grid">
-            <div class="blog-card">
+            <div class="blog-card fade-in">
                 <div class="blog-card-image">📱</div>
                 <div class="blog-card-content">
                     <p class="blog-card-date">2024.12.01</p>
                     <h3 class="blog-card-title">AI予約システム導入で予約率30%向上した事例</h3>
                 </div>
             </div>
-            <div class="blog-card">
+            <div class="blog-card fade-in">
                 <div class="blog-card-image">💬</div>
                 <div class="blog-card-content">
                     <p class="blog-card-date">2024.11.28</p>
                     <h3 class="blog-card-title">ChatGPTを活用したカウンセリングシート作成術</h3>
                 </div>
             </div>
-            <div class="blog-card">
+            <div class="blog-card fade-in">
                 <div class="blog-card-image">📸</div>
                 <div class="blog-card-content">
                     <p class="blog-card-date">2024.11.25</p>
@@ -782,19 +789,19 @@
             </div>
             <p class="menu-description">CLARITYでは美容業界に特化したAI研修から、サロン経営効率化のコンサルティングまで、トータルで手がけています。</p>
             <div class="menu-grid">
-                <div class="menu-item">
+                <div class="menu-item fade-in">
                     <h3>AI基礎研修</h3>
                     <span class="price">¥50,000〜</span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item fade-in">
                     <h3>SNS運用AI活用コース</h3>
                     <span class="price">¥80,000〜</span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item fade-in">
                     <h3>予約・顧客管理システム構築</h3>
                     <span class="price">¥120,000〜</span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item fade-in">
                     <h3>オーナー向け経営戦略研修</h3>
                     <span class="price">¥150,000〜</span>
                 </div>
@@ -812,12 +819,12 @@
                 <a href="#">ギャラリーをみる</a>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item">💇</div>
-                <div class="gallery-item">💅</div>
-                <div class="gallery-item">💆</div>
-                <div class="gallery-item">📊</div>
-                <div class="gallery-item">👩‍💼</div>
-                <div class="gallery-item">🎓</div>
+                <div class="gallery-item fade-in">💇</div>
+                <div class="gallery-item fade-in">💅</div>
+                <div class="gallery-item fade-in">💆</div>
+                <div class="gallery-item fade-in">📊</div>
+                <div class="gallery-item fade-in">👩‍💼</div>
+                <div class="gallery-item fade-in">🎓</div>
             </div>
         </div>
     </section>
@@ -908,5 +915,15 @@
         </div>
         <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/xBXaxznO76" target="_blank">STUDIO サロン・美容向け｜モダン</a></p>
     </footer>
+    <div class="fixed-cta">
+        <a href="#footer" class="consult"><span class="material-icons">calendar_today</span>ご予約はこちら</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

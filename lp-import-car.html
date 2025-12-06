@@ -66,21 +66,28 @@
         .footer-bottom a { color: var(--gold); text-decoration: none; }
         @media (max-width: 1024px) { .hero-content, .cars-grid, .showroom-content { grid-template-columns: 1fr; } .hero-image, .showroom-image { display: none; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .services-grid, .footer-content { grid-template-columns: 1fr; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--primary); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; letter-spacing: 0.1em; }
+        .fixed-cta .consult { background: var(--gold); color: var(--primary); }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">PRESTIGE</div><nav><ul><li><a href="#cars">在庫車両</a></li><li><a href="#services">サービス</a></li><li><a href="#showroom">店舗</a></li></ul></nav><a href="#contact" class="btn-header">お問い合わせ</a></div></div></header>
     <section class="hero"><div class="container"><div class="hero-content"><div><h1>The Art of<br>Driving Excellence</h1><p>厳選されたプレミアムカーで、<br>特別なカーライフをお届けします。</p><a href="#cars" class="btn-gold">在庫を見る</a></div><div class="hero-image"><span class="material-icons">directions_car</span></div></div></div></section>
     <section id="cars" class="cars"><div class="container"><div class="section-header"><span class="en">Stock</span><h2>在庫車両</h2></div><div class="cars-grid">
-        <div class="car-card"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>Mercedes-Benz S-Class</h3><p>2023年式 / 走行5,000km / AMGライン</p><span class="car-price">¥12,800,000</span></div></div>
-        <div class="car-card"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>BMW 7 Series</h3><p>2022年式 / 走行12,000km / Mスポーツ</p><span class="car-price">¥9,800,000</span></div></div>
-        <div class="car-card"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>Porsche Cayenne</h3><p>2023年式 / 走行8,000km / スポーツクロノ</p><span class="car-price">¥14,500,000</span></div></div>
+        <div class="car-card fade-in"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>Mercedes-Benz S-Class</h3><p>2023年式 / 走行5,000km / AMGライン</p><span class="car-price">¥12,800,000</span></div></div>
+        <div class="car-card fade-in"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>BMW 7 Series</h3><p>2022年式 / 走行12,000km / Mスポーツ</p><span class="car-price">¥9,800,000</span></div></div>
+        <div class="car-card fade-in"><div class="car-image"><span class="material-icons">directions_car</span></div><div class="car-info"><h3>Porsche Cayenne</h3><p>2023年式 / 走行8,000km / スポーツクロノ</p><span class="car-price">¥14,500,000</span></div></div>
     </div></div></section>
     <section id="services"><div class="container"><div class="section-header"><span class="en">Services</span><h2>サービス</h2></div><div class="services-grid">
-        <div class="service-card"><span class="material-icons">search</span><h4>車両探し</h4><p>ご希望の車両をお探しします</p></div>
-        <div class="service-card"><span class="material-icons">sell</span><h4>買取・下取</h4><p>高価買取いたします</p></div>
-        <div class="service-card"><span class="material-icons">build</span><h4>整備・点検</h4><p>専門スタッフが対応</p></div>
-        <div class="service-card"><span class="material-icons">payments</span><h4>ローン</h4><p>各種ローン取扱い</p></div>
+        <div class="service-card fade-in"><span class="material-icons">search</span><h4>車両探し</h4><p>ご希望の車両をお探しします</p></div>
+        <div class="service-card fade-in"><span class="material-icons">sell</span><h4>買取・下取</h4><p>高価買取いたします</p></div>
+        <div class="service-card fade-in"><span class="material-icons">build</span><h4>整備・点検</h4><p>専門スタッフが対応</p></div>
+        <div class="service-card fade-in"><span class="material-icons">payments</span><h4>ローン</h4><p>各種ローン取扱い</p></div>
     </div></div></section>
     <section id="showroom" class="showroom"><div class="container"><div class="showroom-content"><div class="showroom-image"><span class="material-icons">store</span></div><div class="showroom-info"><span class="en">Showroom</span><h3>ショールームのご案内</h3><p>ゆったりとした空間で、お気に入りの1台をお探しください。</p><ul class="showroom-list">
         <li><span class="material-icons">location_on</span><span>〒150-0001 東京都渋谷区○○1-2-3</span></li>
@@ -89,5 +96,15 @@
     </ul></div></div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>お気軽にお問い合わせください</h2><p style="color: var(--silver); margin-bottom: 30px;">ご来店予約・お見積りはこちら</p><a href="#" class="btn-gold">お問い合わせ</a></div></section>
     <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">PRESTIGE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>メニュー</h4><ul><li><a href="#">在庫車両</a></li><li><a href="#">買取査定</a></li><li><a href="#">整備・点検</a></li></ul></div><div class="footer-links"><h4>店舗情報</h4><ul><li><a href="#">ショールーム</a></li><li><a href="#">アクセス</a></li><li><a href="#">会社概要</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>お問い合わせ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

@@ -627,6 +627,13 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--text); color: white; }
     </style>
 </head>
 <body>
@@ -697,7 +704,7 @@
                 </a>
             </div>
             <ul class="service-list">
-                <li class="service-item">
+                <li class="service-item fade-in">
                     <a href="#">
                         <div class="service-item-content">
                             <h3>AI研修プラン</h3>
@@ -706,7 +713,7 @@
                         <span class="material-icons">keyboard_arrow_right</span>
                     </a>
                 </li>
-                <li class="service-item">
+                <li class="service-item fade-in">
                     <a href="#">
                         <div class="service-item-content">
                             <h3>導入コンサルプラン</h3>
@@ -732,21 +739,21 @@
                 </a>
             </div>
             <div class="case-grid">
-                <div class="case-card">
+                <div class="case-card fade-in">
                     <div class="case-card-image">🏢</div>
                     <div class="case-card-content">
                         <p class="case-card-category">AI研修</p>
                         <h3 class="case-card-title">大手製造業A社 全社員研修</h3>
                     </div>
                 </div>
-                <div class="case-card">
+                <div class="case-card fade-in">
                     <div class="case-card-image">🏦</div>
                     <div class="case-card-content">
                         <p class="case-card-category">導入コンサル</p>
                         <h3 class="case-card-title">金融機関B社 業務効率化</h3>
                     </div>
                 </div>
-                <div class="case-card">
+                <div class="case-card fade-in">
                     <div class="case-card-image">🏥</div>
                     <div class="case-card-content">
                         <p class="case-card-category">AI研修</p>
@@ -887,5 +894,15 @@
         </div>
         <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/ld7Wl6mqV3" target="_blank">STUDIO コーポレート｜シンプルモダン</a></p>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult">お問い合わせ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

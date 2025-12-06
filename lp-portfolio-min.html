@@ -510,6 +510,13 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--text); color: white; }
     </style>
 </head>
 <body>
@@ -616,17 +623,17 @@
             <p>スキル</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card">
+            <div class="skill-card fade-in">
                 <span class="material-icons">psychology</span>
                 <h3>AI戦略コンサルティング</h3>
                 <p>経営課題に対するAI導入戦略の立案から、ROI分析、実行計画策定まで、包括的なコンサルティングを提供します。</p>
             </div>
-            <div class="skill-card">
+            <div class="skill-card fade-in">
                 <span class="material-icons">groups</span>
                 <h3>研修プログラム設計</h3>
                 <p>階層別・部門別の最適なカリキュラム設計。座学からハンズオンまで、効果的な学習体験を設計します。</p>
             </div>
-            <div class="skill-card">
+            <div class="skill-card fade-in">
                 <span class="material-icons">engineering</span>
                 <h3>実践ワークショップ</h3>
                 <p>実務課題を題材にしたワークショップ形式で、明日から使えるAI活用スキルを身につけていただきます。</p>
@@ -716,5 +723,15 @@
         </div>
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/ZmoWvrlW6y" target="_blank">STUDIO ポートフォリオ｜Min.</a></p>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>CONTACT</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

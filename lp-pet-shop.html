@@ -636,6 +636,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: linear-gradient(135deg, var(--primary), #FF8A65); color: white; }
+        .fixed-cta .tel { border: 2px solid var(--primary); color: var(--primary); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content,
@@ -757,33 +767,33 @@
 
     <section class="categories">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Categories</span>
                 <h2>取扱いペット</h2>
             </div>
             <div class="categories-grid">
-                <div class="category-card">
+                <div class="category-card fade-in">
                     <div class="category-icon">
                         <span class="material-icons">pets</span>
                     </div>
                     <h3>犬</h3>
                     <p>人気の小型犬から大型犬まで</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card fade-in">
                     <div class="category-icon">
                         <span class="material-icons">pets</span>
                     </div>
                     <h3>猫</h3>
                     <p>純血種からMIXまで多数</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card fade-in">
                     <div class="category-icon">
                         <span class="material-icons">flutter_dash</span>
                     </div>
                     <h3>小鳥</h3>
                     <p>インコ・文鳥など</p>
                 </div>
-                <div class="category-card">
+                <div class="category-card fade-in">
                     <div class="category-icon">
                         <span class="material-icons">cruelty_free</span>
                     </div>
@@ -796,7 +806,7 @@
 
     <section id="animals">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Our Pets</span>
                 <h2>新着ペット</h2>
             </div>
@@ -847,7 +857,7 @@
 
     <section id="services">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Services</span>
                 <h2>サービス</h2>
             </div>
@@ -888,7 +898,7 @@
 
     <section id="about" class="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Why PetPal</span>
                 <h2>選ばれる理由</h2>
             </div>
@@ -1003,5 +1013,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">pets</span>来店予約</a>
+        <a href="tel:0312345678" class="tel"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

@@ -511,6 +511,13 @@
             text-decoration: underline;
         }
 
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
+
         @media (max-width: 768px) {
             header {
                 padding: 12px 20px;
@@ -601,31 +608,31 @@
         <div class="problems-inner">
             <h2 class="section-title">AI活用がうまくいかない、<br>その悩みを解決します</h2>
             <div class="problem-list">
-                <div class="problem-item">社員のAIリテラシーにばらつきがある</div>
-                <div class="problem-item">AIツールを導入したが活用できていない</div>
-                <div class="problem-item">AI活用のアイデアを業務に落とし込めない</div>
-                <div class="problem-item">経営層と現場でAIに対する認識がずれている</div>
+                <div class="problem-item fade-in">社員のAIリテラシーにばらつきがある</div>
+                <div class="problem-item fade-in">AIツールを導入したが活用できていない</div>
+                <div class="problem-item fade-in">AI活用のアイデアを業務に落とし込めない</div>
+                <div class="problem-item fade-in">経営層と現場でAIに対する認識がずれている</div>
             </div>
             <div class="arrow-down">
                 <span class="material-icons">arrow_downward</span>
             </div>
             <div class="solutions">
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <div class="solution-label">Point 1</div>
                     <div class="solution-title">レベル別カリキュラム</div>
                     <p class="solution-text">初心者から上級者まで、受講者のレベルに合わせた最適なカリキュラムを提供します。</p>
                 </div>
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <div class="solution-label">Point 2</div>
                     <div class="solution-title">ハンズオン形式で実践</div>
                     <p class="solution-text">座学だけでなく、実際にAIツールを使った実践的なワークショップを実施します。</p>
                 </div>
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <div class="solution-label">Point 3</div>
                     <div class="solution-title">業務課題に直結</div>
                     <p class="solution-text">貴社の業務課題をヒアリングし、すぐに活用できる具体的なAI活用法を提案します。</p>
                 </div>
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <div class="solution-label">Point 4</div>
                     <div class="solution-title">経営層向け研修も</div>
                     <p class="solution-text">経営視点でのAI戦略立案から、現場実装まで一貫したサポートを提供します。</p>
@@ -652,28 +659,28 @@
         <div class="features-inner">
             <h2 class="section-title">AI研修の充実の4つの特徴</h2>
             <div class="feature-list">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">sync</span>
                     </div>
                     <h3>最新AI対応</h3>
                     <p>ChatGPT、Claude、Geminiなど最新のAIツールに対応。トレンドの変化に合わせてカリキュラムを常にアップデートしています。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">insights</span>
                     </div>
                     <h3>効果測定レポート</h3>
                     <p>研修前後のスキル変化を可視化。経営層への報告に使える詳細なレポートを提供し、投資対効果を明確にします。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">tune</span>
                     </div>
                     <h3>カスタマイズ対応</h3>
                     <p>業種・職種に合わせたカスタマイズが可能。営業、マーケティング、開発など部門別の専門研修もご用意しています。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">support_agent</span>
                     </div>
@@ -688,7 +695,7 @@
         <div class="pricing-inner">
             <h2 class="section-title">料金プラン</h2>
             <div class="pricing-cards">
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <div class="pricing-name">ライトプラン</div>
                     <div class="pricing-price">
                         <span class="amount">¥50,000</span>
@@ -710,7 +717,7 @@
                     </div>
                     <a href="#contact" class="pricing-btn">お問い合わせ</a>
                 </div>
-                <div class="pricing-card recommended">
+                <div class="pricing-card recommended fade-in">
                     <div class="pricing-name">スタンダード</div>
                     <div class="pricing-price">
                         <span class="amount">¥150,000</span>
@@ -736,7 +743,7 @@
                     </div>
                     <a href="#contact" class="pricing-btn">お問い合わせ</a>
                 </div>
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <div class="pricing-name">プレミアム</div>
                     <div class="pricing-price">
                         <span class="amount">¥300,000</span>
@@ -795,5 +802,15 @@
         <p class="footer-copyright">©2024 Uravation Inc.</p>
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/YogO09dq23" target="_blank">STUDIO THE BUSINESS</a></p>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail_outline</span>お問い合わせ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

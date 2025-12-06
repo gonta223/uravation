@@ -554,6 +554,13 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: white; padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
@@ -615,32 +622,32 @@
             <p>体系的なカリキュラムと実践的なアプローチで、確実にスキルアップ</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">📊</div>
                 <h3>データドリブン</h3>
                 <p>学習進捗を可視化し、一人ひとりに最適化されたカリキュラムを提供します。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">🎯</div>
                 <h3>実践重視</h3>
                 <p>座学だけでなく、実際の業務で使えるハンズオン形式の研修を実施。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">🚀</div>
                 <h3>即効性</h3>
                 <p>研修翌日から業務で活用できる、すぐに役立つスキルを習得できます。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">👥</div>
                 <h3>チーム最適化</h3>
                 <p>個人の成長がチーム全体の生産性向上につながる設計になっています。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">🔄</div>
                 <h3>継続サポート</h3>
                 <p>研修後も定期的なフォローアップで、スキルの定着をサポート。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">💡</div>
                 <h3>最新情報</h3>
                 <p>日々進化するAI技術の最新トレンドを常にカリキュラムに反映。</p>
@@ -654,22 +661,22 @@
             <p>4つのステップで、スムーズにAI研修を導入</p>
         </div>
         <div class="process-steps">
-            <div class="process-step">
+            <div class="process-step fade-in">
                 <div class="step-number">1</div>
                 <h3>ヒアリング</h3>
                 <p>現状の課題と目標をお伺いします</p>
             </div>
-            <div class="process-step">
+            <div class="process-step fade-in">
                 <div class="step-number">2</div>
                 <h3>プラン設計</h3>
                 <p>最適なカリキュラムを作成します</p>
             </div>
-            <div class="process-step">
+            <div class="process-step fade-in">
                 <div class="step-number">3</div>
                 <h3>研修実施</h3>
                 <p>実践的な研修プログラムを提供</p>
             </div>
-            <div class="process-step">
+            <div class="process-step fade-in">
                 <div class="step-number">4</div>
                 <h3>効果測定</h3>
                 <p>成果を可視化し継続改善</p>
@@ -702,6 +709,9 @@
         </div>
     </footer>
 
+    <div class="fixed-cta">
+        <a href="#contact" class="consult">無料相談を予約</a>
+    </div>
     <script>
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
@@ -711,6 +721,11 @@
                 header.classList.remove('scrolled');
             }
         });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>

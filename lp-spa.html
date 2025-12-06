@@ -64,20 +64,28 @@
         .footer-bottom a { color: var(--gold); text-decoration: none; }
         @media (max-width: 1024px) { .hero-content, .menu-grid, .features-grid, .access-content { grid-template-columns: 1fr; } .hero-image, .access-map { display: none; } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .footer-content { grid-template-columns: 1fr; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--primary); color: white; }
+        .fixed-cta .secondary { border: 1px solid var(--primary); color: var(--primary); }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">SERENE</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#features">特徴</a></li><li><a href="#access">アクセス</a></li></ul></nav><a href="#contact" class="btn-header">ご予約</a></div></div></header>
     <section class="hero"><div class="container"><div class="hero-content"><div><h1>心と体に<br>癒しのひとときを</h1><p>日常から離れ、静寂の中で<br>本来の自分を取り戻す極上のリラクゼーション。</p><a href="#contact" class="btn-primary">ご予約はこちら</a></div><div class="hero-image"><span class="material-icons">spa</span></div></div></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><span class="en">Menu</span><h2>施術メニュー</h2></div><div class="menu-grid">
-        <div class="menu-card"><div class="menu-icon"><span class="material-icons">self_improvement</span></div><h3>Aroma Treatment</h3><p>厳選されたオイルで全身をほぐす<br>アロマトリートメント</p><span class="menu-price">60min ¥9,800〜</span></div>
-        <div class="menu-card"><div class="menu-icon"><span class="material-icons">face</span></div><h3>Facial Care</h3><p>美肌へ導く<br>フェイシャルトリートメント</p><span class="menu-price">60min ¥8,800〜</span></div>
-        <div class="menu-card"><div class="menu-icon"><span class="material-icons">hot_tub</span></div><h3>Body Scrub</h3><p>古い角質を取り除き<br>すべすべの肌へ</p><span class="menu-price">45min ¥7,500〜</span></div>
+    <section id="menu" class="menu"><div class="container"><div class="section-header fade-in"><span class="en">Menu</span><h2>施術メニュー</h2></div><div class="menu-grid">
+        <div class="menu-card fade-in"><div class="menu-icon"><span class="material-icons">self_improvement</span></div><h3>Aroma Treatment</h3><p>厳選されたオイルで全身をほぐす<br>アロマトリートメント</p><span class="menu-price">60min ¥9,800〜</span></div>
+        <div class="menu-card fade-in"><div class="menu-icon"><span class="material-icons">face</span></div><h3>Facial Care</h3><p>美肌へ導く<br>フェイシャルトリートメント</p><span class="menu-price">60min ¥8,800〜</span></div>
+        <div class="menu-card fade-in"><div class="menu-icon"><span class="material-icons">hot_tub</span></div><h3>Body Scrub</h3><p>古い角質を取り除き<br>すべすべの肌へ</p><span class="menu-price">45min ¥7,500〜</span></div>
     </div></div></section>
-    <section id="features"><div class="container"><div class="section-header"><span class="en">Features</span><h2>SERENEの特徴</h2></div><div class="features-grid">
-        <div class="feature-card"><div class="feature-number">01</div><h4>完全個室</h4><p>プライベート空間で安心してお過ごしいただけます</p></div>
-        <div class="feature-card"><div class="feature-number">02</div><h4>オーガニック</h4><p>肌に優しいオーガニック製品を使用</p></div>
-        <div class="feature-card"><div class="feature-number">03</div><h4>経験豊富</h4><p>国家資格を持つセラピストが担当</p></div>
+    <section id="features"><div class="container"><div class="section-header fade-in"><span class="en">Features</span><h2>SERENEの特徴</h2></div><div class="features-grid">
+        <div class="feature-card fade-in"><div class="feature-number">01</div><h4>完全個室</h4><p>プライベート空間で安心してお過ごしいただけます</p></div>
+        <div class="feature-card fade-in"><div class="feature-number">02</div><h4>オーガニック</h4><p>肌に優しいオーガニック製品を使用</p></div>
+        <div class="feature-card fade-in"><div class="feature-number">03</div><h4>経験豊富</h4><p>国家資格を持つセラピストが担当</p></div>
     </div></div></section>
     <section id="access" class="access"><div class="container"><div class="access-content"><div class="access-map"><span class="material-icons">map</span></div><div class="access-info"><span class="en">Access</span><h3>店舗情報</h3><ul class="access-list">
         <li><span class="material-icons">location_on</span><span>〒150-0001 東京都渋谷区○○1-2-3 ビル5F</span></li>
@@ -87,5 +95,16 @@
     </ul></div></div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>ご予約・お問い合わせ</h2><p style="opacity: 0.9;">オンライン予約を承っております</p><a href="#" class="btn-white">ご予約はこちら</a></div></section>
     <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">SERENE</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>Menu</h4><ul><li><a href="#">アロマ</a></li><li><a href="#">フェイシャル</a></li><li><a href="#">ボディスクラブ</a></li></ul></div><div class="footer-links"><h4>Information</h4><ul><li><a href="#">アクセス</a></li><li><a href="#">スタッフ紹介</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="primary"><span class="material-icons">event_available</span>ご予約</a>
+        <a href="#menu" class="secondary"><span class="material-icons">spa</span>メニュー</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

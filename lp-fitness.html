@@ -41,23 +41,42 @@
         .footer-bottom a { color: var(--primary); text-decoration: none; }
         @media (max-width: 1024px) { .programs-grid, .stats-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3.5rem; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--dark); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--lime); color: var(--dark); }
+        .fixed-cta .secondary { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">FORGE</div><nav><ul><li><a href="#programs">Programs</a></li><li><a href="#contact">Contact</a></li></ul></nav><a href="#contact" class="btn-header">無料体験</a></div></div></header>
     <section class="hero"><div class="container"><h1>FORGE YOUR BODY</h1><p>限界を超え、理想の自分を手に入れる。本気で変わりたいあなたのためのジム。</p><a href="#contact" class="btn-primary">無料体験はこちら</a></div></section>
-    <section id="programs"><div class="container"><div class="section-header"><h2>PROGRAMS</h2></div><div class="programs-grid">
-        <div class="program-card"><h3>PERSONAL</h3><p>マンツーマンで徹底指導</p><div class="program-price">¥8,000/回</div></div>
-        <div class="program-card"><h3>GROUP</h3><p>仲間と一緒にトレーニング</p><div class="program-price">¥12,000/月</div></div>
-        <div class="program-card"><h3>24H GYM</h3><p>いつでも自由に</p><div class="program-price">¥9,800/月</div></div>
+    <section id="programs"><div class="container"><div class="section-header fade-in"><h2>PROGRAMS</h2></div><div class="programs-grid">
+        <div class="program-card fade-in"><h3>PERSONAL</h3><p>マンツーマンで徹底指導</p><div class="program-price">¥8,000/回</div></div>
+        <div class="program-card fade-in"><h3>GROUP</h3><p>仲間と一緒にトレーニング</p><div class="program-price">¥12,000/月</div></div>
+        <div class="program-card fade-in"><h3>24H GYM</h3><p>いつでも自由に</p><div class="program-price">¥9,800/月</div></div>
     </div></div></section>
     <section class="stats"><div class="container"><div class="stats-grid">
-        <div class="stat-item"><div class="number">3,000+</div><p>会員数</p></div>
-        <div class="stat-item"><div class="number">50+</div><p>トレーナー</p></div>
-        <div class="stat-item"><div class="number">24H</div><p>営業時間</p></div>
-        <div class="stat-item"><div class="number">98%</div><p>満足度</p></div>
+        <div class="stat-item fade-in"><div class="number">3,000+</div><p>会員数</p></div>
+        <div class="stat-item fade-in"><div class="number">50+</div><p>トレーナー</p></div>
+        <div class="stat-item fade-in"><div class="number">24H</div><p>営業時間</p></div>
+        <div class="stat-item fade-in"><div class="number">98%</div><p>満足度</p></div>
     </div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>START YOUR JOURNEY</h2><p style="opacity: 0.9;">無料体験でジムの雰囲気を体感</p><a href="#" class="btn-dark">無料体験予約</a></div></section>
     <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="primary"><span class="material-icons">fitness_center</span>無料体験</a>
+        <a href="#programs" class="secondary"><span class="material-icons">list</span>プログラム</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

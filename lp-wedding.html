@@ -544,6 +544,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--primary); color: var(--white); }
+        .fixed-cta .secondary { border: 1px solid var(--primary); color: var(--primary); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .features-grid,
@@ -629,27 +639,27 @@
 
     <section id="features" class="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Our Features</span>
                 <h2>FELICEの特徴</h2>
                 <p>おふたりの夢を叶える、充実のサポート</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-image">
                         <span class="material-icons">church</span>
                     </div>
                     <h3>本格チャペル</h3>
                     <p>ステンドグラスが美しく輝く本格的なチャペルで、感動的な挙式を。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-image">
                         <span class="material-icons">restaurant</span>
                     </div>
                     <h3>こだわりの料理</h3>
                     <p>シェフ自慢のフレンチをベースにした、贅沢なウェディングメニュー。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-image">
                         <span class="material-icons">support_agent</span>
                     </div>
@@ -662,13 +672,13 @@
 
     <section id="plans">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Wedding Plans</span>
                 <h2>ウェディングプラン</h2>
                 <p>おふたりにぴったりのプランをお選びください</p>
             </div>
             <div class="plans-grid">
-                <div class="plan-card">
+                <div class="plan-card fade-in">
                     <h3 class="plan-name">Simple</h3>
                     <p class="plan-desc">少人数でのアットホームな挙式に</p>
                     <div class="plan-price">¥480,000<span>〜</span></div>
@@ -692,7 +702,7 @@
                     </ul>
                     <a href="#contact" class="btn-primary">詳しく見る</a>
                 </div>
-                <div class="plan-card">
+                <div class="plan-card fade-in">
                     <h3 class="plan-name">Premium</h3>
                     <p class="plan-desc">贅沢なプレミアムウェディング</p>
                     <div class="plan-price">¥1,800,000<span>〜</span></div>
@@ -710,7 +720,7 @@
 
     <section id="gallery" class="gallery">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Photo Gallery</span>
                 <h2>ギャラリー</h2>
             </div>
@@ -742,12 +752,12 @@
 
     <section id="voice">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Voice</span>
                 <h2>お客様の声</h2>
             </div>
             <div class="testimonials-grid">
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in">
                     <p class="testimonial-text">プランナーさんがとても親身になってくださり、私たちの理想以上のウェディングを実現することができました。ゲストからも大好評で、一生の思い出になりました。</p>
                     <div class="testimonial-author">
                         <div class="testimonial-avatar">
@@ -759,7 +769,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in">
                     <p class="testimonial-text">チャペルの雰囲気に一目惚れして決めました。料理も本当に美味しくて、両親も大満足でした。FELICEさんにお願いして本当に良かったです。</p>
                     <div class="testimonial-author">
                         <div class="testimonial-avatar">
@@ -823,5 +833,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="primary"><span class="material-icons">event</span>フェア予約</a>
+        <a href="#contact" class="secondary"><span class="material-icons">description</span>資料請求</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

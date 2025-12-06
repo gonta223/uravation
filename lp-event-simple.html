@@ -546,6 +546,14 @@
                 flex-wrap: wrap;
             }
         }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--bg); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -597,25 +605,25 @@
             <p>各分野のエキスパートが最新知見を共有</p>
         </div>
         <div class="speakers-grid">
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-avatar">👨‍💼</div>
                 <h3>山田 太郎</h3>
                 <p class="title">Chief AI Officer</p>
                 <p class="company">Tech Corp Japan</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-avatar">👩‍🔬</div>
                 <h3>鈴木 花子</h3>
                 <p class="title">AI Research Director</p>
                 <p class="company">AI Lab Inc.</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-avatar">👨‍🏫</div>
                 <h3>佐藤 一郎</h3>
                 <p class="title">Professor</p>
                 <p class="company">東京大学</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-avatar">👩‍💻</div>
                 <h3>田中 美咲</h3>
                 <p class="title">CEO & Founder</p>
@@ -632,21 +640,21 @@
         <div class="schedule-days">
             <div class="schedule-day">
                 <h3><span>DAY 1</span> 12月15日（日）</h3>
-                <div class="schedule-item">
+                <div class="schedule-item fade-in">
                     <span class="schedule-time">10:00</span>
                     <div class="schedule-content">
                         <h4>オープニングキーノート</h4>
                         <p>AIの現在地と未来への展望</p>
                     </div>
                 </div>
-                <div class="schedule-item">
+                <div class="schedule-item fade-in">
                     <span class="schedule-time">11:30</span>
                     <div class="schedule-content">
                         <h4>生成AIの最前線</h4>
                         <p>ChatGPT以降のAI進化と企業活用</p>
                     </div>
                 </div>
-                <div class="schedule-item">
+                <div class="schedule-item fade-in">
                     <span class="schedule-time">14:00</span>
                     <div class="schedule-content">
                         <h4>AI×ビジネス変革</h4>
@@ -656,21 +664,21 @@
             </div>
             <div class="schedule-day">
                 <h3><span>DAY 2</span> 12月16日（月）</h3>
-                <div class="schedule-item">
+                <div class="schedule-item fade-in">
                     <span class="schedule-time">10:00</span>
                     <div class="schedule-content">
                         <h4>AI人材育成</h4>
                         <p>これからの時代に求められるスキルとは</p>
                     </div>
                 </div>
-                <div class="schedule-item">
+                <div class="schedule-item fade-in">
                     <span class="schedule-time">13:00</span>
                     <div class="schedule-content">
                         <h4>ハンズオンワークショップ</h4>
                         <p>実践で学ぶプロンプトエンジニアリング</p>
                     </div>
                 </div>
-                <div class="schedule-item">
+                <div class="schedule-item fade-in">
                     <span class="schedule-time">16:00</span>
                     <div class="schedule-content">
                         <h4>クロージングセッション</h4>
@@ -731,5 +739,16 @@
             </div>
         </div>
     </footer>
+
+    <div class="fixed-cta">
+        <a href="#register" class="consult">お問い合わせ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

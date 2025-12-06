@@ -53,15 +53,22 @@
         .footer-bottom a { color: var(--primary-light); text-decoration: none; }
         @media (max-width: 1024px) { .features-grid, .pricing-grid { grid-template-columns: 1fr; } .price-card.popular { transform: none; } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">FLOW</div><nav><ul><li><a href="#features">機能</a></li><li><a href="#pricing">料金</a></li></ul></nav><a href="#contact" class="btn-header">無料で始める</a></div></div></header>
     <section class="hero"><div class="container"><h1>業務効率化を<br><span>シンプルに</span></h1><p>チーム全体の生産性を向上させるオールインワンワークスペース</p><a href="#contact" class="btn-primary">無料トライアル</a></div></section>
     <section id="features" class="features"><div class="container"><div class="section-header"><h2>主な機能</h2><p>チームの生産性を最大化</p></div><div class="features-grid">
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">task_alt</span></div><h3>タスク管理</h3><p>直感的なUIでタスクの作成・管理が簡単に</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">forum</span></div><h3>チームチャット</h3><p>リアルタイムコミュニケーション</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">insert_chart</span></div><h3>レポート機能</h3><p>進捗状況を可視化</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><span class="material-icons">task_alt</span></div><h3>タスク管理</h3><p>直感的なUIでタスクの作成・管理が簡単に</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><span class="material-icons">forum</span></div><h3>チームチャット</h3><p>リアルタイムコミュニケーション</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><span class="material-icons">insert_chart</span></div><h3>レポート機能</h3><p>進捗状況を可視化</p></div>
     </div></div></section>
     <section id="pricing"><div class="container"><div class="section-header"><h2>料金プラン</h2></div><div class="pricing-grid">
         <div class="price-card"><span class="price-badge">スターター</span><h3>小規模チーム向け</h3><div class="price-amount">¥980<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>5ユーザーまで</li><li><span class="material-icons">check_circle</span>基本機能</li></ul></div>
@@ -70,5 +77,15 @@
     </div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>14日間無料でお試し</h2><p style="opacity: 0.9;">クレジットカード不要</p><a href="#" class="btn-white">無料トライアル</a></div></section>
     <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>無料トライアル</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

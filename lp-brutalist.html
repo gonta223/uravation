@@ -506,6 +506,13 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--black); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.5); transition: bottom 0.5s ease; z-index: 999; border-top: 4px solid var(--white); }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-family: 'Anton', sans-serif; font-size: 1.2rem; text-transform: uppercase; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--red); color: white; }
     </style>
 </head>
 <body>
@@ -560,19 +567,19 @@
     </div>
 
     <section class="stats">
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">500+</div>
             <div class="stat-label">導入企業</div>
         </div>
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">15K+</div>
             <div class="stat-label">受講者数</div>
         </div>
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">98%</div>
             <div class="stat-label">満足度</div>
         </div>
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">40%</div>
             <div class="stat-label">効率化率</div>
         </div>
@@ -676,5 +683,15 @@
         </nav>
         <div class="footer-copy">© 2024 URAVATION</div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult">無料相談 →</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

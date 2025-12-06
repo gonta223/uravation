@@ -48,17 +48,25 @@
         .footer-bottom a { color: var(--gold); text-decoration: none; }
         @media (max-width: 1024px) { .menu-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--dark); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--gold); color: var(--dark); }
+        .fixed-cta .secondary { border: 1px solid var(--gold); color: var(--gold); }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">UMAMI</div><nav><ul><li><a href="#menu">Menu</a></li><li><a href="#info">Info</a></li></ul></nav><a href="#reserve" class="btn-header">ご予約</a></div></div></header>
     <section class="hero"><div class="container"><h1>UMAMI</h1><p>旬の食材を活かした日本料理の真髄をお届けします</p><a href="#reserve" class="btn-gold">ご予約はこちら</a></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><span class="en">Menu</span><h2>お品書き</h2></div><div class="menu-grid">
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">restaurant</span></div><h3>懐石コース</h3><p>旬の食材を活かした全8品</p><span class="menu-price">¥12,000</span></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">set_meal</span></div><h3>季節の御膳</h3><p>ランチ限定のお得な御膳</p><span class="menu-price">¥3,500</span></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">wine_bar</span></div><h3>日本酒ペアリング</h3><p>料理に合わせた厳選酒</p><span class="menu-price">¥5,000</span></div>
+    <section id="menu" class="menu"><div class="container"><div class="section-header fade-in"><span class="en">Menu</span><h2>お品書き</h2></div><div class="menu-grid">
+        <div class="menu-card fade-in"><div class="menu-image"><span class="material-icons">restaurant</span></div><h3>懐石コース</h3><p>旬の食材を活かした全8品</p><span class="menu-price">¥12,000</span></div>
+        <div class="menu-card fade-in"><div class="menu-image"><span class="material-icons">set_meal</span></div><h3>季節の御膳</h3><p>ランチ限定のお得な御膳</p><span class="menu-price">¥3,500</span></div>
+        <div class="menu-card fade-in"><div class="menu-image"><span class="material-icons">wine_bar</span></div><h3>日本酒ペアリング</h3><p>料理に合わせた厳選酒</p><span class="menu-price">¥5,000</span></div>
     </div></div></section>
-    <section id="info" class="info"><div class="container"><div class="section-header"><span class="en">Information</span><h2>店舗情報</h2></div><table class="info-table">
+    <section id="info" class="info"><div class="container"><div class="section-header fade-in"><span class="en">Information</span><h2>店舗情報</h2></div><table class="info-table">
         <tr><th>住所</th><td>〒150-0001 東京都渋谷区○○1-2-3</td></tr>
         <tr><th>営業時間</th><td>ランチ 11:30〜14:00 / ディナー 17:30〜22:00</td></tr>
         <tr><th>定休日</th><td>月曜日</td></tr>
@@ -66,5 +74,16 @@
     </table></div></section>
     <section class="cta" id="reserve"><div class="container"><h2>ご予約</h2><p style="opacity: 0.9;">お電話またはオンラインにて承ります</p><a href="#" class="btn-white">オンライン予約</a></div></section>
     <footer><div class="container"><div class="footer-logo">UMAMI</div><p>〒150-0001 東京都渋谷区○○1-2-3</p><p>TEL: 03-1234-5678</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="primary"><span class="material-icons">event_seat</span>ご予約</a>
+        <a href="#menu" class="secondary"><span class="material-icons">restaurant_menu</span>メニュー</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

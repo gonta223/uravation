@@ -46,21 +46,38 @@
         footer { background: var(--dark); color: white; padding: 30px 0 20px; text-align: center; }
         .footer-bottom { font-size: 0.8rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 12px 20px; display: flex; justify-content: center; gap: 15px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">STUDY+</div><a href="#contact" class="btn-header">無料体験</a></div></div></header>
     <section class="hero"><div class="container"><h1>いつでもどこでも<br>学べるオンライン塾</h1><p>スマホ1つで始められる新しい学習スタイル</p><a href="#contact" class="btn-white">7日間無料体験</a></div></section>
     <section><div class="container"><div class="section-header"><h2>STUDY+の特徴</h2></div><div class="features-list">
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">phone_iphone</span></div><div><h4>スマホで簡単学習</h4><p>通学中や隙間時間に学べる</p></div></div>
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">video_call</span></div><div><h4>ライブ授業</h4><p>リアルタイムで質問できる</p></div></div>
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">psychology</span></div><div><h4>AI学習管理</h4><p>苦手を分析して最適な問題を出題</p></div></div>
+        <div class="feature-item fade-in"><div class="feature-icon"><span class="material-icons">phone_iphone</span></div><div><h4>スマホで簡単学習</h4><p>通学中や隙間時間に学べる</p></div></div>
+        <div class="feature-item fade-in"><div class="feature-icon"><span class="material-icons">video_call</span></div><div><h4>ライブ授業</h4><p>リアルタイムで質問できる</p></div></div>
+        <div class="feature-item fade-in"><div class="feature-icon"><span class="material-icons">psychology</span></div><div><h4>AI学習管理</h4><p>苦手を分析して最適な問題を出題</p></div></div>
     </div></div></section>
     <section class="pricing"><div class="container"><div class="section-header"><h2>料金プラン</h2></div>
-        <div class="price-card"><span class="price-badge">ライト</span><h3>週1回プラン</h3><div class="price-amount">¥9,800<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>週1回ライブ授業</li><li><span class="material-icons">check_circle</span>動画見放題</li></ul><a href="#" class="btn-primary">このプランを選ぶ</a></div>
-        <div class="price-card popular"><span class="price-badge">人気</span><h3>週3回プラン</h3><div class="price-amount">¥19,800<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>週3回ライブ授業</li><li><span class="material-icons">check_circle</span>質問し放題</li></ul><a href="#" class="btn-primary">このプランを選ぶ</a></div>
+        <div class="price-card fade-in"><span class="price-badge">ライト</span><h3>週1回プラン</h3><div class="price-amount">¥9,800<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>週1回ライブ授業</li><li><span class="material-icons">check_circle</span>動画見放題</li></ul><a href="#" class="btn-primary">このプランを選ぶ</a></div>
+        <div class="price-card popular fade-in"><span class="price-badge">人気</span><h3>週3回プラン</h3><div class="price-amount">¥19,800<span>/月</span></div><ul class="price-features"><li><span class="material-icons">check_circle</span>週3回ライブ授業</li><li><span class="material-icons">check_circle</span>質問し放題</li></ul><a href="#" class="btn-primary">このプランを選ぶ</a></div>
     </div></section>
     <section class="cta" id="contact"><div class="container"><h2>7日間無料で体験</h2><p style="opacity: 0.9;">今すぐ始めよう</p><a href="#" class="btn-white" style="margin-top: 20px;">無料体験を申し込む</a></div></section>
     <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">school</span>無料体験</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

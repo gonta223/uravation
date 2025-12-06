@@ -659,6 +659,9 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -721,19 +724,19 @@
             <h2>NEURAL <span>UPGRADES</span></h2>
         </div>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">🧠</div>
                 <h3>BASIC_IMPLANT</h3>
                 <p>ChatGPT、Claude、Geminiなど生成AIの基本操作から業務活用まで。初心者向け入門モジュール。</p>
                 <span class="price">> ¥要相談</span>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">⚡</div>
                 <h3>ADVANCED_MOD</h3>
                 <p>カスタムGPT開発、RAG構築、自動化ワークフロー設計。実践的なハンズオン形式でスキルを注入。</p>
                 <span class="price">> ¥要相談</span>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">👁️</div>
                 <h3>EXECUTIVE_CORE</h3>
                 <p>AI戦略立案からガバナンス構築まで。意思決定者向けの戦略的知見をダウンロード。</p>
@@ -822,6 +825,10 @@
         for (let i = 0; i < 30; i++) {
             setTimeout(createMatrixColumn, i * 300);
         }
+        // Scroll animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>

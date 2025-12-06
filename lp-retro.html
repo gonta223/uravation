@@ -516,6 +516,13 @@
                 text-align: center;
             }
         }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: rgba(13, 0, 26, 0.95); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.5); transition: bottom 0.5s ease; z-index: 999; border-top: 2px solid var(--neon-cyan); }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 12px 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; text-transform: uppercase; }
+        .fixed-cta .consult { background: transparent; border: 2px solid var(--neon-cyan); color: var(--neon-cyan); }
+        .fixed-cta .consult:hover { background: var(--neon-cyan); color: var(--dark-purple); }
     </style>
 </head>
 <body>
@@ -553,19 +560,19 @@
     </section>
 
     <section class="stats">
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">500+</div>
             <div class="stat-label">導入企業</div>
         </div>
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">15K+</div>
             <div class="stat-label">受講者数</div>
         </div>
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">98%</div>
             <div class="stat-label">満足度</div>
         </div>
-        <div class="stat">
+        <div class="stat fade-in">
             <div class="stat-number">40%</div>
             <div class="stat-label">効率UP</div>
         </div>
@@ -577,17 +584,17 @@
             <p>あなたのレベルに合わせた3つのプログラム</p>
         </div>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">🎮</div>
                 <h3>AI Basic</h3>
                 <p>ChatGPTをはじめとする生成AIの基本操作から業務活用まで。初心者でも安心して学べる入門コース。</p>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">🚀</div>
                 <h3>AI Advanced</h3>
                 <p>実際の業務課題を題材に、AIを活用した問題解決スキルを習得。ハンズオン形式で即戦力を育成。</p>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-icon">👾</div>
                 <h3>AI Executive</h3>
                 <p>経営層・管理職向けのAI戦略立案研修。AI投資判断から組織変革まで、意思決定に必要な知見を提供。</p>
@@ -612,5 +619,15 @@
         </nav>
         <div class="footer-copy">© 2024 URAVATION // ALL RIGHTS RESERVED</div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult">お問い合わせ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

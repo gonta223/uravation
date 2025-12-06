@@ -63,28 +63,47 @@
         .footer-bottom a { color: var(--primary-light); text-decoration: none; }
         @media (max-width: 1024px) { .hero-content, .services-grid, .works-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .process-steps { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .process-steps { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
+        .fixed-cta .tel { border: 2px solid var(--primary); color: var(--primary); }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">LIVORA</div><nav><ul><li><a href="#services">サービス</a></li><li><a href="#works">施工事例</a></li><li><a href="#process">流れ</a></li></ul></nav><a href="#contact" class="btn-header">無料相談</a></div></div></header>
     <section class="hero"><div class="container"><div class="hero-content"><div><h1>心地よい空間を<br>デザインする</h1><p>住宅・オフィス・店舗まで<br>あなたらしい空間づくりをトータルサポート。</p><a href="#contact" class="btn-primary">無料相談はこちら</a></div><div class="hero-image"><span class="material-icons">weekend</span></div></div></div></section>
-    <section id="services" class="services"><div class="container"><div class="section-header"><span class="en">Services</span><h2>サービス</h2></div><div class="services-grid">
-        <div class="service-card"><div class="service-number">01</div><h3>インテリアコーディネート</h3><p>家具・照明・カーテンなどトータルでコーディネートいたします。</p></div>
-        <div class="service-card"><div class="service-number">02</div><h3>リノベーション</h3><p>間取り変更から内装工事まで、理想の空間を実現します。</p></div>
-        <div class="service-card"><div class="service-number">03</div><h3>家具セレクト</h3><p>ライフスタイルに合った家具選びをお手伝いします。</p></div>
+    <section id="services" class="services"><div class="container"><div class="section-header fade-in"><span class="en">Services</span><h2>サービス</h2></div><div class="services-grid">
+        <div class="service-card fade-in"><div class="service-number">01</div><h3>インテリアコーディネート</h3><p>家具・照明・カーテンなどトータルでコーディネートいたします。</p></div>
+        <div class="service-card fade-in"><div class="service-number">02</div><h3>リノベーション</h3><p>間取り変更から内装工事まで、理想の空間を実現します。</p></div>
+        <div class="service-card fade-in"><div class="service-number">03</div><h3>家具セレクト</h3><p>ライフスタイルに合った家具選びをお手伝いします。</p></div>
     </div></div></section>
-    <section id="works"><div class="container"><div class="section-header"><span class="en">Works</span><h2>施工事例</h2></div><div class="works-grid">
-        <div class="work-card"><div class="work-image"><span class="material-icons">home</span></div><div class="work-info"><h4>都内マンション</h4><p>北欧スタイルのリビング</p></div></div>
-        <div class="work-card"><div class="work-image"><span class="material-icons">store</span></div><div class="work-info"><h4>カフェ内装</h4><p>ナチュラルモダンな空間</p></div></div>
-        <div class="work-card"><div class="work-image"><span class="material-icons">business</span></div><div class="work-info"><h4>オフィス</h4><p>クリエイティブワークスペース</p></div></div>
+    <section id="works"><div class="container"><div class="section-header fade-in"><span class="en">Works</span><h2>施工事例</h2></div><div class="works-grid">
+        <div class="work-card fade-in"><div class="work-image"><span class="material-icons">home</span></div><div class="work-info"><h4>都内マンション</h4><p>北欧スタイルのリビング</p></div></div>
+        <div class="work-card fade-in"><div class="work-image"><span class="material-icons">store</span></div><div class="work-info"><h4>カフェ内装</h4><p>ナチュラルモダンな空間</p></div></div>
+        <div class="work-card fade-in"><div class="work-image"><span class="material-icons">business</span></div><div class="work-info"><h4>オフィス</h4><p>クリエイティブワークスペース</p></div></div>
     </div></div></section>
-    <section id="process" class="process"><div class="container"><div class="section-header"><span class="en">Process</span><h2>ご依頼の流れ</h2></div><div class="process-steps">
-        <div class="process-step"><div class="process-icon"><span class="material-icons">chat</span></div><h4>ヒアリング</h4><p>ご要望をお聞かせください</p></div>
-        <div class="process-step"><div class="process-icon"><span class="material-icons">design_services</span></div><h4>プラン提案</h4><p>デザインプランをご提案</p></div>
-        <div class="process-step"><div class="process-icon"><span class="material-icons">construction</span></div><h4>施工</h4><p>プロの職人が施工</p></div>
-        <div class="process-step"><div class="process-icon"><span class="material-icons">check_circle</span></div><h4>お引き渡し</h4><p>新しい空間の完成</p></div>
+    <section id="process" class="process"><div class="container"><div class="section-header fade-in"><span class="en">Process</span><h2>ご依頼の流れ</h2></div><div class="process-steps">
+        <div class="process-step fade-in"><div class="process-icon"><span class="material-icons">chat</span></div><h4>ヒアリング</h4><p>ご要望をお聞かせください</p></div>
+        <div class="process-step fade-in"><div class="process-icon"><span class="material-icons">design_services</span></div><h4>プラン提案</h4><p>デザインプランをご提案</p></div>
+        <div class="process-step fade-in"><div class="process-icon"><span class="material-icons">construction</span></div><h4>施工</h4><p>プロの職人が施工</p></div>
+        <div class="process-step fade-in"><div class="process-icon"><span class="material-icons">check_circle</span></div><h4>お引き渡し</h4><p>新しい空間の完成</p></div>
     </div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>まずはお気軽にご相談ください</h2><p style="opacity: 0.9;">理想の空間づくりをサポートします</p><a href="#" class="btn-white">無料相談</a></div></section>
     <footer><div class="container"><div class="footer-content"><div class="footer-brand"><div class="logo">LIVORA</div><p>〒150-0001 東京都渋谷区○○1-2-3<br>TEL: 03-1234-5678</p></div><div class="footer-links"><h4>Services</h4><ul><li><a href="#">コーディネート</a></li><li><a href="#">リノベーション</a></li><li><a href="#">家具セレクト</a></li></ul></div><div class="footer-links"><h4>Company</h4><ul><li><a href="#">会社概要</a></li><li><a href="#">施工事例</a></li><li><a href="#">お問い合わせ</a></li></ul></div></div><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a>
+        <a href="tel:0312345678" class="tel"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

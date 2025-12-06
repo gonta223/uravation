@@ -495,6 +495,13 @@
                 font-size: 1.75rem;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--light); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 100px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -587,17 +594,17 @@
                 <h2>こんな課題はありませんか？</h2>
             </div>
             <div class="pain-grid">
-                <div class="pain-card">
+                <div class="pain-card fade-in">
                     <div class="icon">😰</div>
                     <h4>AIモデルの精度が上がらない</h4>
                     <p>大量のデータを投入しても、期待する精度に達しない</p>
                 </div>
-                <div class="pain-card">
+                <div class="pain-card fade-in">
                     <div class="icon">😤</div>
                     <h4>アノテーションの品質がバラつく</h4>
                     <p>担当者によって評価基準が異なり、データ品質が不安定</p>
                 </div>
-                <div class="pain-card">
+                <div class="pain-card fade-in">
                     <div class="icon">😓</div>
                     <h4>コストが膨らむ一方</h4>
                     <p>外注費用が予算を超過し、ROIが見えない</p>
@@ -618,17 +625,17 @@
                 <p>体系化されたメソッドで、確実に成果を出す</p>
             </div>
             <div class="solution-grid">
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <span class="material-icons">school</span>
                     <h4>専門人材の育成</h4>
                     <p>RLHFに特化したトレーニングプログラムで内製化を支援</p>
                 </div>
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <span class="material-icons">rule</span>
                     <h4>品質管理フレームワーク</h4>
                     <p>一貫した評価基準とQAプロセスでデータ品質を担保</p>
                 </div>
-                <div class="solution-card">
+                <div class="solution-card fade-in">
                     <span class="material-icons">trending_up</span>
                     <h4>ROI最大化</h4>
                     <p>効率的なワークフローでコストを最適化しながら成果を最大化</p>
@@ -714,5 +721,15 @@
             </p>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#" class="consult"><span class="material-icons">download</span>資料ダウンロード</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

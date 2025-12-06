@@ -45,23 +45,40 @@
         .footer-bottom a { color: var(--primary); text-decoration: none; }
         @media (max-width: 1024px) { .features-grid, .courses-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">BRIGHT</div><nav><ul><li><a href="#features">特徴</a></li><li><a href="#courses">コース</a></li></ul></nav><a href="#contact" class="btn-header">無料体験</a></div></div></header>
     <section class="hero"><div class="container"><h1>楽しく学んで<br>成績アップ！</h1><p>一人ひとりに寄り添う個別指導塾</p><a href="#contact" class="btn-yellow">無料体験授業</a></div></section>
     <section id="features" class="features"><div class="container"><div class="section-header"><h2>BRIGHTの特徴</h2></div><div class="features-grid">
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">person</span></div><h3>完全個別指導</h3><p>お子様のペースに合わせた丁寧な指導</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">emoji_events</span></div><h3>成績保証</h3><p>成績が上がらなければ授業料返金</p></div>
-        <div class="feature-card"><div class="feature-icon"><span class="material-icons">schedule</span></div><h3>自由な時間割</h3><p>部活や習い事との両立も安心</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><span class="material-icons">person</span></div><h3>完全個別指導</h3><p>お子様のペースに合わせた丁寧な指導</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><span class="material-icons">emoji_events</span></div><h3>成績保証</h3><p>成績が上がらなければ授業料返金</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><span class="material-icons">schedule</span></div><h3>自由な時間割</h3><p>部活や習い事との両立も安心</p></div>
     </div></div></section>
     <section id="courses"><div class="container"><div class="section-header"><h2>コース案内</h2></div><div class="courses-grid">
-        <div class="course-card"><div class="course-badge"><span>小学生</span></div><div class="course-info"><h4>小学生コース</h4><p>学習習慣づくりから中学受験対策まで</p></div></div>
-        <div class="course-card"><div class="course-badge"><span>中学生</span></div><div class="course-info"><h4>中学生コース</h4><p>定期テスト対策・高校受験対策</p></div></div>
-        <div class="course-card"><div class="course-badge"><span>高校生</span></div><div class="course-info"><h4>高校生コース</h4><p>大学受験・推薦入試対策</p></div></div>
-        <div class="course-card"><div class="course-badge"><span>英検</span></div><div class="course-info"><h4>英検対策コース</h4><p>各級に合わせた対策講座</p></div></div>
+        <div class="course-card fade-in"><div class="course-badge"><span>小学生</span></div><div class="course-info"><h4>小学生コース</h4><p>学習習慣づくりから中学受験対策まで</p></div></div>
+        <div class="course-card fade-in"><div class="course-badge"><span>中学生</span></div><div class="course-info"><h4>中学生コース</h4><p>定期テスト対策・高校受験対策</p></div></div>
+        <div class="course-card fade-in"><div class="course-badge"><span>高校生</span></div><div class="course-info"><h4>高校生コース</h4><p>大学受験・推薦入試対策</p></div></div>
+        <div class="course-card fade-in"><div class="course-badge"><span>英検</span></div><div class="course-info"><h4>英検対策コース</h4><p>各級に合わせた対策講座</p></div></div>
     </div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>まずは無料体験から！</h2><p style="opacity: 0.9;">お気軽にお問い合わせください</p><a href="#" class="btn-white">無料体験予約</a></div></section>
     <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">school</span>無料体験</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

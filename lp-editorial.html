@@ -520,6 +520,13 @@
                 justify-content: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--ivory); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; border-top: 1px solid var(--light-gray); }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--black); color: var(--ivory); }
     </style>
 </head>
 <body>
@@ -591,17 +598,17 @@
             </p>
         </div>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-number">I.</div>
                 <h3>Foundation</h3>
                 <p>生成AIの基礎から業務活用まで。ChatGPTやClaudeの効果的な使い方を、実践を交えながら習得します。</p>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-number">II.</div>
                 <h3>Advanced</h3>
                 <p>カスタムGPT開発、RAG構築、自動化ワークフロー設計など、より高度なAI活用スキルを身につけます。</p>
             </div>
-            <div class="service-card">
+            <div class="service-card fade-in">
                 <div class="service-number">III.</div>
                 <h3>Executive</h3>
                 <p>AI戦略の策定からガバナンス構築まで、経営判断に必要な視座と知識を提供します。</p>
@@ -671,5 +678,15 @@
             <a href="#">Contact</a>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult">お問い合わせ</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

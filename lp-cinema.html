@@ -475,6 +475,9 @@
                 justify-content: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -541,22 +544,22 @@
     <section class="speakers" id="speakers">
         <h2 class="section-title">Speakers</h2>
         <div class="speaker-list">
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">👤</div>
                 <h3>佐藤 太郎</h3>
                 <p>基調講演</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">👤</div>
                 <h3>山田 花子</h3>
                 <p>セッション1</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">👤</div>
                 <h3>鈴木 一郎</h3>
                 <p>セッション2</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">👤</div>
                 <h3>田中 美咲</h3>
                 <p>パネルディスカッション</p>
@@ -625,5 +628,10 @@
         <p class="footer-copyright">COPYRIGHT © 2024 URAVATION INC.</p>
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/pBVqXZPWRd" target="_blank">STUDIO THE CINEMA</a></p>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

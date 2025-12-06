@@ -666,6 +666,14 @@
                 justify-content: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--bg-card); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.5); transition: bottom 0.5s ease; z-index: 999; border-top: 1px solid var(--border); }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
+        .fixed-cta .tel { border: 2px solid var(--primary); color: var(--primary); }
     </style>
 </head>
 <body>
@@ -762,42 +770,42 @@
             <h2 class="section-title"><strong>第一線で活躍する</strong>登壇者</h2>
         </div>
         <div class="speakers-grid">
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">
                     <span class="material-icons">person</span>
                 </div>
                 <h3>佐藤 卓</h3>
                 <p>Uravation Inc. CEO</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">
                     <span class="material-icons">person</span>
                 </div>
                 <h3>田中 美咲</h3>
                 <p>AI Innovation Lab</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">
                     <span class="material-icons">person</span>
                 </div>
                 <h3>山田 健一</h3>
                 <p>TechVentures Inc.</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">
                     <span class="material-icons">person</span>
                 </div>
                 <h3>鈴木 直人</h3>
                 <p>Digital Strategy Partners</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">
                     <span class="material-icons">person</span>
                 </div>
                 <h3>高橋 由美</h3>
                 <p>FutureAI Research</p>
             </div>
-            <div class="speaker-card">
+            <div class="speaker-card fade-in">
                 <div class="speaker-image">
                     <span class="material-icons">person</span>
                 </div>
@@ -813,7 +821,7 @@
             <h2 class="section-title">注目の<strong>セッション</strong></h2>
         </div>
         <div class="session-list">
-            <div class="session-card">
+            <div class="session-card fade-in">
                 <div class="session-time">10:00</div>
                 <div class="session-content">
                     <h3>基調講演：生成AIがもたらすビジネス変革</h3>
@@ -826,7 +834,7 @@
                     </div>
                 </div>
             </div>
-            <div class="session-card">
+            <div class="session-card fade-in">
                 <div class="session-time">11:30</div>
                 <div class="session-content">
                     <h3>パネルディスカッション：AI人材育成の最前線</h3>
@@ -839,7 +847,7 @@
                     </div>
                 </div>
             </div>
-            <div class="session-card">
+            <div class="session-card fade-in">
                 <div class="session-time">14:00</div>
                 <div class="session-content">
                     <h3>ワークショップ：プロンプトエンジニアリング実践</h3>
@@ -925,5 +933,15 @@
         <p class="footer-copyright">© 2025 AI CONFERENCE. Powered by Uravation Inc.</p>
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/RbrqEgnW4l" target="_blank">STUDIO イベント・セミナー｜ダーク</a></p>
+    <div class="fixed-cta">
+        <a href="#ticket" class="consult"><span class="material-icons">confirmation_number</span>申し込む</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

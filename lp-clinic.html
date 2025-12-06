@@ -595,6 +595,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--primary); color: white; }
+        .fixed-cta .secondary { border: 2px solid var(--primary); color: var(--primary); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content {
@@ -760,33 +770,33 @@
 
     <section id="departments">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>診療科目</h2>
                 <p>幅広い診療で皆様の健康をサポートします</p>
             </div>
             <div class="dept-grid">
-                <div class="dept-card">
+                <div class="dept-card fade-in">
                     <div class="dept-icon">
                         <span class="material-icons">healing</span>
                     </div>
                     <h3>一般内科</h3>
                     <p>風邪、インフルエンザ、生活習慣病など</p>
                 </div>
-                <div class="dept-card">
+                <div class="dept-card fade-in">
                     <div class="dept-icon">
                         <span class="material-icons">child_friendly</span>
                     </div>
                     <h3>小児科</h3>
                     <p>お子様の健康診断、予防接種、急な発熱</p>
                 </div>
-                <div class="dept-card">
+                <div class="dept-card fade-in">
                     <div class="dept-icon">
                         <span class="material-icons">spa</span>
                     </div>
                     <h3>アレルギー科</h3>
                     <p>花粉症、食物アレルギー、アトピー性皮膚炎</p>
                 </div>
-                <div class="dept-card">
+                <div class="dept-card fade-in">
                     <div class="dept-icon">
                         <span class="material-icons">vaccines</span>
                     </div>
@@ -799,22 +809,22 @@
 
     <section class="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>当院の特徴</h2>
                 <p>患者様に寄り添った医療を提供します</p>
             </div>
             <div class="feature-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-num">01</div>
                     <h3>丁寧なカウンセリング</h3>
                     <p>患者様のお話をじっくりお伺いし、症状や不安に寄り添った診療を心がけています。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-num">02</div>
                     <h3>バリアフリー設計</h3>
                     <p>車椅子やベビーカーでもスムーズにご来院いただけるバリアフリー設計です。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-num">03</div>
                     <h3>最新の医療機器</h3>
                     <p>正確な診断のため、最新の医療機器を導入。迅速な検査結果をお伝えします。</p>
@@ -825,7 +835,7 @@
 
     <section id="schedule">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>診療時間</h2>
                 <p>ご都合の良い時間にご来院ください</p>
             </div>
@@ -868,7 +878,7 @@
 
     <section class="access" id="access">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <h2>アクセス</h2>
                 <p>お気軽にお越しください</p>
             </div>
@@ -966,5 +976,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#reserve" class="primary"><span class="material-icons">event_available</span>Web予約</a>
+        <a href="tel:0312345678" class="secondary"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

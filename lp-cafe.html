@@ -534,6 +534,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--terracotta); color: var(--cream); }
+        .fixed-cta .secondary { border: 1px solid var(--brown); color: var(--brown); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content,
@@ -664,7 +674,7 @@
 
     <section id="menu">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Menu</span>
                 <h2>Our Coffee</h2>
             </div>
@@ -674,7 +684,7 @@
                 <button class="menu-tab">Food</button>
             </div>
             <div class="menu-grid">
-                <div class="menu-card">
+                <div class="menu-card fade-in">
                     <div class="menu-image">
                         <span class="material-icons">coffee</span>
                     </div>
@@ -684,7 +694,7 @@
                         <span class="price">¥480</span>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card fade-in">
                     <div class="menu-image">
                         <span class="material-icons">coffee</span>
                     </div>
@@ -694,7 +704,7 @@
                         <span class="price">¥520</span>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card fade-in">
                     <div class="menu-image">
                         <span class="material-icons">coffee</span>
                     </div>
@@ -704,7 +714,7 @@
                         <span class="price">¥500</span>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card fade-in">
                     <div class="menu-image">
                         <span class="material-icons">coffee</span>
                     </div>
@@ -714,7 +724,7 @@
                         <span class="price">¥450</span>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card fade-in">
                     <div class="menu-image">
                         <span class="material-icons">coffee</span>
                     </div>
@@ -724,7 +734,7 @@
                         <span class="price">¥550</span>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card fade-in">
                     <div class="menu-image">
                         <span class="material-icons">coffee</span>
                     </div>
@@ -740,22 +750,22 @@
 
     <section id="story" class="story">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en" style="color: var(--terracotta);">Our Story</span>
                 <h2>こだわり</h2>
             </div>
             <div class="story-content">
-                <div class="story-item">
+                <div class="story-item fade-in">
                     <div class="story-num">01</div>
                     <h4>厳選された豆</h4>
                     <p>世界中の農園から、品質にこだわって選び抜いたスペシャルティコーヒーのみを使用。</p>
                 </div>
-                <div class="story-item">
+                <div class="story-item fade-in">
                     <div class="story-num">02</div>
                     <h4>自家焙煎</h4>
                     <p>店内の焙煎機で毎日焙煎。豆の特性に合わせた焙煎度合いで個性を引き出します。</p>
                 </div>
-                <div class="story-item">
+                <div class="story-item fade-in">
                     <div class="story-num">03</div>
                     <h4>熟練の技</h4>
                     <p>経験豊富なバリスタが一杯一杯丁寧に。ハンドドリップからラテアートまで。</p>
@@ -766,7 +776,7 @@
 
     <section id="access">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Access</span>
                 <h2>店舗情報</h2>
             </div>
@@ -851,5 +861,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#menu" class="primary"><span class="material-icons">restaurant_menu</span>Menu</a>
+        <a href="#access" class="secondary"><span class="material-icons">location_on</span>Access</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

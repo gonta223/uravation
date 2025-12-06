@@ -48,23 +48,39 @@
         .footer-bottom a { color: var(--primary); text-decoration: none; }
         @media (max-width: 1024px) { .hero-content, .workshops-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .features-grid { grid-template-columns: 1fr; } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
     <header><div class="container"><div class="header-inner"><div class="logo">CRAFT</div><nav><ul><li><a href="#workshops">ワークショップ</a></li><li><a href="#features">特徴</a></li></ul></nav><a href="#contact" class="btn-header">予約する</a></div></div></header>
     <section class="hero"><div class="container"><div class="hero-content"><div><h1>手作りの<br>楽しさを体験</h1><p>初心者から経験者まで楽しめる<br>ものづくりワークショップ</p><a href="#contact" class="btn-white">ワークショップを予約</a></div><div class="hero-image"><span class="material-icons">handyman</span></div></div></div></section>
     <section id="workshops" class="workshops"><div class="container"><div class="section-header"><h2>ワークショップ一覧</h2><p>様々な体験をご用意</p></div><div class="workshops-grid">
-        <div class="workshop-card"><div class="workshop-icon"><span class="material-icons">palette</span></div><h3>陶芸体験</h3><p>電動ろくろで器を作る</p><div class="workshop-price">¥5,500</div></div>
-        <div class="workshop-card"><div class="workshop-icon"><span class="material-icons">content_cut</span></div><h3>レザークラフト</h3><p>革小物を手作り</p><div class="workshop-price">¥4,800</div></div>
-        <div class="workshop-card"><div class="workshop-icon"><span class="material-icons">carpenter</span></div><h3>木工体験</h3><p>オリジナル家具作り</p><div class="workshop-price">¥6,000</div></div>
+        <div class="workshop-card fade-in"><div class="workshop-icon"><span class="material-icons">palette</span></div><h3>陶芸体験</h3><p>電動ろくろで器を作る</p><div class="workshop-price">¥5,500</div></div>
+        <div class="workshop-card fade-in"><div class="workshop-icon"><span class="material-icons">content_cut</span></div><h3>レザークラフト</h3><p>革小物を手作り</p><div class="workshop-price">¥4,800</div></div>
+        <div class="workshop-card fade-in"><div class="workshop-icon"><span class="material-icons">carpenter</span></div><h3>木工体験</h3><p>オリジナル家具作り</p><div class="workshop-price">¥6,000</div></div>
     </div></div></section>
     <section id="features"><div class="container"><div class="section-header"><h2>当ワークショップの特徴</h2></div><div class="features-grid">
-        <div class="feature-card"><span class="material-icons">person</span><h4>少人数制</h4><p>最大6名の少人数</p></div>
-        <div class="feature-card"><span class="material-icons">build</span><h4>道具完備</h4><p>手ぶらでOK</p></div>
-        <div class="feature-card"><span class="material-icons">school</span><h4>初心者歓迎</h4><p>丁寧にサポート</p></div>
-        <div class="feature-card"><span class="material-icons">card_giftcard</span><h4>作品は持ち帰り</h4><p>その日にお持ち帰り</p></div>
+        <div class="feature-card fade-in"><span class="material-icons">person</span><h4>少人数制</h4><p>最大6名の少人数</p></div>
+        <div class="feature-card fade-in"><span class="material-icons">build</span><h4>道具完備</h4><p>手ぶらでOK</p></div>
+        <div class="feature-card fade-in"><span class="material-icons">school</span><h4>初心者歓迎</h4><p>丁寧にサポート</p></div>
+        <div class="feature-card fade-in"><span class="material-icons">card_giftcard</span><h4>作品は持ち帰り</h4><p>その日にお持ち帰り</p></div>
     </div></div></section>
     <section class="cta" id="contact"><div class="container"><h2>ものづくり体験をはじめよう</h2><p style="opacity: 0.9;">お気軽にご予約ください</p><a href="#" class="btn-white" style="margin-top: 20px;">予約する</a></div></section>
     <footer><div class="container"><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">calendar_today</span>予約する</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

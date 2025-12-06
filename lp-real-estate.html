@@ -652,6 +652,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--secondary); color: var(--white); }
+        .fixed-cta .tel { border: 2px solid var(--primary); color: var(--primary); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content {
@@ -846,7 +856,7 @@
                 </a>
             </div>
             <div class="properties-grid">
-                <div class="property-card">
+                <div class="property-card fade-in">
                     <div class="property-image">
                         <span class="property-badge">NEW</span>
                         🏢
@@ -874,7 +884,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="property-card">
+                <div class="property-card fade-in">
                     <div class="property-image" style="background: linear-gradient(135deg, #D1D5DB, #9CA3AF);">
                         <span class="property-badge" style="background: var(--primary);">人気</span>
                         🏠
@@ -902,7 +912,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="property-card">
+                <div class="property-card fade-in">
                     <div class="property-image" style="background: linear-gradient(135deg, #9CA3AF, #6B7280);">
                         🏢
                     </div>
@@ -940,28 +950,28 @@
                 <h2 class="section-title">選ばれる理由</h2>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">verified</span>
                     </div>
                     <h3>厳選された物件</h3>
                     <p>当社独自の基準で厳選した、良質な物件のみをご紹介します。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">support_agent</span>
                     </div>
                     <h3>専任スタッフ</h3>
                     <p>経験豊富なスタッフが、物件探しから契約まで一貫してサポート。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">attach_money</span>
                     </div>
                     <h3>仲介手数料割引</h3>
                     <p>Web限定の特別プランで、仲介手数料を最大50%割引。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <span class="material-icons">schedule</span>
                     </div>
@@ -975,19 +985,19 @@
     <section class="stats">
         <div class="container">
             <div class="stats-grid">
-                <div class="stat">
+                <div class="stat fade-in">
                     <div class="stat-value">15,000+</div>
                     <div class="stat-label">取扱物件数</div>
                 </div>
-                <div class="stat">
+                <div class="stat fade-in">
                     <div class="stat-value">98%</div>
                     <div class="stat-label">顧客満足度</div>
                 </div>
-                <div class="stat">
+                <div class="stat fade-in">
                     <div class="stat-value">25年</div>
                     <div class="stat-label">業界経験</div>
                 </div>
-                <div class="stat">
+                <div class="stat fade-in">
                     <div class="stat-value">50,000+</div>
                     <div class="stat-label">成約実績</div>
                 </div>
@@ -1100,5 +1110,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a>
+        <a href="tel:0120000000" class="tel"><span class="material-icons">phone</span>0120-XXX-XXX</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

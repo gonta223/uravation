@@ -73,6 +73,14 @@
         .footer-links a { color: white; opacity: 0.7; text-decoration: none; font-size: 0.9rem; }
         .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: #90CAF9; text-decoration: none; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
+        .fixed-cta .tel { border: 2px solid var(--primary); color: var(--primary); }
         @media (max-width: 1024px) { .hero-content, .services-grid { grid-template-columns: 1fr; } .hero-image { display: none; } .strengths-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .hero-features { flex-direction: column; } .strengths-grid, .footer-content { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; } }
     </style>
@@ -106,32 +114,32 @@
     </section>
     <section id="services" class="services">
         <div class="container">
-            <div class="section-header"><h2>サービス内容</h2><p>税務から経営まで、ワンストップでサポートします</p></div>
+            <div class="section-header fade-in"><h2>サービス内容</h2><p>税務から経営まで、ワンストップでサポートします</p></div>
             <div class="services-grid">
-                <div class="service-card"><div class="service-icon"><span class="material-icons">receipt_long</span></div><h3>税務顧問</h3><p>記帳代行から申告まで。月次訪問で経営状況を把握し的確なアドバイスを。</p></div>
-                <div class="service-card"><div class="service-icon"><span class="material-icons">calculate</span></div><h3>決算・申告</h3><p>法人・個人の決算・確定申告。節税対策もご提案します。</p></div>
-                <div class="service-card"><div class="service-icon"><span class="material-icons">trending_up</span></div><h3>経営コンサル</h3><p>資金繰り、事業計画作成など経営課題の解決をサポート。</p></div>
+                <div class="service-card fade-in"><div class="service-icon"><span class="material-icons">receipt_long</span></div><h3>税務顧問</h3><p>記帳代行から申告まで。月次訪問で経営状況を把握し的確なアドバイスを。</p></div>
+                <div class="service-card fade-in"><div class="service-icon"><span class="material-icons">calculate</span></div><h3>決算・申告</h3><p>法人・個人の決算・確定申告。節税対策もご提案します。</p></div>
+                <div class="service-card fade-in"><div class="service-icon"><span class="material-icons">trending_up</span></div><h3>経営コンサル</h3><p>資金繰り、事業計画作成など経営課題の解決をサポート。</p></div>
             </div>
         </div>
     </section>
     <section id="strength">
         <div class="container">
-            <div class="section-header"><h2>選ばれる理由</h2></div>
+            <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
             <div class="strengths-grid">
-                <div class="strength-card"><div class="strength-num">40年</div><h4>創業からの実績</h4><p>地域に根差した信頼と経験</p></div>
-                <div class="strength-card"><div class="strength-num">500+</div><h4>顧問先企業数</h4><p>様々な業種の実績</p></div>
-                <div class="strength-card"><div class="strength-num">98%</div><h4>顧客満足度</h4><p>丁寧な対応が好評</p></div>
-                <div class="strength-card"><div class="strength-num">24h</div><h4>レスポンス</h4><p>迅速な対応を心がけます</p></div>
+                <div class="strength-card fade-in"><div class="strength-num">40年</div><h4>創業からの実績</h4><p>地域に根差した信頼と経験</p></div>
+                <div class="strength-card fade-in"><div class="strength-num">500+</div><h4>顧問先企業数</h4><p>様々な業種の実績</p></div>
+                <div class="strength-card fade-in"><div class="strength-num">98%</div><h4>顧客満足度</h4><p>丁寧な対応が好評</p></div>
+                <div class="strength-card fade-in"><div class="strength-num">24h</div><h4>レスポンス</h4><p>迅速な対応を心がけます</p></div>
             </div>
         </div>
     </section>
     <section id="faq" class="faq">
         <div class="container">
-            <div class="section-header"><h2>よくある質問</h2></div>
+            <div class="section-header fade-in"><h2>よくある質問</h2></div>
             <div class="faq-list">
-                <div class="faq-item"><div class="faq-question"><span class="q">Q</span>顧問料はどのくらいですか？</div><div class="faq-answer">事業規模や業務内容により異なります。月額2万円〜が目安です。詳しくはお問い合わせください。</div></div>
-                <div class="faq-item"><div class="faq-question"><span class="q">Q</span>創業したばかりでも相談できますか？</div><div class="faq-answer">もちろん可能です。創業支援に力を入れており、会社設立から融資相談まで対応しています。</div></div>
-                <div class="faq-item"><div class="faq-question"><span class="q">Q</span>オンラインでの対応は可能ですか？</div><div class="faq-answer">はい、Zoomなどを使ったオンライン面談に対応しています。遠方の方もお気軽にご相談ください。</div></div>
+                <div class="faq-item fade-in"><div class="faq-question"><span class="q">Q</span>顧問料はどのくらいですか？</div><div class="faq-answer">事業規模や業務内容により異なります。月額2万円〜が目安です。詳しくはお問い合わせください。</div></div>
+                <div class="faq-item fade-in"><div class="faq-question"><span class="q">Q</span>創業したばかりでも相談できますか？</div><div class="faq-answer">もちろん可能です。創業支援に力を入れており、会社設立から融資相談まで対応しています。</div></div>
+                <div class="faq-item fade-in"><div class="faq-question"><span class="q">Q</span>オンラインでの対応は可能ですか？</div><div class="faq-answer">はい、Zoomなどを使ったオンライン面談に対応しています。遠方の方もお気軽にご相談ください。</div></div>
             </div>
         </div>
     </section>
@@ -152,5 +160,16 @@
             <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a>
+        <a href="tel:0312345678" class="tel"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

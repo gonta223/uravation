@@ -613,6 +613,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--dark); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; letter-spacing: 0.1em; }
+        .fixed-cta .book { background: var(--accent); color: var(--black); }
+        .fixed-cta .tel { border: 1px solid var(--accent); color: var(--accent); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero h1 {
@@ -698,7 +708,7 @@
 
     <section id="gallery">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Selected Works</span>
                 <h2>Gallery</h2>
             </div>
@@ -754,33 +764,33 @@
 
     <section id="services" class="services">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">What We Offer</span>
                 <h2>Services</h2>
             </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">favorite</span>
                     </div>
                     <h3>Wedding</h3>
                     <p>人生で最も特別な日を、美しく永遠に残します。前撮りから当日撮影まで対応。</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">person</span>
                     </div>
                     <h3>Portrait</h3>
                     <p>プロフィール写真、宣材写真など。あなたの魅力を最大限に引き出します。</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">family_restroom</span>
                     </div>
                     <h3>Family</h3>
                     <p>七五三、お宮参り、記念日など。家族の大切な瞬間を形に残します。</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-icon">
                         <span class="material-icons">store</span>
                     </div>
@@ -814,12 +824,12 @@
 
     <section id="pricing" class="pricing">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Price List</span>
                 <h2>Pricing</h2>
             </div>
             <div class="pricing-grid">
-                <div class="price-card">
+                <div class="price-card fade-in">
                     <h3>Basic</h3>
                     <p class="desc">ポートレート・プロフィール撮影</p>
                     <div class="price">¥25,000<span>〜</span></div>
@@ -831,7 +841,7 @@
                     </ul>
                     <a href="#contact" class="btn-primary">Book Now</a>
                 </div>
-                <div class="price-card featured">
+                <div class="price-card featured fade-in">
                     <h3>Standard</h3>
                     <p class="desc">ファミリー・記念日撮影</p>
                     <div class="price">¥50,000<span>〜</span></div>
@@ -912,5 +922,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#contact" class="book"><span class="material-icons">photo_camera</span>Book Now</a>
+        <a href="tel:0312345678" class="tel"><span class="material-icons">phone</span>03-1234-5678</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

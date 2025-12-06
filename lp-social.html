@@ -662,6 +662,13 @@
                 grid-template-columns: 1fr;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -720,17 +727,17 @@
                 <p class="section-subtitle">私たちのミッション</p>
             </div>
             <div class="mission-list">
-                <div class="mission-card">
+                <div class="mission-card fade-in">
                     <p class="mission-number">"01"</p>
                     <h3>誰でも学べる場所</h3>
                     <p>高齢者から学生まで、誰もが気軽にAIを学べる無料の学習機会を地域に広げていきます。</p>
                 </div>
-                <div class="mission-card">
+                <div class="mission-card fade-in">
                     <p class="mission-number">"02"</p>
                     <h3>つながりを育む</h3>
                     <p>AI学習を通じて世代を超えた交流を促進し、地域コミュニティのつながりを強化します。</p>
                 </div>
-                <div class="mission-card">
+                <div class="mission-card fade-in">
                     <p class="mission-number">"03"</p>
                     <h3>実践を支える</h3>
                     <p>学んだ知識を実生活や仕事で活かせるよう、継続的なサポートを提供します。</p>
@@ -747,25 +754,25 @@
             </div>
             <p class="stats-note">2024年12月時点の数値です。</p>
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card fade-in">
                     <span class="material-icons">face</span>
                     <h4>参加者人数</h4>
                     <p class="stat-number">1,500</p>
                     <p class="stat-unit">人</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card fade-in">
                     <span class="material-icons">event_available</span>
                     <h4>開催回数</h4>
                     <p class="stat-number">120</p>
                     <p class="stat-unit">回</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card fade-in">
                     <span class="material-icons">domain</span>
                     <h4>協賛企業</h4>
                     <p class="stat-number">15</p>
                     <p class="stat-unit">社</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card fade-in">
                     <span class="material-icons">volunteer_activism</span>
                     <h4>講師ボランティア</h4>
                     <p class="stat-number">30</p>
@@ -782,7 +789,7 @@
                 <p class="section-subtitle">活動内容</p>
             </div>
             <div class="activity-list">
-                <div class="activity-card">
+                <div class="activity-card fade-in">
                     <div class="activity-image">🤖</div>
                     <div class="activity-content">
                         <h3>シニア向けAI入門講座</h3>
@@ -790,7 +797,7 @@
                         <p class="activity-schedule">[実施日] 毎週土曜日 10:00-12:00</p>
                     </div>
                 </div>
-                <div class="activity-card">
+                <div class="activity-card fade-in">
                     <div class="activity-image">💻</div>
                     <div class="activity-content">
                         <h3>学生向けAIワークショップ</h3>
@@ -907,7 +914,9 @@
         <p class="footer-copyright">© 2024 Uravation Inc.</p>
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/14yqBzbqjV" target="_blank">STUDIO 社会課題｜Social.</a></p>
-
+    <div class="fixed-cta">
+        <a href="#support" class="consult"><span class="material-icons">favorite</span>応援する</a>
+    </div>
     <script>
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
@@ -915,6 +924,11 @@
                 item.classList.toggle('active');
             });
         });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>

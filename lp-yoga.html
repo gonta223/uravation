@@ -581,6 +581,16 @@
             text-decoration: none;
         }
 
+        /* Animation */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; border-radius: 25px; text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease; }
+        .fixed-cta .primary { background: var(--sage); color: var(--white); }
+        .fixed-cta .secondary { border: 2px solid var(--sage); color: var(--sage); }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content,
@@ -694,12 +704,12 @@
 
     <section id="programs">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Programs</span>
                 <h2>クラス紹介</h2>
             </div>
             <div class="programs-grid">
-                <div class="program-card">
+                <div class="program-card fade-in">
                     <div class="program-image">
                         <span class="material-icons">accessibility_new</span>
                     </div>
@@ -713,7 +723,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="program-card">
+                <div class="program-card fade-in">
                     <div class="program-image" style="background: linear-gradient(135deg, var(--terracotta), #D4B49A);">
                         <span class="material-icons">nights_stay</span>
                     </div>
@@ -727,7 +737,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="program-card">
+                <div class="program-card fade-in">
                     <div class="program-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
                         <span class="material-icons">whatshot</span>
                     </div>
@@ -747,33 +757,33 @@
 
     <section class="benefits">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Benefits</span>
                 <h2>ヨガの効果</h2>
             </div>
             <div class="benefits-grid">
-                <div class="benefit-card">
+                <div class="benefit-card fade-in">
                     <div class="benefit-icon">
                         <span class="material-icons">psychology</span>
                     </div>
                     <h4>ストレス軽減</h4>
                     <p>呼吸と動きを合わせることで心が落ち着きます</p>
                 </div>
-                <div class="benefit-card">
+                <div class="benefit-card fade-in">
                     <div class="benefit-icon">
                         <span class="material-icons">fitness_center</span>
                     </div>
                     <h4>体幹強化</h4>
                     <p>インナーマッスルが鍛えられ姿勢が改善します</p>
                 </div>
-                <div class="benefit-card">
+                <div class="benefit-card fade-in">
                     <div class="benefit-icon">
                         <span class="material-icons">hotel</span>
                     </div>
                     <h4>睡眠の質向上</h4>
                     <p>深いリラックスで質の良い睡眠が得られます</p>
                 </div>
-                <div class="benefit-card">
+                <div class="benefit-card fade-in">
                     <div class="benefit-icon">
                         <span class="material-icons">directions_run</span>
                     </div>
@@ -786,12 +796,12 @@
 
     <section id="pricing">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Pricing</span>
                 <h2>料金プラン</h2>
             </div>
             <div class="pricing-grid">
-                <div class="price-card">
+                <div class="price-card fade-in">
                     <h3 class="price-name">ドロップイン</h3>
                     <p class="price-desc">1回ずつ気軽に参加</p>
                     <div class="price-amount">¥3,300<span>/回</span></div>
@@ -813,7 +823,7 @@
                     </ul>
                     <a href="#trial" class="btn-outline">詳しく見る</a>
                 </div>
-                <div class="price-card">
+                <div class="price-card fade-in">
                     <h3 class="price-name">通い放題</h3>
                     <p class="price-desc">たくさん通いたい方へ</p>
                     <div class="price-amount">¥15,400<span>/月</span></div>
@@ -830,7 +840,7 @@
 
     <section id="studio">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <span class="en">Studio</span>
                 <h2>スタジオ紹介</h2>
             </div>
@@ -901,5 +911,16 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#trial" class="primary"><span class="material-icons">event</span>体験予約</a>
+        <a href="#pricing" class="secondary"><span class="material-icons">payments</span>料金</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

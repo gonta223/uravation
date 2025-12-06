@@ -511,6 +511,13 @@
                 justify-content: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -542,32 +549,32 @@
             <p>あなたのペースで、無理なく続けられる</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">🌿</div>
                 <h3>リラックスモード</h3>
                 <p>落ち着いた配色とBGMで、ストレスなく学習に集中できます。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">⏱️</div>
                 <h3>5分レッスン</h3>
                 <p>1レッスン5分。通勤中や休憩時間にサクッと学べます。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">🎯</div>
                 <h3>パーソナライズ</h3>
                 <p>あなたのレベルと目標に合わせた最適なカリキュラムを提供。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">🏆</div>
                 <h3>達成バッジ</h3>
                 <p>学習を続けるとバッジを獲得。モチベーション維持をサポート。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">💬</div>
                 <h3>AIチャット練習</h3>
                 <p>実際にAIと対話しながら、実践的なスキルを身につけます。</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">📊</div>
                 <h3>進捗トラッキング</h3>
                 <p>学習履歴を可視化。成長を実感しながら続けられます。</p>
@@ -672,5 +679,15 @@
             </div>
         </div>
     </footer>
+    <div class="fixed-cta">
+        <a href="#download" class="consult">無料ダウンロード</a>
+    </div>
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+    </script>
 </body>
 </html>

@@ -527,6 +527,13 @@
                 text-align: center;
             }
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.08); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 4px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--text); color: white; }
     </style>
 </head>
 <body>
@@ -572,11 +579,11 @@
                 <h2 class="section-title">研修の特徴</h2>
             </div>
             <div class="feature-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <h3>初心者にもやさしい内容</h3>
                     <p>専門用語を極力排除したわかりやすい解説で、AIに馴染みのない方でも安心して学べる、やさしい内容に仕上げました。</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <h3>厳選された実践カリキュラム</h3>
                     <p>最前線で活躍するAI専門家と直接連携し、品質にこだわったカリキュラムだけを使用。現場で使える実践的な内容をお届けします。</p>
                 </div>
@@ -591,17 +598,17 @@
                 <h2 class="section-title">研修価格</h2>
             </div>
             <div class="pricing-list">
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <h3>基礎研修プラン</h3>
                     <p class="desc">AI入門として最適なプラン</p>
                     <p class="price">¥100,000（税込）</p>
                 </div>
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <h3>実践研修プラン</h3>
                     <p class="desc">ハンズオンで学ぶ実践型</p>
                     <p class="price">¥200,000（税込）</p>
                 </div>
-                <div class="pricing-card">
+                <div class="pricing-card fade-in">
                     <h3>カスタムプラン</h3>
                     <p class="desc">御社専用カリキュラム</p>
                     <p class="price">¥300,000〜（税込）</p>
@@ -706,6 +713,9 @@
     </footer>
     <p class="footer-ref">Design inspired by <a href="https://studio.design/ja/store/templates/Q65qmmvqVR" target="_blank">STUDIO ブランディング｜Brand.</a></p>
 
+    <div class="fixed-cta">
+        <a href="#contact" class="consult">お問い合わせ</a>
+    </div>
     <script>
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
@@ -713,6 +723,11 @@
                 item.classList.toggle('active');
             });
         });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>
