@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒処 灯 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #2D1810; --accent: #D4A853; --red: #B8423C; --cream: #FDF6E9; --text: #2D1810; --text-light: #6B5B4D; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: var(--primary); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { box-shadow: 0 5px 30px rgba(0,0,0,0.3); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Shippori Mincho', serif; font-size: 1.8rem; color: var(--accent); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .btn-header { background: var(--accent); color: var(--primary); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; font-weight: 700; transition: all 0.3s; }
+        .btn-header:hover { background: var(--white); }
+
+        .hero { min-height: 100vh; background: linear-gradient(rgba(45,24,16,0.8), rgba(45,24,16,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23D4A853" opacity="0.3"/></svg>'); background-size: cover, 30px 30px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); position: relative; }
+        .hero::before { content: '灯'; position: absolute; font-family: 'Shippori Mincho', serif; font-size: 40vw; color: rgba(212,168,83,0.05); }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-lantern { font-size: 80px; margin-bottom: 20px; opacity: 0; animation: float 3s ease-in-out infinite, fadeIn 1s ease forwards; }
+        .hero h1 { font-family: 'Shippori Mincho', serif; font-size: 3.5rem; margin-bottom: 20px; letter-spacing: 0.2em; opacity: 0; animation: fadeInUp 0.8s ease 0.3s forwards; }
+        .hero p { font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 40px; letter-spacing: 0.1em; opacity: 0; animation: fadeInUp 0.8s ease 0.5s forwards; }
+        .btn-primary { background: var(--accent); color: var(--primary); padding: 18px 50px; text-decoration: none; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; display: inline-block; transition: all 0.3s; opacity: 0; animation: fadeInUp 0.8s ease 0.7s forwards; }
+        .btn-primary:hover { background: var(--white); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,168,83,0.3); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in-right { opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible, .fade-in-left.visible, .fade-in-right.visible, .scale-in.visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; } .stagger-4 { transition-delay: 0.4s; }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-size: 0.8rem; color: var(--red); letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Shippori Mincho', serif; font-size: 2.5rem; letter-spacing: 0.1em; }
+
+        .osusume { background: var(--white); }
+        .osusume-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .osusume-item { text-align: center; padding: 30px 15px; border: 1px solid rgba(45,24,16,0.1); transition: all 0.4s; }
+        .osusume-item:hover { border-color: var(--accent); background: var(--cream); transform: translateY(-5px); }
+        .osusume-item .emoji { font-size: 50px; margin-bottom: 15px; }
+        .osusume-item h4 { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; margin-bottom: 8px; }
+        .osusume-item p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 10px; }
+        .osusume-price { color: var(--red); font-weight: 700; }
+
+        .course { background: var(--primary); color: var(--white); }
+        .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .course-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(212,168,83,0.3); padding: 40px 30px; text-align: center; transition: all 0.4s; }
+        .course-card:hover { background: rgba(212,168,83,0.1); border-color: var(--accent); transform: translateY(-10px); }
+        .course-card.featured { border-color: var(--accent); position: relative; }
+        .course-card.featured::before { content: '人気No.1'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--red); color: var(--white); padding: 5px 20px; font-size: 0.75rem; font-weight: 700; }
+        .course-name { font-family: 'Shippori Mincho', serif; font-size: 1.5rem; color: var(--accent); margin-bottom: 15px; }
+        .course-price { font-size: 2rem; font-weight: 700; margin-bottom: 20px; }
+        .course-price span { font-size: 0.9rem; font-weight: 400; }
+        .course-list { text-align: left; list-style: none; }
+        .course-list li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+        .course-list li::before { content: '◆'; color: var(--accent); margin-right: 10px; }
+
+        .sake { background: var(--cream); }
+        .sake-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .sake-image { height: 400px; background: linear-gradient(135deg, var(--primary), #4a3028); display: flex; align-items: center; justify-content: center; }
+        .sake-image .emoji { font-size: 120px; }
+        .sake-text h3 { font-family: 'Shippori Mincho', serif; font-size: 2rem; margin-bottom: 20px; }
+        .sake-text p { color: var(--text-light); margin-bottom: 30px; }
+        .sake-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .sake-tag { background: var(--primary); color: var(--accent); padding: 8px 20px; font-size: 0.85rem; }
+
+        .cta { background: linear-gradient(135deg, var(--red), #8a302b); color: var(--white); text-align: center; }
+        .cta h2 { font-family: 'Shippori Mincho', serif; font-size: 2rem; margin-bottom: 15px; letter-spacing: 0.1em; }
+        .cta p { margin-bottom: 30px; opacity: 0.9; }
+        .btn-cta { background: var(--accent); color: var(--primary); padding: 18px 60px; text-decoration: none; font-weight: 700; display: inline-block; transition: all 0.3s; }
+        .btn-cta:hover { background: var(--white); transform: translateY(-3px); }
+
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
+        .fixed-cta-text { color: var(--white); font-family: 'Shippori Mincho', serif; }
+        .fixed-cta-text span { color: var(--accent); }
+        .btn-fixed { background: var(--accent); color: var(--primary); padding: 12px 30px; text-decoration: none; font-weight: 700; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-fixed:hover { background: var(--white); }
+
+        footer { background: #1a0f0a; color: var(--white); padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Shippori Mincho', serif; font-size: 2rem; color: var(--accent); margin-bottom: 20px; }
+        footer p { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 1024px) { .osusume-grid { grid-template-columns: repeat(2, 1fr); } .course-grid { grid-template-columns: 1fr; } .sake-inner { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .osusume-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">酒処 灯</div><nav><ul><li><a href="#osusume">おすすめ</a></li><li><a href="#course">コース</a></li><li><a href="#reserve">ご予約</a></li></ul></nav><a href="#reserve" class="btn-header">ご予約</a></div></div></header>
+
+    <section class="hero"><div class="hero-content"><div class="hero-lantern">🏮</div><h1>酒処 灯</h1><p>旬の肴と厳選地酒で、心温まるひとときを</p><a href="#reserve" class="btn-primary">ご予約はこちら</a></div></section>
+
+    <section id="osusume" class="osusume"><div class="container"><div class="section-header fade-in"><span class="en">OSUSUME</span><h2>本日のおすすめ</h2></div><div class="osusume-grid">
+        <div class="osusume-item fade-in stagger-1"><div class="emoji">🐟</div><h4>本日の刺身盛り</h4><p>市場直送の鮮魚5種盛り</p><div class="osusume-price">¥1,480</div></div>
+        <div class="osusume-item fade-in stagger-2"><div class="emoji">🍢</div><h4>串焼き盛り合わせ</h4><p>備長炭で丁寧に焼き上げ</p><div class="osusume-price">¥980</div></div>
+        <div class="osusume-item fade-in stagger-3"><div class="emoji">🥘</div><h4>牛すじ煮込み</h4><p>3日間じっくり煮込んだ逸品</p><div class="osusume-price">¥680</div></div>
+        <div class="osusume-item fade-in stagger-4"><div class="emoji">🥚</div><h4>だし巻き卵</h4><p>職人技の究極のふわふわ</p><div class="osusume-price">¥580</div></div>
+    </div></div></section>
+
+    <section id="course" class="course"><div class="container"><div class="section-header fade-in" style="color: var(--white);"><span class="en">COURSE</span><h2>宴会コース</h2></div><div class="course-grid">
+        <div class="course-card scale-in stagger-1"><div class="course-name">灯コース</div><div class="course-price">¥3,500<span>/人</span></div><ul class="course-list"><li>前菜三種盛り</li><li>本日の刺身三種</li><li>串焼き五本</li><li>〆の一品</li><li>2時間飲み放題付</li></ul></div>
+        <div class="course-card featured scale-in stagger-2"><div class="course-name">宴コース</div><div class="course-price">¥4,500<span>/人</span></div><ul class="course-list"><li>前菜五種盛り</li><li>本日の刺身五種</li><li>串焼き七本</li><li>季節の煮物</li><li>〆の一品</li><li>2.5時間飲み放題付</li></ul></div>
+        <div class="course-card scale-in stagger-3"><div class="course-name">極コース</div><div class="course-price">¥6,000<span>/人</span></div><ul class="course-list"><li>豪華前菜盛り</li><li>特選刺身七種</li><li>名物串焼き十本</li><li>季節の焼き物</li><li>特製〆</li><li>3時間プレミアム飲み放題</li></ul></div>
+    </div></div></section>
+
+    <section class="sake"><div class="container"><div class="sake-inner"><div class="sake-image fade-in-left"><div class="emoji">🍶</div></div><div class="sake-text fade-in-right"><h3>全国の銘酒を<br>取り揃えております</h3><p>日本酒ソムリエが厳選した、全国各地の地酒を常時50種類以上ご用意。お料理に合わせた一杯をご提案いたします。</p><div class="sake-list"><span class="sake-tag">獺祭</span><span class="sake-tag">十四代</span><span class="sake-tag">久保田</span><span class="sake-tag">八海山</span><span class="sake-tag">黒龍</span><span class="sake-tag">而今</span></div></div></div></div></section>
+
+    <section id="reserve" class="cta fade-in"><div class="container"><h2>ご予約承ります</h2><p>お電話またはネットでご予約ください</p><a href="tel:03-0000-0000" class="btn-cta">03-0000-0000</a></div></section>
+
+    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text">本日<span>空席あり</span>｜お気軽にお問い合わせください</div><a href="tel:03-0000-0000" class="btn-fixed"><span class="material-icons">phone</span>予約する</a></div></div></div>
+
+    <footer><div class="container"><div class="footer-logo">酒処 灯</div><p>〒000-0000 東京都港区○○1-2-3</p><p>TEL: 03-0000-0000 / 営業: 17:00〜24:00（日祝休）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+    </script>
+</body>
+</html>

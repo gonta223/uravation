@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メガネサロン CLEAR | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #2c3e50; --accent: #c9a87c; --gold: #b8860b; --cream: #faf8f5; --text: #333; --text-light: #777; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; overflow-x: hidden; font-weight: 300; background: var(--cream); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: var(--white); padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { box-shadow: 0 2px 30px rgba(0,0,0,0.08); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--primary); font-weight: 500; letter-spacing: 0.15em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .btn-header { background: var(--primary); color: var(--white); padding: 12px 30px; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; transition: all 0.3s; }
+        .btn-header:hover { background: var(--accent); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%); display: flex; align-items: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: linear-gradient(45deg, transparent, rgba(201,168,124,0.1)); }
+        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .hero-content { color: var(--white); }
+        .hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--accent); letter-spacing: 0.3em; margin-bottom: 25px; opacity: 0; animation: fadeIn 1s ease 0.3s forwards; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 400; line-height: 1.4; margin-bottom: 25px; letter-spacing: 0.1em; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .hero p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 40px; line-height: 2; opacity: 0; animation: fadeInUp 1s ease 0.7s forwards; }
+        .btn-hero { display: inline-flex; align-items: center; gap: 15px; background: var(--accent); color: var(--white); padding: 18px 45px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; animation: fadeInUp 1s ease 0.9s forwards; }
+        .btn-hero:hover { background: var(--white); color: var(--primary); }
+        .hero-visual { opacity: 0; animation: fadeIn 1.2s ease 0.5s forwards; }
+        .hero-frame { width: 100%; aspect-ratio: 4/5; border: 1px solid rgba(201,168,124,0.3); display: flex; align-items: center; justify-content: center; position: relative; }
+        .hero-frame::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 1px solid rgba(201,168,124,0.2); }
+        .hero-frame .material-icons { font-size: 120px; color: rgba(201,168,124,0.3); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; color: var(--accent); letter-spacing: 0.3em; margin-bottom: 15px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; letter-spacing: 0.15em; }
+
+        .concept { background: var(--white); }
+        .concept-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .concept-image { aspect-ratio: 4/3; background: linear-gradient(135deg, var(--cream), #e8e4df); display: flex; align-items: center; justify-content: center; }
+        .concept-image .material-icons { font-size: 100px; color: var(--accent); opacity: 0.3; }
+        .concept-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 25px; font-weight: 400; letter-spacing: 0.1em; }
+        .concept-content p { font-size: 0.95rem; color: var(--text-light); line-height: 2.2; }
+
+        .products { background: var(--cream); }
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
+        .product-card { background: var(--white); transition: all 0.5s; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(0,0,0,0.08); }
+        .product-image { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+        .product-card:nth-child(1) .product-image { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .product-card:nth-child(2) .product-image { background: linear-gradient(135deg, var(--accent), #a08060); }
+        .product-card:nth-child(3) .product-image { background: linear-gradient(135deg, #7f8c8d, #95a5a6); }
+        .product-image .material-icons { font-size: 70px; color: rgba(255,255,255,0.3); }
+        .product-content { padding: 30px; text-align: center; }
+        .product-content .category { font-size: 0.7rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
+        .product-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 10px; font-weight: 400; letter-spacing: 0.1em; }
+        .product-content p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--primary); }
+        .product-price span { font-size: 0.8rem; }
+
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .service-item { text-align: center; }
+        .service-icon { width: 80px; height: 80px; border: 1px solid var(--accent); margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; transition: all 0.4s; }
+        .service-item:hover .service-icon { background: var(--accent); }
+        .service-icon .material-icons { font-size: 32px; color: var(--accent); transition: color 0.4s; }
+        .service-item:hover .service-icon .material-icons { color: var(--white); }
+        .service-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 15px; font-weight: 400; letter-spacing: 0.1em; }
+        .service-item p { font-size: 0.85rem; color: var(--text-light); line-height: 1.9; }
+
+        .cta { background: var(--primary); color: var(--white); text-align: center; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; margin-bottom: 20px; letter-spacing: 0.15em; }
+        .cta p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 35px; }
+        .cta-buttons { display: flex; justify-content: center; gap: 20px; }
+        .btn-cta { background: var(--accent); color: var(--white); padding: 18px 45px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.4s; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-cta:hover { background: var(--white); color: var(--primary); }
+        .btn-cta-outline { background: transparent; color: var(--white); padding: 18px 45px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.3); transition: all 0.4s; }
+        .btn-cta-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
+        .fixed-cta-text { color: var(--white); font-size: 0.85rem; }
+        .fixed-cta-text span { color: var(--accent); }
+        .btn-fixed { background: var(--accent); color: var(--white); padding: 12px 30px; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+        .btn-fixed:hover { background: var(--white); color: var(--primary); }
+
+        footer { background: #1a1a1a; color: var(--white); padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 25px; letter-spacing: 0.2em; }
+        footer p { font-size: 0.85rem; opacity: 0.5; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; opacity: 0.3; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 1024px) { .products-grid, .services-grid { grid-template-columns: 1fr; } .concept-inner { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero-inner { grid-template-columns: 1fr; text-align: center; } .hero h1 { font-size: 2rem; } .hero-visual { display: none; } .cta-buttons { flex-direction: column; align-items: center; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">CLEAR</div><nav><ul><li><a href="#concept">コンセプト</a></li><li><a href="#products">商品</a></li><li><a href="#services">サービス</a></li><li><a href="#contact">ご予約</a></li></ul></nav><a href="#contact" class="btn-header">来店予約</a></div></div></header>
+
+    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-content"><p class="hero-tagline">EYEWEAR SALON</p><h1>あなたらしさを<br>引き出す一本を</h1><p>国内外の厳選されたアイウェアと、<br>一人ひとりに合わせたフィッティング。<br>掛け心地と美しさを両立した、最高の一本をお届けします。</p><a href="#contact" class="btn-hero"><span class="material-icons">calendar_today</span>来店予約</a></div><div class="hero-visual"><div class="hero-frame"><span class="material-icons">visibility</span></div></div></div></div></section>
+
+    <section id="concept" class="concept"><div class="container"><div class="concept-inner fade-in"><div class="concept-image"><span class="material-icons">auto_awesome</span></div><div class="concept-content"><h3>一人ひとりの個性を輝かせる<br>オーダーメイドの提案</h3><p>メガネは単なる視力補助の道具ではありません。<br>お顔の印象を左右する大切なアイテムです。<br><br>当店では、お客様のライフスタイル、お顔の形、<br>パーソナルカラーを総合的に分析し、<br>あなただけの最適な一本をご提案いたします。</p></div></div></div></section>
+
+    <section id="products" class="products"><div class="container"><div class="section-header fade-in"><span class="en">PRODUCTS</span><h2>取り扱いブランド</h2></div><div class="products-grid">
+        <div class="product-card fade-in stagger-1"><div class="product-image"><span class="material-icons">visibility</span></div><div class="product-content"><span class="category">CLASSIC</span><h3>クラシックフレーム</h3><p>時代を超えて愛される<br>上質なデザイン</p><div class="product-price">¥28,000<span>〜</span></div></div></div>
+        <div class="product-card fade-in stagger-2"><div class="product-image"><span class="material-icons">visibility</span></div><div class="product-content"><span class="category">DESIGNER</span><h3>デザイナーズブランド</h3><p>世界のトップブランドを<br>厳選してご用意</p><div class="product-price">¥48,000<span>〜</span></div></div></div>
+        <div class="product-card fade-in stagger-3"><div class="product-image"><span class="material-icons">visibility</span></div><div class="product-content"><span class="category">SUNGLASSES</span><h3>サングラス</h3><p>ファッション性と機能性を<br>兼ね備えた逸品</p><div class="product-price">¥35,000<span>〜</span></div></div></div>
+    </div></div></section>
+
+    <section id="services" class="services"><div class="container"><div class="section-header fade-in"><span class="en">SERVICES</span><h2>サービス内容</h2></div><div class="services-grid">
+        <div class="service-item fade-in stagger-1"><div class="service-icon"><span class="material-icons">remove_red_eye</span></div><h4>視力測定</h4><p>最新機器による精密な視力測定。<br>眼の状態を詳しく把握し、<br>最適なレンズをご提案します。</p></div>
+        <div class="service-item fade-in stagger-2"><div class="service-icon"><span class="material-icons">face</span></div><h4>フレーム選び</h4><p>顔型診断・パーソナルカラー分析で<br>あなたに似合うフレームを<br>プロがアドバイス。</p></div>
+        <div class="service-item fade-in stagger-3"><div class="service-icon"><span class="material-icons">build</span></div><h4>アフターケア</h4><p>フィッティング調整・修理は<br>いつでも無料。<br>長くご愛用いただけます。</p></div>
+    </div></div></section>
+
+    <section id="contact" class="cta fade-in"><div class="container"><h2>ご来店予約</h2><p>じっくりとご相談いただくため、ご予約をおすすめしております</p><div class="cta-buttons"><a href="tel:000-000-0000" class="btn-cta"><span class="material-icons">phone</span>000-000-0000</a><a href="#" class="btn-cta-outline">WEB予約</a></div></div></section>
+
+    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>完全予約制</span>｜じっくりご相談いただけます</div><a href="tel:000-000-0000" class="btn-fixed"><span class="material-icons">phone</span>ご予約はこちら</a></div></div></div>
+
+    <footer><div class="container"><div class="footer-logo">CLEAR</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 000-000-0000 / 営業時間: 11:00-19:00（水曜定休）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+    </script>
+</body>
+</html>

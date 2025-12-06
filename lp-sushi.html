@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鮨 匠 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1a1a1a; --accent: #C9A962; --red: #8B2635; --cream: #F5F0E8; --text: #1a1a1a; --text-light: #666; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Zen Kaku Gothic New', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: var(--primary); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s ease; }
+        header.scrolled { padding: 10px 0; box-shadow: 0 5px 30px rgba(0,0,0,0.3); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        .btn-header { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.3s; }
+        .btn-header:hover { background: var(--accent); color: var(--primary); }
+
+        .hero { min-height: 100vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), linear-gradient(135deg, var(--primary) 0%, #2a2a2a 100%); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); position: relative; }
+        .hero::before { content: '鮨'; position: absolute; font-family: 'Noto Serif JP', serif; font-size: 30vw; color: rgba(201,169,98,0.05); z-index: 0; }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-sub { font-size: 0.9rem; color: var(--accent); letter-spacing: 0.3em; margin-bottom: 20px; opacity: 0; animation: fadeInDown 0.8s ease forwards; }
+        .hero h1 { font-family: 'Noto Serif JP', serif; font-size: 4rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.2em; opacity: 0; animation: fadeInUp 0.8s ease 0.2s forwards; }
+        .hero p { font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 40px; letter-spacing: 0.1em; opacity: 0; animation: fadeInUp 0.8s ease 0.4s forwards; }
+        .btn-primary { background: var(--accent); color: var(--primary); padding: 18px 50px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.15em; transition: all 0.3s; display: inline-block; opacity: 0; animation: fadeInUp 0.8s ease 0.6s forwards; }
+        .btn-primary:hover { background: var(--white); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(201,169,98,0.3); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in-right { opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible, .fade-in-left.visible, .fade-in-right.visible, .scale-in.visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-size: 0.8rem; color: var(--accent); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Noto Serif JP', serif; font-size: 2.5rem; font-weight: 600; letter-spacing: 0.1em; }
+
+        .concept { background: var(--primary); color: var(--white); }
+        .concept-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .concept-image { height: 500px; background: linear-gradient(135deg, var(--red), #5a1a23); display: flex; align-items: center; justify-content: center; position: relative; }
+        .concept-image::before { content: '匠'; font-family: 'Noto Serif JP', serif; font-size: 15rem; color: rgba(255,255,255,0.1); }
+        .concept-text h3 { font-family: 'Noto Serif JP', serif; font-size: 1.8rem; margin-bottom: 30px; line-height: 1.8; letter-spacing: 0.1em; }
+        .concept-text p { color: rgba(255,255,255,0.8); line-height: 2.2; }
+
+        .menu { background: var(--cream); }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .menu-item { background: var(--white); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .menu-item:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .menu-image { height: 250px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .menu-item:nth-child(1) .menu-image { background: linear-gradient(135deg, var(--red), #5a1a23); }
+        .menu-item:nth-child(2) .menu-image { background: linear-gradient(135deg, var(--primary), #333); }
+        .menu-item:nth-child(3) .menu-image { background: linear-gradient(135deg, var(--accent), #a08040); }
+        .menu-image .material-icons { font-size: 60px; color: rgba(255,255,255,0.3); transition: all 0.4s; }
+        .menu-item:hover .menu-image .material-icons { transform: scale(1.2); color: rgba(255,255,255,0.5); }
+        .menu-content { padding: 30px; text-align: center; }
+        .menu-content h3 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; margin-bottom: 10px; letter-spacing: 0.1em; }
+        .menu-content p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .menu-price { font-family: 'Noto Serif JP', serif; font-size: 1.5rem; color: var(--accent); }
+
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .feature-item { text-align: center; padding: 40px 20px; transition: all 0.4s; }
+        .feature-item:hover { background: var(--cream); }
+        .feature-icon { width: 80px; height: 80px; background: var(--primary); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; transition: all 0.4s; }
+        .feature-item:hover .feature-icon { background: var(--accent); transform: rotate(5deg); }
+        .feature-icon .material-icons { font-size: 36px; color: var(--accent); transition: color 0.4s; }
+        .feature-item:hover .feature-icon .material-icons { color: var(--primary); }
+        .feature-item h4 { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; margin-bottom: 10px; letter-spacing: 0.1em; }
+        .feature-item p { font-size: 0.85rem; color: var(--text-light); }
+
+        .cta { background: var(--primary); color: var(--white); text-align: center; position: relative; overflow: hidden; }
+        .cta::before { content: '予約'; position: absolute; font-family: 'Noto Serif JP', serif; font-size: 20vw; color: rgba(201,169,98,0.05); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .cta h2 { font-family: 'Noto Serif JP', serif; font-size: 2rem; margin-bottom: 20px; letter-spacing: 0.15em; position: relative; }
+        .cta p { color: rgba(255,255,255,0.8); margin-bottom: 30px; position: relative; }
+        .btn-cta { background: var(--accent); color: var(--primary); padding: 18px 60px; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.15em; display: inline-block; position: relative; transition: all 0.3s; }
+        .btn-cta:hover { background: var(--white); transform: translateY(-3px); }
+
+        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary); padding: 15px 0; box-shadow: 0 -5px 30px rgba(0,0,0,0.2); z-index: 999; transform: translateY(100%); transition: transform 0.4s ease; }
+        .fixed-cta.visible { transform: translateY(0); }
+        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
+        .fixed-cta-text { color: var(--white); font-family: 'Noto Serif JP', serif; letter-spacing: 0.1em; }
+        .fixed-cta-text span { color: var(--accent); }
+        .btn-fixed { background: var(--accent); color: var(--primary); padding: 12px 30px; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; transition: all 0.3s; }
+        .btn-fixed:hover { background: var(--white); }
+
+        footer { background: #0a0a0a; color: var(--white); padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 2rem; color: var(--accent); margin-bottom: 20px; letter-spacing: 0.2em; }
+        footer p { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 1024px) { .concept-inner { grid-template-columns: 1fr; } .menu-grid { grid-template-columns: repeat(2, 1fr); } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .menu-grid, .features-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">鮨 匠</div><nav><ul><li><a href="#concept">こだわり</a></li><li><a href="#menu">お品書き</a></li><li><a href="#reserve">ご予約</a></li></ul></nav><a href="#reserve" class="btn-header">ご予約</a></div></div></header>
+
+    <section class="hero"><div class="hero-content"><p class="hero-sub">SINCE 1965</p><h1>一貫入魂</h1><p>熟練の技と厳選素材で織りなす、至福の鮨体験</p><a href="#reserve" class="btn-primary">ご予約はこちら</a></div></section>
+
+    <section id="concept" class="concept"><div class="container"><div class="concept-inner"><div class="concept-image fade-in-left"></div><div class="concept-text fade-in-right"><h3>素材を活かし、<br>技を極める</h3><p>毎朝、築地から届く新鮮な魚介類。長年培った目利きで選び抜いた素材を、熟練の技で一貫一貫丁寧に握ります。<br><br>シャリは赤酢と米酢をブレンドし、ネタとの調和を追求。カウンター越しに繰り広げられる職人の技をご堪能ください。</p></div></div></div></section>
+
+    <section id="menu" class="menu"><div class="container"><div class="section-header fade-in"><span class="en">OMAKASE</span><h2>お品書き</h2></div><div class="menu-grid">
+        <div class="menu-item scale-in stagger-1"><div class="menu-image"><span class="material-icons">restaurant</span></div><div class="menu-content"><h3>おまかせコース</h3><p>旬の握り12貫、お椀、デザート</p><div class="menu-price">¥15,000〜</div></div></div>
+        <div class="menu-item scale-in stagger-2"><div class="menu-image"><span class="material-icons">local_dining</span></div><div class="menu-content"><h3>特選コース</h3><p>厳選握り15貫、前菜、お椀、デザート</p><div class="menu-price">¥22,000〜</div></div></div>
+        <div class="menu-item scale-in stagger-3"><div class="menu-image"><span class="material-icons">emoji_events</span></div><div class="menu-content"><h3>匠コース</h3><p>最高級ネタ18貫、季節の一品、お椀</p><div class="menu-price">¥35,000〜</div></div></div>
+    </div></div></section>
+
+    <section class="features"><div class="container"><div class="section-header fade-in"><span class="en">FEATURES</span><h2>匠のこだわり</h2></div><div class="features-grid">
+        <div class="feature-item fade-in stagger-1"><div class="feature-icon"><span class="material-icons">verified</span></div><h4>厳選素材</h4><p>築地・豊洲から毎朝直送</p></div>
+        <div class="feature-item fade-in stagger-2"><div class="feature-icon"><span class="material-icons">workspace_premium</span></div><h4>熟練の技</h4><p>40年以上の経験を持つ職人</p></div>
+        <div class="feature-item fade-in stagger-3"><div class="feature-icon"><span class="material-icons">rice_bowl</span></div><h4>こだわりのシャリ</h4><p>特製ブレンド酢を使用</p></div>
+        <div class="feature-item fade-in stagger-4"><div class="feature-icon"><span class="material-icons">local_bar</span></div><h4>厳選日本酒</h4><p>全国の銘酒を取り揃え</p></div>
+    </div></div></section>
+
+    <section id="reserve" class="cta fade-in"><div class="container"><h2>ご予約承ります</h2><p>カウンター8席の完全予約制でございます</p><a href="tel:03-0000-0000" class="btn-cta">03-0000-0000</a></div></section>
+
+    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>完全予約制</span> お電話にてご予約ください</div><a href="tel:03-0000-0000" class="btn-fixed">予約する</a></div></div></div>
+
+    <footer><div class="container"><div class="footer-logo">鮨 匠</div><p>〒000-0000 東京都中央区銀座0-0-0</p><p>TEL: 03-0000-0000 / 営業時間: 17:00〜23:00（日曜定休）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => observer.observe(el));
+        const fixedCta = document.querySelector('.fixed-cta');
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+    </script>
+</body>
+</html>
