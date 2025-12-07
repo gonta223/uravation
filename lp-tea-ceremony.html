@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>茶道教室 清風庵 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #2D5A27; --primary-dark: #1E3D1A; --accent: #8B7355; --gold: #C9A962; --dark: #1A1A1A; --text: #333; --text-light: #666; --cream: #F5F3EE; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.2em; }
+        .hero p { opacity: 0.9; margin-bottom: 40px; font-size: 1.1rem; letter-spacing: 0.08em; }
+        .btn-gold { background: var(--gold); color: var(--dark); padding: 16px 50px; text-decoration: none; display: inline-block; font-weight: 500; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .intro { background: var(--white); }
+        .intro-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .intro-image { height: 400px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
+        .intro-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
+        .intro-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; margin-bottom: 25px; color: var(--primary); }
+        .intro-text p { color: var(--text-light); margin-bottom: 15px; }
+        .courses { background: var(--cream); }
+        .courses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .course-card { background: var(--white); padding: 45px 35px; border-left: 4px solid var(--primary); }
+        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--primary); }
+        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
+        .course-info { display: flex; gap: 20px; font-size: 0.9rem; }
+        .course-info span { color: var(--accent); }
+        .schedule { background: var(--white); }
+        .schedule-table { width: 100%; max-width: 800px; margin: 0 auto; border-collapse: collapse; }
+        .schedule-table th, .schedule-table td { padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
+        .schedule-table th { background: var(--primary); color: white; }
+        .schedule-table td { font-size: 0.95rem; }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 20px; letter-spacing: 0.1em; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 25px; font-weight: 500; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 1024px) { .intro-content, .courses-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">清風庵</div><nav><ul><li><a href="#intro">教室について</a></li><li><a href="#courses">コース</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">体験予約</a></div></div></header>
+    <section class="hero"><div class="container"><h1>清風庵</h1><p>一服の茶に、心を整える</p><a href="#contact" class="btn-gold">体験茶会に参加</a></div></section>
+    <section id="intro" class="intro"><div class="container"><div class="intro-content"><div class="intro-image"><span class="material-icons">local_cafe</span></div><div class="intro-text"><h3>茶の湯の心を学ぶ</h3><p>裏千家の作法を基本に、初めての方にも分かりやすく丁寧にお伝えいたします。</p><p>季節の移ろいを感じながら、日常から離れた静かなひとときをお過ごしください。</p></div></div></div></section>
+    <section id="courses" class="courses"><div class="container"><div class="section-header"><h2>コース案内</h2></div><div class="courses-grid">
+        <div class="course-card"><h3>入門コース</h3><p>茶道が初めての方向け。基本の所作から丁寧にお教えします。</p><div class="course-info"><span>月2回</span><span>¥8,000/月</span></div></div>
+        <div class="course-card"><h3>本科コース</h3><p>お点前の習得を目指す方向けの本格的なコースです。</p><div class="course-info"><span>月4回</span><span>¥15,000/月</span></div></div>
+    </div></div></section>
+    <section class="schedule"><div class="container"><div class="section-header"><h2>稽古日</h2></div><table class="schedule-table">
+        <tr><th>曜日</th><th>時間</th></tr>
+        <tr><td>水曜日</td><td>14:00〜16:00 / 18:00〜20:00</td></tr>
+        <tr><td>土曜日</td><td>10:00〜12:00 / 14:00〜16:00</td></tr>
+        <tr><td>日曜日</td><td>10:00〜12:00</td></tr>
+    </table></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>体験茶会のご案内</h2><p style="opacity: 0.9;">手ぶらでお越しいただけます</p><a href="#" class="btn-white">体験を予約する</a></div></section>
+    <footer><div class="container"><div class="footer-logo">茶道教室 清風庵</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

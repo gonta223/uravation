@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フラワースクール BLOOM | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #D4869C; --primary-dark: #B86B82; --accent: #7BAE7F; --dark: #2D2D2D; --text: #444; --text-light: #888; --cream: #FDF9F7; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--primary); letter-spacing: 0.1em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; border-radius: 25px; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 20px; letter-spacing: 0.1em; }
+        .hero p { opacity: 0.95; margin-bottom: 40px; font-size: 1.1rem; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; border-radius: 30px; font-weight: 500; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--primary); letter-spacing: 0.2em; margin-bottom: 8px; display: block; }
+        .section-header h2 { font-size: 1.8rem; color: var(--dark); font-weight: 400; }
+        .lessons { background: var(--white); }
+        .lessons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .lesson-card { text-align: center; padding: 40px 25px; background: var(--cream); border-radius: 15px; }
+        .lesson-image { height: 180px; background: linear-gradient(135deg, var(--primary), var(--accent)); margin: -40px -25px 25px; border-radius: 15px 15px 0 0; display: flex; align-items: center; justify-content: center; }
+        .lesson-image .material-icons { font-size: 60px; color: white; opacity: 0.6; }
+        .lesson-card h3 { font-size: 1.2rem; margin-bottom: 12px; font-weight: 500; }
+        .lesson-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-price { color: var(--primary); font-weight: 500; }
+        .gallery { background: var(--cream); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { height: 200px; background: linear-gradient(135deg, var(--accent), var(--primary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .gallery-item .material-icons { font-size: 50px; color: white; opacity: 0.5; }
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; text-align: center; }
+        .feature-item { padding: 30px 15px; }
+        .feature-item .material-icons { font-size: 45px; color: var(--primary); margin-bottom: 15px; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; font-weight: 500; }
+        .feature-item p { font-size: 0.85rem; color: var(--text-light); }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 20px; }
+        .btn-cta { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 25px; border-radius: 30px; font-weight: 500; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .lessons-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid, .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .lessons-grid, .gallery-grid, .features-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">BLOOM</div><nav><ul><li><a href="#lessons">レッスン</a></li><li><a href="#gallery">作品</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">体験レッスン</a></div></div></header>
+    <section class="hero"><div class="container"><h1>BLOOM</h1><p>花と過ごす、特別な時間</p><a href="#contact" class="btn-white">体験レッスンを予約</a></div></section>
+    <section id="lessons" class="lessons"><div class="container"><div class="section-header"><span class="en">LESSONS</span><h2>レッスンメニュー</h2></div><div class="lessons-grid">
+        <div class="lesson-card"><div class="lesson-image"><span class="material-icons">local_florist</span></div><h3>フラワーアレンジメント</h3><p>季節の花を使った基本のアレンジメント</p><span class="lesson-price">¥5,500〜</span></div>
+        <div class="lesson-card"><div class="lesson-image"><span class="material-icons">spa</span></div><h3>ブーケレッスン</h3><p>花束の作り方を基礎から学べます</p><span class="lesson-price">¥6,600〜</span></div>
+        <div class="lesson-card"><div class="lesson-image"><span class="material-icons">filter_vintage</span></div><h3>プリザーブドフラワー</h3><p>長く楽しめる作品を制作</p><span class="lesson-price">¥7,700〜</span></div>
+    </div></div></section>
+    <section id="gallery" class="gallery"><div class="container"><div class="section-header"><span class="en">GALLERY</span><h2>生徒作品</h2></div><div class="gallery-grid">
+        <div class="gallery-item"><span class="material-icons">yard</span></div>
+        <div class="gallery-item"><span class="material-icons">eco</span></div>
+        <div class="gallery-item"><span class="material-icons">grass</span></div>
+        <div class="gallery-item"><span class="material-icons">nature</span></div>
+    </div></div></section>
+    <section class="features"><div class="container"><div class="section-header"><span class="en">FEATURES</span><h2>スクールの特徴</h2></div><div class="features-grid">
+        <div class="feature-item"><span class="material-icons">person</span><h4>少人数制</h4><p>最大4名の少人数クラス</p></div>
+        <div class="feature-item"><span class="material-icons">schedule</span><h4>振替OK</h4><p>都合に合わせて振替可能</p></div>
+        <div class="feature-item"><span class="material-icons">card_giftcard</span><h4>花材込み</h4><p>レッスン料に花材費込み</p></div>
+        <div class="feature-item"><span class="material-icons">emoji_events</span><h4>資格取得</h4><p>ディプロマ取得可能</p></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>体験レッスン受付中</h2><p style="opacity: 0.95;">お気軽にお問い合わせください</p><a href="#" class="btn-cta">体験を予約する</a></div></section>
+    <footer><div class="container"><div class="footer-logo">BLOOM</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

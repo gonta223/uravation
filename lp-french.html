@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant ÉTOILE | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1A1A2E; --gold: #C9A962; --accent: #8B7355; --dark: #0F0F1A; --text: #333; --text-light: #666; --cream: #FAF8F5; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 2; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--primary); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); letter-spacing: 0.15em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; opacity: 0.9; }
+        .btn-header { border: 1px solid var(--gold); color: var(--gold); padding: 10px 25px; text-decoration: none; font-size: 0.85rem; }
+        .hero { padding: 220px 0 180px; background: var(--primary); color: white; text-align: center; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 400; margin-bottom: 25px; color: var(--gold); letter-spacing: 0.2em; }
+        .hero p { opacity: 0.8; font-size: 1rem; letter-spacing: 0.15em; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .concept { background: var(--white); }
+        .concept-text { max-width: 700px; margin: 0 auto; text-align: center; }
+        .concept-text p { color: var(--text-light); line-height: 2.5; }
+        .course { background: var(--cream); }
+        .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .course-card { background: var(--white); padding: 50px 40px; text-align: center; border: 1px solid #eee; }
+        .course-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--primary); margin-bottom: 20px; letter-spacing: 0.1em; }
+        .course-card .price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); margin-bottom: 25px; display: block; }
+        .course-card ul { list-style: none; text-align: left; font-size: 0.9rem; color: var(--text-light); }
+        .course-card li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .wine { background: var(--primary); color: white; padding: 80px 0; text-align: center; }
+        .wine h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); margin-bottom: 20px; }
+        .wine p { opacity: 0.8; max-width: 600px; margin: 0 auto; }
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); margin-bottom: 25px; letter-spacing: 0.15em; }
+        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 40px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.4; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .course-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">ÉTOILE</div><nav><ul><li><a href="#concept">CONCEPT</a></li><li><a href="#course">COURSE</a></li><li><a href="#reserve">RESERVE</a></li></ul></nav><a href="#reserve" class="btn-header">ご予約</a></div></div></header>
+    <section class="hero"><div class="container"><h1>ÉTOILE</h1><p>素材の声に耳を傾け、一皿一皿に想いを込めて</p></div></section>
+    <section id="concept" class="concept"><div class="container"><div class="section-header"><span class="en">CONCEPT</span><h2>料理への想い</h2></div><div class="concept-text"><p>フランス料理の伝統を大切にしながら、日本の四季折々の食材を取り入れた独自のキュイジーヌ。</p><p>一期一会の出会いを大切に、記憶に残るひとときをお約束いたします。</p></div></div></section>
+    <section id="course" class="course"><div class="container"><div class="section-header"><span class="en">COURSE</span><h2>コース料理</h2></div><div class="course-grid">
+        <div class="course-card"><h3>Menu Déjeuner</h3><span class="price">¥8,800</span><ul><li>アミューズ</li><li>前菜</li><li>魚料理</li><li>肉料理</li><li>デザート</li><li>小菓子・コーヒー</li></ul></div>
+        <div class="course-card"><h3>Menu Dîner</h3><span class="price">¥15,000</span><ul><li>アミューズ</li><li>前菜2品</li><li>魚料理</li><li>グラニテ</li><li>肉料理</li><li>チーズ</li><li>デザート</li><li>小菓子・コーヒー</li></ul></div>
+    </div></div></section>
+    <section class="wine"><div class="container"><h2>Wine Pairing</h2><p>ソムリエが厳選したワインを、お料理に合わせてご提案いたします。コースに合わせたペアリングもご用意しております。</p></div></section>
+    <footer id="reserve"><div class="container"><div class="footer-logo">Restaurant ÉTOILE</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000（完全予約制）</p><p>昼 12:00〜 / 夜 18:00〜</p><p>定休日: 月曜・火曜</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

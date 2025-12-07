@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陶芸工房 つちのうた | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #8B7355; --primary-dark: #6B5344; --accent: #C4A77D; --dark: #2D2D2D; --text: #444; --text-light: #888; --cream: #F9F6F1; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; border-radius: 3px; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.15em; }
+        .hero p { opacity: 0.9; margin-bottom: 40px; font-size: 1.1rem; }
+        .btn-primary { background: var(--accent); color: var(--dark); padding: 16px 50px; text-decoration: none; display: inline-block; font-weight: 500; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-size: 0.8rem; color: var(--primary); letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--dark); }
+        .courses { background: var(--white); }
+        .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .course-card { text-align: center; padding: 40px 25px; background: var(--cream); border-radius: 5px; }
+        .course-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        .course-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 500; }
+        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .course-price { font-size: 1.3rem; color: var(--primary); font-weight: 500; }
+        .gallery { background: var(--cream); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { height: 200px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; border-radius: 5px; }
+        .gallery-item .material-icons { font-size: 50px; color: white; opacity: 0.5; }
+        .features { background: var(--white); }
+        .features-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .feature-item { display: flex; gap: 20px; align-items: flex-start; }
+        .feature-icon { width: 60px; height: 60px; background: var(--cream); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .feature-icon .material-icons { font-size: 28px; color: var(--primary); }
+        .feature-item h4 { font-size: 1.1rem; margin-bottom: 8px; font-weight: 500; }
+        .feature-item p { font-size: 0.9rem; color: var(--text-light); }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 20px; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 25px; font-weight: 500; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--accent); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 1024px) { .courses-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .courses-grid, .features-list { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">つちのうた</div><nav><ul><li><a href="#courses">コース</a></li><li><a href="#gallery">作品</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">体験予約</a></div></div></header>
+    <section class="hero"><div class="container"><h1>土と向き合う時間</h1><p>初心者から経験者まで、あなたのペースで陶芸を楽しめる教室</p><a href="#contact" class="btn-primary">体験レッスンを予約</a></div></section>
+    <section id="courses" class="courses"><div class="container"><div class="section-header"><span class="en">COURSES</span><h2>コース案内</h2></div><div class="courses-grid">
+        <div class="course-card"><span class="material-icons">explore</span><h3>体験コース</h3><p>初めての方向け。手びねりで作品を1点制作</p><span class="course-price">¥3,500〜</span></div>
+        <div class="course-card"><span class="material-icons">school</span><h3>基礎コース</h3><p>月4回。ろくろの基本から学べます</p><span class="course-price">¥12,000/月</span></div>
+        <div class="course-card"><span class="material-icons">workspace_premium</span><h3>自由制作コース</h3><p>経験者向け。自由に作品制作を楽しめます</p><span class="course-price">¥15,000/月</span></div>
+    </div></div></section>
+    <section id="gallery" class="gallery"><div class="container"><div class="section-header"><span class="en">GALLERY</span><h2>生徒作品</h2></div><div class="gallery-grid">
+        <div class="gallery-item"><span class="material-icons">coffee</span></div>
+        <div class="gallery-item"><span class="material-icons">rice_bowl</span></div>
+        <div class="gallery-item"><span class="material-icons">local_florist</span></div>
+        <div class="gallery-item"><span class="material-icons">dinner_dining</span></div>
+    </div></div></section>
+    <section class="features"><div class="container"><div class="section-header"><span class="en">FEATURES</span><h2>教室の特徴</h2></div><div class="features-list">
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">schedule</span></div><div><h4>フレックス制</h4><p>ご都合の良い時間に予約できます</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">person</span></div><div><h4>少人数制</h4><p>丁寧な指導を受けられます</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">build</span></div><div><h4>設備完備</h4><p>道具・材料はすべて揃っています</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><span class="material-icons">local_shipping</span></div><div><h4>配送対応</h4><p>完成作品をご自宅へお届けします</p></div></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>まずは体験から</h2><p style="opacity: 0.9;">お気軽にお問い合わせください</p><a href="#" class="btn-white">体験を予約する</a></div></section>
+    <footer><div class="container"><div class="footer-logo">陶芸工房 つちのうた</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

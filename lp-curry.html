@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スパイスカレー MASALA | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #FF6B35; --primary-dark: #E85A2A; --accent: #FFD93D; --dark: #1A1A1A; --text: #333; --text-light: #666; --cream: #FFF8F0; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Righteous', cursive; font-size: 1.8rem; color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Righteous', cursive; font-size: 4rem; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; font-size: 1.1rem; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 1.8rem; color: var(--primary-dark); font-weight: 700; }
+        .spice { background: var(--white); }
+        .spice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .spice-item { padding: 25px 15px; background: var(--cream); border-radius: 10px; }
+        .spice-item .material-icons { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+        .spice-item h4 { font-size: 0.95rem; margin-bottom: 5px; }
+        .spice-item p { font-size: 0.8rem; color: var(--text-light); }
+        .menu { background: var(--cream); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .menu-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .menu-image { height: 180px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
+        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .menu-content { padding: 25px; }
+        .menu-card h4 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
+        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .menu-card .price { font-size: 1.3rem; color: var(--primary); font-weight: 700; }
+        .spice-level { display: flex; gap: 5px; margin-top: 10px; }
+        .spice-level span { width: 20px; height: 20px; background: #ddd; border-radius: 50%; }
+        .spice-level span.active { background: var(--primary); }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Righteous', cursive; font-size: 1.8rem; color: var(--primary); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .spice-grid { grid-template-columns: repeat(2, 1fr); } .menu-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">MASALA</div><nav><ul><li><a href="#spice">スパイス</a></li><li><a href="#menu">メニュー</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>MASALA</h1><p>20種類以上のスパイスを調合した本格カレー</p></div></section>
+    <section id="spice" class="spice"><div class="container"><div class="section-header"><h2>こだわりのスパイス</h2></div><div class="spice-grid">
+        <div class="spice-item"><span class="material-icons">local_fire_department</span><h4>クミン</h4><p>香りの土台</p></div>
+        <div class="spice-item"><span class="material-icons">grass</span><h4>コリアンダー</h4><p>爽やかな香り</p></div>
+        <div class="spice-item"><span class="material-icons">whatshot</span><h4>カルダモン</h4><p>清涼感</p></div>
+        <div class="spice-item"><span class="material-icons">spa</span><h4>ターメリック</h4><p>鮮やかな色</p></div>
+    </div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>メニュー</h2></div><div class="menu-grid">
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">restaurant</span></div><div class="menu-content"><h4>チキンカレー</h4><p>骨付きチキンをじっくり煮込んだ定番</p><span class="price">¥1,100</span><div class="spice-level"><span class="active"></span><span class="active"></span><span></span><span></span><span></span></div></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">eco</span></div><div class="menu-content"><h4>キーマカレー</h4><p>スパイシーな挽肉カレー</p><span class="price">¥1,000</span><div class="spice-level"><span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span></div></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">set_meal</span></div><div class="menu-content"><h4>野菜カレー</h4><p>季節野菜たっぷり</p><span class="price">¥950</span><div class="spice-level"><span class="active"></span><span></span><span></span><span></span><span></span></div></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">whatshot</span></div><div class="menu-content"><h4>激辛カレー</h4><p>ブートジョロキア使用</p><span class="price">¥1,200</span><div class="spice-level"><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span></div></div></div>
+    </div></div></section>
+    <footer id="access"><div class="container"><div class="footer-logo">MASALA</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>営業: 11:30〜14:30 / 18:00〜22:00</p><p>定休日: 火曜</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

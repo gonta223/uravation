@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手打ち蕎麦 蕎仙 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #5D4E37; --primary-light: #8B7355; --accent: #C4A77D; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #F9F6F1; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 200px 0 150px; background: var(--primary); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 4rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.3em; }
+        .hero p { opacity: 0.9; font-size: 1.1rem; letter-spacing: 0.1em; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .about { background: var(--white); }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image { height: 400px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: flex; align-items: center; justify-content: center; }
+        .about-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
+        .about-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; margin-bottom: 25px; color: var(--primary); }
+        .about-text p { color: var(--text-light); margin-bottom: 15px; line-height: 2; }
+        .menu { background: var(--cream); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .menu-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--primary); }
+        .menu-item p { font-size: 0.85rem; color: var(--text-light); }
+        .menu-item .price { font-family: 'Zen Old Mincho', serif; font-size: 1.3rem; color: var(--primary); }
+        .info { background: var(--white); }
+        .info-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .info-map { height: 300px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; }
+        .info-map .material-icons { font-size: 80px; color: white; opacity: 0.4; }
+        .info-detail h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.4rem; margin-bottom: 25px; color: var(--primary); }
+        .info-detail p { margin-bottom: 12px; font-size: 0.95rem; }
+        footer { background: var(--primary); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; margin-bottom: 20px; letter-spacing: 0.2em; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.85rem; opacity: 0.6; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 1024px) { .about-content, .info-content, .menu-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">蕎仙</div><nav><ul><li><a href="#about">こだわり</a></li><li><a href="#menu">品書き</a></li><li><a href="#info">店舗情報</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>蕎仙</h1><p>毎朝石臼で挽く、香り高い手打ち蕎麦</p></div></section>
+    <section id="about" class="about"><div class="container"><div class="about-content"><div class="about-image"><span class="material-icons">restaurant</span></div><div class="about-text"><h3>手打ちへのこだわり</h3><p>当店では、厳選した国産そば粉を毎朝石臼で挽き、その日の分だけを手打ちしております。</p><p>つなぎを極力抑えた十割蕎麦の香りと喉越しを、ぜひご堪能ください。</p></div></div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>品書き</h2></div><div class="menu-grid">
+        <div class="menu-item"><div><h4>もりそば</h4><p>香り高い十割蕎麦</p></div><span class="price">¥900</span></div>
+        <div class="menu-item"><div><h4>ざるそば</h4><p>海苔をあしらった定番</p></div><span class="price">¥1,000</span></div>
+        <div class="menu-item"><div><h4>天ざる</h4><p>季節の天ぷら付き</p></div><span class="price">¥1,600</span></div>
+        <div class="menu-item"><div><h4>鴨せいろ</h4><p>合鴨の旨みたっぷり</p></div><span class="price">¥1,800</span></div>
+        <div class="menu-item"><div><h4>かけそば</h4><p>温かいお蕎麦</p></div><span class="price">¥850</span></div>
+        <div class="menu-item"><div><h4>天ぷらそば</h4><p>海老天2本入り</p></div><span class="price">¥1,500</span></div>
+    </div></div></section>
+    <section id="info" class="info"><div class="container"><div class="section-header"><h2>店舗情報</h2></div><div class="info-content"><div class="info-map"><span class="material-icons">place</span></div><div class="info-detail"><h3>アクセス</h3><p>〒000-0000 東京都○○区○○1-2-3</p><p>○○駅 徒歩5分</p><p>TEL: 03-0000-0000</p><p>営業時間: 11:30〜14:30 / 17:30〜20:30</p><p>定休日: 水曜日</p></div></div></div></section>
+    <footer><div class="container"><div class="footer-logo">手打ち蕎麦 蕎仙</div><p>〒000-0000 東京都○○区○○1-2-3</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

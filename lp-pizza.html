@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzeria NAPOLI | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #E63946; --primary-dark: #C1121F; --green: #2D6A4F; --cream: #FDF0D5; --dark: #1D3557; --text: #333; --text-light: #666; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--cream); font-weight: 700; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--cream); text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 700; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; font-size: 1.1rem; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); }
+        .about { background: var(--white); }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image { height: 350px; background: linear-gradient(135deg, var(--primary), var(--green)); display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+        .about-image .material-icons { font-size: 100px; color: white; opacity: 0.4; }
+        .about-text h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: var(--dark); }
+        .about-text p { color: var(--text-light); margin-bottom: 15px; }
+        .menu { background: var(--cream); }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .menu-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: center; }
+        .menu-image { height: 180px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; }
+        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .menu-content { padding: 25px; }
+        .menu-card h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 10px; }
+        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .menu-card .price { font-size: 1.3rem; color: var(--primary); font-weight: 700; }
+        .cta { background: var(--green); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px; }
+        .cta-btn { background: var(--cream); color: var(--dark); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 20px; border-radius: 30px; font-weight: 700; }
+        footer { background: var(--dark); color: var(--cream); padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .about-content { grid-template-columns: 1fr; } .menu-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .menu-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">NAPOLI</div><nav><ul><li><a href="#about">こだわり</a></li><li><a href="#menu">メニュー</a></li><li><a href="#reserve">予約</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>Pizzeria NAPOLI</h1><p>薪窯で焼き上げる、本場ナポリの味</p></div></section>
+    <section id="about" class="about"><div class="container"><div class="about-content"><div class="about-image"><span class="material-icons">local_pizza</span></div><div class="about-text"><h3>本場ナポリの伝統</h3><p>イタリアから取り寄せた薪窯で、500℃の高温で一気に焼き上げます。</p><p>外はカリッと、中はもっちり。本場ナポリピッツァの味わいをお届けします。</p></div></div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>PIZZA MENU</h2></div><div class="menu-grid">
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>マルゲリータ</h4><p>トマト・モッツァレラ・バジル</p><span class="price">¥1,500</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>マリナーラ</h4><p>トマト・にんにく・オレガノ</p><span class="price">¥1,200</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>クアトロフォルマッジ</h4><p>4種のチーズ・蜂蜜</p><span class="price">¥1,800</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>ディアボラ</h4><p>サラミ・唐辛子</p><span class="price">¥1,600</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>ビスマルク</h4><p>半熟卵・生ハム</p><span class="price">¥1,700</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>本日のピッツァ</h4><p>季節の食材を使用</p><span class="price">¥1,600〜</span></div></div>
+    </div></div></section>
+    <section class="cta" id="reserve"><div class="container"><h2>ご予約承ります</h2><p style="opacity: 0.9;">お電話またはWebでご予約ください</p><a href="#" class="cta-btn">予約する</a></div></section>
+    <footer><div class="container"><div class="footer-logo">Pizzeria NAPOLI</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 11:30〜14:30 / 17:30〜22:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

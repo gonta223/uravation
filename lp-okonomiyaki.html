@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お好み焼 鉄板道場 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #D32F2F; --secondary: #FF8F00; --dark: #212121; --text: #333; --text-light: #666; --cream: #FFF8E1; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; color: var(--secondary); font-weight: 900; }
+        nav ul { display: flex; gap: 30px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 3.5rem; font-weight: 900; margin-bottom: 15px; }
+        .hero p { opacity: 0.95; font-size: 1.1rem; }
+        section { padding: 70px 0; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--primary); font-weight: 700; }
+        .menu { background: var(--white); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .menu-card { background: var(--cream); border-radius: 15px; overflow: hidden; }
+        .menu-image { height: 160px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; }
+        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .menu-content { padding: 25px; text-align: center; }
+        .menu-card h4 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 700; }
+        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
+        .menu-card .price { font-size: 1.3rem; color: var(--primary); font-weight: 900; }
+        .style { background: var(--cream); }
+        .style-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .style-card { background: var(--white); padding: 35px; border-radius: 15px; text-align: center; border: 3px solid var(--primary); }
+        .style-card h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 15px; }
+        .style-card p { font-size: 0.9rem; color: var(--text-light); }
+        .drink { background: var(--primary); color: white; text-align: center; padding: 60px 0; }
+        .drink h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2rem; margin-bottom: 15px; }
+        .drink .price { font-size: 2.5rem; font-weight: 900; margin-top: 10px; color: var(--secondary); }
+        footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; }
+        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; color: var(--secondary); margin-bottom: 15px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 25px; padding-top: 15px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .menu-grid, .style-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">鉄板道場</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#drink">飲み放題</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>お好み焼 鉄板道場</h1><p>アツアツの鉄板で焼きたてを！</p></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>人気メニュー</h2></div><div class="menu-grid">
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>豚玉</h4><p>定番の豚肉たっぷり</p><span class="price">¥850</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>イカ玉</h4><p>プリプリのイカ入り</p><span class="price">¥900</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>ミックス焼</h4><p>豚・イカ・海老の贅沢</p><span class="price">¥1,200</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">local_pizza</span></div><div class="menu-content"><h4>モダン焼</h4><p>そば入りでボリューム満点</p><span class="price">¥1,100</span></div></div>
+    </div></div></section>
+    <section class="style"><div class="container"><div class="section-header"><h2>2つのスタイル</h2></div><div class="style-grid">
+        <div class="style-card"><h3>自分で焼く</h3><p>テーブルの鉄板で自分好みに焼けます。ワイワイ楽しみたい方におすすめ！</p></div>
+        <div class="style-card"><h3>焼いてもらう</h3><p>職人が目の前で焼き上げます。ふわふわの仕上がりをお楽しみください。</p></div>
+    </div></div></section>
+    <section id="drink" class="drink"><div class="container"><h2>飲み放題</h2><p>生ビール・ハイボール・サワー各種</p><p style="font-size: 0.9rem;">120分制</p><span class="price">¥1,500</span></div></section>
+    <footer id="access"><div class="container"><div class="footer-logo">お好み焼 鉄板道場</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 17:00〜24:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

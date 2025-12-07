@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trattoria SOLE | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #2D5016; --secondary: #8B0000; --gold: #DAA520; --cream: #FDF5E6; --dark: #2D2D2D; --text: #333; --text-light: #666; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; border-radius: 3px; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), #1A3A0A); color: white; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 400; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; font-size: 1.1rem; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header .en { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--primary); letter-spacing: 0.2em; margin-bottom: 8px; display: block; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); }
+        .menu { background: var(--white); }
+        .menu-category { margin-bottom: 40px; }
+        .menu-category h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--secondary); margin-bottom: 20px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 18px; background: var(--cream); border-radius: 8px; }
+        .menu-item h4 { font-size: 1rem; margin-bottom: 5px; }
+        .menu-item p { font-size: 0.8rem; color: var(--text-light); }
+        .menu-item .price { font-size: 1.1rem; color: var(--primary); font-weight: 500; }
+        .wine { background: var(--cream); }
+        .wine-text { text-align: center; max-width: 700px; margin: 0 auto; }
+        .wine-text p { color: var(--text-light); margin-bottom: 20px; }
+        .wine-list { display: flex; justify-content: center; gap: 40px; margin-top: 30px; }
+        .wine-item { text-align: center; }
+        .wine-item .material-icons { font-size: 40px; color: var(--secondary); margin-bottom: 10px; }
+        .cta { background: var(--secondary); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px; }
+        .cta-btn { background: white; color: var(--secondary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 20px; border-radius: 3px; font-weight: 500; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .menu-grid { grid-template-columns: 1fr; } .wine-list { flex-direction: column; gap: 20px; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">SOLE</div><nav><ul><li><a href="#menu">MENU</a></li><li><a href="#wine">WINE</a></li><li><a href="#reserve">予約</a></li></ul></nav><a href="#reserve" class="btn-header">予約する</a></div></div></header>
+    <section class="hero"><div class="container"><h1>Trattoria SOLE</h1><p>イタリアの家庭料理を、気取らずに</p></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><span class="en">MENU</span><h2>お料理</h2></div>
+        <div class="menu-category"><h3>Antipasto 前菜</h3><div class="menu-grid">
+            <div class="menu-item"><div><h4>生ハムとルッコラ</h4><p>パルマ産24ヶ月熟成</p></div><span class="price">¥1,280</span></div>
+            <div class="menu-item"><div><h4>カプレーゼ</h4><p>水牛モッツァレラ使用</p></div><span class="price">¥980</span></div>
+        </div></div>
+        <div class="menu-category"><h3>Pasta パスタ</h3><div class="menu-grid">
+            <div class="menu-item"><div><h4>カルボナーラ</h4><p>グアンチャーレ使用</p></div><span class="price">¥1,480</span></div>
+            <div class="menu-item"><div><h4>ボロネーゼ</h4><p>6時間煮込みラグー</p></div><span class="price">¥1,380</span></div>
+            <div class="menu-item"><div><h4>ペスカトーレ</h4><p>魚介たっぷり</p></div><span class="price">¥1,680</span></div>
+            <div class="menu-item"><div><h4>本日のパスタ</h4><p>シェフおまかせ</p></div><span class="price">¥1,280〜</span></div>
+        </div></div>
+    </div></section>
+    <section id="wine" class="wine"><div class="container"><div class="section-header"><span class="en">WINE</span><h2>ワイン</h2></div><div class="wine-text"><p>イタリア全土から厳選したワインを、グラスでもボトルでもお楽しみいただけます。</p><div class="wine-list">
+        <div class="wine-item"><span class="material-icons">wine_bar</span><p>グラス ¥700〜</p></div>
+        <div class="wine-item"><span class="material-icons">liquor</span><p>ボトル ¥3,500〜</p></div>
+    </div></div></div></section>
+    <section class="cta" id="reserve"><div class="container"><h2>ご予約承ります</h2><p style="opacity: 0.9;">貸切パーティーもご相談ください</p><a href="#" class="cta-btn">予約する</a></div></section>
+    <footer><div class="container"><div class="footer-logo">Trattoria SOLE</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 11:30〜14:30 / 18:00〜22:30</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

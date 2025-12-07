@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>書道教室 墨心 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1A1A1A; --accent: #8B0000; --gold: #B8860B; --dark: #0D0D0D; --text: #333; --text-light: #666; --cream: #FAF8F5; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--primary); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; color: var(--white); letter-spacing: 0.2em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; opacity: 0.9; }
+        .btn-header { border: 1px solid var(--gold); color: var(--gold); padding: 10px 25px; text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 200px 0 150px; background: var(--primary); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 4rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.3em; }
+        .hero p { opacity: 0.8; margin-bottom: 40px; font-size: 1.1rem; letter-spacing: 0.1em; }
+        .btn-gold { background: var(--gold); color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; font-weight: 500; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; color: var(--primary); letter-spacing: 0.15em; }
+        .about { background: var(--white); }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image { height: 400px; background: var(--primary); display: flex; align-items: center; justify-content: center; }
+        .about-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
+        .about-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; margin-bottom: 25px; color: var(--primary); }
+        .about-text p { color: var(--text-light); margin-bottom: 15px; }
+        .courses { background: var(--cream); }
+        .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .course-card { background: var(--white); padding: 40px 30px; text-align: center; border: 1px solid #eee; }
+        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
+        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
+        .course-price { font-size: 1.4rem; color: var(--accent); font-weight: 500; }
+        .works { background: var(--white); }
+        .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .work-item { height: 250px; background: var(--primary); display: flex; align-items: center; justify-content: center; }
+        .work-item span { font-family: 'Zen Old Mincho', serif; font-size: 4rem; color: white; opacity: 0.6; }
+        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 20px; letter-spacing: 0.15em; }
+        .btn-white { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 25px; font-weight: 500; }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; margin-bottom: 20px; letter-spacing: 0.2em; }
+        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+        @media (max-width: 1024px) { .about-content { grid-template-columns: 1fr; } .courses-grid, .works-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .courses-grid, .works-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">墨心</div><nav><ul><li><a href="#about">教室について</a></li><li><a href="#courses">コース</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">体験予約</a></div></div></header>
+    <section class="hero"><div class="container"><h1>墨心</h1><p>心静かに、筆を運ぶ</p><a href="#contact" class="btn-gold">無料体験に申し込む</a></div></section>
+    <section id="about" class="about"><div class="container"><div class="about-content"><div class="about-image"><span class="material-icons">brush</span></div><div class="about-text"><h3>書の道を歩む</h3><p>当教室では、初心者の方から師範を目指す方まで、それぞれのペースで書道を学んでいただけます。</p><p>美しい文字を書くだけでなく、心を落ち着け、自分と向き合う時間を大切にしています。</p></div></div></div></section>
+    <section id="courses" class="courses"><div class="container"><div class="section-header"><h2>コース案内</h2></div><div class="courses-grid">
+        <div class="course-card"><h3>一般コース</h3><p>基礎から丁寧に指導。美しい字を書きたい方に</p><span class="course-price">¥8,000/月</span></div>
+        <div class="course-card"><h3>師範コース</h3><p>資格取得を目指す方向けの本格的なコース</p><span class="course-price">¥15,000/月</span></div>
+        <div class="course-card"><h3>こどもコース</h3><p>小学生〜中学生対象。集中力も養います</p><span class="course-price">¥5,000/月</span></div>
+    </div></div></section>
+    <section class="works"><div class="container"><div class="section-header"><h2>作品</h2></div><div class="works-grid">
+        <div class="work-item"><span>和</span></div>
+        <div class="work-item"><span>心</span></div>
+        <div class="work-item"><span>道</span></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>無料体験受付中</h2><p style="opacity: 0.8;">道具はすべてご用意しております</p><a href="#" class="btn-white">体験を申し込む</a></div></section>
+    <footer><div class="container"><div class="footer-logo">書道教室 墨心</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天ぷら 天晴 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1A1A1A; --accent: #C9A227; --brown: #8B7355; --dark: #0D0D0D; --text: #333; --text-light: #666; --cream: #FAF8F3; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--primary); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; color: var(--accent); letter-spacing: 0.15em; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; opacity: 0.9; }
+        .hero { padding: 220px 0 180px; background: var(--primary); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 5rem; font-weight: 400; margin-bottom: 25px; color: var(--accent); letter-spacing: 0.3em; }
+        .hero p { opacity: 0.8; font-size: 1rem; letter-spacing: 0.15em; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .concept { background: var(--white); }
+        .concept-content { max-width: 700px; margin: 0 auto; text-align: center; }
+        .concept-content p { font-size: 1rem; color: var(--text-light); line-height: 2.2; margin-bottom: 20px; }
+        .course { background: var(--cream); }
+        .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .course-card { background: var(--white); padding: 50px 40px; border-left: 4px solid var(--accent); }
+        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; margin-bottom: 20px; color: var(--primary); }
+        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 25px; line-height: 2; }
+        .course-price { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; color: var(--accent); }
+        .lunch { background: var(--white); }
+        .lunch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .lunch-item { text-align: center; padding: 30px 20px; background: var(--cream); }
+        .lunch-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.2rem; margin-bottom: 12px; color: var(--primary); }
+        .lunch-item p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
+        .lunch-item .price { font-size: 1.3rem; color: var(--accent); }
+        footer { background: var(--primary); color: white; padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--accent); margin-bottom: 25px; letter-spacing: 0.2em; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 40px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 1024px) { .course-grid, .lunch-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">天晴</div><nav><ul><li><a href="#concept">こだわり</a></li><li><a href="#course">コース</a></li><li><a href="#lunch">ランチ</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>天晴</h1><p>一つ一つ、丁寧に揚げる</p></div></section>
+    <section id="concept" class="concept"><div class="container"><div class="section-header"><h2>職人の技</h2></div><div class="concept-content"><p>創業より受け継ぐ秘伝の衣と、厳選した太白胡麻油。</p><p>素材の持ち味を最大限に引き出す、江戸前天ぷらの真髄をご堪能ください。</p></div></div></section>
+    <section id="course" class="course"><div class="container"><div class="section-header"><h2>おまかせコース</h2></div><div class="course-grid">
+        <div class="course-card"><h3>松</h3><p>季節の野菜と海鮮を織り交ぜた、当店自慢のコース。天茶付き。</p><span class="course-price">¥8,800</span></div>
+        <div class="course-card"><h3>竹</h3><p>人気の天ぷらを厳選した、お手頃コース。天丼か天茶をお選びいただけます。</p><span class="course-price">¥6,600</span></div>
+    </div></div></section>
+    <section id="lunch" class="lunch"><div class="container"><div class="section-header"><h2>ランチ</h2></div><div class="lunch-grid">
+        <div class="lunch-item"><h4>天丼</h4><p>海老2本、野菜3種</p><span class="price">¥1,500</span></div>
+        <div class="lunch-item"><h4>上天丼</h4><p>海老2本、穴子、野菜3種</p><span class="price">¥2,200</span></div>
+        <div class="lunch-item"><h4>天ぷら定食</h4><p>盛り合わせ、ご飯、味噌汁</p><span class="price">¥1,800</span></div>
+    </div></div></section>
+    <footer><div class="container"><div class="footer-logo">天ぷら 天晴</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000（要予約）</p><p>営業: 昼 11:30-14:00 / 夜 17:30-21:00</p><p>定休日: 月曜日</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR DIMENSION | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #8B5CF6; --secondary: #EC4899; --accent: #06B6D4; --dark: #0F0F1A; --darker: #050510; --text: #E0E0E0; --text-light: #888; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--dark); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: rgba(15,15,26,0.95); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+        .btn-header { background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; padding: 10px 25px; text-decoration: none; font-size: 0.9rem; border-radius: 25px; font-weight: 700; }
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--darker), var(--dark)); text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 50%, rgba(139,92,246,0.2), transparent 50%), radial-gradient(circle at 70% 50%, rgba(236,72,153,0.2), transparent 50%); }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 20px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { opacity: 0.9; margin-bottom: 40px; font-size: 1.2rem; }
+        .btn-gradient { background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; padding: 18px 50px; text-decoration: none; display: inline-block; border-radius: 30px; font-weight: 700; font-size: 1rem; }
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .en { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-size: 2rem; color: white; font-weight: 700; }
+        .games { background: var(--darker); }
+        .games-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .game-card { background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(236,72,153,0.1)); border: 1px solid rgba(139,92,246,0.3); border-radius: 20px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .game-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(139,92,246,0.3); }
+        .game-image { height: 200px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; }
+        .game-image .material-icons { font-size: 80px; color: white; opacity: 0.5; }
+        .game-content { padding: 25px; }
+        .game-card h3 { font-size: 1.3rem; margin-bottom: 10px; color: white; }
+        .game-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .game-tag { display: inline-block; background: rgba(139,92,246,0.3); color: var(--primary); padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; }
+        .pricing { background: var(--dark); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .price-card { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px 30px; text-align: center; }
+        .price-card.featured { border-color: var(--primary); background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.1)); }
+        .price-card h3 { font-size: 1.3rem; margin-bottom: 20px; color: white; }
+        .price-amount { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
+        .price-amount span { font-size: 1rem; }
+        .price-features { list-style: none; margin-bottom: 30px; }
+        .price-features li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); text-align: center; padding: 100px 0; }
+        .cta h2 { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 20px; color: white; }
+        .btn-white { background: white; color: var(--primary); padding: 18px 50px; text-decoration: none; display: inline-block; margin-top: 20px; border-radius: 30px; font-weight: 700; }
+        footer { background: var(--darker); color: var(--text); padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.6; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.4; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .games-grid, .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .games-grid, .pricing-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">VR DIMENSION</div><nav><ul><li><a href="#games">ゲーム</a></li><li><a href="#pricing">料金</a></li><li><a href="#contact">予約</a></li></ul></nav><a href="#contact" class="btn-header">今すぐ予約</a></div></div></header>
+    <section class="hero"><div class="hero-content"><div class="container"><h1>VR DIMENSION</h1><p>最新VR機器で体験する、没入型エンターテイメント</p><a href="#contact" class="btn-gradient">体験を予約する</a></div></div></section>
+    <section id="games" class="games"><div class="container"><div class="section-header"><span class="en">GAMES</span><h2>人気コンテンツ</h2></div><div class="games-grid">
+        <div class="game-card"><div class="game-image"><span class="material-icons">sports_esports</span></div><div class="game-content"><h3>BEAT SABER</h3><p>音楽に合わせてライトセーバーを振り回すリズムゲーム</p><span class="game-tag">1-2人</span></div></div>
+        <div class="game-card"><div class="game-image"><span class="material-icons">whatshot</span></div><div class="game-content"><h3>VRホラー</h3><p>本格ホラー体験。心臓の弱い方はご注意を</p><span class="game-tag">1人</span></div></div>
+        <div class="game-card"><div class="game-image"><span class="material-icons">groups</span></div><div class="game-content"><h3>VR脱出ゲーム</h3><p>チームで協力して謎を解く脱出ゲーム</p><span class="game-tag">2-4人</span></div></div>
+    </div></div></section>
+    <section id="pricing" class="pricing"><div class="container"><div class="section-header"><span class="en">PRICING</span><h2>料金プラン</h2></div><div class="pricing-grid">
+        <div class="price-card"><h3>ライト</h3><div class="price-amount">¥1,500<span>/30分</span></div><ul class="price-features"><li>1コンテンツ体験</li><li>初心者向けサポート</li><li>ドリンク1杯付き</li></ul></div>
+        <div class="price-card featured"><h3>スタンダード</h3><div class="price-amount">¥2,500<span>/60分</span></div><ul class="price-features"><li>遊び放題</li><li>全コンテンツ対応</li><li>ドリンクバー付き</li></ul></div>
+        <div class="price-card"><h3>パーティー</h3><div class="price-amount">¥8,000<span>/2時間</span></div><ul class="price-features"><li>4名まで</li><li>貸切対応</li><li>軽食付き</li></ul></div>
+    </div></div></section>
+    <section class="cta" id="contact"><div class="container"><h2>未来の遊びを体験しよう</h2><p style="opacity: 0.95;">Web予約で待ち時間なし</p><a href="#" class="btn-white">予約する</a></div></section>
+    <footer><div class="container"><div class="footer-logo">VR DIMENSION</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

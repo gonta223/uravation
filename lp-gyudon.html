@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>牛丼 肉満 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #FF6B00; --secondary: #8B4513; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #FFF8F0; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--primary); padding: 12px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--white); font-weight: 900; }
+        nav ul { display: flex; gap: 30px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 700; }
+        .hero { padding: 160px 0 100px; background: linear-gradient(135deg, var(--primary), #CC5500); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 15px; }
+        .hero p { opacity: 0.95; font-size: 1.2rem; font-weight: 700; }
+        section { padding: 60px 0; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--primary); font-weight: 700; }
+        .menu { background: var(--white); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .menu-card { background: var(--cream); border-radius: 15px; padding: 25px; display: flex; gap: 20px; align-items: center; }
+        .menu-icon { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .menu-icon .material-icons { font-size: 40px; color: white; }
+        .menu-content h4 { font-size: 1.2rem; margin-bottom: 5px; font-weight: 700; }
+        .menu-content p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 8px; }
+        .menu-content .price { font-size: 1.3rem; color: var(--primary); font-weight: 900; }
+        .toppings { background: var(--cream); }
+        .toppings-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center; }
+        .topping-item { background: var(--white); padding: 20px 10px; border-radius: 10px; }
+        .topping-item h4 { font-size: 0.95rem; margin-bottom: 5px; }
+        .topping-item .price { color: var(--primary); font-weight: 700; }
+        .info { background: var(--primary); color: white; padding: 50px 0; text-align: center; }
+        .info h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; margin-bottom: 20px; }
+        .info-grid { display: flex; justify-content: center; gap: 50px; margin-top: 25px; }
+        .info-item { text-align: center; }
+        .info-item .material-icons { font-size: 40px; margin-bottom: 10px; }
+        .info-item p { font-size: 0.95rem; }
+        footer { background: var(--dark); color: white; padding: 40px 0 20px; text-align: center; }
+        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; color: var(--primary); margin-bottom: 15px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 8px; }
+        .footer-bottom { margin-top: 25px; padding-top: 15px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .menu-grid { grid-template-columns: 1fr; } .toppings-grid { grid-template-columns: repeat(2, 1fr); } .info-grid { flex-direction: column; gap: 20px; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">肉満</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#info">店舗情報</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>牛丼 肉満</h1><p>うまい、はやい、やすい！</p></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>メニュー</h2></div><div class="menu-grid">
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>牛丼（並）</h4><p>たっぷり牛肉＆玉ねぎ</p><span class="price">¥450</span></div></div>
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>牛丼（大盛）</h4><p>ご飯1.5倍</p><span class="price">¥550</span></div></div>
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>牛丼（特盛）</h4><p>肉・ご飯1.5倍</p><span class="price">¥650</span></div></div>
+        <div class="menu-card"><div class="menu-icon"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>牛丼（メガ）</h4><p>肉2倍！</p><span class="price">¥750</span></div></div>
+    </div></div></section>
+    <section class="toppings"><div class="container"><div class="section-header"><h2>トッピング</h2></div><div class="toppings-grid">
+        <div class="topping-item"><h4>生卵</h4><span class="price">+¥80</span></div>
+        <div class="topping-item"><h4>温泉卵</h4><span class="price">+¥100</span></div>
+        <div class="topping-item"><h4>チーズ</h4><span class="price">+¥100</span></div>
+        <div class="topping-item"><h4>キムチ</h4><span class="price">+¥100</span></div>
+    </div></div></section>
+    <section id="info" class="info"><div class="container"><h2>24時間営業</h2><p>いつでもあなたの空腹を満たします</p><div class="info-grid">
+        <div class="info-item"><span class="material-icons">schedule</span><p>24時間営業</p></div>
+        <div class="info-item"><span class="material-icons">takeout_dining</span><p>テイクアウトOK</p></div>
+        <div class="info-item"><span class="material-icons">delivery_dining</span><p>デリバリー対応</p></div>
+    </div></div></section>
+    <footer><div class="container"><div class="footer-logo">牛丼 肉満</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海鮮酒場 潮 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #1565C0; --secondary: #0D47A1; --accent: #FF6F00; --dark: #1A1A2E; --text: #333; --text-light: #666; --cream: #F5F9FC; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--white); font-weight: 700; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; font-size: 1.1rem; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--primary); font-weight: 700; }
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feature-card { text-align: center; padding: 40px 25px; background: var(--cream); border-radius: 15px; }
+        .feature-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
+        .feature-card p { font-size: 0.9rem; color: var(--text-light); }
+        .menu { background: var(--cream); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .menu-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .menu-image { height: 160px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
+        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
+        .menu-content { padding: 25px; }
+        .menu-card h4 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 700; }
+        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
+        .menu-card .price { font-size: 1.2rem; color: var(--accent); font-weight: 700; }
+        .drink { background: var(--primary); color: white; padding: 80px 0; text-align: center; }
+        .drink h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2rem; margin-bottom: 20px; }
+        .drink p { opacity: 0.9; margin-bottom: 10px; }
+        .drink .price { font-size: 2rem; margin-top: 15px; color: var(--accent); }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .features-grid, .menu-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">潮</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#drink">ドリンク</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>海鮮酒場 潮</h1><p>毎朝市場直送、新鮮な魚介を</p></div></section>
+    <section class="features"><div class="container"><div class="section-header"><h2>三つのこだわり</h2></div><div class="features-grid">
+        <div class="feature-card"><span class="material-icons">sailing</span><h3>毎朝直送</h3><p>築地・豊洲から毎朝仕入れ</p></div>
+        <div class="feature-card"><span class="material-icons">restaurant</span><h3>職人の技</h3><p>熟練の板前が捌きます</p></div>
+        <div class="feature-card"><span class="material-icons">local_bar</span><h3>厳選日本酒</h3><p>全国の銘酒を取り揃え</p></div>
+    </div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>おすすめ</h2></div><div class="menu-grid">
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">set_meal</span></div><div class="menu-content"><h4>本日の刺身盛り合わせ</h4><p>5種盛り / 7種盛り</p><span class="price">¥1,480〜</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">whatshot</span></div><div class="menu-content"><h4>浜焼き盛り合わせ</h4><p>海老・帆立・蛤など</p><span class="price">¥1,980</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">soup_kitchen</span></div><div class="menu-content"><h4>海鮮鍋</h4><p>〆の雑炊付き（2名様〜）</p><span class="price">¥2,980/人</span></div></div>
+        <div class="menu-card"><div class="menu-image"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>海鮮丼</h4><p>新鮮なネタをたっぷり</p><span class="price">¥1,580</span></div></div>
+    </div></div></section>
+    <section id="drink" class="drink"><div class="container"><h2>飲み放題プラン</h2><p>生ビール・ハイボール・サワー・日本酒（10種）</p><p style="font-size: 0.9rem;">120分制</p><span class="price">¥1,980</span></div></section>
+    <footer id="access"><div class="container"><div class="footer-logo">海鮮酒場 潮</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 17:00〜24:00（L.O. 23:00）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>

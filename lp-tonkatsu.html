@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>とんかつ 勝豚 | Uravation AI Training LP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root { --primary: #B8860B; --primary-dark: #8B6914; --accent: #8B4513; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #FDF8F0; --white: #FFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--primary); font-weight: 900; }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
+        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
+        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; }
+        .hero p { opacity: 0.95; font-size: 1.1rem; }
+        section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--accent); font-weight: 700; }
+        .features { background: var(--white); }
+        .features-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .features-image { height: 350px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+        .features-image .material-icons { font-size: 100px; color: white; opacity: 0.4; }
+        .features-text h3 { font-size: 1.5rem; margin-bottom: 20px; font-weight: 700; color: var(--accent); }
+        .features-text p { color: var(--text-light); margin-bottom: 15px; }
+        .menu { background: var(--cream); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .menu-card { background: var(--white); padding: 30px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .menu-card h4 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 700; }
+        .menu-card p { font-size: 0.85rem; color: var(--text-light); }
+        .menu-card .price { font-size: 1.4rem; color: var(--primary); font-weight: 700; }
+        .sides { background: var(--white); }
+        .sides-list { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .side-item { text-align: center; }
+        .side-item .material-icons { font-size: 40px; color: var(--primary); margin-bottom: 10px; }
+        .side-item h4 { font-size: 0.95rem; margin-bottom: 5px; }
+        .side-item p { font-size: 0.85rem; color: var(--text-light); }
+        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
+        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 20px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; opacity: 0.5; }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 1024px) { .features-content, .menu-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .sides-list { gap: 20px; } }
+    </style>
+</head>
+<body>
+    <header><div class="container"><div class="header-inner"><div class="logo">勝豚</div><nav><ul><li><a href="#features">こだわり</a></li><li><a href="#menu">メニュー</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
+    <section class="hero"><div class="container"><h1>とんかつ 勝豚</h1><p>厳選された銘柄豚を、サクッとジューシーに</p></div></section>
+    <section id="features" class="features"><div class="container"><div class="features-content"><div class="features-image"><span class="material-icons">restaurant</span></div><div class="features-text"><h3>素材へのこだわり</h3><p>当店では、鹿児島県産の黒豚をはじめ、厳選された銘柄豚のみを使用しております。</p><p>熟練の職人が一枚一枚丁寧に揚げる、サクサクの衣とジューシーな肉汁をお楽しみください。</p></div></div></div></section>
+    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>メニュー</h2></div><div class="menu-grid">
+        <div class="menu-card"><div><h4>ロースかつ定食</h4><p>脂の甘みが絶品 150g</p></div><span class="price">¥1,500</span></div>
+        <div class="menu-card"><div><h4>ヒレかつ定食</h4><p>赤身の旨み 120g</p></div><span class="price">¥1,600</span></div>
+        <div class="menu-card"><div><h4>特上ロースかつ</h4><p>黒豚使用 180g</p></div><span class="price">¥2,200</span></div>
+        <div class="menu-card"><div><h4>海老フライ定食</h4><p>大海老2本</p></div><span class="price">¥1,800</span></div>
+        <div class="menu-card"><div><h4>ミックス定食</h4><p>ロース・ヒレ・海老</p></div><span class="price">¥2,000</span></div>
+        <div class="menu-card"><div><h4>かつ丼</h4><p>ふわとろ玉子</p></div><span class="price">¥1,200</span></div>
+    </div></div></section>
+    <section class="sides"><div class="container"><div class="section-header"><h2>ご飯・キャベツ・味噌汁おかわり自由</h2></div><div class="sides-list">
+        <div class="side-item"><span class="material-icons">rice_bowl</span><h4>ご飯</h4><p>おかわり無料</p></div>
+        <div class="side-item"><span class="material-icons">eco</span><h4>キャベツ</h4><p>おかわり無料</p></div>
+        <div class="side-item"><span class="material-icons">soup_kitchen</span><h4>味噌汁</h4><p>おかわり無料</p></div>
+    </div></div></section>
+    <footer id="access"><div class="container"><div class="footer-logo">とんかつ 勝豚</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 11:00〜14:30 / 17:00〜21:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+</body>
+</html>
