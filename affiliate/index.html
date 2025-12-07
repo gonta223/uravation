@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アフィリエイトプログラム - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); color: white; padding: 100px 20px; text-align: center; position: relative; overflow: hidden; }
+        header::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+
+        .header-content { position: relative; max-width: 800px; margin: 0 auto; }
+        .badge { display: inline-block; background: linear-gradient(135deg, #10b981, #059669); padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; margin-bottom: 25px; }
+        h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+        h1 span { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header-desc { font-size: 1.25rem; color: #94a3b8; max-width: 600px; margin: 0 auto 40px; line-height: 1.8; }
+
+        .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 18px 40px; border-radius: 14px; font-size: 1.1rem; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1e293b; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(251, 191, 36, 0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.2); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+        .stats-bar { background: white; max-width: 900px; margin: -50px auto 0; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); position: relative; z-index: 10; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font-size: 0.9rem; color: #64748b; margin-top: 5px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .section-title p { font-size: 1.1rem; color: #64748b; max-width: 600px; margin: 0 auto; }
+
+        .how-it-works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 80px; }
+        .step-card { text-align: center; padding: 40px 30px; background: white; border-radius: 24px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); position: relative; }
+        .step-number { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800; color: white; }
+        .step-icon { font-size: 3rem; margin: 20px 0; }
+        .step-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .step-card p { color: #64748b; line-height: 1.7; }
+
+        .commission-section { background: linear-gradient(135deg, #1e293b, #334155); border-radius: 30px; padding: 60px; color: white; margin-bottom: 80px; }
+        .commission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .commission-info h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; }
+        .commission-info p { color: #94a3b8; line-height: 1.8; margin-bottom: 30px; }
+        .commission-highlight { background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        .commission-highlight .rate { font-size: 3rem; font-weight: 900; color: #fbbf24; }
+        .commission-highlight .desc { color: #94a3b8; font-size: 0.95rem; }
+
+        .commission-tiers { }
+        .tier-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; }
+        .tier-card:hover { background: rgba(255,255,255,0.1); }
+        .tier-name { font-weight: 700; font-size: 1.1rem; }
+        .tier-requirement { font-size: 0.9rem; color: #94a3b8; }
+        .tier-rate { font-size: 1.5rem; font-weight: 800; color: #fbbf24; }
+
+        .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 80px; }
+        .benefit-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .benefit-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .benefit-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .benefit-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .benefit-card p { color: #64748b; line-height: 1.7; font-size: 0.95rem; }
+
+        .tools-section { background: white; border-radius: 24px; padding: 50px; margin-bottom: 80px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .tools-header { text-align: center; margin-bottom: 40px; }
+        .tools-header h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .tool-item { text-align: center; padding: 25px; border: 2px solid #f1f5f9; border-radius: 16px; transition: all 0.3s; }
+        .tool-item:hover { border-color: #6366f1; }
+        .tool-item .icon { font-size: 2rem; margin-bottom: 12px; }
+        .tool-item .name { font-weight: 600; font-size: 0.95rem; }
+
+        .testimonials { margin-bottom: 80px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .testimonial-card { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .testimonial-card .stars { color: #fbbf24; font-size: 1.2rem; margin-bottom: 15px; }
+        .testimonial-card .quote { font-size: 1.1rem; line-height: 1.8; color: #475569; margin-bottom: 25px; }
+        .testimonial-card .author { display: flex; align-items: center; gap: 15px; }
+        .testimonial-card .avatar { width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .testimonial-card .info .name { font-weight: 700; }
+        .testimonial-card .info .earnings { font-size: 0.9rem; color: #10b981; font-weight: 600; }
+
+        .faq-section { margin-bottom: 80px; }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: white; border-radius: 16px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .faq-question { padding: 25px 30px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question:hover { background: #f8fafc; }
+        .faq-answer { padding: 0 30px 25px; color: #64748b; line-height: 1.8; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        .cta-section { background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 30px; padding: 80px 40px; text-align: center; color: #1e293b; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.8; }
+        .cta-section .btn { background: #1e293b; color: white; }
+        .cta-section .btn:hover { background: #0f172a; }
+
+        footer { background: #1e293b; color: white; padding: 40px 20px; margin-top: 80px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-links a { color: #94a3b8; text-decoration: none; margin-left: 30px; }
+        .footer-links a:hover { color: white; }
+
+        @media (max-width: 1000px) {
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .how-it-works, .benefits-grid { grid-template-columns: 1fr; }
+            .commission-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonial-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .stats-bar { grid-template-columns: 1fr; margin: -30px 20px 0; }
+            .commission-section { padding: 40px 25px; }
+            .tools-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="badge">💰 パートナー募集中</div>
+            <h1>AppNameを紹介して<br><span>報酬を獲得</span>しよう</h1>
+            <p class="header-desc">あなたの紹介でAppNameに登録したユーザーの売上から、最大30%のコミッションを継続的に獲得できます。</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">今すぐ参加する →</a>
+                <a href="#" class="btn btn-secondary">詳細を見る</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">30%</div>
+            <div class="stat-label">最大コミッション</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">90日</div>
+            <div class="stat-label">Cookie有効期間</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">¥50万+</div>
+            <div class="stat-label">月間Top報酬</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">5,000+</div>
+            <div class="stat-label">アクティブパートナー</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-title">
+            <h2>シンプルな3ステップ</h2>
+            <p>誰でも簡単に始められます</p>
+        </div>
+
+        <div class="how-it-works">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">📝</div>
+                <h3>無料で登録</h3>
+                <p>簡単なフォームに入力するだけ。審査は最短24時間で完了します。</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">🔗</div>
+                <h3>リンクをシェア</h3>
+                <p>専用の紹介リンクをブログ、SNS、メルマガなどでシェアしましょう。</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">💸</div>
+                <h3>報酬を獲得</h3>
+                <p>紹介したユーザーが有料プランに登録するたびに、コミッションが発生します。</p>
+            </div>
+        </div>
+
+        <div class="commission-section">
+            <div class="commission-grid">
+                <div class="commission-info">
+                    <h2>業界最高水準の<br>コミッション率</h2>
+                    <p>紹介実績に応じてコミッション率がアップ。継続的な収入源として、多くのパートナーが活用しています。</p>
+                    <div class="commission-highlight">
+                        <div class="rate">最大30%</div>
+                        <div class="desc">継続報酬 - ユーザーが利用を続ける限り毎月受け取れます</div>
+                    </div>
+                </div>
+                <div class="commission-tiers">
+                    <div class="tier-card">
+                        <div>
+                            <div class="tier-name">🥉 ブロンズ</div>
+                            <div class="tier-requirement">0-10件の紹介</div>
+                        </div>
+                        <div class="tier-rate">20%</div>
+                    </div>
+                    <div class="tier-card">
+                        <div>
+                            <div class="tier-name">🥈 シルバー</div>
+                            <div class="tier-requirement">11-50件の紹介</div>
+                        </div>
+                        <div class="tier-rate">25%</div>
+                    </div>
+                    <div class="tier-card">
+                        <div>
+                            <div class="tier-name">🥇 ゴールド</div>
+                            <div class="tier-requirement">51件以上の紹介</div>
+                        </div>
+                        <div class="tier-rate">30%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>パートナー特典</h2>
+            <p>成功をサポートする充実の特典</p>
+        </div>
+
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">📊</div>
+                <h3>リアルタイムダッシュボード</h3>
+                <p>クリック数、コンバージョン、収益をリアルタイムで確認できます。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎨</div>
+                <h3>マーケティング素材</h3>
+                <p>バナー、ランディングページ、メールテンプレートを無料提供。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">👥</div>
+                <h3>専任サポート</h3>
+                <p>ゴールドパートナー以上は専任のアフィリエイトマネージャーが付きます。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💳</div>
+                <h3>柔軟な支払い</h3>
+                <p>銀行振込、PayPal、暗号通貨など、お好みの方法で受け取り可能。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎁</div>
+                <h3>限定キャンペーン</h3>
+                <p>パートナー限定の特別割引やボーナスキャンペーンに参加できます。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📈</div>
+                <h3>トレーニング</h3>
+                <p>収益を最大化するためのウェビナーやガイドを提供。</p>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <div class="tools-header">
+                <h2>提供ツール</h2>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <div class="icon">🖼️</div>
+                    <div class="name">バナー広告</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">📧</div>
+                    <div class="name">メールテンプレート</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">📱</div>
+                    <div class="name">SNS用画像</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">🎬</div>
+                    <div class="name">動画素材</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">📄</div>
+                    <div class="name">LP テンプレート</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">📊</div>
+                    <div class="name">比較表</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">🔗</div>
+                    <div class="name">ディープリンク</div>
+                </div>
+                <div class="tool-item">
+                    <div class="icon">📈</div>
+                    <div class="name">APIアクセス</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>パートナーの声</h2>
+        </div>
+
+        <div class="testimonials">
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">「ブログでAppNameを紹介し始めてから、毎月安定した収入が得られるようになりました。サポートも手厚く、本当に助かっています。」</p>
+                    <div class="author">
+                        <div class="avatar">👨‍💻</div>
+                        <div class="info">
+                            <div class="name">鈴木 健太</div>
+                            <div class="earnings">月間収益: ¥280,000</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">「90日間のCookie期間が魅力的。一度紹介すれば、後からコンバージョンしても報酬がもらえるので、機会損失がありません。」</p>
+                    <div class="author">
+                        <div class="avatar">👩‍🎨</div>
+                        <div class="info">
+                            <div class="name">田中 美咲</div>
+                            <div class="earnings">月間収益: ¥150,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>よくある質問</h2>
+        </div>
+
+        <div class="faq-section">
+            <div class="faq-list">
+                <div class="faq-item open">
+                    <div class="faq-question">参加条件はありますか？ <span>+</span></div>
+                    <div class="faq-answer">特別な条件はありません。ブログ、SNS、YouTube、メルマガなど、何らかの媒体をお持ちの方であればどなたでも参加いただけます。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">報酬はいつ支払われますか？ <span>+</span></div>
+                    <div class="faq-answer">毎月末締め、翌月15日払いです。最低支払額は¥5,000からとなります。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">自分で登録しても報酬はもらえますか？ <span>+</span></div>
+                    <div class="faq-answer">申し訳ございませんが、自己アフィリエイトは禁止しております。発覚した場合、アカウント停止の対象となります。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">継続報酬はいつまでもらえますか？ <span>+</span></div>
+                    <div class="faq-answer">紹介したユーザーがAppNameを利用している限り、継続的に報酬をお支払いします。上限はありません。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>今日からパートナーになろう</h2>
+            <p>5分で登録完了。審査通過後、すぐに紹介を開始できます。</p>
+            <a href="#" class="btn">無料で参加する →</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div>© 2024 AppName. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシー</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

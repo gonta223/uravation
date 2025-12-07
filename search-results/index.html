@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>検索結果: プロジェクト管理 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 15px 0; position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 30px; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: #1e293b; text-decoration: none; }
+
+        .search-form { flex: 1; display: flex; max-width: 600px; }
+        .search-form input { flex: 1; padding: 12px 20px; border: 2px solid #e2e8f0; border-radius: 12px 0 0 12px; font-size: 1rem; }
+        .search-form input:focus { outline: none; border-color: #6366f1; }
+        .search-form button { padding: 12px 24px; background: #6366f1; border: none; border-radius: 0 12px 12px 0; color: white; font-weight: 600; cursor: pointer; }
+
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; display: grid; grid-template-columns: 250px 1fr; gap: 40px; }
+
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .filter-section { background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .filter-section h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 15px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .filter-group { margin-bottom: 15px; }
+        .filter-group label { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; font-size: 0.95rem; }
+        .filter-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: #6366f1; }
+        .filter-count { margin-left: auto; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; color: #64748b; }
+
+        .filter-group input[type="range"] { width: 100%; margin-top: 10px; accent-color: #6366f1; }
+        .range-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: #94a3b8; margin-top: 5px; }
+
+        .clear-filters { display: block; width: 100%; padding: 12px; background: #f1f5f9; border: none; border-radius: 10px; color: #64748b; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .clear-filters:hover { background: #e2e8f0; }
+
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .results-info { font-size: 0.95rem; color: #64748b; }
+        .results-info strong { color: #1e293b; font-weight: 700; }
+
+        .sort-controls { display: flex; align-items: center; gap: 10px; }
+        .sort-controls label { font-size: 0.9rem; color: #64748b; }
+        .sort-controls select { padding: 10px 15px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; background: white; cursor: pointer; }
+
+        .view-toggle { display: flex; gap: 5px; }
+        .view-btn { width: 40px; height: 40px; border: 1px solid #e2e8f0; background: white; border-radius: 10px; cursor: pointer; font-size: 1rem; transition: all 0.3s; }
+        .view-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .results-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .result-card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: all 0.3s; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: start; }
+        .result-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+        .result-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+
+        .result-content { }
+        .result-type { font-size: 0.75rem; font-weight: 600; color: #6366f1; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .result-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .result-title a { color: #1e293b; text-decoration: none; }
+        .result-title a:hover { color: #6366f1; }
+        .result-excerpt { font-size: 0.95rem; color: #64748b; line-height: 1.7; margin-bottom: 12px; }
+        .result-excerpt mark { background: #fef08a; padding: 1px 3px; border-radius: 3px; }
+        .result-meta { display: flex; gap: 20px; font-size: 0.85rem; color: #94a3b8; }
+        .result-meta span { display: flex; align-items: center; gap: 5px; }
+
+        .result-actions { display: flex; flex-direction: column; gap: 10px; }
+        .action-btn { padding: 10px 20px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; }
+        .action-btn.primary { background: #6366f1; color: white; border: none; }
+        .action-btn.primary:hover { background: #4f46e5; }
+        .action-btn.secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .action-btn.secondary:hover { border-color: #6366f1; color: #6366f1; }
+
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 40px; }
+        .page-btn { width: 45px; height: 45px; border: 1px solid #e2e8f0; background: white; border-radius: 12px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .page-btn:hover { border-color: #6366f1; color: #6366f1; }
+        .page-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .page-btn.nav { width: auto; padding: 0 20px; }
+
+        .no-results { text-align: center; padding: 80px 20px; }
+        .no-results-icon { font-size: 4rem; margin-bottom: 20px; }
+        .no-results h2 { font-size: 1.5rem; margin-bottom: 10px; }
+        .no-results p { color: #64748b; margin-bottom: 30px; }
+
+        @media (max-width: 900px) {
+            .main-container { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .result-card { grid-template-columns: 1fr; }
+            .result-actions { flex-direction: row; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">AppName</a>
+            <form class="search-form">
+                <input type="text" value="プロジェクト管理" placeholder="検索キーワードを入力...">
+                <button type="submit">検索</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3>カテゴリ</h3>
+                <div class="filter-group">
+                    <label><input type="checkbox" checked> ドキュメント <span class="filter-count">24</span></label>
+                    <label><input type="checkbox" checked> ブログ記事 <span class="filter-count">18</span></label>
+                    <label><input type="checkbox"> ヘルプ記事 <span class="filter-count">12</span></label>
+                    <label><input type="checkbox"> API リファレンス <span class="filter-count">8</span></label>
+                    <label><input type="checkbox"> 動画 <span class="filter-count">5</span></label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>日付</h3>
+                <div class="filter-group">
+                    <label><input type="checkbox"> 過去24時間</label>
+                    <label><input type="checkbox" checked> 過去1週間</label>
+                    <label><input type="checkbox"> 過去1ヶ月</label>
+                    <label><input type="checkbox"> 過去1年</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>関連度</h3>
+                <div class="filter-group">
+                    <input type="range" min="0" max="100" value="50">
+                    <div class="range-labels">
+                        <span>広い</span>
+                        <span>正確</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="clear-filters">フィルターをクリア</button>
+        </aside>
+
+        <main>
+            <div class="results-header">
+                <div class="results-info">
+                    「<strong>プロジェクト管理</strong>」の検索結果 <strong>67件</strong>（0.23秒）
+                </div>
+                <div class="sort-controls">
+                    <label>並び替え:</label>
+                    <select>
+                        <option>関連度順</option>
+                        <option>新しい順</option>
+                        <option>人気順</option>
+                    </select>
+                    <div class="view-toggle">
+                        <button class="view-btn active">☰</button>
+                        <button class="view-btn">⊞</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-list">
+                <article class="result-card">
+                    <div class="result-icon">📋</div>
+                    <div class="result-content">
+                        <div class="result-type">ドキュメント</div>
+                        <h2 class="result-title"><a href="#">プロジェクト管理入門ガイド</a></h2>
+                        <p class="result-excerpt">
+                            AppNameの<mark>プロジェクト管理</mark>機能を使って、チームの生産性を最大化する方法を解説します。タスクの作成から進捗管理まで、基本的な使い方を...
+                        </p>
+                        <div class="result-meta">
+                            <span>📅 2024年12月1日</span>
+                            <span>👁 1,234 views</span>
+                            <span>⏱ 5分で読める</span>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" class="action-btn primary">読む</a>
+                        <button class="action-btn secondary">保存</button>
+                    </div>
+                </article>
+
+                <article class="result-card">
+                    <div class="result-icon">🎬</div>
+                    <div class="result-content">
+                        <div class="result-type">動画チュートリアル</div>
+                        <h2 class="result-title"><a href="#">【完全版】プロジェクト管理マスターコース</a></h2>
+                        <p class="result-excerpt">
+                            ゼロから学ぶ<mark>プロジェクト管理</mark>の完全ガイド。実践的なワークフローの構築から、チームコラボレーションのベストプラクティスまで...
+                        </p>
+                        <div class="result-meta">
+                            <span>📅 2024年11月28日</span>
+                            <span>👁 3,456 views</span>
+                            <span>⏱ 45分</span>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" class="action-btn primary">視聴</a>
+                        <button class="action-btn secondary">後で見る</button>
+                    </div>
+                </article>
+
+                <article class="result-card">
+                    <div class="result-icon">📝</div>
+                    <div class="result-content">
+                        <div class="result-type">ブログ記事</div>
+                        <h2 class="result-title"><a href="#">2024年のプロジェクト管理トレンド10選</a></h2>
+                        <p class="result-excerpt">
+                            AI活用、リモートワーク対応、アジャイル手法の進化など、今年注目の<mark>プロジェクト管理</mark>トレンドをご紹介。業界リーダーの声も...
+                        </p>
+                        <div class="result-meta">
+                            <span>📅 2024年11月20日</span>
+                            <span>👁 2,891 views</span>
+                            <span>⏱ 8分で読める</span>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" class="action-btn primary">読む</a>
+                        <button class="action-btn secondary">保存</button>
+                    </div>
+                </article>
+
+                <article class="result-card">
+                    <div class="result-icon">🔧</div>
+                    <div class="result-content">
+                        <div class="result-type">API リファレンス</div>
+                        <h2 class="result-title"><a href="#">Projects API - プロジェクト管理エンドポイント</a></h2>
+                        <p class="result-excerpt">
+                            <mark>プロジェクト</mark>の作成、更新、削除、メンバー<mark>管理</mark>のためのRESTful APIリファレンス。認証方法、リクエスト例、レスポンス...
+                        </p>
+                        <div class="result-meta">
+                            <span>📅 2024年11月15日</span>
+                            <span>👁 892 views</span>
+                            <span>🏷 v2.0</span>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" class="action-btn primary">参照</a>
+                        <button class="action-btn secondary">保存</button>
+                    </div>
+                </article>
+
+                <article class="result-card">
+                    <div class="result-icon">❓</div>
+                    <div class="result-content">
+                        <div class="result-type">ヘルプ記事</div>
+                        <h2 class="result-title"><a href="#">プロジェクトのアーカイブと復元方法</a></h2>
+                        <p class="result-excerpt">
+                            完了した<mark>プロジェクト</mark>をアーカイブして整理する方法と、必要に応じて復元する手順を解説。データの保持期間や権限設定について...
+                        </p>
+                        <div class="result-meta">
+                            <span>📅 2024年11月10日</span>
+                            <span>👁 567 views</span>
+                            <span>✅ 解決済み</span>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <a href="#" class="action-btn primary">読む</a>
+                        <button class="action-btn secondary">保存</button>
+                    </div>
+                </article>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn nav">← 前へ</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <span>...</span>
+                <button class="page-btn">14</button>
+                <button class="page-btn nav">次へ →</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
