@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>請求書 #INV-2024-0089</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; padding: 40px 20px; }
+
+        .invoice-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+
+        .invoice-header { background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 40px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .company-info .logo { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
+        .company-info p { font-size: 0.9rem; opacity: 0.8; line-height: 1.7; }
+        .invoice-title { text-align: right; }
+        .invoice-title h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .invoice-number { font-size: 1rem; opacity: 0.8; }
+
+        .invoice-body { padding: 40px; }
+
+        .invoice-info { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .info-section h3 { font-size: 0.8rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .info-section p { font-size: 0.95rem; color: #1e293b; line-height: 1.7; }
+        .info-section .highlight { font-size: 1.1rem; font-weight: 600; color: #6366f1; }
+
+        .invoice-meta { display: flex; gap: 40px; padding: 25px; background: #f8fafc; border-radius: 12px; margin-bottom: 40px; }
+        .meta-item { flex: 1; }
+        .meta-item label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
+        .meta-item span { font-size: 1rem; font-weight: 600; color: #1e293b; }
+
+        .invoice-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .invoice-table th { text-align: left; padding: 15px; font-size: 0.8rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; }
+        .invoice-table th:last-child, .invoice-table td:last-child { text-align: right; }
+        .invoice-table td { padding: 20px 15px; border-bottom: 1px solid #f1f5f9; }
+        .item-name { font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+        .item-description { font-size: 0.85rem; color: #64748b; }
+
+        .invoice-totals { display: flex; justify-content: flex-end; margin-bottom: 40px; }
+        .totals-box { width: 300px; }
+        .total-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .total-row:last-child { border-bottom: none; }
+        .total-row.final { font-size: 1.3rem; font-weight: 700; color: #1e293b; padding-top: 15px; border-top: 2px solid #1e293b; }
+        .total-row .label { color: #64748b; }
+
+        .payment-info { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px; background: #f8fafc; border-radius: 12px; margin-bottom: 30px; }
+        .payment-section h4 { font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .payment-section p { font-size: 0.9rem; color: #64748b; line-height: 1.8; }
+        .bank-info { background: white; padding: 15px; border-radius: 8px; margin-top: 10px; }
+        .bank-info p { font-size: 0.85rem; margin-bottom: 5px; }
+
+        .invoice-notes { padding: 25px; background: rgba(99, 102, 241, 0.05); border-radius: 12px; border-left: 4px solid #6366f1; }
+        .invoice-notes h4 { font-size: 0.9rem; font-weight: 600; color: #6366f1; margin-bottom: 10px; }
+        .invoice-notes p { font-size: 0.9rem; color: #64748b; line-height: 1.7; }
+
+        .invoice-footer { padding: 30px 40px; background: #f8fafc; text-align: center; border-top: 1px solid #e2e8f0; }
+        .invoice-footer p { font-size: 0.85rem; color: #64748b; }
+
+        .status-badge { display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .status-badge.pending { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .status-badge.paid { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+
+        .actions-bar { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
+        .action-btn { padding: 14px 30px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+        .action-btn.primary { background: #6366f1; color: white; border: none; }
+        .action-btn.secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .invoice-container { box-shadow: none; }
+            .actions-bar { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .invoice-header { flex-direction: column; gap: 30px; }
+            .invoice-title { text-align: left; }
+            .invoice-info { grid-template-columns: 1fr; }
+            .invoice-meta { flex-direction: column; }
+            .payment-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <header class="invoice-header">
+            <div class="company-info">
+                <div class="logo">TechStart</div>
+                <p>
+                    株式会社TechStart<br>
+                    〒150-0002<br>
+                    東京都渋谷区渋谷2-24-12<br>
+                    渋谷スクランブルスクエア 35F<br>
+                    TEL: 03-1234-5678
+                </p>
+            </div>
+            <div class="invoice-title">
+                <h1>請求書</h1>
+                <p class="invoice-number">#INV-2024-0089</p>
+            </div>
+        </header>
+
+        <div class="invoice-body">
+            <div class="invoice-info">
+                <div class="info-section">
+                    <h3>請求先</h3>
+                    <p>
+                        <strong>株式会社サンプル</strong><br>
+                        経理部 山田 太郎 様<br>
+                        〒100-0001<br>
+                        東京都千代田区丸の内1-1-1<br>
+                        丸の内ビルディング 20F
+                    </p>
+                </div>
+                <div class="info-section">
+                    <h3>ステータス</h3>
+                    <span class="status-badge pending">支払い待ち</span>
+                    <p style="margin-top: 15px;">
+                        <span class="highlight">お支払い期限: 2024年12月31日</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="invoice-meta">
+                <div class="meta-item">
+                    <label>請求書番号</label>
+                    <span>INV-2024-0089</span>
+                </div>
+                <div class="meta-item">
+                    <label>発行日</label>
+                    <span>2024年12月7日</span>
+                </div>
+                <div class="meta-item">
+                    <label>支払期限</label>
+                    <span>2024年12月31日</span>
+                </div>
+                <div class="meta-item">
+                    <label>担当者</label>
+                    <span>佐藤 一郎</span>
+                </div>
+            </div>
+
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>品目</th>
+                        <th>数量</th>
+                        <th>単価</th>
+                        <th>金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="item-name">Webアプリケーション開発</div>
+                            <div class="item-description">ECサイトリニューアルプロジェクト - フロントエンド開発</div>
+                        </td>
+                        <td>80時間</td>
+                        <td>¥8,000</td>
+                        <td>¥640,000</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-name">バックエンド開発</div>
+                            <div class="item-description">API設計・開発・テスト</div>
+                        </td>
+                        <td>60時間</td>
+                        <td>¥9,000</td>
+                        <td>¥540,000</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-name">UIデザイン</div>
+                            <div class="item-description">ワイヤーフレーム・UIデザイン制作</div>
+                        </td>
+                        <td>40時間</td>
+                        <td>¥7,500</td>
+                        <td>¥300,000</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-name">サーバー設定・保守</div>
+                            <div class="item-description">AWSインフラ構築・初期設定</div>
+                        </td>
+                        <td>1式</td>
+                        <td>¥150,000</td>
+                        <td>¥150,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="invoice-totals">
+                <div class="totals-box">
+                    <div class="total-row">
+                        <span class="label">小計</span>
+                        <span>¥1,630,000</span>
+                    </div>
+                    <div class="total-row">
+                        <span class="label">消費税 (10%)</span>
+                        <span>¥163,000</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>合計</span>
+                        <span>¥1,793,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-info">
+                <div class="payment-section">
+                    <h4>💳 お支払い方法</h4>
+                    <p>下記口座へお振込みをお願いいたします。<br>振込手数料は貴社にてご負担ください。</p>
+                    <div class="bank-info">
+                        <p><strong>三菱UFJ銀行</strong></p>
+                        <p>渋谷支店（店番：123）</p>
+                        <p>普通預金 1234567</p>
+                        <p>カ）テックスタート</p>
+                    </div>
+                </div>
+                <div class="payment-section">
+                    <h4>📋 備考</h4>
+                    <p>
+                        ・お振込みの際は請求書番号をご記載ください<br>
+                        ・領収書が必要な場合はお申し付けください<br>
+                        ・ご不明点は担当者までお問い合わせください
+                    </p>
+                </div>
+            </div>
+
+            <div class="invoice-notes">
+                <h4>📌 プロジェクト概要</h4>
+                <p>本請求は「ECサイトリニューアルプロジェクト」の2024年11月分の開発費用となります。次回請求は2025年1月上旬を予定しております。</p>
+            </div>
+        </div>
+
+        <footer class="invoice-footer">
+            <p>この請求書に関するお問い合わせ: billing@techstart.co.jp</p>
+        </footer>
+    </div>
+
+    <div class="actions-bar">
+        <button class="action-btn primary" onclick="window.print()">📄 PDFで保存</button>
+        <button class="action-btn secondary">📧 メールで送信</button>
+        <button class="action-btn secondary">✏️ 編集</button>
+    </div>
+</body>
+</html>

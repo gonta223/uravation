@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SORA - 日本料理レストラン</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Serif JP', serif; background: #0a0a0a; color: #ffffff; }
+
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        header.scrolled { background: rgba(10, 10, 10, 0.95); }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; letter-spacing: 5px; }
+        nav { display: flex; gap: 40px; }
+        nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; letter-spacing: 2px; transition: color 0.3s; }
+        nav a:hover { color: #d4af37; }
+        .reserve-btn { padding: 12px 30px; border: 1px solid #d4af37; color: #d4af37; text-decoration: none; font-size: 0.85rem; letter-spacing: 2px; transition: all 0.3s; }
+        .reserve-btn:hover { background: #d4af37; color: #0a0a0a; }
+
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #1a1a1a, #0a0a0a); }
+        .hero-overlay { position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23d4af37" opacity="0.1"/></svg>'); background-size: 20px 20px; }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-jp { font-size: 1rem; letter-spacing: 10px; color: #d4af37; margin-bottom: 30px; }
+        .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 400; letter-spacing: 15px; margin-bottom: 30px; }
+        .hero-tagline { font-size: 1rem; color: rgba(255,255,255,0.7); letter-spacing: 3px; margin-bottom: 50px; }
+        .hero-cta { display: inline-block; padding: 18px 50px; border: 1px solid #d4af37; color: #d4af37; text-decoration: none; font-size: 0.9rem; letter-spacing: 3px; transition: all 0.3s; }
+        .hero-cta:hover { background: #d4af37; color: #0a0a0a; }
+        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 2px; }
+
+        .section { padding: 120px 50px; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header .jp { font-size: 0.9rem; color: #d4af37; letter-spacing: 5px; margin-bottom: 15px; }
+        .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 400; letter-spacing: 5px; }
+
+        .concept-section { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .concept-image { height: 600px; background: linear-gradient(135deg, #1a1a1a, #2a2a2a); border-radius: 0; display: flex; align-items: center; justify-content: center; font-size: 8rem; }
+        .concept-content p { font-size: 1.05rem; line-height: 2.2; color: rgba(255,255,255,0.8); margin-bottom: 30px; }
+        .concept-signature { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #d4af37; font-style: italic; }
+
+        .menu-section { background: #0f0f0f; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1400px; margin: 0 auto; }
+        .menu-card { background: #1a1a1a; overflow: hidden; transition: transform 0.3s; }
+        .menu-card:hover { transform: translateY(-10px); }
+        .menu-image { height: 300px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+        .menu-content { padding: 35px; }
+        .menu-content h3 { font-size: 1.3rem; font-weight: 500; margin-bottom: 10px; letter-spacing: 2px; }
+        .menu-content .price { color: #d4af37; font-size: 1.1rem; margin-bottom: 15px; }
+        .menu-content p { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.8; }
+
+        .course-section { max-width: 1000px; margin: 0 auto; }
+        .course-list { display: flex; flex-direction: column; gap: 40px; }
+        .course-item { display: flex; justify-content: space-between; align-items: center; padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .course-info h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; letter-spacing: 2px; }
+        .course-info p { font-size: 0.95rem; color: rgba(255,255,255,0.6); }
+        .course-price { text-align: right; }
+        .course-price .price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #d4af37; }
+        .course-price .note { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+        .gallery-section { background: #0a0a0a; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; max-width: 1600px; margin: 0 auto; }
+        .gallery-item { aspect-ratio: 1; background: linear-gradient(135deg, #1a1a1a, #2a2a2a); display: flex; align-items: center; justify-content: center; font-size: 3rem; transition: opacity 0.3s; cursor: pointer; }
+        .gallery-item:hover { opacity: 0.7; }
+
+        .info-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; }
+        .info-box h3 { font-size: 1.2rem; letter-spacing: 3px; margin-bottom: 30px; color: #d4af37; }
+        .info-box p { font-size: 0.95rem; line-height: 2; color: rgba(255,255,255,0.8); }
+        .info-box .hours { margin-top: 20px; }
+        .info-box .hours span { display: block; margin-bottom: 10px; }
+        .map-box { height: 400px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+
+        .reservation-section { background: #0f0f0f; text-align: center; }
+        .reservation-section p { font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 40px; }
+        .tel-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: #d4af37; letter-spacing: 5px; margin-bottom: 20px; }
+        .online-reserve { display: inline-block; padding: 20px 60px; border: 1px solid #d4af37; color: #d4af37; text-decoration: none; font-size: 0.95rem; letter-spacing: 3px; transition: all 0.3s; margin-top: 30px; }
+        .online-reserve:hover { background: #d4af37; color: #0a0a0a; }
+
+        footer { padding: 60px 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer p { font-size: 0.8rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3rem; }
+            .concept-section { grid-template-columns: 1fr; gap: 50px; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .info-section { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            header { padding: 20px; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">SORA</div>
+        <nav>
+            <a href="#">CONCEPT</a>
+            <a href="#">MENU</a>
+            <a href="#">GALLERY</a>
+            <a href="#">ACCESS</a>
+        </nav>
+        <a href="#" class="reserve-btn">RESERVATION</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-jp">日本料理</p>
+            <h1>SORA</h1>
+            <p class="hero-tagline">JAPANESE FINE DINING</p>
+            <a href="#" class="hero-cta">VIEW MENU</a>
+        </div>
+        <div class="scroll-indicator">SCROLL</div>
+    </section>
+
+    <section class="section">
+        <div class="concept-section">
+            <div class="concept-image">🍽️</div>
+            <div class="concept-content">
+                <div class="section-header" style="text-align: left; margin-bottom: 40px;">
+                    <p class="jp">コンセプト</p>
+                    <h2>CONCEPT</h2>
+                </div>
+                <p>四季折々の厳選された食材を、伝統の技法と現代の感性で仕上げる。一皿一皿に込められた料理人の想いを、五感でお楽しみください。</p>
+                <p>築100年の古民家を改装した空間で、日本の美と食の調和をご体験いただけます。</p>
+                <p class="concept-signature">— 料理長 佐藤 一郎</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section menu-section">
+        <div class="section-header">
+            <p class="jp">お品書き</p>
+            <h2>MENU</h2>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-image">🍣</div>
+                <div class="menu-content">
+                    <h3>おまかせ握り</h3>
+                    <p class="price">¥15,000</p>
+                    <p>その日の最良のネタを料理長が厳選。江戸前の技法で仕上げます。</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image">🥢</div>
+                <div class="menu-content">
+                    <h3>懐石コース</h3>
+                    <p class="price">¥22,000</p>
+                    <p>先付から水菓子まで、季節を映す全10品のコース。</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image">🍶</div>
+                <div class="menu-content">
+                    <h3>日本酒ペアリング</h3>
+                    <p class="price">¥8,000</p>
+                    <p>全国の蔵元から厳選した日本酒を、お料理に合わせてご提供。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <p class="jp">コース料理</p>
+            <h2>COURSE</h2>
+        </div>
+        <div class="course-section">
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="course-info">
+                        <h3>空 -SORA-</h3>
+                        <p>シグネチャーコース | 全12品 | 約3時間</p>
+                    </div>
+                    <div class="course-price">
+                        <p class="price">¥35,000</p>
+                        <p class="note">税・サービス料込</p>
+                    </div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">
+                        <h3>雲 -KUMO-</h3>
+                        <p>スペシャルコース | 全10品 | 約2.5時間</p>
+                    </div>
+                    <div class="course-price">
+                        <p class="price">¥25,000</p>
+                        <p class="note">税・サービス料込</p>
+                    </div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">
+                        <h3>月 -TSUKI-</h3>
+                        <p>スタンダードコース | 全8品 | 約2時間</p>
+                    </div>
+                    <div class="course-price">
+                        <p class="price">¥18,000</p>
+                        <p class="note">税・サービス料込</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section">
+        <div class="section-header">
+            <p class="jp">ギャラリー</p>
+            <h2>GALLERY</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">🍱</div>
+            <div class="gallery-item">🏮</div>
+            <div class="gallery-item">🎋</div>
+            <div class="gallery-item">🍵</div>
+            <div class="gallery-item">🌸</div>
+            <div class="gallery-item">🥟</div>
+            <div class="gallery-item">🏯</div>
+            <div class="gallery-item">🎎</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <p class="jp">店舗情報</p>
+            <h2>ACCESS</h2>
+        </div>
+        <div class="info-section">
+            <div class="info-box">
+                <h3>INFORMATION</h3>
+                <p>
+                    〒106-0032<br>
+                    東京都港区六本木6-10-1<br>
+                    六本木ヒルズ森タワー 52F
+                </p>
+                <div class="hours">
+                    <h3>HOURS</h3>
+                    <span>ランチ 12:00 - 14:00 (L.O. 13:30)</span>
+                    <span>ディナー 18:00 - 22:00 (L.O. 21:00)</span>
+                    <span>定休日: 月曜日</span>
+                </div>
+            </div>
+            <div class="map-box">🗺️</div>
+        </div>
+    </section>
+
+    <section class="section reservation-section">
+        <div class="section-header">
+            <p class="jp">ご予約</p>
+            <h2>RESERVATION</h2>
+        </div>
+        <p>お席に限りがございますので、ご予約をお勧めしております</p>
+        <div class="tel-number">03-1234-5678</div>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">受付時間 10:00 - 20:00</p>
+        <a href="#" class="online-reserve">ONLINE RESERVATION</a>
+    </section>
+
+    <footer>
+        <p>© 2024 SORA Japanese Fine Dining. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

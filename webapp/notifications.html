@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通知 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; min-height: 100vh; }
+
+        .app-header { background: white; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo { font-size: 1.3rem; font-weight: 700; color: #1e293b; }
+        .header-nav { display: flex; gap: 25px; }
+        .header-nav a { text-decoration: none; color: #64748b; font-size: 0.9rem; font-weight: 500; }
+        .header-nav a.active { color: #6366f1; }
+
+        .notifications-container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+
+        .notifications-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .notifications-header h1 { font-size: 1.8rem; font-weight: 700; color: #1e293b; }
+        .header-actions { display: flex; gap: 15px; }
+        .action-btn { padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .action-btn.secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .action-btn.primary { background: #6366f1; color: white; border: none; }
+
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+        .filter-tab { padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; color: #64748b; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+        .filter-tab:hover { border-color: #6366f1; color: #6366f1; }
+        .filter-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .filter-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+        .filter-tab:not(.active) .filter-count { background: #f1f5f9; color: #64748b; }
+
+        .notifications-list { background: white; border-radius: 16px; overflow: hidden; }
+
+        .notification-group { border-bottom: 1px solid #f1f5f9; }
+        .notification-group:last-child { border-bottom: none; }
+        .group-header { padding: 15px 25px; background: #f8fafc; font-size: 0.85rem; font-weight: 600; color: #64748b; }
+
+        .notification-item { display: flex; gap: 15px; padding: 20px 25px; border-bottom: 1px solid #f8fafc; transition: background 0.3s; cursor: pointer; }
+        .notification-item:hover { background: #f8fafc; }
+        .notification-item:last-child { border-bottom: none; }
+        .notification-item.unread { background: rgba(99, 102, 241, 0.03); }
+        .notification-item.unread::before { content: ''; width: 8px; height: 8px; background: #6366f1; border-radius: 50%; position: absolute; left: 12px; margin-top: 8px; }
+
+        .notification-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .notification-icon.comment { background: rgba(99, 102, 241, 0.1); }
+        .notification-icon.like { background: rgba(239, 68, 68, 0.1); }
+        .notification-icon.mention { background: rgba(34, 197, 94, 0.1); }
+        .notification-icon.task { background: rgba(249, 115, 22, 0.1); }
+        .notification-icon.system { background: rgba(100, 116, 139, 0.1); }
+        .notification-icon.invite { background: rgba(139, 92, 246, 0.1); }
+
+        .notification-content { flex: 1; min-width: 0; }
+        .notification-content p { font-size: 0.95rem; color: #1e293b; line-height: 1.5; margin-bottom: 5px; }
+        .notification-content p strong { font-weight: 600; }
+        .notification-content .highlight { color: #6366f1; font-weight: 500; }
+        .notification-meta { display: flex; align-items: center; gap: 15px; }
+        .notification-time { font-size: 0.8rem; color: #94a3b8; }
+        .notification-project { font-size: 0.8rem; color: #64748b; background: #f1f5f9; padding: 3px 10px; border-radius: 4px; }
+
+        .notification-actions { display: flex; gap: 8px; opacity: 0; transition: opacity 0.3s; }
+        .notification-item:hover .notification-actions { opacity: 1; }
+        .notification-action-btn { width: 32px; height: 32px; border: 1px solid #e2e8f0; border-radius: 8px; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+        .notification-action-btn:hover { background: #f1f5f9; }
+
+        .load-more { text-align: center; padding: 25px; }
+        .load-more-btn { padding: 12px 30px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.3s; }
+        .load-more-btn:hover { border-color: #6366f1; color: #6366f1; }
+
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-icon { font-size: 4rem; margin-bottom: 20px; }
+        .empty-state h3 { font-size: 1.2rem; font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+        .empty-state p { color: #64748b; font-size: 0.95rem; }
+
+        @media (max-width: 600px) {
+            .header-actions { display: none; }
+            .filter-tabs { overflow-x: auto; padding-bottom: 10px; }
+            .notification-actions { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-logo">AppName</div>
+        <nav class="header-nav">
+            <a href="#">ダッシュボード</a>
+            <a href="#">プロジェクト</a>
+            <a href="#" class="active">通知</a>
+            <a href="profile.html">プロフィール</a>
+        </nav>
+    </header>
+
+    <div class="notifications-container">
+        <div class="notifications-header">
+            <h1>🔔 通知</h1>
+            <div class="header-actions">
+                <button class="action-btn secondary">すべて既読にする</button>
+                <button class="action-btn secondary">⚙️ 設定</button>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active">すべて <span class="filter-count">24</span></button>
+            <button class="filter-tab">未読 <span class="filter-count">8</span></button>
+            <button class="filter-tab">コメント</button>
+            <button class="filter-tab">メンション</button>
+            <button class="filter-tab">タスク</button>
+        </div>
+
+        <div class="notifications-list">
+            <div class="notification-group">
+                <div class="group-header">今日</div>
+                <div class="notification-item unread" style="position: relative; padding-left: 35px;">
+                    <div class="notification-icon comment">💬</div>
+                    <div class="notification-content">
+                        <p><strong>佐藤 花子</strong>さんが<span class="highlight">「デザインレビュー」</span>にコメントしました</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">5分前</span>
+                            <span class="notification-project">ECサイトリニューアル</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="notification-item unread" style="position: relative; padding-left: 35px;">
+                    <div class="notification-icon mention">@</div>
+                    <div class="notification-content">
+                        <p><strong>田中 健太</strong>さんがあなたを<span class="highlight">メンション</span>しました：「@山田さん、これ確認お願いします！」</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">1時間前</span>
+                            <span class="notification-project">モバイルアプリv2</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon task">📋</div>
+                    <div class="notification-content">
+                        <p><span class="highlight">「API設計書作成」</span>の期限が明日です</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">2時間前</span>
+                            <span class="notification-project">バックエンド開発</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon like">❤️</div>
+                    <div class="notification-content">
+                        <p><strong>鈴木 一郎</strong>さんがあなたのコメントに<span class="highlight">いいね</span>しました</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">3時間前</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notification-group">
+                <div class="group-header">昨日</div>
+                <div class="notification-item">
+                    <div class="notification-icon invite">👥</div>
+                    <div class="notification-content">
+                        <p><strong>高橋 美咲</strong>さんがあなたを<span class="highlight">「新規プロジェクト」</span>に招待しました</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">昨日 18:30</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon system">⚙️</div>
+                    <div class="notification-content">
+                        <p><span class="highlight">システムメンテナンス</span>のお知らせ：12月10日 AM2:00-4:00</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">昨日 15:00</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon task">✅</div>
+                    <div class="notification-content">
+                        <p><span class="highlight">「ユーザーテスト実施」</span>が完了しました</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">昨日 12:00</span>
+                            <span class="notification-project">UXリサーチ</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notification-group">
+                <div class="group-header">今週</div>
+                <div class="notification-item">
+                    <div class="notification-icon comment">💬</div>
+                    <div class="notification-content">
+                        <p><strong>山本 太郎</strong>さんが<span class="highlight">「週次レポート」</span>にコメントしました</p>
+                        <div class="notification-meta">
+                            <span class="notification-time">12月4日</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="notification-action-btn">✓</button>
+                        <button class="notification-action-btn">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more">
+            <button class="load-more-btn">さらに読み込む</button>
+        </div>
+    </div>
+</body>
+</html>

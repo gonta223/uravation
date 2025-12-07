@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>採用情報 - TechStart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #ffffff; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 35px; text-decoration: none; color: #64748b; font-weight: 500; }
+        nav a.active { color: #6366f1; }
+
+        .hero { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 100px 50px; color: white; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+        .hero-stats { display: flex; justify-content: center; gap: 60px; }
+        .hero-stat { text-align: center; }
+        .hero-stat .value { font-size: 3rem; font-weight: 800; }
+        .hero-stat .label { font-size: 0.9rem; opacity: 0.8; }
+
+        .section { padding: 80px 50px; max-width: 1200px; margin: 0 auto; }
+
+        .filter-section { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+        .filter-group { display: flex; flex-direction: column; gap: 8px; }
+        .filter-group label { font-size: 0.85rem; font-weight: 600; color: #64748b; }
+        .filter-group select { padding: 12px 20px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; min-width: 200px; cursor: pointer; }
+        .search-box { flex: 1; min-width: 300px; }
+        .search-box input { width: 100%; padding: 12px 20px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; }
+
+        .jobs-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .jobs-header h2 { font-size: 1.5rem; font-weight: 700; }
+        .jobs-count { color: #64748b; font-size: 0.95rem; }
+
+        .jobs-list { display: flex; flex-direction: column; gap: 20px; }
+        .job-card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 30px; transition: all 0.3s; cursor: pointer; }
+        .job-card:hover { border-color: #6366f1; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1); }
+        .job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .job-title { font-size: 1.3rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+        .job-department { font-size: 0.9rem; color: #6366f1; font-weight: 500; }
+        .job-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+        .job-tag { padding: 6px 14px; background: #f1f5f9; border-radius: 20px; font-size: 0.8rem; color: #64748b; }
+        .job-tag.new { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .job-tag.urgent { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .job-description { font-size: 0.95rem; color: #64748b; line-height: 1.7; margin-bottom: 20px; }
+        .job-meta { display: flex; gap: 25px; flex-wrap: wrap; }
+        .job-meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #64748b; }
+        .job-apply { padding: 12px 30px; background: #6366f1; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .job-apply:hover { background: #4f46e5; }
+
+        .benefits-section { background: #f8fafc; margin-left: -50px; margin-right: -50px; padding: 80px 50px; }
+        .benefits-section h2 { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 50px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .benefit-card { background: white; padding: 30px; border-radius: 16px; text-align: center; }
+        .benefit-icon { width: 60px; height: 60px; background: rgba(99, 102, 241, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; }
+        .benefit-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+        .benefit-card p { font-size: 0.9rem; color: #64748b; line-height: 1.6; }
+
+        .process-section h2 { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 50px; }
+        .process-steps { display: flex; justify-content: space-between; position: relative; max-width: 900px; margin: 0 auto; }
+        .process-steps::before { content: ''; position: absolute; top: 40px; left: 80px; right: 80px; height: 2px; background: #e2e8f0; }
+        .process-step { text-align: center; position: relative; z-index: 1; }
+        .step-number { width: 80px; height: 80px; background: #6366f1; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 20px; }
+        .process-step h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .process-step p { font-size: 0.85rem; color: #64748b; }
+
+        .cta-section { background: linear-gradient(135deg, #1e293b, #334155); border-radius: 24px; padding: 60px; text-align: center; color: white; margin-top: 80px; }
+        .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 30px; }
+        .cta-btn { display: inline-block; padding: 16px 40px; background: #6366f1; color: white; border-radius: 12px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .cta-btn:hover { background: #4f46e5; }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 80px; }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero-stats { flex-wrap: wrap; gap: 30px; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-steps { flex-direction: column; gap: 30px; }
+            .process-steps::before { display: none; }
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .section { padding: 50px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">TechStart</div>
+        <nav>
+            <a href="../about/index.html">会社概要</a>
+            <a href="#" class="active">採用情報</a>
+            <a href="#">ブログ</a>
+            <a href="#">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>一緒に未来を創ろう</h1>
+        <p>私たちは、革新的なプロダクトを通じて社会に価値を届けるチームを探しています。あなたの才能を活かす場所がここにあります。</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="value">15</div>
+                <div class="label">オープンポジション</div>
+            </div>
+            <div class="hero-stat">
+                <div class="value">50+</div>
+                <div class="label">チームメンバー</div>
+            </div>
+            <div class="hero-stat">
+                <div class="value">10</div>
+                <div class="label">国籍</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="filter-section">
+            <div class="filter-group">
+                <label>職種</label>
+                <select>
+                    <option>すべての職種</option>
+                    <option>エンジニア</option>
+                    <option>デザイナー</option>
+                    <option>プロダクト</option>
+                    <option>ビジネス</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>勤務地</label>
+                <select>
+                    <option>すべての勤務地</option>
+                    <option>東京</option>
+                    <option>大阪</option>
+                    <option>リモート</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>雇用形態</label>
+                <select>
+                    <option>すべての雇用形態</option>
+                    <option>正社員</option>
+                    <option>契約社員</option>
+                    <option>インターン</option>
+                </select>
+            </div>
+            <div class="filter-group search-box">
+                <label>キーワード検索</label>
+                <input type="text" placeholder="職種名、スキルなどで検索...">
+            </div>
+        </div>
+
+        <div class="jobs-header">
+            <h2>募集中のポジション</h2>
+            <span class="jobs-count">15件の求人</span>
+        </div>
+
+        <div class="jobs-list">
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">シニアフロントエンドエンジニア</h3>
+                        <p class="job-department">プロダクト開発部</p>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag new">NEW</span>
+                        <span class="job-tag">正社員</span>
+                    </div>
+                </div>
+                <p class="job-description">React/TypeScriptを使用したWebアプリケーション開発をリードしていただきます。パフォーマンス最適化やアーキテクチャ設計にも携わっていただきます。</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="job-meta">
+                        <span class="job-meta-item">📍 東京 / リモート可</span>
+                        <span class="job-meta-item">💰 800〜1,200万円</span>
+                        <span class="job-meta-item">⏰ フレックス</span>
+                    </div>
+                    <button class="job-apply">詳細を見る</button>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">プロダクトデザイナー</h3>
+                        <p class="job-department">デザインチーム</p>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag urgent">急募</span>
+                        <span class="job-tag">正社員</span>
+                    </div>
+                </div>
+                <p class="job-description">ユーザーリサーチからUIデザインまで、プロダクトのデザイン全般を担当していただきます。Figmaを使ったデザインシステムの構築経験がある方を歓迎します。</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="job-meta">
+                        <span class="job-meta-item">📍 東京</span>
+                        <span class="job-meta-item">💰 600〜900万円</span>
+                        <span class="job-meta-item">⏰ フレックス</span>
+                    </div>
+                    <button class="job-apply">詳細を見る</button>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">バックエンドエンジニア</h3>
+                        <p class="job-department">プロダクト開発部</p>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag">正社員</span>
+                    </div>
+                </div>
+                <p class="job-description">Go/Pythonを使用したマイクロサービスの開発を担当していただきます。AWSを活用したインフラ設計・運用の経験がある方を歓迎します。</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="job-meta">
+                        <span class="job-meta-item">📍 フルリモート</span>
+                        <span class="job-meta-item">💰 700〜1,100万円</span>
+                        <span class="job-meta-item">⏰ フレックス</span>
+                    </div>
+                    <button class="job-apply">詳細を見る</button>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">プロダクトマネージャー</h3>
+                        <p class="job-department">プロダクト企画部</p>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag new">NEW</span>
+                        <span class="job-tag">正社員</span>
+                    </div>
+                </div>
+                <p class="job-description">プロダクトの企画・開発をリードしていただきます。ユーザーインタビューから機能設計、リリースまでの一連のプロセスを担当します。</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="job-meta">
+                        <span class="job-meta-item">📍 東京 / リモート可</span>
+                        <span class="job-meta-item">💰 800〜1,200万円</span>
+                        <span class="job-meta-item">⏰ フレックス</span>
+                    </div>
+                    <button class="job-apply">詳細を見る</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <h2>福利厚生</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">🏠</div>
+                <h3>リモートワーク</h3>
+                <p>フルリモート・ハイブリッド勤務に対応</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3>競争力のある報酬</h3>
+                <p>業界水準以上の給与とストックオプション</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📚</div>
+                <h3>学習支援</h3>
+                <p>書籍・カンファレンス費用を全額サポート</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🏥</div>
+                <h3>健康サポート</h3>
+                <p>健康診断・メンタルヘルスケア</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🍼</div>
+                <h3>育児支援</h3>
+                <p>育休・時短勤務・ベビーシッター補助</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">✈️</div>
+                <h3>休暇制度</h3>
+                <p>年間休日125日・リフレッシュ休暇</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💻</div>
+                <h3>機材支給</h3>
+                <p>MacBook Pro・モニター等を支給</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎉</div>
+                <h3>チームイベント</h3>
+                <p>四半期オフサイト・ランチ補助</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section process-section">
+        <h2>選考プロセス</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>書類選考</h4>
+                <p>3営業日以内</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>カジュアル面談</h4>
+                <p>30分程度</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>技術面接</h4>
+                <p>60分程度</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>最終面接</h4>
+                <p>45分程度</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <h4>オファー</h4>
+                <p>1週間以内</p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>あなたの挑戦を待っています</h2>
+            <p>まずはカジュアル面談から始めませんか？</p>
+            <a href="#" class="cta-btn">カジュアル面談に申し込む</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 TechStart Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

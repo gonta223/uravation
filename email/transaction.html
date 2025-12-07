@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご注文確認</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #f4f4f4; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .header { background: #1e293b; padding: 30px; text-align: center; }
+        .header-logo { font-size: 24px; font-weight: 700; color: white; }
+        .content { padding: 40px 30px; }
+        .order-status { text-align: center; margin-bottom: 35px; }
+        .status-icon { width: 70px; height: 70px; background: #22c55e; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .status-icon span { font-size: 35px; }
+        .order-status h1 { font-size: 24px; color: #1e293b; margin: 0 0 10px; }
+        .order-status p { color: #64748b; font-size: 15px; margin: 0; }
+        .order-info { background: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+        .order-info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0; }
+        .order-info-row:last-child { border-bottom: none; }
+        .order-info-label { color: #64748b; font-size: 14px; }
+        .order-info-value { color: #1e293b; font-size: 14px; font-weight: 600; }
+        .section-title { font-size: 16px; font-weight: 600; color: #1e293b; margin-bottom: 20px; }
+        .order-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .order-item:last-child { border-bottom: none; }
+        .item-image { width: 70px; height: 70px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+        .item-details { flex: 1; }
+        .item-name { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+        .item-variant { font-size: 13px; color: #64748b; }
+        .item-price { text-align: right; }
+        .item-price .price { font-size: 15px; font-weight: 600; color: #1e293b; }
+        .item-price .qty { font-size: 13px; color: #64748b; }
+        .order-total { background: #f8fafc; border-radius: 12px; padding: 20px; margin-top: 25px; }
+        .total-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+        .total-row.final { border-top: 1px solid #e2e8f0; margin-top: 10px; padding-top: 15px; font-size: 18px; font-weight: 700; }
+        .shipping-info { margin-top: 30px; }
+        .address-box { background: #f8fafc; border-radius: 12px; padding: 20px; }
+        .address-box h4 { font-size: 13px; color: #64748b; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .address-box p { font-size: 14px; color: #1e293b; line-height: 1.7; margin: 0; }
+        .cta-section { text-align: center; margin-top: 35px; padding-top: 30px; border-top: 1px solid #e2e8f0; }
+        .cta-btn { display: inline-block; padding: 14px 35px; background: #1e293b; color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600; }
+        .help-text { margin-top: 20px; font-size: 13px; color: #64748b; }
+        .help-text a { color: #6366f1; }
+        .footer { background: #1e293b; padding: 30px; text-align: center; }
+        .footer-text { color: rgba(255,255,255,0.6); font-size: 12px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="header-logo">KURASHI</div>
+        </div>
+
+        <div class="content">
+            <div class="order-status">
+                <div class="status-icon"><span>✓</span></div>
+                <h1>ご注文ありがとうございます</h1>
+                <p>ご注文を受け付けました。発送準備ができ次第ご連絡いたします。</p>
+            </div>
+
+            <div class="order-info">
+                <div class="order-info-row">
+                    <span class="order-info-label">注文番号</span>
+                    <span class="order-info-value">KRS-2024120789</span>
+                </div>
+                <div class="order-info-row">
+                    <span class="order-info-label">注文日</span>
+                    <span class="order-info-value">2024年12月7日</span>
+                </div>
+                <div class="order-info-row">
+                    <span class="order-info-label">お届け予定日</span>
+                    <span class="order-info-value">2024年12月10日</span>
+                </div>
+                <div class="order-info-row">
+                    <span class="order-info-label">お支払い方法</span>
+                    <span class="order-info-value">クレジットカード</span>
+                </div>
+            </div>
+
+            <h3 class="section-title">ご注文内容</h3>
+            <div class="order-items">
+                <div class="order-item">
+                    <div class="item-image">🪑</div>
+                    <div class="item-details">
+                        <div class="item-name">北欧デザインチェア</div>
+                        <div class="item-variant">カラー: ナチュラル</div>
+                    </div>
+                    <div class="item-price">
+                        <div class="price">¥24,800</div>
+                        <div class="qty">× 1</div>
+                    </div>
+                </div>
+                <div class="order-item">
+                    <div class="item-image">🌿</div>
+                    <div class="item-details">
+                        <div class="item-name">観葉植物セット</div>
+                        <div class="item-variant">サイズ: M</div>
+                    </div>
+                    <div class="item-price">
+                        <div class="price">¥3,800</div>
+                        <div class="qty">× 2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-total">
+                <div class="total-row">
+                    <span>小計</span>
+                    <span>¥32,400</span>
+                </div>
+                <div class="total-row">
+                    <span>送料</span>
+                    <span>無料</span>
+                </div>
+                <div class="total-row final">
+                    <span>合計（税込）</span>
+                    <span>¥35,640</span>
+                </div>
+            </div>
+
+            <div class="shipping-info">
+                <h3 class="section-title">お届け先</h3>
+                <div class="address-box">
+                    <h4>配送先住所</h4>
+                    <p>
+                        山田 太郎 様<br>
+                        〒123-4567<br>
+                        東京都渋谷区渋谷1-2-3<br>
+                        ○○マンション 101号室<br>
+                        TEL: 090-1234-5678
+                    </p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="#" class="cta-btn">注文状況を確認</a>
+                <p class="help-text">ご不明な点がございましたら、<a href="#">お問い合わせ</a>ください。</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">
+                © 2024 KURASHI Inc. All Rights Reserved.<br>
+                〒100-0001 東京都千代田区○○1-2-3
+            </p>
+        </div>
+    </div>
+</body>
+</html>

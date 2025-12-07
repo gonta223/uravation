@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>年末セール開催中！</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #f4f4f4; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; overflow: hidden; }
+        .hero { background: linear-gradient(135deg, #dc2626, #b91c1c); padding: 60px 30px; text-align: center; color: white; position: relative; }
+        .hero::before { content: '🎄'; position: absolute; top: 20px; left: 20px; font-size: 30px; }
+        .hero::after { content: '🎁'; position: absolute; top: 20px; right: 20px; font-size: 30px; }
+        .sale-badge { display: inline-block; background: #fbbf24; color: #1e293b; padding: 8px 20px; border-radius: 30px; font-size: 14px; font-weight: 700; margin-bottom: 20px; }
+        .hero h1 { font-size: 36px; margin: 0 0 15px; font-weight: 800; }
+        .hero p { font-size: 18px; margin: 0 0 25px; opacity: 0.95; }
+        .discount-box { display: inline-block; background: white; color: #dc2626; padding: 20px 40px; border-radius: 12px; }
+        .discount-box .number { font-size: 60px; font-weight: 900; line-height: 1; }
+        .discount-box .text { font-size: 16px; font-weight: 600; }
+        .countdown { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .countdown-item { background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px; min-width: 70px; }
+        .countdown-item .value { font-size: 28px; font-weight: 700; }
+        .countdown-item .label { font-size: 11px; opacity: 0.9; }
+        .content { padding: 40px 30px; }
+        .section-title { font-size: 20px; font-weight: 700; color: #1e293b; text-align: center; margin-bottom: 30px; }
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .product-card { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; text-align: center; }
+        .product-image { height: 150px; background: #f8fafc; display: flex; align-items: center; justify-content: center; font-size: 50px; position: relative; }
+        .product-badge { position: absolute; top: 10px; left: 10px; background: #dc2626; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+        .product-info { padding: 20px; }
+        .product-name { font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+        .product-price { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .price-original { font-size: 13px; color: #94a3b8; text-decoration: line-through; }
+        .price-sale { font-size: 18px; font-weight: 700; color: #dc2626; }
+        .cta-section { text-align: center; padding: 30px; background: #f8fafc; }
+        .cta-btn { display: inline-block; padding: 18px 50px; background: #dc2626; color: white; text-decoration: none; border-radius: 10px; font-size: 16px; font-weight: 700; }
+        .benefits { display: flex; justify-content: center; gap: 30px; margin-top: 25px; }
+        .benefit { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+        .coupon-section { background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 30px; text-align: center; margin: 30px; border-radius: 12px; border: 2px dashed #f59e0b; }
+        .coupon-section h3 { font-size: 14px; color: #92400e; margin-bottom: 10px; }
+        .coupon-code { font-size: 28px; font-weight: 800; color: #1e293b; letter-spacing: 3px; margin-bottom: 10px; }
+        .coupon-section p { font-size: 12px; color: #92400e; }
+        .footer { background: #1e293b; padding: 30px; text-align: center; }
+        .footer-logo { font-size: 20px; font-weight: 700; color: white; margin-bottom: 15px; }
+        .footer-text { color: rgba(255,255,255,0.6); font-size: 12px; line-height: 1.8; }
+        .unsubscribe { color: rgba(255,255,255,0.6); text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="hero">
+            <div class="sale-badge">⚡ 期間限定</div>
+            <h1>年末BIGセール</h1>
+            <p>1年に1度の大感謝祭！全商品が特別価格</p>
+            <div class="discount-box">
+                <div class="number">50%</div>
+                <div class="text">OFF</div>
+            </div>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="value">03</div>
+                    <div class="label">DAYS</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="value">12</div>
+                    <div class="label">HOURS</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="value">45</div>
+                    <div class="label">MINS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">🔥 人気アイテムがお買い得！</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-50%</span>
+                        🪑
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">北欧デザインチェア</div>
+                        <div class="product-price">
+                            <span class="price-original">¥24,800</span>
+                            <span class="price-sale">¥12,400</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-40%</span>
+                        🛋️
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">モダンソファ 2人掛け</div>
+                        <div class="product-price">
+                            <span class="price-original">¥89,800</span>
+                            <span class="price-sale">¥53,880</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-30%</span>
+                        🪴
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">観葉植物セット</div>
+                        <div class="product-price">
+                            <span class="price-original">¥5,800</span>
+                            <span class="price-sale">¥4,060</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-45%</span>
+                        💡
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">デザイナーズランプ</div>
+                        <div class="product-price">
+                            <span class="price-original">¥18,800</span>
+                            <span class="price-sale">¥10,340</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coupon-section">
+                <h3>🎁 さらにお得！クーポンコード</h3>
+                <div class="coupon-code">WINTER2024</div>
+                <p>¥10,000以上のお買い物で使える¥1,000 OFFクーポン</p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <a href="#" class="cta-btn">セール会場へGO →</a>
+            <div class="benefits">
+                <div class="benefit">🚚 送料無料</div>
+                <div class="benefit">↩️ 30日間返品OK</div>
+                <div class="benefit">💳 分割払い対応</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-logo">KURASHI</div>
+            <p class="footer-text">
+                このメールは kurashi.example.com にご登録いただいた方にお送りしています。<br>
+                配信停止をご希望の場合は<a href="#" class="unsubscribe">こちら</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チーム紹介 - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #ffffff; color: #1e293b; }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #f1f5f9; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #1e293b; }
+        nav a { margin-left: 35px; text-decoration: none; color: #64748b; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: #1e293b; }
+
+        .hero { padding: 180px 20px 100px; text-align: center; background: linear-gradient(180deg, #f8fafc, #ffffff); }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 25px; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        .section { padding: 100px 20px; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+
+        .mission-section { background: #1e293b; color: white; }
+        .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .mission-content h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 25px; }
+        .mission-content p { font-size: 1.1rem; line-height: 1.9; opacity: 0.9; margin-bottom: 30px; }
+        .mission-stats { display: flex; gap: 50px; }
+        .stat { text-align: center; }
+        .stat-value { font-size: 3rem; font-weight: 800; color: #6366f1; }
+        .stat-label { font-size: 0.9rem; opacity: 0.7; margin-top: 5px; }
+        .mission-image { height: 400px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 8rem; }
+
+        .values-section { text-align: center; }
+        .values-section h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 60px; }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .value-card { padding: 40px; border: 1px solid #e2e8f0; border-radius: 20px; transition: all 0.3s; }
+        .value-card:hover { border-color: #6366f1; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .value-icon { width: 70px; height: 70px; background: rgba(99, 102, 241, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 25px; }
+        .value-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .value-card p { font-size: 0.95rem; color: #64748b; line-height: 1.8; }
+
+        .team-section h2 { font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 20px; }
+        .team-section > p { text-align: center; color: #64748b; font-size: 1.1rem; margin-bottom: 60px; }
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .team-card { text-align: center; }
+        .team-avatar { width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: white; font-weight: 700; transition: transform 0.3s; }
+        .team-card:hover .team-avatar { transform: scale(1.05); }
+        .team-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+        .team-card .role { color: #6366f1; font-size: 0.9rem; font-weight: 500; margin-bottom: 15px; }
+        .team-card .bio { font-size: 0.9rem; color: #64748b; line-height: 1.7; }
+        .team-social { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+        .team-social a { width: 36px; height: 36px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.3s; }
+        .team-social a:hover { background: #6366f1; color: white; }
+
+        .culture-section { background: #f8fafc; }
+        .culture-section h2 { font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 60px; }
+        .culture-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .culture-card { background: white; border-radius: 20px; overflow: hidden; display: flex; }
+        .culture-image { width: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 4rem; flex-shrink: 0; }
+        .culture-content { padding: 30px; }
+        .culture-content h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .culture-content p { font-size: 0.95rem; color: #64748b; line-height: 1.7; }
+
+        .cta-section { text-align: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 40px; }
+        .cta-btn { display: inline-block; padding: 18px 50px; background: white; color: #6366f1; border-radius: 12px; font-size: 1.1rem; font-weight: 600; text-decoration: none; transition: transform 0.3s; }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        footer { background: #1e293b; padding: 60px 20px; text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .mission-grid { grid-template-columns: 1fr; gap: 40px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .culture-grid { grid-template-columns: 1fr; }
+            .culture-card { flex-direction: column; }
+            .culture-image { width: 100%; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">TechStart</div>
+            <nav>
+                <a href="#">プロダクト</a>
+                <a href="#">ソリューション</a>
+                <a href="#">会社概要</a>
+                <a href="#">採用情報</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>テクノロジーで<br>未来を創る</h1>
+        <p>私たちは、革新的なテクノロジーソリューションを通じて、企業と社会の発展に貢献します。</p>
+    </section>
+
+    <section class="section mission-section">
+        <div class="section-container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2>Our Mission</h2>
+                    <p>2018年の創業以来、私たちは「テクノロジーで人々の可能性を広げる」というミッションのもと、革新的なプロダクトを開発してきました。</p>
+                    <p>グローバルな視点と日本のクラフトマンシップを融合させ、世界中のユーザーに愛されるサービスを目指しています。</p>
+                    <div class="mission-stats">
+                        <div class="stat">
+                            <div class="stat-value">50+</div>
+                            <div class="stat-label">チームメンバー</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">10K+</div>
+                            <div class="stat-label">ユーザー</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">15+</div>
+                            <div class="stat-label">国と地域</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-image">🚀</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section values-section">
+        <div class="section-container">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">💡</div>
+                    <h3>Innovation</h3>
+                    <p>常に新しいアイデアに挑戦し、革新的なソリューションを追求します。失敗を恐れず、学び続ける姿勢を大切にしています。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Collaboration</h3>
+                    <p>多様なバックグラウンドを持つメンバーが協力し、より大きな価値を生み出します。オープンなコミュニケーションを重視しています。</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>User First</h3>
+                    <p>ユーザーの課題解決を最優先に考え、本当に価値のあるプロダクトを提供します。ユーザーの声に真摯に耳を傾けます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section team-section">
+        <div class="section-container">
+            <h2>Leadership Team</h2>
+            <p>経験豊富なリーダーシップチームが、会社のビジョンを実現します</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">田</div>
+                    <h3>田中 健太</h3>
+                    <p class="role">CEO / Co-Founder</p>
+                    <p class="bio">元Google。10年以上のプロダクト開発経験を持つ。</p>
+                    <div class="team-social">
+                        <a href="#">𝕏</a>
+                        <a href="#">in</a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #22c55e, #16a34a);">山</div>
+                    <h3>山本 美咲</h3>
+                    <p class="role">CTO / Co-Founder</p>
+                    <p class="bio">元Amazon。大規模システム設計のエキスパート。</p>
+                    <div class="team-social">
+                        <a href="#">𝕏</a>
+                        <a href="#">in</a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #f97316, #fb923c);">佐</div>
+                    <h3>佐藤 一郎</h3>
+                    <p class="role">CPO</p>
+                    <p class="bio">元Apple。ユーザー体験設計の第一人者。</p>
+                    <div class="team-social">
+                        <a href="#">𝕏</a>
+                        <a href="#">in</a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar" style="background: linear-gradient(135deg, #ec4899, #db2777);">鈴</div>
+                    <h3>鈴木 花子</h3>
+                    <p class="role">CFO</p>
+                    <p class="bio">元Goldman Sachs。スタートアップファイナンスに精通。</p>
+                    <div class="team-social">
+                        <a href="#">𝕏</a>
+                        <a href="#">in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section culture-section">
+        <div class="section-container">
+            <h2>Our Culture</h2>
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <div class="culture-image">🏠</div>
+                    <div class="culture-content">
+                        <h3>フレキシブルワーク</h3>
+                        <p>リモートワークとオフィスワークを自由に選択。ワークライフバランスを大切にしています。</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-image" style="background: linear-gradient(135deg, #22c55e, #16a34a);">📚</div>
+                    <div class="culture-content">
+                        <h3>学習支援</h3>
+                        <p>書籍購入、カンファレンス参加、オンライン学習の費用を会社がサポートします。</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-image" style="background: linear-gradient(135deg, #f97316, #fb923c);">🎉</div>
+                    <div class="culture-content">
+                        <h3>チームイベント</h3>
+                        <p>四半期ごとのオフサイト、ハッカソン、チームランチなど、交流の機会を大切にしています。</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-image" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">🌍</div>
+                    <div class="culture-content">
+                        <h3>ダイバーシティ</h3>
+                        <p>10カ国以上のメンバーが在籍。多様な視点がイノベーションを生みます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="section-container">
+            <h2>一緒に未来を創りませんか？</h2>
+            <p>私たちは常に優秀な人材を探しています</p>
+            <a href="#" class="cta-btn">採用情報を見る →</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 TechStart Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
