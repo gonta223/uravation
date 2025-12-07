@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タイムライン - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        .header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .header-left { display: flex; align-items: center; gap: 25px; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+        .header-tabs { display: flex; gap: 5px; }
+        .header-tab { padding: 10px 20px; background: none; border: none; border-radius: 8px; font-size: 0.9rem; color: #64748b; cursor: pointer; font-weight: 500; transition: all 0.3s; }
+        .header-tab:hover { background: #f1f5f9; }
+        .header-tab.active { background: #e0e7ff; color: #6366f1; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .search-box { display: flex; align-items: center; gap: 10px; background: #f1f5f9; padding: 10px 15px; border-radius: 10px; }
+        .search-box input { border: none; background: none; font-size: 0.9rem; width: 180px; }
+        .search-box input:focus { outline: none; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+
+        .post-composer { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .composer-header { display: flex; gap: 15px; margin-bottom: 15px; }
+        .composer-input { flex: 1; }
+        .composer-input textarea { width: 100%; border: none; font-size: 1rem; resize: none; font-family: inherit; }
+        .composer-input textarea:focus { outline: none; }
+        .composer-input textarea::placeholder { color: #94a3b8; }
+        .composer-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid #f1f5f9; }
+        .composer-tools { display: flex; gap: 10px; }
+        .tool-btn { width: 40px; height: 40px; border: none; background: #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 1.1rem; transition: all 0.3s; }
+        .tool-btn:hover { background: #e2e8f0; }
+        .post-btn { padding: 12px 30px; background: #6366f1; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .post-btn:hover { background: #4f46e5; }
+
+        .filter-bar { display: flex; gap: 15px; margin-bottom: 25px; }
+        .filter-btn { padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.85rem; color: #64748b; cursor: pointer; transition: all 0.3s; }
+        .filter-btn:hover { border-color: #6366f1; }
+        .filter-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .timeline { }
+
+        .timeline-item { background: white; border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: all 0.3s; }
+        .timeline-item:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+
+        .item-header { display: flex; gap: 15px; margin-bottom: 15px; }
+        .item-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .item-avatar.user { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); }
+        .item-avatar.system { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+        .item-avatar.alert { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+        .item-info { flex: 1; }
+        .item-info .name { font-weight: 600; font-size: 0.95rem; }
+        .item-info .meta { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #94a3b8; margin-top: 3px; }
+        .item-info .tag { padding: 2px 8px; background: #e0e7ff; color: #6366f1; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+        .item-menu { width: 36px; height: 36px; border: none; background: none; cursor: pointer; font-size: 1rem; color: #94a3b8; border-radius: 8px; }
+        .item-menu:hover { background: #f1f5f9; }
+
+        .item-content { margin-left: 63px; }
+        .item-content p { font-size: 0.95rem; line-height: 1.7; color: #475569; margin-bottom: 15px; }
+        .item-content .mention { color: #6366f1; font-weight: 500; }
+        .item-content .hashtag { color: #6366f1; }
+
+        .item-attachment { background: #f8fafc; border-radius: 12px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
+        .attachment-icon { width: 45px; height: 45px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .attachment-info { flex: 1; }
+        .attachment-name { font-weight: 600; font-size: 0.9rem; }
+        .attachment-size { font-size: 0.8rem; color: #94a3b8; }
+        .attachment-action { padding: 8px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.8rem; cursor: pointer; }
+
+        .item-preview { background: #f8fafc; border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
+        .preview-image { height: 200px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .preview-content { padding: 15px; }
+        .preview-content .title { font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; }
+        .preview-content .desc { font-size: 0.85rem; color: #64748b; }
+
+        .item-actions { display: flex; gap: 20px; margin-left: 63px; }
+        .action-btn { display: flex; align-items: center; gap: 6px; padding: 8px 15px; background: none; border: none; color: #64748b; font-size: 0.85rem; cursor: pointer; border-radius: 8px; transition: all 0.3s; }
+        .action-btn:hover { background: #f1f5f9; }
+        .action-btn.liked { color: #ef4444; }
+        .action-btn .icon { font-size: 1rem; }
+
+        .item-comments { margin-left: 63px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
+        .comment { display: flex; gap: 12px; margin-bottom: 15px; }
+        .comment:last-child { margin-bottom: 0; }
+        .comment-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        .comment-content { flex: 1; background: #f8fafc; padding: 12px 15px; border-radius: 12px; }
+        .comment-content .name { font-weight: 600; font-size: 0.85rem; margin-bottom: 3px; }
+        .comment-content p { font-size: 0.85rem; color: #475569; margin: 0; }
+        .comment-time { font-size: 0.75rem; color: #94a3b8; margin-top: 5px; }
+
+        .add-comment { display: flex; gap: 12px; margin-top: 15px; }
+        .add-comment input { flex: 1; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.85rem; }
+        .add-comment input:focus { outline: none; border-color: #6366f1; }
+        .add-comment button { padding: 12px 20px; background: #6366f1; color: white; border: none; border-radius: 30px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+
+        .date-divider { text-align: center; margin: 30px 0; position: relative; }
+        .date-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #e2e8f0; }
+        .date-divider span { background: #f8fafc; padding: 0 20px; position: relative; font-size: 0.85rem; color: #94a3b8; font-weight: 500; }
+
+        .load-more { text-align: center; padding: 20px; }
+        .load-more button { padding: 14px 40px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; color: #64748b; cursor: pointer; transition: all 0.3s; }
+        .load-more button:hover { border-color: #6366f1; color: #6366f1; }
+
+        @media (max-width: 600px) {
+            .header { padding: 15px; }
+            .header-tabs { display: none; }
+            .item-content, .item-actions, .item-comments { margin-left: 0; }
+            .filter-bar { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">🔔 Activity</div>
+            <div class="header-tabs">
+                <button class="header-tab active">すべて</button>
+                <button class="header-tab">メンション</button>
+                <button class="header-tab">更新</button>
+                <button class="header-tab">コメント</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" placeholder="アクティビティを検索">
+            </div>
+            <div class="avatar">👤</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="post-composer">
+            <div class="composer-header">
+                <div class="avatar">👤</div>
+                <div class="composer-input">
+                    <textarea rows="2" placeholder="チームに共有する内容を入力..."></textarea>
+                </div>
+            </div>
+            <div class="composer-footer">
+                <div class="composer-tools">
+                    <button class="tool-btn">📷</button>
+                    <button class="tool-btn">📎</button>
+                    <button class="tool-btn">😊</button>
+                    <button class="tool-btn">@</button>
+                </div>
+                <button class="post-btn">投稿する</button>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">すべて</button>
+            <button class="filter-btn">投稿</button>
+            <button class="filter-btn">タスク更新</button>
+            <button class="filter-btn">ファイル</button>
+            <button class="filter-btn">システム</button>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="item-avatar user">👩‍💼</div>
+                    <div class="item-info">
+                        <div class="name">佐藤 美咲</div>
+                        <div class="meta">
+                            <span>5分前</span>
+                            <span>•</span>
+                            <span class="tag">プロジェクトA</span>
+                        </div>
+                    </div>
+                    <button class="item-menu">⋯</button>
+                </div>
+                <div class="item-content">
+                    <p><span class="mention">@田中健太</span> デザインレビューが完了しました！フィードバックを反映して最終版を作成します。来週の月曜日までには完成予定です 🎨</p>
+                    <p><span class="hashtag">#デザイン</span> <span class="hashtag">#レビュー完了</span></p>
+                    <div class="item-preview">
+                        <div class="preview-image">🖼️</div>
+                        <div class="preview-content">
+                            <div class="title">ダッシュボードデザイン v2.0</div>
+                            <div class="desc">最新のUIデザインガイドラインに基づいた改修案</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="action-btn liked"><span class="icon">❤️</span> 12</button>
+                    <button class="action-btn"><span class="icon">💬</span> 3</button>
+                    <button class="action-btn"><span class="icon">🔄</span> 共有</button>
+                    <button class="action-btn"><span class="icon">🔖</span> 保存</button>
+                </div>
+                <div class="item-comments">
+                    <div class="comment">
+                        <div class="comment-avatar">👨‍💻</div>
+                        <div class="comment-content">
+                            <div class="name">田中 健太</div>
+                            <p>素晴らしいですね！カラーパレットの選択がとても良いと思います 👍</p>
+                            <div class="comment-time">3分前</div>
+                        </div>
+                    </div>
+                    <div class="add-comment">
+                        <input type="text" placeholder="コメントを入力...">
+                        <button>送信</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="item-avatar system">⚙️</div>
+                    <div class="item-info">
+                        <div class="name">システム通知</div>
+                        <div class="meta">
+                            <span>30分前</span>
+                        </div>
+                    </div>
+                    <button class="item-menu">⋯</button>
+                </div>
+                <div class="item-content">
+                    <p>📋 <strong>タスク完了</strong>: 「APIドキュメント作成」が完了としてマークされました</p>
+                    <div class="item-attachment">
+                        <div class="attachment-icon">📄</div>
+                        <div class="attachment-info">
+                            <div class="attachment-name">APIドキュメント作成</div>
+                            <div class="attachment-size">担当: 鈴木翔太 • 3日で完了</div>
+                        </div>
+                        <button class="attachment-action">タスクを見る</button>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="action-btn"><span class="icon">👏</span> 8</button>
+                    <button class="action-btn"><span class="icon">💬</span> 1</button>
+                </div>
+            </div>
+
+            <div class="date-divider"><span>昨日</span></div>
+
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="item-avatar user">👨‍🎨</div>
+                    <div class="item-info">
+                        <div class="name">鈴木 翔太</div>
+                        <div class="meta">
+                            <span>昨日 18:30</span>
+                            <span>•</span>
+                            <span class="tag">開発</span>
+                        </div>
+                    </div>
+                    <button class="item-menu">⋯</button>
+                </div>
+                <div class="item-content">
+                    <p>本日のスプリントレビューお疲れ様でした！主要な機能は予定通り完了しました。来週は以下の項目に注力します：</p>
+                    <p>✅ パフォーマンス最適化<br>✅ バグ修正（5件）<br>✅ ユーザーテスト準備</p>
+                    <div class="item-attachment">
+                        <div class="attachment-icon">📊</div>
+                        <div class="attachment-info">
+                            <div class="attachment-name">スプリントレポート_Week12.pdf</div>
+                            <div class="attachment-size">2.4 MB</div>
+                        </div>
+                        <button class="attachment-action">ダウンロード</button>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="action-btn"><span class="icon">❤️</span> 15</button>
+                    <button class="action-btn"><span class="icon">💬</span> 5</button>
+                    <button class="action-btn"><span class="icon">🔄</span> 共有</button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="item-avatar alert">🚨</div>
+                    <div class="item-info">
+                        <div class="name">アラート</div>
+                        <div class="meta">
+                            <span>昨日 15:00</span>
+                        </div>
+                    </div>
+                    <button class="item-menu">⋯</button>
+                </div>
+                <div class="item-content">
+                    <p>⚠️ <strong>期限リマインダー</strong>: 「マーケティング資料作成」の期限が明日に迫っています</p>
+                </div>
+                <div class="item-actions">
+                    <button class="action-btn"><span class="icon">👁️</span> 確認済み</button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="item-header">
+                    <div class="item-avatar user">👩‍🏫</div>
+                    <div class="item-info">
+                        <div class="name">高橋 裕子</div>
+                        <div class="meta">
+                            <span>昨日 10:15</span>
+                            <span>•</span>
+                            <span class="tag">マーケティング</span>
+                        </div>
+                    </div>
+                    <button class="item-menu">⋯</button>
+                </div>
+                <div class="item-content">
+                    <p>新しいキャンペーンのランディングページが公開されました！🎉 チーム全員の協力のおかげです。</p>
+                    <p>初日のコンバージョン率は想定の120%を達成しました。引き続きモニタリングを続けます。</p>
+                </div>
+                <div class="item-actions">
+                    <button class="action-btn liked"><span class="icon">❤️</span> 24</button>
+                    <button class="action-btn"><span class="icon">💬</span> 8</button>
+                    <button class="action-btn"><span class="icon">🔄</span> 共有</button>
+                    <button class="action-btn"><span class="icon">🔖</span> 保存</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more">
+            <button>さらに読み込む</button>
+        </div>
+    </div>
+</body>
+</html>

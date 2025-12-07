@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウィジェットライブラリ - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        .header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 25px; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+        .header-tabs { display: flex; gap: 5px; }
+        .header-tab { padding: 10px 20px; background: none; border: none; border-radius: 8px; font-size: 0.9rem; color: #64748b; cursor: pointer; font-weight: 500; }
+        .header-tab:hover { background: #f1f5f9; }
+        .header-tab.active { background: #e0e7ff; color: #6366f1; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+
+        .section { margin-bottom: 60px; }
+        .section-header { margin-bottom: 30px; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+        .section-header p { color: #64748b; font-size: 0.95rem; }
+
+        .widget-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+
+        .widget-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .widget-preview { padding: 30px; background: #f8fafc; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        .widget-info { padding: 20px; border-top: 1px solid #e2e8f0; }
+        .widget-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 5px; }
+        .widget-info p { font-size: 0.85rem; color: #64748b; }
+
+        /* Widget Examples */
+        .stat-widget { text-align: center; }
+        .stat-widget .value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-widget .label { font-size: 0.9rem; color: #64748b; margin-top: 5px; }
+        .stat-widget .change { font-size: 0.85rem; color: #22c55e; margin-top: 8px; }
+
+        .progress-widget { width: 100%; }
+        .progress-widget .header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
+        .progress-widget .bar { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
+        .progress-widget .fill { height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); border-radius: 6px; }
+
+        .avatar-stack { display: flex; }
+        .avatar-stack .avatar { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; margin-left: -15px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .avatar-stack .avatar:first-child { margin-left: 0; }
+        .avatar-stack .avatar.a1 { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .avatar-stack .avatar.a2 { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
+        .avatar-stack .avatar.a3 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .avatar-stack .avatar.more { background: #e2e8f0; color: #64748b; font-size: 0.8rem; font-weight: 600; }
+
+        .chart-widget { width: 100%; height: 120px; display: flex; align-items: flex-end; gap: 8px; }
+        .chart-widget .bar { flex: 1; background: linear-gradient(180deg, #6366f1, #4f46e5); border-radius: 6px 6px 0 0; }
+
+        .tag-widget { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag-widget .tag { padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+        .tag-widget .tag.purple { background: #e0e7ff; color: #6366f1; }
+        .tag-widget .tag.green { background: #dcfce7; color: #16a34a; }
+        .tag-widget .tag.orange { background: #ffedd5; color: #ea580c; }
+
+        .notification-widget { width: 100%; }
+        .notification-item { display: flex; gap: 12px; padding: 12px; background: white; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .notification-item:last-child { margin-bottom: 0; }
+        .notification-item .icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+        .notification-item .icon.info { background: #e0e7ff; }
+        .notification-item .icon.success { background: #dcfce7; }
+        .notification-item .text { flex: 1; font-size: 0.85rem; }
+        .notification-item .time { font-size: 0.75rem; color: #94a3b8; }
+
+        .toggle-widget { display: flex; flex-direction: column; gap: 15px; }
+        .toggle-item { display: flex; justify-content: space-between; align-items: center; }
+        .toggle-item .label { font-size: 0.9rem; font-weight: 500; }
+        .toggle-switch { width: 50px; height: 28px; background: #e2e8f0; border-radius: 14px; position: relative; cursor: pointer; transition: background 0.3s; }
+        .toggle-switch.on { background: #6366f1; }
+        .toggle-switch::after { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle-switch.on::after { transform: translateX(22px); }
+
+        .rating-widget { display: flex; gap: 5px; font-size: 2rem; }
+        .rating-widget .star { cursor: pointer; transition: transform 0.2s; }
+        .rating-widget .star:hover { transform: scale(1.2); }
+        .rating-widget .star.filled { color: #fbbf24; }
+        .rating-widget .star.empty { color: #e2e8f0; }
+
+        .calendar-widget { width: 100%; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .calendar-header .month { font-weight: 700; }
+        .calendar-header .nav { display: flex; gap: 5px; }
+        .calendar-header .nav button { width: 30px; height: 30px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+        .calendar-grid .day-name { font-size: 0.7rem; color: #94a3b8; padding: 5px; }
+        .calendar-grid .day { font-size: 0.85rem; padding: 8px; border-radius: 8px; cursor: pointer; }
+        .calendar-grid .day:hover { background: #f1f5f9; }
+        .calendar-grid .day.today { background: #6366f1; color: white; }
+        .calendar-grid .day.has-event { position: relative; }
+        .calendar-grid .day.has-event::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: #6366f1; border-radius: 50%; }
+
+        .input-widget { width: 100%; }
+        .input-widget input { width: 100%; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; transition: all 0.3s; }
+        .input-widget input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .input-widget .helper { font-size: 0.8rem; color: #64748b; margin-top: 8px; }
+
+        .button-widget { display: flex; flex-direction: column; gap: 12px; }
+        .button-widget .btn { padding: 14px 28px; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+        .button-widget .btn.primary { background: #6366f1; color: white; }
+        .button-widget .btn.primary:hover { background: #4f46e5; }
+        .button-widget .btn.secondary { background: white; color: #64748b; border: 2px solid #e2e8f0; }
+        .button-widget .btn.secondary:hover { border-color: #6366f1; color: #6366f1; }
+
+        .card-widget { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .card-widget .image { height: 100px; background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .card-widget .content { padding: 15px; }
+        .card-widget .title { font-weight: 700; margin-bottom: 5px; }
+        .card-widget .desc { font-size: 0.85rem; color: #64748b; }
+
+        .spinner-widget { display: flex; gap: 30px; align-items: center; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top-color: #6366f1; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .dots { display: flex; gap: 6px; }
+        .dots .dot { width: 10px; height: 10px; background: #6366f1; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out; }
+        .dots .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dots .dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        @media (max-width: 1000px) {
+            .widget-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .widget-grid { grid-template-columns: 1fr; }
+            .header-tabs { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">🧩 Widgets</div>
+            <div class="header-tabs">
+                <button class="header-tab active">すべて</button>
+                <button class="header-tab">データ表示</button>
+                <button class="header-tab">フォーム</button>
+                <button class="header-tab">ナビゲーション</button>
+                <button class="header-tab">フィードバック</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <h2>データ表示</h2>
+                <p>数値やチャートを表示するウィジェット</p>
+            </div>
+            <div class="widget-grid">
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="stat-widget">
+                            <div class="value">12,847</div>
+                            <div class="label">アクティブユーザー</div>
+                            <div class="change">↑ 12.5% 前月比</div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>統計カード</h3>
+                        <p>KPIや主要指標の表示に最適</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="progress-widget">
+                            <div class="header">
+                                <span>プロジェクト進捗</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="bar">
+                                <div class="fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>プログレスバー</h3>
+                        <p>進捗状況の可視化</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="chart-widget">
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 80%;"></div>
+                            <div class="bar" style="height: 45%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 70%;"></div>
+                            <div class="bar" style="height: 100%;"></div>
+                            <div class="bar" style="height: 55%;"></div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>バーチャート</h3>
+                        <p>データの比較に最適</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>UI要素</h2>
+                <p>インタラクティブなUI部品</p>
+            </div>
+            <div class="widget-grid">
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="avatar-stack">
+                            <div class="avatar a1">👩</div>
+                            <div class="avatar a2">👨</div>
+                            <div class="avatar a3">👩</div>
+                            <div class="avatar more">+5</div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>アバタースタック</h3>
+                        <p>チームメンバーの表示</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="tag-widget">
+                            <span class="tag purple">デザイン</span>
+                            <span class="tag green">完了</span>
+                            <span class="tag orange">優先</span>
+                            <span class="tag purple">開発</span>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>タグ</h3>
+                        <p>カテゴリやステータスの表示</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="toggle-widget">
+                            <div class="toggle-item">
+                                <span class="label">メール通知</span>
+                                <div class="toggle-switch on"></div>
+                            </div>
+                            <div class="toggle-item">
+                                <span class="label">プッシュ通知</span>
+                                <div class="toggle-switch"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>トグルスイッチ</h3>
+                        <p>ON/OFF設定の切り替え</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="rating-widget">
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star empty">★</span>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>レーティング</h3>
+                        <p>評価・スコアの入力</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="button-widget">
+                            <button class="btn primary">プライマリボタン</button>
+                            <button class="btn secondary">セカンダリボタン</button>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>ボタン</h3>
+                        <p>アクション実行用ボタン</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="input-widget">
+                            <input type="text" placeholder="メールアドレスを入力">
+                            <div class="helper">有効なメールアドレスを入力してください</div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>テキスト入力</h3>
+                        <p>フォーム用入力フィールド</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>フィードバック</h2>
+                <p>通知やローディング表示</p>
+            </div>
+            <div class="widget-grid">
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="notification-widget">
+                            <div class="notification-item">
+                                <div class="icon info">💬</div>
+                                <div class="text">新しいコメントがあります</div>
+                                <div class="time">5分前</div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="icon success">✅</div>
+                                <div class="text">タスクが完了しました</div>
+                                <div class="time">10分前</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>通知リスト</h3>
+                        <p>最新のアクティビティ表示</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="spinner-widget">
+                            <div class="spinner"></div>
+                            <div class="dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>ローディング</h3>
+                        <p>読み込み中の表示</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="calendar-widget">
+                            <div class="calendar-header">
+                                <span class="month">2024年12月</span>
+                                <div class="nav">
+                                    <button>←</button>
+                                    <button>→</button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="day-name">日</div>
+                                <div class="day-name">月</div>
+                                <div class="day-name">火</div>
+                                <div class="day-name">水</div>
+                                <div class="day-name">木</div>
+                                <div class="day-name">金</div>
+                                <div class="day-name">土</div>
+                                <div class="day">1</div>
+                                <div class="day">2</div>
+                                <div class="day">3</div>
+                                <div class="day">4</div>
+                                <div class="day has-event">5</div>
+                                <div class="day">6</div>
+                                <div class="day">7</div>
+                                <div class="day today">8</div>
+                                <div class="day">9</div>
+                                <div class="day has-event">10</div>
+                                <div class="day">11</div>
+                                <div class="day">12</div>
+                                <div class="day">13</div>
+                                <div class="day">14</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>カレンダー</h3>
+                        <p>日付選択・イベント表示</p>
+                    </div>
+                </div>
+
+                <div class="widget-card">
+                    <div class="widget-preview">
+                        <div class="card-widget">
+                            <div class="image"></div>
+                            <div class="content">
+                                <div class="title">カードタイトル</div>
+                                <div class="desc">カードの説明文がここに入ります</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-info">
+                        <h3>コンテンツカード</h3>
+                        <p>情報をまとめて表示</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

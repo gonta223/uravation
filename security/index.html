@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セキュリティ - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; position: relative; overflow: hidden; }
+        header::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='%23ffffff' fill-opacity='0.02'/%3E%3C/svg%3E"); }
+        .header-content { position: relative; max-width: 800px; margin: 0 auto; }
+        .shield-icon { font-size: 4rem; margin-bottom: 25px; }
+        h1 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
+        h1 span { color: #22c55e; }
+        .header-desc { font-size: 1.2rem; color: #94a3b8; line-height: 1.8; }
+
+        .trust-badges { display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
+        .trust-badge { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .trust-badge .icon { font-size: 1.5rem; }
+        .trust-badge .text { text-align: left; }
+        .trust-badge .label { font-size: 0.8rem; color: #64748b; }
+        .trust-badge .value { font-weight: 700; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
+
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+        .section-title p { font-size: 1.1rem; color: #64748b; }
+
+        .security-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 80px; }
+        .security-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: all 0.3s; }
+        .security-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .security-card .icon { width: 60px; height: 60px; background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .security-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+        .security-card p { color: #64748b; line-height: 1.7; font-size: 0.95rem; }
+
+        .compliance-section { background: white; border-radius: 24px; padding: 50px; margin-bottom: 80px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .compliance-header { text-align: center; margin-bottom: 40px; }
+        .compliance-header h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+        .compliance-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .compliance-item { text-align: center; padding: 30px 20px; border: 2px solid #f1f5f9; border-radius: 16px; transition: all 0.3s; }
+        .compliance-item:hover { border-color: #22c55e; }
+        .compliance-item .logo { font-size: 2.5rem; margin-bottom: 15px; }
+        .compliance-item .name { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
+        .compliance-item .desc { font-size: 0.85rem; color: #64748b; }
+
+        .infra-section { margin-bottom: 80px; }
+        .infra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .infra-content h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; }
+        .infra-content p { color: #64748b; line-height: 1.8; margin-bottom: 25px; }
+        .infra-list { list-style: none; }
+        .infra-list li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .infra-list li:last-child { border-bottom: none; }
+        .infra-list .check { color: #22c55e; font-size: 1.2rem; }
+        .infra-visual { background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 24px; padding: 40px; color: white; }
+        .infra-visual h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 25px; text-align: center; }
+        .server-stack { display: flex; flex-direction: column; gap: 15px; }
+        .server-layer { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 15px 20px; display: flex; align-items: center; gap: 15px; }
+        .server-layer .icon { font-size: 1.3rem; }
+        .server-layer .info { flex: 1; }
+        .server-layer .name { font-weight: 600; font-size: 0.9rem; }
+        .server-layer .detail { font-size: 0.8rem; color: #94a3b8; }
+        .server-layer .status { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; }
+
+        .practices-section { margin-bottom: 80px; }
+        .practices-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .practice-card { background: white; border-radius: 16px; padding: 30px; display: flex; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .practice-card .number { width: 50px; height: 50px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; }
+        .practice-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .practice-card p { color: #64748b; font-size: 0.9rem; line-height: 1.6; }
+
+        .report-section { background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 24px; padding: 50px; margin-bottom: 80px; }
+        .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .report-content h2 { font-size: 1.8rem; font-weight: 800; color: #92400e; margin-bottom: 15px; }
+        .report-content p { color: #a16207; line-height: 1.8; margin-bottom: 25px; }
+        .report-content .btn { display: inline-block; padding: 14px 30px; background: #f59e0b; color: white; border-radius: 12px; text-decoration: none; font-weight: 700; transition: all 0.3s; }
+        .report-content .btn:hover { background: #d97706; }
+        .report-info { background: white; border-radius: 16px; padding: 30px; }
+        .report-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 15px; }
+        .report-info p { font-size: 0.9rem; color: #64748b; margin-bottom: 10px; }
+        .report-info .email { color: #6366f1; font-weight: 600; }
+
+        .faq-section { margin-bottom: 80px; }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: white; border-radius: 16px; margin-bottom: 15px; overflow: hidden; }
+        .faq-question { padding: 25px 30px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question:hover { background: #f8fafc; }
+        .faq-answer { padding: 0 30px 25px; color: #64748b; line-height: 1.8; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        footer { background: #1e293b; color: white; padding: 40px 20px; }
+        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-links a { color: #94a3b8; text-decoration: none; margin-left: 25px; }
+
+        @media (max-width: 900px) {
+            .security-grid, .compliance-grid { grid-template-columns: repeat(2, 1fr); }
+            .infra-grid, .report-grid, .practices-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 600px) {
+            .security-grid, .compliance-grid { grid-template-columns: 1fr; }
+            .trust-badges { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="shield-icon">🛡️</div>
+            <h1>あなたのデータを<span>安全</span>に守ります</h1>
+            <p class="header-desc">エンタープライズレベルのセキュリティで、お客様のデータを24時間365日保護。業界最高水準の暗号化と厳格なアクセス管理を実施しています。</p>
+
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span class="icon">🔒</span>
+                    <div class="text">
+                        <div class="label">暗号化</div>
+                        <div class="value">AES-256</div>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <span class="icon">⏰</span>
+                    <div class="text">
+                        <div class="label">稼働率</div>
+                        <div class="value">99.99%</div>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <span class="icon">🌍</span>
+                    <div class="text">
+                        <div class="label">データセンター</div>
+                        <div class="value">日本国内</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section-title">
+            <h2>セキュリティ機能</h2>
+            <p>多層防御でお客様のデータを保護</p>
+        </div>
+
+        <div class="security-grid">
+            <div class="security-card">
+                <div class="icon">🔐</div>
+                <h3>エンドツーエンド暗号化</h3>
+                <p>転送中・保存中のすべてのデータをAES-256で暗号化。第三者がデータにアクセスすることは不可能です。</p>
+            </div>
+            <div class="security-card">
+                <div class="icon">🔑</div>
+                <h3>2段階認証</h3>
+                <p>SMS、認証アプリ、ハードウェアキー（FIDO2）に対応。アカウントへの不正アクセスを防止します。</p>
+            </div>
+            <div class="security-card">
+                <div class="icon">👁️</div>
+                <h3>アクセス監視</h3>
+                <p>すべてのアクセスログを記録・監視。不審なアクティビティを検知し、自動でブロックします。</p>
+            </div>
+            <div class="security-card">
+                <div class="icon">🔄</div>
+                <h3>自動バックアップ</h3>
+                <p>データは毎日自動バックアップ。最大30日間の復元ポイントから、いつでもリストア可能です。</p>
+            </div>
+            <div class="security-card">
+                <div class="icon">🛑</div>
+                <h3>DDoS対策</h3>
+                <p>大規模なDDoS攻撃にも耐える堅牢なインフラ。Cloudflareと連携した多層防御を実施。</p>
+            </div>
+            <div class="security-card">
+                <div class="icon">🔍</div>
+                <h3>脆弱性スキャン</h3>
+                <p>定期的なペネトレーションテストと脆弱性診断を実施。発見された問題は即座に対処します。</p>
+            </div>
+        </div>
+
+        <div class="compliance-section">
+            <div class="compliance-header">
+                <h2>コンプライアンス認証</h2>
+            </div>
+            <div class="compliance-grid">
+                <div class="compliance-item">
+                    <div class="logo">🏆</div>
+                    <div class="name">ISO 27001</div>
+                    <div class="desc">情報セキュリティ管理</div>
+                </div>
+                <div class="compliance-item">
+                    <div class="logo">🔒</div>
+                    <div class="name">SOC 2 Type II</div>
+                    <div class="desc">セキュリティ監査</div>
+                </div>
+                <div class="compliance-item">
+                    <div class="logo">🇪🇺</div>
+                    <div class="name">GDPR</div>
+                    <div class="desc">EU一般データ保護規則</div>
+                </div>
+                <div class="compliance-item">
+                    <div class="logo">🇯🇵</div>
+                    <div class="name">ISMAP</div>
+                    <div class="desc">政府情報システム</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="infra-section">
+            <div class="infra-grid">
+                <div class="infra-content">
+                    <h2>信頼性の高いインフラ</h2>
+                    <p>AWS東京リージョンをベースに、冗長化されたインフラストラクチャを構築。災害時にも事業継続が可能です。</p>
+                    <ul class="infra-list">
+                        <li><span class="check">✓</span> 複数アベイラビリティゾーンでの冗長構成</li>
+                        <li><span class="check">✓</span> 自動スケーリングによる負荷分散</li>
+                        <li><span class="check">✓</span> リアルタイム監視とアラート</li>
+                        <li><span class="check">✓</span> 定期的な災害復旧訓練</li>
+                        <li><span class="check">✓</span> 24時間365日のオンコール体制</li>
+                    </ul>
+                </div>
+                <div class="infra-visual">
+                    <h3>インフラ構成</h3>
+                    <div class="server-stack">
+                        <div class="server-layer">
+                            <span class="icon">🌐</span>
+                            <div class="info">
+                                <div class="name">CDN / WAF</div>
+                                <div class="detail">Cloudflare Enterprise</div>
+                            </div>
+                            <span class="status"></span>
+                        </div>
+                        <div class="server-layer">
+                            <span class="icon">⚖️</span>
+                            <div class="info">
+                                <div class="name">ロードバランサー</div>
+                                <div class="detail">AWS ALB (Multi-AZ)</div>
+                            </div>
+                            <span class="status"></span>
+                        </div>
+                        <div class="server-layer">
+                            <span class="icon">🖥️</span>
+                            <div class="info">
+                                <div class="name">アプリケーション</div>
+                                <div class="detail">ECS Fargate (Auto Scaling)</div>
+                            </div>
+                            <span class="status"></span>
+                        </div>
+                        <div class="server-layer">
+                            <span class="icon">💾</span>
+                            <div class="info">
+                                <div class="name">データベース</div>
+                                <div class="detail">Aurora PostgreSQL (Multi-AZ)</div>
+                            </div>
+                            <span class="status"></span>
+                        </div>
+                        <div class="server-layer">
+                            <span class="icon">📦</span>
+                            <div class="info">
+                                <div class="name">ストレージ</div>
+                                <div class="detail">S3 (暗号化・バージョニング)</div>
+                            </div>
+                            <span class="status"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>セキュリティプラクティス</h2>
+        </div>
+
+        <div class="practices-section">
+            <div class="practices-grid">
+                <div class="practice-card">
+                    <div class="number">01</div>
+                    <div>
+                        <h4>最小権限の原則</h4>
+                        <p>従業員は業務に必要な最小限のアクセス権限のみを付与。定期的な権限レビューを実施。</p>
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="number">02</div>
+                    <div>
+                        <h4>セキュリティ教育</h4>
+                        <p>全従業員に対する定期的なセキュリティトレーニング。フィッシング訓練も実施。</p>
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="number">03</div>
+                    <div>
+                        <h4>コードレビュー</h4>
+                        <p>すべてのコード変更は複数のエンジニアによるレビューを経て本番環境にデプロイ。</p>
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="number">04</div>
+                    <div>
+                        <h4>インシデント対応</h4>
+                        <p>セキュリティインシデント発生時の対応手順を文書化。定期的な訓練で対応力を維持。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <div class="report-grid">
+                <div class="report-content">
+                    <h2>🐛 脆弱性報告プログラム</h2>
+                    <p>セキュリティ研究者の皆様からの脆弱性報告を歓迎します。責任ある開示にご協力ください。報告内容に応じて報奨金をお支払いします。</p>
+                    <a href="#" class="btn">報告ガイドラインを見る</a>
+                </div>
+                <div class="report-info">
+                    <h4>報告先</h4>
+                    <p>脆弱性を発見した場合は、以下のメールアドレスまでご連絡ください。</p>
+                    <p class="email">security@appname.com</p>
+                    <p style="margin-top: 15px; font-size: 0.85rem;">※ 48時間以内に返信いたします</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>よくある質問</h2>
+        </div>
+
+        <div class="faq-section">
+            <div class="faq-list">
+                <div class="faq-item open">
+                    <div class="faq-question">データはどこに保存されますか？ <span>+</span></div>
+                    <div class="faq-answer">すべてのデータは日本国内（AWS東京リージョン）に保存されます。海外へのデータ転送は行いません。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">データの暗号化方式は？ <span>+</span></div>
+                    <div class="faq-answer">転送中のデータはTLS 1.3で保護され、保存データはAES-256で暗号化されています。暗号化キーはAWS KMSで安全に管理されています。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">退会後、データはどうなりますか？ <span>+</span></div>
+                    <div class="faq-answer">退会リクエストから30日以内にすべてのデータを完全に削除します。削除前にデータエクスポートも可能です。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">セキュリティ監査レポートは入手できますか？ <span>+</span></div>
+                    <div class="faq-answer">はい、NDAを締結いただいた上で、SOC 2レポートやペネトレーションテスト結果をご提供可能です。営業担当までお問い合わせください。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div>© 2024 AppName. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#">プライバシー</a>
+                <a href="#">利用規約</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

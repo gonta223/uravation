@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px; }
+        .header-content { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: #1e293b; text-decoration: none; }
+        .header-links a { color: #64748b; text-decoration: none; margin-left: 25px; font-size: 0.9rem; }
+        .header-links a:hover { color: #6366f1; }
+
+        .hero { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 60px 20px; }
+        .hero-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .hero p { opacity: 0.9; font-size: 1rem; }
+        .last-updated { display: inline-block; margin-top: 20px; padding: 8px 20px; background: rgba(255,255,255,0.2); border-radius: 30px; font-size: 0.85rem; }
+
+        .summary-bar { background: white; border-bottom: 1px solid #e2e8f0; padding: 30px 20px; }
+        .summary-content { max-width: 1000px; margin: 0 auto; }
+        .summary-content h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .summary-item { text-align: center; padding: 20px; background: #f8fafc; border-radius: 12px; }
+        .summary-item .icon { font-size: 2rem; margin-bottom: 10px; }
+        .summary-item .title { font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; }
+        .summary-item .desc { font-size: 0.8rem; color: #64748b; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; display: grid; grid-template-columns: 250px 1fr; gap: 50px; }
+
+        .sidebar { position: sticky; top: 30px; height: fit-content; }
+        .toc { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .toc h3 { font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; }
+        .toc-list { list-style: none; }
+        .toc-list li { margin-bottom: 8px; }
+        .toc-list a { color: #64748b; text-decoration: none; font-size: 0.9rem; display: block; padding: 8px 12px; border-radius: 8px; transition: all 0.3s; }
+        .toc-list a:hover { background: #f1f5f9; color: #1e293b; }
+        .toc-list a.active { background: #e0e7ff; color: #6366f1; font-weight: 500; }
+
+        .content { background: white; border-radius: 20px; padding: 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+
+        .section { margin-bottom: 50px; padding-bottom: 50px; border-bottom: 1px solid #e2e8f0; }
+        .section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .section h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 25px; color: #1e293b; }
+        .section h3 { font-size: 1.1rem; font-weight: 600; margin: 25px 0 15px; color: #334155; }
+        .section p { color: #475569; margin-bottom: 15px; }
+        .section ul, .section ol { margin: 15px 0; padding-left: 25px; color: #475569; }
+        .section li { margin-bottom: 10px; }
+
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .data-table th { background: #f8fafc; font-weight: 600; font-size: 0.9rem; color: #64748b; }
+        .data-table td { font-size: 0.9rem; }
+
+        .info-card { background: #f0f9ff; border-radius: 12px; padding: 20px 25px; margin: 20px 0; display: flex; gap: 15px; align-items: start; }
+        .info-card.warning { background: #fef3c7; }
+        .info-card .icon { font-size: 1.5rem; flex-shrink: 0; }
+        .info-card .text { }
+        .info-card .text strong { display: block; margin-bottom: 5px; }
+        .info-card .text p { margin: 0; font-size: 0.95rem; }
+
+        .rights-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+        .right-item { background: #f8fafc; border-radius: 12px; padding: 20px; }
+        .right-item h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .right-item p { font-size: 0.9rem; color: #64748b; margin: 0; }
+
+        .contact-card { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 16px; padding: 30px; color: white; margin-top: 30px; }
+        .contact-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
+        .contact-card p { margin-bottom: 10px; font-size: 0.95rem; opacity: 0.9; }
+        .contact-card a { color: white; }
+
+        footer { background: #1e293b; color: white; padding: 30px 20px; margin-top: 60px; }
+        .footer-content { max-width: 1000px; margin: 0 auto; text-align: center; font-size: 0.9rem; color: #94a3b8; }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .rights-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .content { padding: 30px 20px; }
+            .summary-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">AppName</a>
+            <div class="header-links">
+                <a href="#">利用規約</a>
+                <a href="#">セキュリティ</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>プライバシーポリシー</h1>
+            <p>お客様の個人情報の取り扱いについて</p>
+            <span class="last-updated">最終更新日: 2024年12月1日</span>
+        </div>
+    </div>
+
+    <div class="summary-bar">
+        <div class="summary-content">
+            <h2>📋 ポリシーの概要</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="icon">🔒</div>
+                    <div class="title">データ保護</div>
+                    <div class="desc">すべてのデータは暗号化して保存</div>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">🚫</div>
+                    <div class="title">販売禁止</div>
+                    <div class="desc">個人情報を第三者に販売しません</div>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">🌍</div>
+                    <div class="title">国内保存</div>
+                    <div class="desc">データは日本国内で保存</div>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">✋</div>
+                    <div class="title">あなたの権利</div>
+                    <div class="desc">データの削除・エクスポートが可能</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <nav class="toc">
+                <h3>目次</h3>
+                <ul class="toc-list">
+                    <li><a href="#intro" class="active">はじめに</a></li>
+                    <li><a href="#collect">収集する情報</a></li>
+                    <li><a href="#use">情報の利用目的</a></li>
+                    <li><a href="#share">情報の共有</a></li>
+                    <li><a href="#cookies">Cookie</a></li>
+                    <li><a href="#security">データセキュリティ</a></li>
+                    <li><a href="#retention">データ保持</a></li>
+                    <li><a href="#rights">あなたの権利</a></li>
+                    <li><a href="#children">お子様のプライバシー</a></li>
+                    <li><a href="#changes">ポリシーの変更</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <section class="section" id="intro">
+                <h2>はじめに</h2>
+                <p>株式会社AppName（以下「当社」）は、お客様のプライバシーを尊重し、個人情報の保護に努めています。本プライバシーポリシーでは、当社が収集する情報、その利用方法、お客様の権利について説明します。</p>
+                <div class="info-card">
+                    <span class="icon">💡</span>
+                    <div class="text">
+                        <strong>ポイント</strong>
+                        <p>当社はお客様の個人情報を第三者に販売することはありません。収集した情報はサービス提供のためにのみ使用します。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="collect">
+                <h2>収集する情報</h2>
+                <h3>お客様から直接収集する情報</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>情報の種類</th>
+                            <th>具体例</th>
+                            <th>収集目的</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>アカウント情報</td>
+                            <td>氏名、メールアドレス、パスワード</td>
+                            <td>アカウント作成・認証</td>
+                        </tr>
+                        <tr>
+                            <td>プロフィール情報</td>
+                            <td>会社名、役職、プロフィール画像</td>
+                            <td>サービスのカスタマイズ</td>
+                        </tr>
+                        <tr>
+                            <td>支払い情報</td>
+                            <td>クレジットカード情報、請求先住所</td>
+                            <td>決済処理</td>
+                        </tr>
+                        <tr>
+                            <td>コンテンツ</td>
+                            <td>アップロードしたファイル、コメント</td>
+                            <td>サービス提供</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>自動的に収集する情報</h3>
+                <ul>
+                    <li>IPアドレス、ブラウザの種類、OSの種類</li>
+                    <li>アクセス日時、閲覧ページ</li>
+                    <li>デバイス情報（モバイル/デスクトップ）</li>
+                    <li>リファラー情報</li>
+                </ul>
+            </section>
+
+            <section class="section" id="use">
+                <h2>情報の利用目的</h2>
+                <p>収集した情報は、以下の目的で利用します。</p>
+                <ol>
+                    <li><strong>サービスの提供・維持</strong> - 本サービスの運営に必要な処理</li>
+                    <li><strong>サービスの改善</strong> - 機能の改善、新機能の開発</li>
+                    <li><strong>カスタマーサポート</strong> - お問い合わせへの対応</li>
+                    <li><strong>セキュリティ</strong> - 不正アクセスの検知・防止</li>
+                    <li><strong>コミュニケーション</strong> - サービスに関する重要なお知らせの送信</li>
+                    <li><strong>マーケティング</strong> - 新機能やプロモーションのご案内（オプトアウト可能）</li>
+                    <li><strong>法的義務の遵守</strong> - 法令に基づく対応</li>
+                </ol>
+            </section>
+
+            <section class="section" id="share">
+                <h2>情報の共有</h2>
+                <p>以下の場合を除き、お客様の個人情報を第三者と共有することはありません。</p>
+                <ul>
+                    <li><strong>お客様の同意がある場合</strong></li>
+                    <li><strong>サービス提供に必要な場合</strong>（決済代行会社、クラウドサービス提供会社など）</li>
+                    <li><strong>法的要求がある場合</strong>（裁判所の命令、法執行機関からの要請など）</li>
+                    <li><strong>事業譲渡の場合</strong>（合併、買収、資産売却など）</li>
+                </ul>
+                <div class="info-card warning">
+                    <span class="icon">⚠️</span>
+                    <div class="text">
+                        <strong>重要</strong>
+                        <p>当社はお客様の個人情報を広告目的で第三者に販売・提供することはありません。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="cookies">
+                <h2>Cookie</h2>
+                <p>当社は、サービスの提供・改善のためにCookieを使用しています。</p>
+                <h3>使用するCookieの種類</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>種類</th>
+                            <th>目的</th>
+                            <th>有効期間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>必須Cookie</td>
+                            <td>ログイン状態の維持、セキュリティ</td>
+                            <td>セッション</td>
+                        </tr>
+                        <tr>
+                            <td>機能Cookie</td>
+                            <td>言語設定、表示設定の記憶</td>
+                            <td>1年</td>
+                        </tr>
+                        <tr>
+                            <td>分析Cookie</td>
+                            <td>利用状況の分析、サービス改善</td>
+                            <td>2年</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Cookieの設定は、ブラウザの設定から変更できます。ただし、必須Cookieを無効にすると、サービスが正常に動作しない場合があります。</p>
+            </section>
+
+            <section class="section" id="security">
+                <h2>データセキュリティ</h2>
+                <p>お客様のデータを保護するため、以下のセキュリティ対策を実施しています。</p>
+                <ul>
+                    <li>すべてのデータ転送にTLS 1.3を使用</li>
+                    <li>保存データのAES-256暗号化</li>
+                    <li>定期的なセキュリティ監査と脆弱性診断</li>
+                    <li>従業員へのセキュリティ教育</li>
+                    <li>アクセス権限の最小化</li>
+                </ul>
+            </section>
+
+            <section class="section" id="retention">
+                <h2>データ保持</h2>
+                <p>個人情報は、収集目的に必要な期間、または法的義務を遵守するために必要な期間保持します。</p>
+                <ul>
+                    <li><strong>アカウント情報</strong>: アカウント削除後30日間</li>
+                    <li><strong>支払い情報</strong>: 法的要件に基づき7年間</li>
+                    <li><strong>ログデータ</strong>: 最大90日間</li>
+                    <li><strong>バックアップ</strong>: 最大30日間</li>
+                </ul>
+            </section>
+
+            <section class="section" id="rights">
+                <h2>あなたの権利</h2>
+                <p>お客様には、ご自身の個人情報に関して以下の権利があります。</p>
+                <div class="rights-grid">
+                    <div class="right-item">
+                        <h4>📋 アクセス権</h4>
+                        <p>当社が保持するお客様の個人情報にアクセスし、コピーを取得する権利</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>✏️ 訂正権</h4>
+                        <p>不正確または不完全な個人情報の訂正を求める権利</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>🗑️ 削除権</h4>
+                        <p>特定の条件下で個人情報の削除を求める権利</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>📦 データポータビリティ</h4>
+                        <p>個人情報を構造化された形式で受け取る権利</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>🚫 処理の制限</h4>
+                        <p>個人情報の処理を制限するよう求める権利</p>
+                    </div>
+                    <div class="right-item">
+                        <h4>✋ 異議申立て</h4>
+                        <p>マーケティング目的での処理に異議を申し立てる権利</p>
+                    </div>
+                </div>
+                <p>これらの権利を行使するには、下記のお問い合わせ先までご連絡ください。</p>
+            </section>
+
+            <section class="section" id="children">
+                <h2>お子様のプライバシー</h2>
+                <p>本サービスは18歳以上の方を対象としています。18歳未満の方の個人情報を意図的に収集することはありません。18歳未満のお子様の情報が収集されていることが判明した場合は、速やかに削除します。</p>
+            </section>
+
+            <section class="section" id="changes">
+                <h2>ポリシーの変更</h2>
+                <p>当社は、本プライバシーポリシーを随時更新することがあります。重要な変更がある場合は、メールまたはサービス上で通知します。</p>
+                <p>変更履歴は、このページの最終更新日で確認できます。定期的にご確認いただくことをお勧めします。</p>
+            </section>
+
+            <section class="section" id="contact">
+                <h2>お問い合わせ</h2>
+                <p>プライバシーに関するご質問やご要望は、以下までご連絡ください。</p>
+                <div class="contact-card">
+                    <h4>プライバシー担当窓口</h4>
+                    <p>株式会社AppName</p>
+                    <p>〒100-0001 東京都千代田区千代田1-1-1</p>
+                    <p>メール: <a href="mailto:privacy@appname.com">privacy@appname.com</a></p>
+                    <p>電話: 03-1234-5678（平日 10:00-18:00）</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            © 2024 AppName. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

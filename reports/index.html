@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レポート - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; }
+
+        .layout { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+
+        .sidebar { background: white; border-right: 1px solid #e2e8f0; padding: 25px 15px; }
+        .sidebar-header { padding: 0 10px 20px; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+
+        .nav-section { margin-bottom: 25px; }
+        .nav-label { font-size: 0.75rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; padding: 0 10px; margin-bottom: 10px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 15px; border-radius: 10px; color: #64748b; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; margin-bottom: 4px; }
+        .nav-item:hover { background: #f8fafc; color: #1e293b; }
+        .nav-item.active { background: #6366f1; color: white; }
+        .nav-item .icon { font-size: 1.1rem; }
+
+        .main-content { padding: 30px; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .page-title { font-size: 1.8rem; font-weight: 800; }
+        .header-actions { display: flex; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; display: flex; align-items: center; gap: 8px; }
+        .btn-secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { border-color: #6366f1; color: #6366f1; }
+        .btn-primary { background: #6366f1; color: white; }
+        .btn-primary:hover { background: #4f46e5; }
+
+        .filters-bar { background: white; border-radius: 16px; padding: 20px; margin-bottom: 25px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+        .filter-group { display: flex; align-items: center; gap: 10px; }
+        .filter-group label { font-size: 0.85rem; color: #64748b; }
+        .filter-group select, .filter-group input { padding: 10px 15px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; }
+        .filter-group select:focus, .filter-group input:focus { outline: none; border-color: #6366f1; }
+
+        .report-card { background: white; border-radius: 20px; padding: 30px; margin-bottom: 25px; }
+        .report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .report-header h2 { font-size: 1.2rem; font-weight: 700; }
+        .report-actions { display: flex; gap: 10px; }
+        .icon-btn { width: 36px; height: 36px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+        .icon-btn:hover { background: #f8fafc; }
+
+        .metrics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .metric-card { background: #f8fafc; border-radius: 16px; padding: 25px; }
+        .metric-card .label { font-size: 0.85rem; color: #64748b; margin-bottom: 8px; }
+        .metric-card .value { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+        .metric-card .change { font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        .metric-card .change.up { color: #22c55e; }
+        .metric-card .change.down { color: #ef4444; }
+
+        .chart-container { height: 300px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, transparent 100%); border-radius: 16px; display: flex; align-items: flex-end; padding: 30px; gap: 15px; margin-bottom: 30px; }
+        .chart-bar { flex: 1; background: linear-gradient(180deg, #6366f1, #4f46e5); border-radius: 8px 8px 0 0; transition: height 0.5s; position: relative; }
+        .chart-bar::after { content: attr(data-value); position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; font-weight: 600; color: #6366f1; }
+        .chart-bar::before { content: attr(data-label); position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: #94a3b8; white-space: nowrap; }
+
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { text-align: left; padding: 15px; font-size: 0.8rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e2e8f0; }
+        .data-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        .data-table tr:hover { background: #f8fafc; }
+        .data-table .trend { display: flex; align-items: center; gap: 5px; }
+        .data-table .trend.up { color: #22c55e; }
+        .data-table .trend.down { color: #ef4444; }
+        .data-table .progress { width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+        .data-table .progress-fill { height: 100%; background: #6366f1; border-radius: 4px; }
+
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+
+        .breakdown-list { }
+        .breakdown-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .breakdown-item:last-child { border-bottom: none; }
+        .breakdown-color { width: 12px; height: 12px; border-radius: 4px; }
+        .breakdown-info { flex: 1; }
+        .breakdown-name { font-size: 0.9rem; font-weight: 500; }
+        .breakdown-bar { height: 6px; background: #e2e8f0; border-radius: 3px; margin-top: 8px; }
+        .breakdown-bar-fill { height: 100%; border-radius: 3px; }
+        .breakdown-value { font-weight: 600; }
+
+        .export-section { background: #f8fafc; border-radius: 16px; padding: 25px; }
+        .export-section h3 { font-size: 1rem; font-weight: 700; margin-bottom: 20px; }
+        .export-options { display: flex; gap: 15px; }
+        .export-option { flex: 1; padding: 20px; background: white; border: 2px solid #e2e8f0; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .export-option:hover { border-color: #6366f1; }
+        .export-option .icon { font-size: 1.5rem; margin-bottom: 10px; }
+        .export-option .label { font-weight: 600; font-size: 0.9rem; }
+
+        @media (max-width: 1200px) {
+            .metrics-row { grid-template-columns: repeat(2, 1fr); }
+            .two-column { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+        }
+        @media (max-width: 600px) {
+            .metrics-row { grid-template-columns: 1fr; }
+            .export-options { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">📊 Reports</div>
+            </div>
+
+            <nav class="nav-section">
+                <div class="nav-label">レポート</div>
+                <a href="#" class="nav-item active">
+                    <span class="icon">📈</span>
+                    概要
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon">👥</span>
+                    ユーザー分析
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon">💰</span>
+                    売上レポート
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon">📋</span>
+                    タスク分析
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon">⏱️</span>
+                    時間追跡
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-label">保存済み</div>
+                <a href="#" class="nav-item">
+                    <span class="icon">⭐</span>
+                    月次サマリー
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon">⭐</span>
+                    チーム生産性
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-label">設定</div>
+                <a href="#" class="nav-item">
+                    <span class="icon">📅</span>
+                    スケジュール
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="icon">⚙️</span>
+                    設定
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">月次パフォーマンスレポート</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary">📅 スケジュール</button>
+                    <button class="btn btn-primary">📤 エクスポート</button>
+                </div>
+            </div>
+
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>期間:</label>
+                    <select>
+                        <option>過去30日</option>
+                        <option>過去90日</option>
+                        <option>今年</option>
+                        <option>カスタム</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>チーム:</label>
+                    <select>
+                        <option>すべて</option>
+                        <option>開発チーム</option>
+                        <option>マーケティング</option>
+                        <option>営業</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>プロジェクト:</label>
+                    <select>
+                        <option>すべて</option>
+                        <option>プロジェクトA</option>
+                        <option>プロジェクトB</option>
+                    </select>
+                </div>
+                <div class="filter-group" style="margin-left: auto;">
+                    <label>比較:</label>
+                    <input type="checkbox" checked> 前期比
+                </div>
+            </div>
+
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="label">完了タスク</div>
+                    <div class="value">1,247</div>
+                    <div class="change up">↑ 12.5% 前月比</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">平均完了時間</div>
+                    <div class="value">2.3日</div>
+                    <div class="change up">↑ 8.2% 改善</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">チーム稼働率</div>
+                    <div class="value">87.3%</div>
+                    <div class="change down">↓ 3.1% 前月比</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">顧客満足度</div>
+                    <div class="value">4.8</div>
+                    <div class="change up">↑ 0.2 前月比</div>
+                </div>
+            </div>
+
+            <div class="report-card">
+                <div class="report-header">
+                    <h2>タスク完了推移</h2>
+                    <div class="report-actions">
+                        <button class="icon-btn">📊</button>
+                        <button class="icon-btn">📈</button>
+                        <button class="icon-btn">⋯</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-bar" style="height: 60%;" data-value="89" data-label="1週"></div>
+                    <div class="chart-bar" style="height: 75%;" data-value="112" data-label="2週"></div>
+                    <div class="chart-bar" style="height: 45%;" data-value="67" data-label="3週"></div>
+                    <div class="chart-bar" style="height: 90%;" data-value="134" data-label="4週"></div>
+                    <div class="chart-bar" style="height: 85%;" data-value="127" data-label="5週"></div>
+                    <div class="chart-bar" style="height: 70%;" data-value="105" data-label="6週"></div>
+                    <div class="chart-bar" style="height: 95%;" data-value="142" data-label="7週"></div>
+                    <div class="chart-bar" style="height: 80%;" data-value="119" data-label="8週"></div>
+                    <div class="chart-bar" style="height: 65%;" data-value="97" data-label="9週"></div>
+                    <div class="chart-bar" style="height: 100%;" data-value="149" data-label="10週"></div>
+                    <div class="chart-bar" style="height: 88%;" data-value="131" data-label="11週"></div>
+                    <div class="chart-bar" style="height: 78%;" data-value="116" data-label="12週"></div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="report-card">
+                    <div class="report-header">
+                        <h2>プロジェクト別パフォーマンス</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>プロジェクト</th>
+                                <th>完了率</th>
+                                <th>進捗</th>
+                                <th>トレンド</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>プロジェクトA</td>
+                                <td>92%</td>
+                                <td><div class="progress"><div class="progress-fill" style="width: 92%;"></div></div></td>
+                                <td><span class="trend up">↑ 5%</span></td>
+                            </tr>
+                            <tr>
+                                <td>プロジェクトB</td>
+                                <td>78%</td>
+                                <td><div class="progress"><div class="progress-fill" style="width: 78%;"></div></div></td>
+                                <td><span class="trend up">↑ 12%</span></td>
+                            </tr>
+                            <tr>
+                                <td>プロジェクトC</td>
+                                <td>65%</td>
+                                <td><div class="progress"><div class="progress-fill" style="width: 65%;"></div></div></td>
+                                <td><span class="trend down">↓ 3%</span></td>
+                            </tr>
+                            <tr>
+                                <td>プロジェクトD</td>
+                                <td>88%</td>
+                                <td><div class="progress"><div class="progress-fill" style="width: 88%;"></div></div></td>
+                                <td><span class="trend up">↑ 8%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-header">
+                        <h2>タスクカテゴリ内訳</h2>
+                    </div>
+                    <div class="breakdown-list">
+                        <div class="breakdown-item">
+                            <div class="breakdown-color" style="background: #6366f1;"></div>
+                            <div class="breakdown-info">
+                                <div class="breakdown-name">開発</div>
+                                <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width: 45%; background: #6366f1;"></div></div>
+                            </div>
+                            <div class="breakdown-value">45%</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-color" style="background: #22c55e;"></div>
+                            <div class="breakdown-info">
+                                <div class="breakdown-name">デザイン</div>
+                                <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width: 25%; background: #22c55e;"></div></div>
+                            </div>
+                            <div class="breakdown-value">25%</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-color" style="background: #f59e0b;"></div>
+                            <div class="breakdown-info">
+                                <div class="breakdown-name">マーケティング</div>
+                                <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width: 18%; background: #f59e0b;"></div></div>
+                            </div>
+                            <div class="breakdown-value">18%</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <div class="breakdown-color" style="background: #64748b;"></div>
+                            <div class="breakdown-info">
+                                <div class="breakdown-name">その他</div>
+                                <div class="breakdown-bar"><div class="breakdown-bar-fill" style="width: 12%; background: #64748b;"></div></div>
+                            </div>
+                            <div class="breakdown-value">12%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-card">
+                <div class="export-section">
+                    <h3>レポートをエクスポート</h3>
+                    <div class="export-options">
+                        <div class="export-option">
+                            <div class="icon">📄</div>
+                            <div class="label">PDF</div>
+                        </div>
+                        <div class="export-option">
+                            <div class="icon">📊</div>
+                            <div class="label">Excel</div>
+                        </div>
+                        <div class="export-option">
+                            <div class="icon">📋</div>
+                            <div class="label">CSV</div>
+                        </div>
+                        <div class="export-option">
+                            <div class="icon">🖼️</div>
+                            <div class="label">PNG</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
