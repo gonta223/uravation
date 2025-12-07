@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユーザー管理 - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; display: flex; min-height: 100vh; }
+
+        .sidebar { width: 260px; background: #1e293b; color: white; padding: 25px; display: flex; flex-direction: column; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 700; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+        .sidebar-nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .nav-item { padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; }
+        .nav-item:hover { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item.active { background: #6366f1; color: white; }
+        .nav-item span { font-size: 1.1rem; }
+
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .page-title h1 { font-size: 1.6rem; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
+        .page-title p { color: #64748b; font-size: 0.95rem; }
+        .add-btn { padding: 12px 24px; background: #6366f1; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; border-radius: 16px; padding: 25px; }
+        .stat-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .stat-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .stat-icon.blue { background: rgba(99, 102, 241, 0.1); }
+        .stat-icon.green { background: rgba(34, 197, 94, 0.1); }
+        .stat-icon.orange { background: rgba(249, 115, 22, 0.1); }
+        .stat-icon.red { background: rgba(239, 68, 68, 0.1); }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #1e293b; }
+        .stat-label { color: #64748b; font-size: 0.9rem; margin-top: 5px; }
+        .stat-change { font-size: 0.85rem; padding: 4px 8px; border-radius: 20px; }
+        .stat-change.up { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .stat-change.down { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+        .users-section { background: white; border-radius: 16px; padding: 25px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .section-header h2 { font-size: 1.1rem; font-weight: 600; }
+
+        .filter-tabs { display: flex; gap: 10px; }
+        .filter-tab { padding: 8px 16px; border: 1px solid #e2e8f0; border-radius: 8px; background: white; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+        .filter-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .search-bar { display: flex; gap: 15px; margin-bottom: 25px; }
+        .search-input { flex: 1; padding: 12px 18px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; }
+        .search-input:focus { outline: none; border-color: #6366f1; }
+        .filter-btn { padding: 12px 20px; border: 1px solid #e2e8f0; border-radius: 10px; background: white; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+
+        .users-table { width: 100%; border-collapse: collapse; }
+        .users-table th { text-align: left; padding: 15px; font-size: 0.85rem; color: #64748b; font-weight: 500; border-bottom: 1px solid #e2e8f0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .users-table td { padding: 18px 15px; border-bottom: 1px solid #f1f5f9; }
+        .users-table tr:hover { background: #f8fafc; }
+
+        .user-cell { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 1rem; }
+        .user-info h4 { font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-bottom: 2px; }
+        .user-info p { font-size: 0.85rem; color: #64748b; }
+
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+        .status-badge.active { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .status-badge.inactive { background: rgba(156, 163, 175, 0.1); color: #9ca3af; }
+        .status-badge.pending { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+
+        .role-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; background: #f1f5f9; color: #475569; }
+
+        .action-btns { display: flex; gap: 8px; }
+        .action-btn { width: 34px; height: 34px; border: 1px solid #e2e8f0; border-radius: 8px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .action-btn:hover { background: #f1f5f9; }
+
+        .pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+        .pagination-info { color: #64748b; font-size: 0.9rem; }
+        .pagination-btns { display: flex; gap: 8px; }
+        .page-btn { width: 36px; height: 36px; border: 1px solid #e2e8f0; border-radius: 8px; background: white; cursor: pointer; font-size: 0.9rem; }
+        .page-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        @media (max-width: 1200px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 900px) { .sidebar { display: none; } }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">📊 Dashboard</div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item"><span>🏠</span> ダッシュボード</a>
+            <a href="analytics.html" class="nav-item"><span>📈</span> アナリティクス</a>
+            <a href="users.html" class="nav-item active"><span>👥</span> ユーザー管理</a>
+            <a href="#" class="nav-item"><span>📦</span> 商品管理</a>
+            <a href="#" class="nav-item"><span>📋</span> 注文管理</a>
+            <a href="settings.html" class="nav-item"><span>⚙️</span> 設定</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>ユーザー管理</h1>
+                <p>登録ユーザーの管理と分析</p>
+            </div>
+            <button class="add-btn">➕ 新規ユーザー</button>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon blue">👥</div>
+                    <span class="stat-change up">+12.5%</span>
+                </div>
+                <div class="stat-value">8,249</div>
+                <div class="stat-label">総ユーザー数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon green">✓</div>
+                    <span class="stat-change up">+8.2%</span>
+                </div>
+                <div class="stat-value">7,856</div>
+                <div class="stat-label">アクティブユーザー</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon orange">🆕</div>
+                    <span class="stat-change up">+23.1%</span>
+                </div>
+                <div class="stat-value">234</div>
+                <div class="stat-label">今月の新規登録</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon red">⚠️</div>
+                    <span class="stat-change down">-5.4%</span>
+                </div>
+                <div class="stat-value">159</div>
+                <div class="stat-label">非アクティブ</div>
+            </div>
+        </div>
+
+        <div class="users-section">
+            <div class="section-header">
+                <h2>ユーザー一覧</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active">すべて</button>
+                    <button class="filter-tab">アクティブ</button>
+                    <button class="filter-tab">保留中</button>
+                    <button class="filter-tab">非アクティブ</button>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="名前、メールで検索...">
+                <button class="filter-btn">🔽 フィルター</button>
+                <button class="filter-btn">📥 エクスポート</button>
+            </div>
+
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>ユーザー</th>
+                        <th>ステータス</th>
+                        <th>役割</th>
+                        <th>登録日</th>
+                        <th>最終ログイン</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-avatar">山田</div>
+                                <div class="user-info">
+                                    <h4>山田 太郎</h4>
+                                    <p>yamada@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="status-badge active">アクティブ</span></td>
+                        <td><span class="role-badge">管理者</span></td>
+                        <td>2024/01/15</td>
+                        <td>2024/12/07 10:32</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-avatar" style="background: linear-gradient(135deg, #22c55e, #16a34a);">佐藤</div>
+                                <div class="user-info">
+                                    <h4>佐藤 花子</h4>
+                                    <p>sato@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="status-badge active">アクティブ</span></td>
+                        <td><span class="role-badge">編集者</span></td>
+                        <td>2024/02/20</td>
+                        <td>2024/12/06 15:45</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-avatar" style="background: linear-gradient(135deg, #f97316, #fb923c);">鈴木</div>
+                                <div class="user-info">
+                                    <h4>鈴木 一郎</h4>
+                                    <p>suzuki@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="status-badge pending">保留中</span></td>
+                        <td><span class="role-badge">一般</span></td>
+                        <td>2024/12/01</td>
+                        <td>-</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-avatar" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">田中</div>
+                                <div class="user-info">
+                                    <h4>田中 美咲</h4>
+                                    <p>tanaka@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="status-badge active">アクティブ</span></td>
+                        <td><span class="role-badge">一般</span></td>
+                        <td>2024/03/10</td>
+                        <td>2024/12/07 08:15</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-avatar" style="background: linear-gradient(135deg, #9ca3af, #6b7280);">高橋</div>
+                                <div class="user-info">
+                                    <h4>高橋 健二</h4>
+                                    <p>takahashi@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="status-badge inactive">非アクティブ</span></td>
+                        <td><span class="role-badge">一般</span></td>
+                        <td>2023/11/05</td>
+                        <td>2024/09/15 12:00</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="action-btn">👁️</button>
+                                <button class="action-btn">✏️</button>
+                                <button class="action-btn">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <div class="pagination-info">1-5 / 8,249件</div>
+                <div class="pagination-btns">
+                    <button class="page-btn">←</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">...</button>
+                    <button class="page-btn">1650</button>
+                    <button class="page-btn">→</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご注文完了 - KURASHI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8f8f8; min-height: 100vh; }
+
+        .header { background: white; padding: 20px 40px; border-bottom: 1px solid #eee; text-align: center; }
+        .header h1 { font-size: 1.5rem; font-weight: 700; }
+
+        .complete-container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+
+        .success-card { background: white; border-radius: 20px; padding: 60px 40px; text-align: center; margin-bottom: 30px; }
+        .success-icon { width: 100px; height: 100px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 50px; animation: scaleIn 0.5s ease; }
+        @keyframes scaleIn { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .success-card h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: #1a1a1a; }
+        .success-card p { color: #666; font-size: 1.05rem; line-height: 1.8; margin-bottom: 30px; }
+
+        .order-number { display: inline-block; background: #f5f5f5; padding: 15px 30px; border-radius: 10px; margin-bottom: 30px; }
+        .order-number span { font-size: 0.9rem; color: #888; }
+        .order-number strong { display: block; font-size: 1.3rem; margin-top: 5px; color: #1a1a1a; letter-spacing: 2px; }
+
+        .email-notice { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 15px; text-align: left; }
+        .email-notice-icon { font-size: 2rem; }
+        .email-notice p { font-size: 0.95rem; color: #0369a1; }
+
+        .order-details { background: white; border-radius: 20px; padding: 40px; margin-bottom: 30px; }
+        .order-details h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 25px; }
+
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .detail-section h4 { font-size: 0.85rem; color: #888; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .detail-section p { font-size: 0.95rem; color: #333; line-height: 1.7; }
+
+        .order-items { border-top: 1px solid #eee; padding-top: 25px; }
+        .order-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid #f5f5f5; }
+        .order-item:last-child { border-bottom: none; }
+        .order-item-image { width: 80px; height: 80px; background: #f5f5f5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .order-item-info { flex: 1; }
+        .order-item-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .order-item-info p { font-size: 0.9rem; color: #888; }
+        .order-item-price { text-align: right; }
+        .order-item-price .price { font-size: 1.1rem; font-weight: 600; }
+        .order-item-price .qty { font-size: 0.85rem; color: #888; }
+
+        .order-total { display: flex; justify-content: flex-end; padding-top: 20px; border-top: 1px solid #eee; margin-top: 10px; }
+        .order-total-box { text-align: right; }
+        .order-total-row { display: flex; justify-content: space-between; gap: 50px; margin-bottom: 8px; font-size: 0.95rem; }
+        .order-total-row.final { font-size: 1.2rem; font-weight: 700; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+
+        .timeline { background: white; border-radius: 20px; padding: 40px; margin-bottom: 30px; }
+        .timeline h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 30px; }
+        .timeline-items { display: flex; justify-content: space-between; position: relative; }
+        .timeline-items::before { content: ''; position: absolute; top: 20px; left: 50px; right: 50px; height: 3px; background: #e5e5e5; }
+        .timeline-item { text-align: center; position: relative; z-index: 1; flex: 1; }
+        .timeline-dot { width: 44px; height: 44px; background: white; border: 3px solid #e5e5e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 1.2rem; }
+        .timeline-item.active .timeline-dot { border-color: #22c55e; background: #22c55e; }
+        .timeline-item.active .timeline-dot span { filter: brightness(0) invert(1); }
+        .timeline-item h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
+        .timeline-item p { font-size: 0.8rem; color: #888; }
+
+        .action-buttons { display: flex; gap: 15px; justify-content: center; }
+        .action-btn { padding: 16px 35px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .action-btn.primary { background: #1a1a1a; color: white; }
+        .action-btn.secondary { background: white; color: #1a1a1a; border: 1px solid #ddd; }
+
+        @media (max-width: 700px) {
+            .detail-grid { grid-template-columns: 1fr; gap: 20px; }
+            .timeline-items { flex-direction: column; gap: 20px; }
+            .timeline-items::before { display: none; }
+            .action-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>KURASHI</h1>
+    </header>
+
+    <div class="complete-container">
+        <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h2>ご注文ありがとうございます！</h2>
+            <p>ご注文が正常に完了しました。<br>確認メールをお送りしましたので、ご確認ください。</p>
+
+            <div class="order-number">
+                <span>注文番号</span>
+                <strong>KRS-2024120789</strong>
+            </div>
+
+            <div class="email-notice">
+                <div class="email-notice-icon">📧</div>
+                <p>ご登録のメールアドレス (example@email.com) に<br>注文確認メールをお送りしました。</p>
+            </div>
+        </div>
+
+        <div class="order-details">
+            <h3>ご注文内容</h3>
+
+            <div class="detail-grid">
+                <div class="detail-section">
+                    <h4>お届け先</h4>
+                    <p>
+                        山田 太郎 様<br>
+                        〒123-4567<br>
+                        東京都渋谷区渋谷1-2-3<br>
+                        ○○マンション 101号室<br>
+                        TEL: 090-1234-5678
+                    </p>
+                </div>
+                <div class="detail-section">
+                    <h4>お支払い方法</h4>
+                    <p>
+                        クレジットカード<br>
+                        VISA **** 3456<br><br>
+                        <strong>お届け予定日</strong><br>
+                        2024年12月10日（火）
+                    </p>
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="order-item">
+                    <div class="order-item-image">🪑</div>
+                    <div class="order-item-info">
+                        <h4>北欧デザインチェア</h4>
+                        <p>カラー: ナチュラル</p>
+                    </div>
+                    <div class="order-item-price">
+                        <p class="price">¥24,800</p>
+                        <p class="qty">× 1</p>
+                    </div>
+                </div>
+                <div class="order-item">
+                    <div class="order-item-image">🌿</div>
+                    <div class="order-item-info">
+                        <h4>観葉植物セット</h4>
+                        <p>サイズ: M</p>
+                    </div>
+                    <div class="order-item-price">
+                        <p class="price">¥3,800</p>
+                        <p class="qty">× 2</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-total">
+                <div class="order-total-box">
+                    <div class="order-total-row">
+                        <span>小計</span>
+                        <span>¥32,400</span>
+                    </div>
+                    <div class="order-total-row">
+                        <span>送料</span>
+                        <span>¥0</span>
+                    </div>
+                    <div class="order-total-row">
+                        <span>消費税</span>
+                        <span>¥3,240</span>
+                    </div>
+                    <div class="order-total-row final">
+                        <span>合計</span>
+                        <span>¥35,640</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h3>配送状況</h3>
+            <div class="timeline-items">
+                <div class="timeline-item active">
+                    <div class="timeline-dot"><span>📝</span></div>
+                    <h4>注文受付</h4>
+                    <p>2024/12/7</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><span>📦</span></div>
+                    <h4>出荷準備中</h4>
+                    <p>-</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><span>🚚</span></div>
+                    <h4>配送中</h4>
+                    <p>-</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"><span>🏠</span></div>
+                    <h4>お届け完了</h4>
+                    <p>-</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="index.html" class="action-btn primary">ショッピングを続ける</a>
+            <a href="#" class="action-btn secondary">注文履歴を見る</a>
+        </div>
+    </div>
+</body>
+</html>

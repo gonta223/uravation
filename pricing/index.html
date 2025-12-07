@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>料金プラン - Pricing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #1e293b; }
+        nav a { margin-left: 30px; text-decoration: none; color: #64748b; font-weight: 500; }
+        .header-btn { padding: 10px 25px; background: #6366f1; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; margin-left: 30px; }
+
+        .hero { padding: 80px 20px; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: #64748b; margin-bottom: 30px; }
+
+        .billing-toggle { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 60px; }
+        .billing-toggle span { font-size: 0.95rem; color: #64748b; }
+        .billing-toggle span.active { color: #1e293b; font-weight: 600; }
+        .toggle-switch { width: 60px; height: 32px; background: #6366f1; border-radius: 16px; position: relative; cursor: pointer; }
+        .toggle-switch::after { content: ''; position: absolute; width: 26px; height: 26px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.3s; }
+        .toggle-switch.yearly::after { transform: translateX(28px); }
+        .save-badge { background: #22c55e; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+
+        .pricing-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 80px; }
+        .pricing-card { background: white; border-radius: 24px; padding: 40px; position: relative; transition: all 0.3s; border: 2px solid transparent; }
+        .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+        .pricing-card.popular { border-color: #6366f1; }
+        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #6366f1; color: white; padding: 6px 20px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+
+        .plan-name { font-size: 1.2rem; font-weight: 600; color: #64748b; margin-bottom: 10px; }
+        .plan-price { display: flex; align-items: baseline; gap: 5px; margin-bottom: 15px; }
+        .plan-price .currency { font-size: 1.5rem; font-weight: 600; }
+        .plan-price .amount { font-size: 4rem; font-weight: 800; }
+        .plan-price .period { font-size: 1rem; color: #64748b; }
+        .plan-description { font-size: 0.95rem; color: #64748b; margin-bottom: 30px; line-height: 1.6; }
+
+        .plan-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-bottom: 30px; }
+        .plan-btn.primary { background: #6366f1; color: white; border: none; }
+        .plan-btn.secondary { background: white; color: #6366f1; border: 2px solid #6366f1; }
+        .plan-btn:hover { transform: scale(1.02); }
+
+        .features-title { font-size: 0.85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .features-list { display: flex; flex-direction: column; gap: 15px; }
+        .feature-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; }
+        .feature-check { color: #22c55e; font-weight: bold; }
+        .feature-x { color: #cbd5e1; }
+
+        .enterprise-section { background: linear-gradient(135deg, #1e293b, #334155); border-radius: 24px; padding: 60px; margin-bottom: 80px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+        .enterprise-content { color: white; }
+        .enterprise-content h2 { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
+        .enterprise-content p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 25px; line-height: 1.7; }
+        .enterprise-features { display: flex; gap: 30px; flex-wrap: wrap; }
+        .enterprise-feature { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
+        .enterprise-btn { padding: 18px 40px; background: white; color: #1e293b; border-radius: 12px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+
+        .comparison-section { margin-bottom: 80px; }
+        .comparison-section h2 { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 50px; }
+        .comparison-table { width: 100%; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .comparison-table th, .comparison-table td { padding: 20px; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        .comparison-table th:first-child, .comparison-table td:first-child { text-align: left; padding-left: 30px; }
+        .comparison-table thead { background: #f8fafc; }
+        .comparison-table th { font-weight: 600; font-size: 0.95rem; }
+        .comparison-table td { font-size: 0.9rem; color: #64748b; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .check-icon { color: #22c55e; font-size: 1.2rem; }
+        .x-icon { color: #cbd5e1; font-size: 1.2rem; }
+
+        .faq-section { margin-bottom: 80px; }
+        .faq-section h2 { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 50px; }
+        .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .faq-item { background: white; border-radius: 16px; padding: 30px; }
+        .faq-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+        .faq-item p { font-size: 0.95rem; color: #64748b; line-height: 1.7; }
+
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            .enterprise-section { flex-direction: column; text-align: center; }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">AppName</div>
+            <nav>
+                <a href="#">製品</a>
+                <a href="#">機能</a>
+                <a href="#">事例</a>
+                <a href="../faq/index.html">FAQ</a>
+                <a href="#" class="header-btn">無料で始める</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>シンプルな料金体系</h1>
+        <p>チームの規模に合わせて最適なプランをお選びください</p>
+        <div class="billing-toggle">
+            <span class="active">月払い</span>
+            <div class="toggle-switch" onclick="this.classList.toggle('yearly')"></div>
+            <span>年払い</span>
+            <span class="save-badge">2ヶ月分お得</span>
+        </div>
+    </section>
+
+    <div class="pricing-container">
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="plan-name">Starter</h3>
+                <div class="plan-price">
+                    <span class="currency">¥</span>
+                    <span class="amount">0</span>
+                    <span class="period">/月</span>
+                </div>
+                <p class="plan-description">個人や小規模チームに最適な無料プラン</p>
+                <button class="plan-btn secondary">無料で始める</button>
+                <p class="features-title">含まれる機能</p>
+                <div class="features-list">
+                    <div class="feature-item"><span class="feature-check">✓</span> 最大5ユーザー</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 基本的なタスク管理</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 5GBストレージ</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> モバイルアプリ</div>
+                    <div class="feature-item"><span class="feature-x">×</span> 高度な分析機能</div>
+                    <div class="feature-item"><span class="feature-x">×</span> API連携</div>
+                </div>
+            </div>
+
+            <div class="pricing-card popular">
+                <div class="popular-badge">人気No.1</div>
+                <h3 class="plan-name">Pro</h3>
+                <div class="plan-price">
+                    <span class="currency">¥</span>
+                    <span class="amount">2,980</span>
+                    <span class="period">/月</span>
+                </div>
+                <p class="plan-description">成長中のチームに必要な機能を全て提供</p>
+                <button class="plan-btn primary">14日間無料で試す</button>
+                <p class="features-title">Starterの全機能に加えて</p>
+                <div class="features-list">
+                    <div class="feature-item"><span class="feature-check">✓</span> 最大50ユーザー</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 高度なタスク管理</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 100GBストレージ</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 分析ダッシュボード</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> API連携</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 優先サポート</div>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <h3 class="plan-name">Business</h3>
+                <div class="plan-price">
+                    <span class="currency">¥</span>
+                    <span class="amount">7,980</span>
+                    <span class="period">/月</span>
+                </div>
+                <p class="plan-description">大規模チーム向けの高度な機能とセキュリティ</p>
+                <button class="plan-btn secondary">お問い合わせ</button>
+                <p class="features-title">Proの全機能に加えて</p>
+                <div class="features-list">
+                    <div class="feature-item"><span class="feature-check">✓</span> 無制限ユーザー</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 無制限ストレージ</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> SSO認証</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 監査ログ</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> カスタム連携</div>
+                    <div class="feature-item"><span class="feature-check">✓</span> 専任サポート</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="enterprise-section">
+            <div class="enterprise-content">
+                <h2>🏢 Enterprise</h2>
+                <p>大企業向けにカスタマイズされたソリューション。セキュリティ、コンプライアンス、スケーラビリティの要件に対応します。</p>
+                <div class="enterprise-features">
+                    <div class="enterprise-feature"><span>✓</span> オンプレミス対応</div>
+                    <div class="enterprise-feature"><span>✓</span> SLA保証</div>
+                    <div class="enterprise-feature"><span>✓</span> 専任カスタマーサクセス</div>
+                    <div class="enterprise-feature"><span>✓</span> カスタム開発</div>
+                </div>
+            </div>
+            <a href="#" class="enterprise-btn">お問い合わせ →</a>
+        </div>
+
+        <div class="comparison-section">
+            <h2>プラン比較表</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>Starter</th>
+                        <th>Pro</th>
+                        <th>Business</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ユーザー数</td>
+                        <td>5人まで</td>
+                        <td>50人まで</td>
+                        <td>無制限</td>
+                    </tr>
+                    <tr>
+                        <td>ストレージ</td>
+                        <td>5GB</td>
+                        <td>100GB</td>
+                        <td>無制限</td>
+                    </tr>
+                    <tr>
+                        <td>プロジェクト数</td>
+                        <td>3プロジェクト</td>
+                        <td>無制限</td>
+                        <td>無制限</td>
+                    </tr>
+                    <tr>
+                        <td>API連携</td>
+                        <td><span class="x-icon">×</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>SSO認証</td>
+                        <td><span class="x-icon">×</span></td>
+                        <td><span class="x-icon">×</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>監査ログ</td>
+                        <td><span class="x-icon">×</span></td>
+                        <td><span class="x-icon">×</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>サポート</td>
+                        <td>メール</td>
+                        <td>優先サポート</td>
+                        <td>専任担当</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="faq-section">
+            <h2>よくある質問</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>無料トライアルの仕組みは？</h3>
+                    <p>14日間、Proプランの全機能を無料でお試しいただけます。クレジットカードの登録は不要で、期間終了後に自動課金されることはありません。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>プランの変更はできますか？</h3>
+                    <p>はい、いつでも変更可能です。アップグレードは即時反映、ダウングレードは次回請求日から適用されます。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>支払い方法は何がありますか？</h3>
+                    <p>クレジットカード（VISA、Mastercard、JCB、AMEX）、銀行振込、請求書払いに対応しています。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>解約に違約金はありますか？</h3>
+                    <p>いいえ、違約金は一切ありません。いつでも解約可能で、解約後も請求期間の終わりまでご利用いただけます。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

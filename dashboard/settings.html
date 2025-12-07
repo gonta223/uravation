@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; display: flex; min-height: 100vh; }
+
+        .sidebar { width: 260px; background: #1e293b; color: white; padding: 25px; display: flex; flex-direction: column; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 700; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+        .sidebar-nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .nav-item { padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; }
+        .nav-item:hover { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item.active { background: #6366f1; color: white; }
+
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { font-size: 1.6rem; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
+        .page-header p { color: #64748b; font-size: 0.95rem; }
+
+        .settings-layout { display: grid; grid-template-columns: 250px 1fr; gap: 30px; }
+
+        .settings-nav { background: white; border-radius: 16px; padding: 20px; height: fit-content; }
+        .settings-nav-item { padding: 14px 18px; border-radius: 10px; display: flex; align-items: center; gap: 12px; color: #64748b; cursor: pointer; transition: all 0.3s; margin-bottom: 5px; }
+        .settings-nav-item:hover { background: #f1f5f9; color: #1e293b; }
+        .settings-nav-item.active { background: #6366f1; color: white; }
+        .settings-nav-item span { font-size: 1.1rem; }
+
+        .settings-content { display: flex; flex-direction: column; gap: 25px; }
+
+        .settings-card { background: white; border-radius: 16px; padding: 30px; }
+        .settings-card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; color: #1e293b; }
+        .settings-card p { font-size: 0.9rem; color: #64748b; margin-bottom: 25px; }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; color: #334155; margin-bottom: 10px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #6366f1; }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .form-hint { font-size: 0.8rem; color: #94a3b8; margin-top: 8px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .profile-upload { display: flex; align-items: center; gap: 25px; margin-bottom: 25px; }
+        .profile-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: 600; }
+        .profile-upload-btns { display: flex; flex-direction: column; gap: 10px; }
+        .upload-btn { padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; }
+        .upload-btn.primary { background: #6366f1; color: white; border: none; }
+        .upload-btn.secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+
+        .toggle-group { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; }
+        .toggle-group:last-child { border-bottom: none; }
+        .toggle-info h4 { font-size: 0.95rem; font-weight: 500; color: #1e293b; margin-bottom: 4px; }
+        .toggle-info p { font-size: 0.85rem; color: #64748b; }
+        .toggle-switch { width: 50px; height: 28px; background: #e2e8f0; border-radius: 14px; position: relative; cursor: pointer; transition: background 0.3s; }
+        .toggle-switch.active { background: #6366f1; }
+        .toggle-switch::after { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .toggle-switch.active::after { transform: translateX(22px); }
+
+        .danger-zone { border: 1px solid #fecaca; }
+        .danger-zone h2 { color: #dc2626; }
+        .danger-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; }
+        .danger-item:last-child { border-bottom: none; }
+        .danger-info h4 { font-size: 0.95rem; font-weight: 500; color: #1e293b; margin-bottom: 4px; }
+        .danger-info p { font-size: 0.85rem; color: #64748b; }
+        .danger-btn { padding: 10px 20px; background: white; color: #dc2626; border: 1px solid #dc2626; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .danger-btn:hover { background: #dc2626; color: white; }
+
+        .save-bar { display: flex; justify-content: flex-end; gap: 15px; padding-top: 20px; border-top: 1px solid #e2e8f0; margin-top: 10px; }
+        .save-btn { padding: 12px 30px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .save-btn.cancel { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .save-btn.primary { background: #6366f1; color: white; border: none; }
+
+        @media (max-width: 1000px) { .settings-layout { grid-template-columns: 1fr; } .settings-nav { display: none; } }
+        @media (max-width: 900px) { .sidebar { display: none; } .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">📊 Dashboard</div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item"><span>🏠</span> ダッシュボード</a>
+            <a href="analytics.html" class="nav-item"><span>📈</span> アナリティクス</a>
+            <a href="users.html" class="nav-item"><span>👥</span> ユーザー管理</a>
+            <a href="#" class="nav-item"><span>📦</span> 商品管理</a>
+            <a href="#" class="nav-item"><span>📋</span> 注文管理</a>
+            <a href="settings.html" class="nav-item active"><span>⚙️</span> 設定</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>設定</h1>
+            <p>アカウントとシステムの設定を管理</p>
+        </div>
+
+        <div class="settings-layout">
+            <div class="settings-nav">
+                <div class="settings-nav-item active"><span>👤</span> プロフィール</div>
+                <div class="settings-nav-item"><span>🔔</span> 通知</div>
+                <div class="settings-nav-item"><span>🔒</span> セキュリティ</div>
+                <div class="settings-nav-item"><span>💳</span> 請求</div>
+                <div class="settings-nav-item"><span>🔗</span> 連携</div>
+                <div class="settings-nav-item"><span>🌐</span> 言語・地域</div>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-card">
+                    <h2>プロフィール設定</h2>
+                    <p>あなたの基本情報を編集します</p>
+
+                    <div class="profile-upload">
+                        <div class="profile-avatar">山田</div>
+                        <div class="profile-upload-btns">
+                            <button class="upload-btn primary">画像をアップロード</button>
+                            <button class="upload-btn secondary">削除</button>
+                            <span style="font-size: 0.8rem; color: #94a3b8;">JPG, PNG (最大2MB)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>姓</label>
+                            <input type="text" value="山田">
+                        </div>
+                        <div class="form-group">
+                            <label>名</label>
+                            <input type="text" value="太郎">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>メールアドレス</label>
+                        <input type="email" value="yamada@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>役職</label>
+                        <input type="text" value="プロダクトマネージャー">
+                    </div>
+
+                    <div class="form-group">
+                        <label>自己紹介</label>
+                        <textarea placeholder="自己紹介を入力してください...">東京在住のプロダクトマネージャー。ユーザー体験の向上に注力しています。</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>タイムゾーン</label>
+                            <select>
+                                <option>Asia/Tokyo (GMT+9)</option>
+                                <option>America/New_York (GMT-5)</option>
+                                <option>Europe/London (GMT+0)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>言語</label>
+                            <select>
+                                <option>日本語</option>
+                                <option>English</option>
+                                <option>中文</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="save-bar">
+                        <button class="save-btn cancel">キャンセル</button>
+                        <button class="save-btn primary">変更を保存</button>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h2>通知設定</h2>
+                    <p>通知の受け取り方を設定します</p>
+
+                    <div class="toggle-group">
+                        <div class="toggle-info">
+                            <h4>メール通知</h4>
+                            <p>重要な更新やお知らせをメールで受け取る</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div class="toggle-info">
+                            <h4>プッシュ通知</h4>
+                            <p>ブラウザでリアルタイム通知を受け取る</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div class="toggle-info">
+                            <h4>週次レポート</h4>
+                            <p>毎週月曜日にサマリーレポートを受け取る</p>
+                        </div>
+                        <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div class="toggle-info">
+                            <h4>マーケティングメール</h4>
+                            <p>新機能やキャンペーン情報を受け取る</p>
+                        </div>
+                        <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+                    </div>
+                </div>
+
+                <div class="settings-card danger-zone">
+                    <h2>⚠️ 危険な操作</h2>
+                    <p>以下の操作は取り消しができません</p>
+
+                    <div class="danger-item">
+                        <div class="danger-info">
+                            <h4>アカウントを無効化</h4>
+                            <p>一時的にアカウントを無効にします。後で再有効化できます。</p>
+                        </div>
+                        <button class="danger-btn">無効化</button>
+                    </div>
+
+                    <div class="danger-item">
+                        <div class="danger-info">
+                            <h4>アカウントを削除</h4>
+                            <p>アカウントと全てのデータを完全に削除します。この操作は取り消せません。</p>
+                        </div>
+                        <button class="danger-btn">アカウント削除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問 - FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #1e293b; }
+        nav a { margin-left: 30px; text-decoration: none; color: #64748b; font-weight: 500; }
+
+        .hero { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 80px 20px; text-align: center; color: white; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+        .search-box { max-width: 500px; margin: 0 auto; display: flex; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .search-box input { flex: 1; padding: 18px 25px; border: none; font-size: 1rem; }
+        .search-box input:focus { outline: none; }
+        .search-box button { padding: 18px 30px; background: #1e293b; color: white; border: none; font-weight: 600; cursor: pointer; }
+
+        .main-container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+
+        .category-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+        .category-tab { padding: 12px 25px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.95rem; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.3s; }
+        .category-tab:hover { border-color: #6366f1; color: #6366f1; }
+        .category-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .faq-section { margin-bottom: 50px; }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .section-icon { width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .section-header h2 { font-size: 1.3rem; font-weight: 700; }
+
+        .faq-list { display: flex; flex-direction: column; gap: 15px; }
+        .faq-item { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .faq-question { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.3s; }
+        .faq-question:hover { background: #f8fafc; }
+        .faq-question h3 { font-size: 1rem; font-weight: 600; padding-right: 20px; }
+        .faq-toggle { width: 30px; height: 30px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
+        .faq-item.open .faq-toggle { background: #6366f1; color: white; transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-item.open .faq-answer { max-height: 500px; }
+        .faq-answer-content { padding: 0 30px 25px; font-size: 0.95rem; color: #64748b; line-height: 1.8; }
+
+        .contact-cta { background: linear-gradient(135deg, #1e293b, #334155); border-radius: 24px; padding: 50px; text-align: center; color: white; margin-top: 60px; }
+        .contact-cta h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        .contact-cta p { opacity: 0.8; margin-bottom: 30px; }
+        .contact-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .contact-btn { padding: 16px 35px; border-radius: 10px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .contact-btn.primary { background: #6366f1; color: white; }
+        .contact-btn.secondary { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); }
+
+        .popular-questions { background: white; border-radius: 20px; padding: 30px; margin-bottom: 50px; }
+        .popular-questions h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .popular-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .popular-item { padding: 15px 20px; background: #f8fafc; border-radius: 10px; font-size: 0.9rem; color: #475569; cursor: pointer; transition: all 0.3s; }
+        .popular-item:hover { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+
+        @media (max-width: 600px) {
+            .popular-list { grid-template-columns: 1fr; }
+            .contact-btns { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">AppName</div>
+            <nav>
+                <a href="#">製品</a>
+                <a href="#">料金</a>
+                <a href="#">サポート</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>❓ よくある質問</h1>
+        <p>お探しの答えが見つかります</p>
+        <div class="search-box">
+            <input type="text" placeholder="質問を検索...">
+            <button>検索</button>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <div class="category-tabs">
+            <button class="category-tab active">すべて</button>
+            <button class="category-tab">はじめに</button>
+            <button class="category-tab">料金・お支払い</button>
+            <button class="category-tab">機能</button>
+            <button class="category-tab">アカウント</button>
+            <button class="category-tab">セキュリティ</button>
+        </div>
+
+        <div class="popular-questions">
+            <h2>🔥 よく見られている質問</h2>
+            <div class="popular-list">
+                <div class="popular-item">無料トライアルの期間はどのくらいですか？</div>
+                <div class="popular-item">クレジットカード以外の支払い方法はありますか？</div>
+                <div class="popular-item">プランの変更はいつでもできますか？</div>
+                <div class="popular-item">データのエクスポートは可能ですか？</div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <h2>はじめに</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>AppNameとは何ですか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            AppNameは、チームのプロジェクト管理を効率化するためのオールインワンプラットフォームです。タスク管理、スケジュール共有、ドキュメント管理、コミュニケーションツールを一つのサービスで提供しています。直感的なインターフェースで、誰でも簡単に使い始めることができます。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>無料トライアルはありますか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            はい、14日間の無料トライアルをご用意しています。クレジットカードの登録不要で、すべての機能をお試しいただけます。トライアル期間終了後、自動的に課金されることはありませんのでご安心ください。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>どのデバイスで利用できますか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            AppNameはWebブラウザ、iOS、Androidアプリでご利用いただけます。すべてのデバイス間でデータは自動的に同期されるため、いつでもどこでも作業を続けることができます。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <div class="section-header">
+                <div class="section-icon">💳</div>
+                <h2>料金・お支払い</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>料金プランの違いは何ですか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Starterプランは小規模チーム向け、Proプランは成長中のチーム向け、Enterpriseプランは大規模組織向けです。主な違いはユーザー数の上限、ストレージ容量、利用可能な機能（SSO、監査ログ、カスタム連携など）です。詳細は料金ページをご確認ください。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>支払い方法は何がありますか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            クレジットカード（VISA、Mastercard、JCB、AMEX）、銀行振込、請求書払いに対応しています。年払いの場合は2ヶ月分お得になる割引もご用意しています。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>プランの変更やキャンセルはできますか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            はい、いつでも可能です。アップグレードは即時反映され、日割り計算で差額をお支払いいただきます。ダウングレードは次の請求サイクルから適用されます。キャンセルも違約金なしでいつでも行えます。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <div class="section-header">
+                <div class="section-icon">🔒</div>
+                <h2>セキュリティ</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>データはどのように保護されていますか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            すべてのデータは256ビットSSL暗号化で保護され、AWSの東京リージョンに保存されています。SOC 2 Type II認証を取得しており、定期的な脆弱性診断とペネトレーションテストを実施しています。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>二要素認証には対応していますか？</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            はい、すべてのプランで二要素認証（2FA）をご利用いただけます。Google Authenticator、Microsoft Authenticator、SMSによる認証に対応しています。Pro以上のプランではSSOもご利用いただけます。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-cta">
+            <h2>お探しの答えが見つかりませんか？</h2>
+            <p>サポートチームがお手伝いいたします</p>
+            <div class="contact-btns">
+                <a href="#" class="contact-btn primary">💬 チャットで問い合わせ</a>
+                <a href="#" class="contact-btn secondary">📧 メールで問い合わせ</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            item.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
