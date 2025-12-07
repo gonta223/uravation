@@ -9,73 +9,310 @@
     <style>
         :root { --primary: #C41E3A; --primary-dark: #8B0000; --gold: #FFD700; --dark: #1A1A1A; --text: #333; --text-light: #666; --cream: #FFF8F0; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s, visibility 0.5s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .dragon-loader { font-size: 4rem; animation: dragonDance 1s ease-in-out infinite; }
+        @keyframes dragonDance { 0%, 100% { transform: translateY(0) rotate(-5deg); } 25% { transform: translateY(-10px) rotate(5deg); } 50% { transform: translateY(0) rotate(-5deg); } 75% { transform: translateY(-5px) rotate(5deg); } }
+        .preloader-text { font-family: 'Noto Serif SC', serif; color: var(--gold); margin-top: 25px; font-size: 1.5rem; animation: glowText 1.5s ease infinite; }
+        @keyframes glowText { 0%, 100% { text-shadow: 0 0 10px rgba(255,215,0,0.5); } 50% { text-shadow: 0 0 30px rgba(255,215,0,0.8), 0 0 50px rgba(255,215,0,0.5); } }
+
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--primary); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+
+        /* Header */
+        header { background: var(--primary); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s; }
+        header.scrolled { background: rgba(196, 30, 58, 0.98); box-shadow: 0 4px 30px rgba(196, 30, 58, 0.4); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; color: var(--gold); }
+        .logo { font-family: 'Noto Serif SC', serif; font-size: 2rem; color: var(--gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Noto Serif SC', serif; font-size: 4rem; margin-bottom: 20px; color: var(--gold); }
-        .hero p { opacity: 0.95; font-size: 1.1rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Noto Serif SC', serif; font-size: 2rem; color: var(--primary); }
-        .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .feature-card { text-align: center; padding: 40px 25px; border: 2px solid var(--primary); }
-        .feature-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
-        .feature-card p { font-size: 0.9rem; color: var(--text-light); }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; position: relative; transition: all 0.3s; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--gold); transition: width 0.3s; }
+        nav a:hover { color: var(--gold); }
+        nav a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { padding: 220px 0 180px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23FFD700' stroke-opacity='0.05' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23FFD700' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Noto Serif SC', serif; font-size: 5rem; margin-bottom: 25px; color: var(--gold); text-shadow: 3px 3px 6px rgba(0,0,0,0.3); animation: fadeInDown 1s ease; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero p { opacity: 0.95; font-size: 1.3rem; animation: fadeInUp 1s ease 0.3s both; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Floating lanterns */
+        .lantern { position: absolute; font-size: 2.5rem; opacity: 0.2; animation: floatLantern 8s ease-in-out infinite; }
+        @keyframes floatLantern { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Noto Serif SC', serif; font-size: 2.5rem; color: var(--primary); position: relative; display: inline-block; }
+        .section-header h2::before, .section-header h2::after { content: '龍'; position: absolute; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--gold); opacity: 0.5; }
+        .section-header h2::before { left: -40px; }
+        .section-header h2::after { right: -40px; }
+
+        /* Features */
+        .features { background: var(--white); position: relative; }
+        .features::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 10 Q50 30 40 50 Q30 30 40 10' fill='none' stroke='%23C41E3A' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E"); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; position: relative; }
+        .feature-card { text-align: center; padding: 50px 30px; border: 2px solid var(--primary); background: white; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); transform: translateY(100%); transition: transform 0.4s; z-index: 0; }
+        .feature-card:hover::before { transform: translateY(0); }
+        .feature-card:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 50px rgba(196, 30, 58, 0.2); }
+        .feature-card > * { position: relative; z-index: 1; transition: color 0.4s; }
+        .feature-card:hover .material-icons, .feature-card:hover h3, .feature-card:hover p { color: white; }
+        .feature-card .material-icons { font-size: 60px; color: var(--primary); margin-bottom: 25px; }
+        .feature-card h3 { font-family: 'Noto Serif SC', serif; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; }
+        .feature-card p { font-size: 0.95rem; color: var(--text-light); }
+
+        /* Menu */
         .menu { background: var(--cream); }
-        .menu-category { margin-bottom: 50px; }
-        .menu-category h3 { font-family: 'Noto Serif SC', serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); }
+        .menu-category { margin-bottom: 60px; }
+        .menu-category h3 { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid var(--primary); position: relative; }
+        .menu-category h3::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100px; height: 3px; background: var(--gold); }
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .menu-item { display: flex; justify-content: space-between; padding: 15px; background: var(--white); }
-        .menu-item h4 { font-size: 1rem; margin-bottom: 5px; }
-        .menu-item p { font-size: 0.8rem; color: var(--text-light); }
-        .menu-item .price { font-size: 1.1rem; color: var(--primary); font-weight: 700; }
-        .course { background: var(--primary); color: white; padding: 80px 0; }
+        .menu-item { display: flex; justify-content: space-between; padding: 20px 25px; background: var(--white); border-radius: 10px; transition: all 0.3s; border-left: 4px solid transparent; }
+        .menu-item:hover { transform: translateX(10px); border-left-color: var(--primary); box-shadow: 0 5px 25px rgba(0,0,0,0.08); }
+        .menu-item h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--dark); }
+        .menu-item p { font-size: 0.85rem; color: var(--text-light); }
+        .menu-item .price { font-size: 1.2rem; color: var(--primary); font-weight: 700; font-family: 'Noto Serif SC', serif; }
+        .badge-recommend { display: inline-block; background: var(--gold); color: var(--dark); padding: 2px 8px; font-size: 0.7rem; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
+
+        /* Course */
+        .course { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 100px 0; position: relative; overflow: hidden; }
+        .course::before { content: '福'; position: absolute; font-family: 'Noto Serif SC', serif; font-size: 30rem; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .course .section-header h2 { color: var(--gold); }
-        .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .course-card { background: rgba(255,255,255,0.1); padding: 40px; border: 1px solid var(--gold); }
-        .course-card h3 { font-family: 'Noto Serif SC', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 15px; }
-        .course-card p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 20px; }
-        .course-card .price { font-size: 1.8rem; color: var(--gold); }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; font-size: 0.85rem; opacity: 0.5; }
+        .course .section-header h2::before, .course .section-header h2::after { color: white; }
+        .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; position: relative; }
+        .course-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); padding: 50px 40px; border: 2px solid var(--gold); border-radius: 15px; transition: all 0.4s; position: relative; overflow: hidden; }
+        .course-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(255,215,0,0.1) 50%, transparent 60%); animation: shimmerCard 4s ease-in-out infinite; }
+        @keyframes shimmerCard { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        .course-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
+        .course-card h3 { font-family: 'Noto Serif SC', serif; font-size: 2rem; color: var(--gold); margin-bottom: 20px; position: relative; }
+        .course-card p { font-size: 1rem; opacity: 0.9; margin-bottom: 25px; line-height: 2; }
+        .course-card .price { font-size: 2.5rem; color: var(--gold); font-family: 'Noto Serif SC', serif; }
+        .course-card .price span { font-size: 1rem; opacity: 0.7; }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary)); }
+        .footer-logo { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 25px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        footer p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 50px; height: 50px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--gold); color: var(--dark); transform: translateY(-5px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid #333; font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
-        @media (max-width: 1024px) { .features-grid, .menu-grid, .course-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } }
+
+        @media (max-width: 1024px) {
+            .features-grid, .menu-grid, .course-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero h1 { font-size: 3rem; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">龍華楼</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#course">コース</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>龍華楼</h1><p>本場四川の味を、日本のお客様へ</p></div></section>
-    <section class="features"><div class="container"><div class="section-header"><h2>三つのこだわり</h2></div><div class="features-grid">
-        <div class="feature-card"><span class="material-icons">local_fire_department</span><h3>本格四川</h3><p>四川省出身の料理人が腕を振るう</p></div>
-        <div class="feature-card"><span class="material-icons">restaurant</span><h3>自家製麺</h3><p>毎日店内で手打ち</p></div>
-        <div class="feature-card"><span class="material-icons">spa</span><h3>厳選香辛料</h3><p>本場から直輸入</p></div>
-    </div></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>おすすめ料理</h2></div>
-        <div class="menu-category"><h3>前菜・点心</h3><div class="menu-grid">
-            <div class="menu-item"><div><h4>よだれ鶏</h4><p>しびれる辛さの冷菜</p></div><span class="price">¥880</span></div>
-            <div class="menu-item"><div><h4>小籠包</h4><p>肉汁たっぷり 4個</p></div><span class="price">¥680</span></div>
-        </div></div>
-        <div class="menu-category"><h3>メイン</h3><div class="menu-grid">
-            <div class="menu-item"><div><h4>麻婆豆腐</h4><p>当店看板メニュー</p></div><span class="price">¥1,280</span></div>
-            <div class="menu-item"><div><h4>回鍋肉</h4><p>豚バラと野菜の旨辛炒め</p></div><span class="price">¥1,180</span></div>
-            <div class="menu-item"><div><h4>担々麺</h4><p>濃厚胡麻スープ</p></div><span class="price">¥980</span></div>
-            <div class="menu-item"><div><h4>海鮮炒飯</h4><p>パラパラ仕上げ</p></div><span class="price">¥1,080</span></div>
-        </div></div>
-    </div></section>
-    <section id="course" class="course"><div class="container"><div class="section-header"><h2>コース料理</h2></div><div class="course-grid">
-        <div class="course-card"><h3>龍コース</h3><p>前菜3種・点心・メイン3品・〆・デザート</p><span class="price">¥5,500</span></div>
-        <div class="course-card"><h3>鳳凰コース</h3><p>前菜5種・点心・メイン5品・〆・デザート</p><span class="price">¥8,800</span></div>
-    </div></div></section>
-    <footer id="access"><div class="container"><div class="footer-logo">中華料理 龍華楼</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 11:30〜14:30 / 17:00〜22:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="dragon-loader">🐉</div>
+        <p class="preloader-text">龍華楼</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">龍華楼</div>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">メニュー</a></li>
+                        <li><a href="#course">コース</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="lantern" style="top: 15%; left: 8%;">🏮</div>
+        <div class="lantern" style="top: 25%; right: 12%; animation-delay: -2s;">🏮</div>
+        <div class="lantern" style="bottom: 20%; left: 15%; animation-delay: -4s;">🏮</div>
+        <div class="lantern" style="bottom: 30%; right: 8%; animation-delay: -6s;">🏮</div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>龍華楼</h1>
+                <p>本場四川の味を、日本のお客様へ</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>三つのこだわり</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <span class="material-icons">local_fire_department</span>
+                    <h3>本格四川</h3>
+                    <p>四川省出身の料理人が腕を振るう本格的な味わい</p>
+                </div>
+                <div class="feature-card reveal">
+                    <span class="material-icons">restaurant</span>
+                    <h3>自家製麺</h3>
+                    <p>毎日店内で手打ち、もちもち食感の麺</p>
+                </div>
+                <div class="feature-card reveal">
+                    <span class="material-icons">spa</span>
+                    <h3>厳選香辛料</h3>
+                    <p>本場四川から直輸入した香辛料を使用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>おすすめ料理</h2>
+            </div>
+            <div class="menu-category reveal">
+                <h3>前菜・点心</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div>
+                            <h4>よだれ鶏<span class="badge-recommend">人気</span></h4>
+                            <p>しびれる辛さの冷菜</p>
+                        </div>
+                        <span class="price">¥880</span>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <h4>小籠包</h4>
+                            <p>肉汁たっぷり 4個</p>
+                        </div>
+                        <span class="price">¥680</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-category reveal">
+                <h3>メイン</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div>
+                            <h4>麻婆豆腐<span class="badge-recommend">看板</span></h4>
+                            <p>当店看板メニュー</p>
+                        </div>
+                        <span class="price">¥1,280</span>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <h4>回鍋肉</h4>
+                            <p>豚バラと野菜の旨辛炒め</p>
+                        </div>
+                        <span class="price">¥1,180</span>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <h4>担々麺<span class="badge-recommend">人気</span></h4>
+                            <p>濃厚胡麻スープ</p>
+                        </div>
+                        <span class="price">¥980</span>
+                    </div>
+                    <div class="menu-item">
+                        <div>
+                            <h4>海鮮炒飯</h4>
+                            <p>パラパラ仕上げ</p>
+                        </div>
+                        <span class="price">¥1,080</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="course" class="course">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>コース料理</h2>
+            </div>
+            <div class="course-grid">
+                <div class="course-card reveal">
+                    <h3>龍コース</h3>
+                    <p>前菜3種・点心・メイン3品・〆・デザート</p>
+                    <span class="price">¥5,500<span>/お一人様</span></span>
+                </div>
+                <div class="course-card reveal">
+                    <h3>鳳凰コース</h3>
+                    <p>前菜5種・点心・メイン5品・〆・デザート</p>
+                    <span class="price">¥8,800<span>/お一人様</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-logo">中華料理 龍華楼</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>TEL: 03-0000-0000</p>
+            <p>営業: 11:30〜14:30 / 17:00〜22:00</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+                <a href="#"><span class="material-icons">restaurant_menu</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

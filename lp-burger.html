@@ -9,63 +9,298 @@
     <style>
         :root { --primary: #FF4500; --primary-dark: #CC3700; --yellow: #FFD700; --dark: #1A1A1A; --text: #333; --text-light: #666; --cream: #FFF8DC; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--dark); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--dark); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s, visibility 0.5s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .burger-stack { position: relative; width: 80px; height: 100px; }
+        .bun-top { width: 80px; height: 30px; background: #DEB887; border-radius: 40px 40px 0 0; position: absolute; top: 0; animation: stackBounce 0.6s ease infinite; }
+        .patty { width: 85px; height: 20px; background: #8B4513; border-radius: 5px; position: absolute; top: 35px; left: -2.5px; animation: stackBounce 0.6s ease 0.1s infinite; }
+        .cheese { width: 90px; height: 8px; background: var(--yellow); position: absolute; top: 55px; left: -5px; animation: stackBounce 0.6s ease 0.2s infinite; transform-origin: center; }
+        .bun-bottom { width: 80px; height: 20px; background: #DEB887; border-radius: 0 0 10px 10px; position: absolute; top: 70px; animation: stackBounce 0.6s ease 0.3s infinite; }
+        @keyframes stackBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .preloader-text { color: var(--yellow); font-family: 'Bebas Neue', cursive; margin-top: 40px; font-size: 1.5rem; letter-spacing: 0.1em; animation: pulseText 1s ease infinite; }
+        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header { background: rgba(26,26,26,0.95); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+
+        /* Header */
+        header { background: rgba(26,26,26,0.9); backdrop-filter: blur(10px); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; }
+        header.scrolled { background: rgba(26,26,26,0.98); box-shadow: 0 4px 30px rgba(255, 69, 0, 0.2); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: var(--yellow); letter-spacing: 0.1em; }
+        .logo { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; color: var(--yellow); letter-spacing: 0.1em; text-shadow: 2px 2px 0 var(--primary); }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
-        .btn-header { background: var(--primary); color: white; padding: 10px 25px; text-decoration: none; font-size: 0.9rem; border-radius: 5px; font-weight: 700; }
-        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); text-align: center; }
-        .hero h1 { font-family: 'Bebas Neue', cursive; font-size: 6rem; color: var(--yellow); margin-bottom: 20px; letter-spacing: 0.1em; text-shadow: 4px 4px 0 var(--dark); }
-        .hero p { color: white; opacity: 0.95; font-size: 1.2rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Bebas Neue', cursive; font-size: 3rem; color: var(--yellow); letter-spacing: 0.05em; }
-        .menu { background: var(--dark); }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .menu-card { background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 15px; overflow: hidden; border: 2px solid var(--primary); }
-        .menu-image { height: 200px; background: linear-gradient(135deg, var(--primary), var(--yellow)); display: flex; align-items: center; justify-content: center; }
-        .menu-image .material-icons { font-size: 80px; color: var(--dark); opacity: 0.5; }
-        .menu-content { padding: 30px; color: white; }
-        .menu-card h4 { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; margin-bottom: 10px; color: var(--yellow); }
-        .menu-card p { font-size: 0.9rem; color: #aaa; margin-bottom: 15px; }
-        .menu-card .price { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; color: var(--primary); }
-        .sides { background: #111; padding: 60px 0; }
-        .sides-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .side-item { padding: 25px; background: var(--dark); border-radius: 10px; color: white; }
-        .side-item .material-icons { font-size: 40px; color: var(--yellow); margin-bottom: 15px; }
-        .side-item h4 { font-size: 1rem; margin-bottom: 5px; }
-        .side-item .price { color: var(--primary); font-weight: 700; }
-        .cta { background: var(--yellow); text-align: center; padding: 80px 0; }
-        .cta h2 { font-family: 'Bebas Neue', cursive; font-size: 3rem; color: var(--dark); margin-bottom: 20px; }
-        .cta-btn { background: var(--dark); color: var(--yellow); padding: 16px 50px; text-decoration: none; display: inline-block; border-radius: 5px; font-weight: 900; font-size: 1.1rem; }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; border-top: 3px solid var(--primary); }
-        .footer-logo { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: var(--yellow); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; font-size: 0.85rem; opacity: 0.5; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: color 0.3s; }
+        nav a:hover { color: var(--yellow); }
+        .btn-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 12px 30px; text-decoration: none; font-size: 0.9rem; border-radius: 5px; font-weight: 900; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4); }
+        .btn-header:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255, 69, 0, 0.5); }
+
+        /* Hero */
+        .hero { padding: 220px 0 180px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 10 L35 25 L50 25 L38 35 L42 50 L30 40 L18 50 L22 35 L10 25 L25 25 Z' fill='%23000' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Bebas Neue', cursive; font-size: 8rem; color: var(--yellow); margin-bottom: 20px; letter-spacing: 0.15em; text-shadow: 6px 6px 0 var(--dark), -2px -2px 0 var(--dark), 2px -2px 0 var(--dark), -2px 2px 0 var(--dark); animation: heroSlam 0.8s ease; }
+        @keyframes heroSlam { 0% { transform: scale(1.5) translateY(-100px); opacity: 0; } 60% { transform: scale(0.95); } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+        .hero p { color: white; opacity: 0.95; font-size: 1.3rem; font-weight: 700; animation: fadeIn 1s ease 0.5s both; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Fire particles */
+        .fire-particle { position: absolute; width: 10px; height: 10px; background: var(--yellow); border-radius: 50%; opacity: 0.6; animation: fireRise 3s ease-in-out infinite; }
+        @keyframes fireRise { 0% { transform: translateY(0) scale(1); opacity: 0.6; } 100% { transform: translateY(-200px) scale(0); opacity: 0; } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Bebas Neue', cursive; font-size: 4rem; color: var(--yellow); letter-spacing: 0.1em; text-shadow: 3px 3px 0 var(--primary); }
+
+        /* Menu */
+        .menu { background: var(--dark); position: relative; }
+        .menu::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--yellow), var(--primary)); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; }
+        .menu-card { background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 20px; overflow: hidden; border: 3px solid transparent; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        .menu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, var(--primary), var(--yellow)); z-index: -1; border-radius: 20px; opacity: 0; transition: opacity 0.4s; }
+        .menu-card:hover { border-color: var(--primary); transform: translateY(-10px) scale(1.02); }
+        .menu-card:hover::before { opacity: 1; }
+        .menu-image { height: 220px; background: linear-gradient(135deg, var(--primary), var(--yellow)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .menu-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, rgba(26,26,26,0.8), transparent); }
+        .menu-image .material-icons { font-size: 100px; color: var(--dark); opacity: 0.4; transition: all 0.4s; }
+        .menu-card:hover .menu-image .material-icons { transform: scale(1.2) rotate(-10deg); opacity: 0.6; }
+        .menu-content { padding: 35px; color: white; }
+        .menu-card h4 { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; margin-bottom: 12px; color: var(--yellow); letter-spacing: 0.05em; }
+        .menu-card p { font-size: 0.95rem; color: #aaa; margin-bottom: 20px; }
+        .menu-card .price { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: var(--primary); }
+        .badge-best { position: absolute; top: 20px; right: 20px; background: var(--yellow); color: var(--dark); padding: 8px 15px; font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 0.05em; z-index: 2; }
+
+        /* Sides */
+        .sides { background: #111; padding: 80px 0; position: relative; }
+        .sides::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23FFD700' fill-opacity='0.1'/%3E%3C/svg%3E"); }
+        .sides-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; position: relative; }
+        .side-item { padding: 35px 20px; background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border-radius: 15px; color: white; text-align: center; transition: all 0.4s; border: 2px solid transparent; }
+        .side-item:hover { border-color: var(--yellow); transform: translateY(-8px); background: linear-gradient(145deg, #2a2a2a, #1a1a1a); }
+        .side-item .material-icons { font-size: 50px; color: var(--yellow); margin-bottom: 18px; transition: all 0.3s; }
+        .side-item:hover .material-icons { transform: scale(1.1); }
+        .side-item h4 { font-family: 'Bebas Neue', cursive; font-size: 1.3rem; margin-bottom: 10px; letter-spacing: 0.05em; }
+        .side-item .price { color: var(--primary); font-weight: 900; font-size: 1.2rem; }
+
+        /* CTA */
+        .cta { background: var(--yellow); text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+        .cta::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23000' stroke-opacity='0.03' stroke-width='2'/%3E%3C/svg%3E"); }
+        .cta h2 { font-family: 'Bebas Neue', cursive; font-size: 5rem; color: var(--dark); margin-bottom: 20px; letter-spacing: 0.1em; position: relative; animation: bounce 2s ease infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .cta p { color: var(--dark); font-weight: 700; font-size: 1.2rem; margin-bottom: 30px; }
+        .cta-btn { background: var(--dark); color: var(--yellow); padding: 20px 60px; text-decoration: none; display: inline-block; border-radius: 5px; font-weight: 900; font-size: 1.3rem; font-family: 'Bebas Neue', cursive; letter-spacing: 0.1em; transition: all 0.3s; box-shadow: 5px 5px 0 var(--primary); }
+        .cta-btn:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--primary); }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; border-top: 5px solid var(--primary); }
+        .footer-logo { font-family: 'Bebas Neue', cursive; font-size: 2.5rem; color: var(--yellow); margin-bottom: 25px; letter-spacing: 0.1em; text-shadow: 2px 2px 0 var(--primary); }
+        footer p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 50px; height: 50px; background: #2a2a2a; display: flex; align-items: center; justify-content: center; color: var(--yellow); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--primary); transform: translateY(-3px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid #333; font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
-        @media (max-width: 1024px) { .menu-grid { grid-template-columns: 1fr; } .sides-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3.5rem; } .sides-grid { grid-template-columns: 1fr; } }
+
+        @media (max-width: 1024px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .sides-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero h1 { font-size: 4rem; }
+            .sides-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">STACK BURGER</div><nav><ul><li><a href="#menu">MENU</a></li><li><a href="#order">ORDER</a></li></ul></nav><a href="#order" class="btn-header">ORDER NOW</a></div></div></header>
-    <section class="hero"><div class="container"><h1>STACK BURGER</h1><p>100%ビーフパティ、毎日店内で手ごね</p></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>BURGERS</h2></div><div class="menu-grid">
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">lunch_dining</span></div><div class="menu-content"><h4>CLASSIC BURGER</h4><p>パティ・レタス・トマト・オニオン・チーズ</p><span class="price">¥1,200</span></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">lunch_dining</span></div><div class="menu-content"><h4>DOUBLE STACK</h4><p>ダブルパティ・ダブルチーズ・ベーコン</p><span class="price">¥1,800</span></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">lunch_dining</span></div><div class="menu-content"><h4>AVOCADO BURGER</h4><p>パティ・アボカド・ベーコン・チーズ</p><span class="price">¥1,500</span></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">lunch_dining</span></div><div class="menu-content"><h4>SPICY JALAPEÑO</h4><p>パティ・ハラペーニョ・ペッパージャック</p><span class="price">¥1,400</span></div></div>
-    </div></div></section>
-    <section class="sides"><div class="container"><div class="section-header"><h2>SIDES & DRINKS</h2></div><div class="sides-grid">
-        <div class="side-item"><span class="material-icons">restaurant</span><h4>FRIES</h4><span class="price">¥400</span></div>
-        <div class="side-item"><span class="material-icons">circle</span><h4>ONION RINGS</h4><span class="price">¥450</span></div>
-        <div class="side-item"><span class="material-icons">local_drink</span><h4>SHAKE</h4><span class="price">¥500</span></div>
-        <div class="side-item"><span class="material-icons">sports_bar</span><h4>CRAFT BEER</h4><span class="price">¥700</span></div>
-    </div></div></section>
-    <section class="cta" id="order"><div class="container"><h2>HUNGRY?</h2><p style="color: var(--dark);">テイクアウト・デリバリー対応</p><a href="#" class="cta-btn">ORDER NOW</a></div></section>
-    <footer><div class="container"><div class="footer-logo">STACK BURGER</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>営業: 11:00〜22:00（L.O. 21:30）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="burger-stack">
+            <div class="bun-top"></div>
+            <div class="patty"></div>
+            <div class="cheese"></div>
+            <div class="bun-bottom"></div>
+        </div>
+        <p class="preloader-text">LOADING...</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">STACK BURGER</div>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">MENU</a></li>
+                        <li><a href="#order">ORDER</a></li>
+                    </ul>
+                </nav>
+                <a href="#order" class="btn-header">ORDER NOW</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="fire-particle" style="left: 10%; bottom: 20%; animation-delay: 0s;"></div>
+        <div class="fire-particle" style="left: 25%; bottom: 10%; animation-delay: 0.5s;"></div>
+        <div class="fire-particle" style="left: 70%; bottom: 15%; animation-delay: 1s;"></div>
+        <div class="fire-particle" style="left: 85%; bottom: 25%; animation-delay: 1.5s;"></div>
+        <div class="fire-particle" style="left: 50%; bottom: 5%; animation-delay: 2s;"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>STACK BURGER</h1>
+                <p>100%ビーフパティ、毎日店内で手ごね</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>BURGERS</h2>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">lunch_dining</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>CLASSIC BURGER</h4>
+                        <p>パティ・レタス・トマト・オニオン・チーズ</p>
+                        <span class="price">¥1,200</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="badge-best">BEST</span>
+                        <span class="material-icons">lunch_dining</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>DOUBLE STACK</h4>
+                        <p>ダブルパティ・ダブルチーズ・ベーコン</p>
+                        <span class="price">¥1,800</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">lunch_dining</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>AVOCADO BURGER</h4>
+                        <p>パティ・アボカド・ベーコン・チーズ</p>
+                        <span class="price">¥1,500</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="badge-best">HOT</span>
+                        <span class="material-icons">lunch_dining</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>SPICY JALAPEÑO</h4>
+                        <p>パティ・ハラペーニョ・ペッパージャック</p>
+                        <span class="price">¥1,400</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sides">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>SIDES & DRINKS</h2>
+            </div>
+            <div class="sides-grid">
+                <div class="side-item reveal">
+                    <span class="material-icons">restaurant</span>
+                    <h4>FRIES</h4>
+                    <span class="price">¥400</span>
+                </div>
+                <div class="side-item reveal">
+                    <span class="material-icons">circle</span>
+                    <h4>ONION RINGS</h4>
+                    <span class="price">¥450</span>
+                </div>
+                <div class="side-item reveal">
+                    <span class="material-icons">local_drink</span>
+                    <h4>SHAKE</h4>
+                    <span class="price">¥500</span>
+                </div>
+                <div class="side-item reveal">
+                    <span class="material-icons">sports_bar</span>
+                    <h4>CRAFT BEER</h4>
+                    <span class="price">¥700</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="order">
+        <div class="container">
+            <h2 class="reveal">HUNGRY?</h2>
+            <p class="reveal">テイクアウト・デリバリー対応</p>
+            <a href="#" class="cta-btn reveal">ORDER NOW</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">STACK BURGER</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>営業: 11:00〜22:00（L.O. 21:30）</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+                <a href="#"><span class="material-icons">play_circle</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

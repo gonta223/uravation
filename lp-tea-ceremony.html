@@ -9,66 +9,269 @@
     <style>
         :root { --primary: #2D5A27; --primary-dark: #1E3D1A; --accent: #8B7355; --gold: #C9A962; --dark: #1A1A1A; --text: #333; --text-light: #666; --cream: #F5F3EE; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.6s, visibility 0.6s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .tea-loader { display: flex; flex-direction: column; align-items: center; }
+        .tea-bowl { width: 70px; height: 45px; border: 3px solid var(--gold); border-radius: 0 0 35px 35px; position: relative; animation: bowlFloat 2s ease-in-out infinite; }
+        .tea-steam { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+        .steam { width: 3px; height: 20px; background: rgba(255,255,255,0.4); border-radius: 3px; animation: steamRise 1.5s ease-in-out infinite; }
+        .steam:nth-child(2) { animation-delay: 0.3s; height: 25px; }
+        .steam:nth-child(3) { animation-delay: 0.6s; }
+        @keyframes bowlFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes steamRise { 0%, 100% { opacity: 0.4; transform: translateY(0); } 50% { opacity: 0.8; transform: translateY(-10px); } }
+        .preloader-text { font-family: 'Zen Old Mincho', serif; color: var(--cream); margin-top: 35px; font-size: 1.3rem; letter-spacing: 0.25em; }
+
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.03); }
+
+        /* Header */
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s; box-shadow: 0 2px 20px rgba(0,0,0,0.03); }
+        header.scrolled { padding: 15px 0; box-shadow: 0 4px 30px rgba(45, 90, 39, 0.12); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--primary); }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; color: var(--primary); }
         nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
-        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.2em; }
-        .hero p { opacity: 0.9; margin-bottom: 40px; font-size: 1.1rem; letter-spacing: 0.08em; }
-        .btn-gold { background: var(--gold); color: var(--dark); padding: 16px 50px; text-decoration: none; display: inline-block; font-weight: 500; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; position: relative; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        nav a:hover::after { width: 100%; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .btn-header:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Hero */
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23C9A962' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 4.5rem; font-weight: 400; margin-bottom: 30px; letter-spacing: 0.3em; animation: fadeInUp 1.2s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero p { opacity: 0.9; margin-bottom: 45px; font-size: 1.15rem; letter-spacing: 0.1em; animation: fadeIn 1.2s ease 0.3s both; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.9; } }
+        .btn-gold { background: var(--gold); color: var(--dark); padding: 18px 55px; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.25); }
+
+        /* Floating elements */
+        .floating-tea { position: absolute; font-size: 2.5rem; opacity: 0.1; animation: floatTea 10s ease-in-out infinite; }
+        @keyframes floatTea { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         section { padding: 100px 0; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; color: var(--primary); letter-spacing: 0.15em; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 50px; height: 2px; background: var(--gold); }
+
+        /* Intro */
         .intro { background: var(--white); }
-        .intro-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .intro-image { height: 400px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
-        .intro-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
-        .intro-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; margin-bottom: 25px; color: var(--primary); }
-        .intro-text p { color: var(--text-light); margin-bottom: 15px; }
+        .intro-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .intro-image { height: 450px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .intro-image::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(201,169,98,0.15) 50%, transparent 60%); animation: shimmer 4s ease-in-out infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        .intro-image .material-icons { font-size: 120px; color: white; opacity: 0.25; }
+        .intro-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; margin-bottom: 30px; color: var(--primary); letter-spacing: 0.1em; }
+        .intro-text p { color: var(--text-light); margin-bottom: 18px; line-height: 2.2; }
+
+        /* Courses */
         .courses { background: var(--cream); }
-        .courses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .course-card { background: var(--white); padding: 45px 35px; border-left: 4px solid var(--primary); }
-        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--primary); }
-        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
-        .course-info { display: flex; gap: 20px; font-size: 0.9rem; }
-        .course-info span { color: var(--accent); }
+        .courses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 45px; }
+        .course-card { background: var(--white); padding: 50px 40px; border-left: 4px solid var(--primary); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .course-card:hover { transform: translateX(10px); box-shadow: 0 20px 50px rgba(45, 90, 39, 0.1); }
+        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; margin-bottom: 18px; color: var(--primary); letter-spacing: 0.1em; }
+        .course-card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 25px; line-height: 1.9; }
+        .course-info { display: flex; gap: 25px; font-size: 0.95rem; }
+        .course-info span { color: var(--accent); font-weight: 500; }
+
+        /* Schedule */
         .schedule { background: var(--white); }
-        .schedule-table { width: 100%; max-width: 800px; margin: 0 auto; border-collapse: collapse; }
-        .schedule-table th, .schedule-table td { padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
-        .schedule-table th { background: var(--primary); color: white; }
-        .schedule-table td { font-size: 0.95rem; }
-        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
-        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 20px; letter-spacing: 0.1em; }
-        .btn-white { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 25px; font-weight: 500; }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .schedule-table { width: 100%; max-width: 850px; margin: 0 auto; border-collapse: collapse; overflow: hidden; border-radius: 5px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        .schedule-table th, .schedule-table td { padding: 22px 30px; text-align: center; }
+        .schedule-table th { background: var(--primary); color: white; font-weight: 500; letter-spacing: 0.05em; }
+        .schedule-table td { font-size: 0.95rem; border-bottom: 1px solid #eee; transition: all 0.3s; }
+        .schedule-table tr:hover td { background: #f9f9f9; }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 120px 0; position: relative; overflow: hidden; }
+        .cta::before { content: '茶'; position: absolute; font-family: 'Zen Old Mincho', serif; font-size: 30rem; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; margin-bottom: 25px; letter-spacing: 0.15em; position: relative; }
+        .cta p { opacity: 0.9; margin-bottom: 40px; font-size: 1.05rem; }
+        .btn-white { background: white; color: var(--primary); padding: 18px 55px; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.25); }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; color: var(--gold); margin-bottom: 25px; }
+        footer p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 45px; height: 45px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--gold); color: var(--dark); transform: translateY(-3px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--gold); text-decoration: none; }
+
         @media (max-width: 1024px) { .intro-content, .courses-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.8rem; letter-spacing: 0.2em; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">清風庵</div><nav><ul><li><a href="#intro">教室について</a></li><li><a href="#courses">コース</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">体験予約</a></div></div></header>
-    <section class="hero"><div class="container"><h1>清風庵</h1><p>一服の茶に、心を整える</p><a href="#contact" class="btn-gold">体験茶会に参加</a></div></section>
-    <section id="intro" class="intro"><div class="container"><div class="intro-content"><div class="intro-image"><span class="material-icons">local_cafe</span></div><div class="intro-text"><h3>茶の湯の心を学ぶ</h3><p>裏千家の作法を基本に、初めての方にも分かりやすく丁寧にお伝えいたします。</p><p>季節の移ろいを感じながら、日常から離れた静かなひとときをお過ごしください。</p></div></div></div></section>
-    <section id="courses" class="courses"><div class="container"><div class="section-header"><h2>コース案内</h2></div><div class="courses-grid">
-        <div class="course-card"><h3>入門コース</h3><p>茶道が初めての方向け。基本の所作から丁寧にお教えします。</p><div class="course-info"><span>月2回</span><span>¥8,000/月</span></div></div>
-        <div class="course-card"><h3>本科コース</h3><p>お点前の習得を目指す方向けの本格的なコースです。</p><div class="course-info"><span>月4回</span><span>¥15,000/月</span></div></div>
-    </div></div></section>
-    <section class="schedule"><div class="container"><div class="section-header"><h2>稽古日</h2></div><table class="schedule-table">
-        <tr><th>曜日</th><th>時間</th></tr>
-        <tr><td>水曜日</td><td>14:00〜16:00 / 18:00〜20:00</td></tr>
-        <tr><td>土曜日</td><td>10:00〜12:00 / 14:00〜16:00</td></tr>
-        <tr><td>日曜日</td><td>10:00〜12:00</td></tr>
-    </table></div></section>
-    <section class="cta" id="contact"><div class="container"><h2>体験茶会のご案内</h2><p style="opacity: 0.9;">手ぶらでお越しいただけます</p><a href="#" class="btn-white">体験を予約する</a></div></section>
-    <footer><div class="container"><div class="footer-logo">茶道教室 清風庵</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="tea-loader">
+            <div class="tea-bowl">
+                <div class="tea-steam">
+                    <div class="steam"></div>
+                    <div class="steam"></div>
+                    <div class="steam"></div>
+                </div>
+            </div>
+        </div>
+        <p class="preloader-text">清風庵</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">清風庵</div>
+                <nav>
+                    <ul>
+                        <li><a href="#intro">教室について</a></li>
+                        <li><a href="#courses">コース</a></li>
+                        <li><a href="#contact">お問い合わせ</a></li>
+                    </ul>
+                </nav>
+                <a href="#contact" class="btn-header">体験予約</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="floating-tea" style="top: 20%; left: 10%;">🍵</div>
+        <div class="floating-tea" style="top: 65%; left: 85%; animation-delay: -3s;">🌸</div>
+        <div class="floating-tea" style="top: 75%; left: 20%; animation-delay: -6s;">🍃</div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>清風庵</h1>
+                <p>一服の茶に、心を整える</p>
+                <a href="#contact" class="btn-gold">体験茶会に参加</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="intro" class="intro">
+        <div class="container">
+            <div class="intro-content reveal">
+                <div class="intro-image">
+                    <span class="material-icons">local_cafe</span>
+                </div>
+                <div class="intro-text">
+                    <h3>茶の湯の心を学ぶ</h3>
+                    <p>裏千家の作法を基本に、初めての方にも分かりやすく丁寧にお伝えいたします。</p>
+                    <p>季節の移ろいを感じながら、日常から離れた静かなひとときをお過ごしください。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="courses">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>コース案内</h2>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card reveal">
+                    <h3>入門コース</h3>
+                    <p>茶道が初めての方向け。基本の所作から丁寧にお教えします。</p>
+                    <div class="course-info">
+                        <span>月2回</span>
+                        <span>¥8,000/月</span>
+                    </div>
+                </div>
+                <div class="course-card reveal">
+                    <h3>本科コース</h3>
+                    <p>お点前の習得を目指す方向けの本格的なコースです。</p>
+                    <div class="course-info">
+                        <span>月4回</span>
+                        <span>¥15,000/月</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="schedule">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>稽古日</h2>
+            </div>
+            <table class="schedule-table reveal">
+                <tr><th>曜日</th><th>時間</th></tr>
+                <tr><td>水曜日</td><td>14:00〜16:00 / 18:00〜20:00</td></tr>
+                <tr><td>土曜日</td><td>10:00〜12:00 / 14:00〜16:00</td></tr>
+                <tr><td>日曜日</td><td>10:00〜12:00</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2 class="reveal">体験茶会のご案内</h2>
+            <p class="reveal">手ぶらでお越しいただけます</p>
+            <a href="#" class="btn-white reveal">体験を予約する</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">茶道教室 清風庵</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>TEL: 03-0000-0000</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1800);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

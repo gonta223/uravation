@@ -9,59 +9,326 @@
     <style>
         :root { --primary: #5D4E37; --primary-light: #8B7355; --accent: #C4A77D; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #F9F6F1; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.8s, visibility 0.8s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-logo { font-family: 'Zen Old Mincho', serif; font-size: 4rem; color: var(--accent); letter-spacing: 0.3em; animation: fadeInOut 2s ease infinite; }
+        .preloader-text { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: 30px; letter-spacing: 0.2em; }
+        @keyframes fadeInOut { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: transparent; padding: 25px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.5s ease; }
+        header.scrolled { background: var(--white); box-shadow: 0 5px 30px rgba(0,0,0,0.1); padding: 15px 0; }
+        header.scrolled .logo { color: var(--primary); }
+        header.scrolled nav a { color: var(--dark); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; color: var(--primary); }
-        nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 200px 0 150px; background: var(--primary); color: white; text-align: center; }
-        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 4rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.3em; }
-        .hero p { opacity: 0.9; font-size: 1.1rem; letter-spacing: 0.1em; }
-        section { padding: 100px 0; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--white); transition: color 0.5s; }
+        nav ul { display: flex; gap: 50px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.1em; position: relative; transition: all 0.3s; }
+        nav a::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+        nav a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { padding: 250px 0 200px; background: var(--primary); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(93,78,55,0.9) 0%, var(--primary) 100%); }
+        .hero-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23C4A77D' stroke-opacity='0.05' stroke-width='1'/%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23C4A77D' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E"); opacity: 0.5; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 6rem; font-weight: 400; margin-bottom: 30px; color: var(--accent); letter-spacing: 0.4em; animation: fadeInUp 1.2s ease; }
+        .hero-sub { font-size: 1rem; letter-spacing: 0.25em; opacity: 0.9; animation: fadeInUp 1.2s ease 0.3s both; }
+        .hero-line { width: 60px; height: 1px; background: var(--accent); margin: 40px auto; animation: expandLine 1s ease 0.6s both; }
+        .hero-tagline { font-family: 'Zen Old Mincho', serif; font-size: 1.2rem; letter-spacing: 0.2em; animation: fadeInUp 1.2s ease 0.9s both; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes expandLine { from { width: 0; } to { width: 60px; } }
+
+        section { padding: 120px 0; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; color: var(--primary); letter-spacing: 0.15em; position: relative; display: inline-block; }
+        .section-header h2::before, .section-header h2::after { content: ''; position: absolute; top: 50%; width: 50px; height: 1px; background: var(--accent); }
+        .section-header h2::before { left: -70px; }
+        .section-header h2::after { right: -70px; }
+
+        /* About */
         .about { background: var(--white); }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-image { height: 400px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: flex; align-items: center; justify-content: center; }
-        .about-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
-        .about-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; margin-bottom: 25px; color: var(--primary); }
-        .about-text p { color: var(--text-light); margin-bottom: 15px; line-height: 2; }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-image { height: 500px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .about-image::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23C4A77D' fill-opacity='0.1'/%3E%3C/svg%3E"); }
+        .about-image .material-icons { font-size: 120px; color: white; opacity: 0.2; position: relative; z-index: 2; }
+        .about-text h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; margin-bottom: 30px; color: var(--primary); letter-spacing: 0.1em; }
+        .about-text p { color: var(--text-light); margin-bottom: 20px; line-height: 2.2; font-size: 0.95rem; }
+        .about-features { display: flex; gap: 30px; margin-top: 40px; }
+        .about-feature { text-align: center; }
+        .about-feature .material-icons { font-size: 35px; color: var(--accent); margin-bottom: 10px; }
+        .about-feature span { font-size: 0.85rem; color: var(--text-light); display: block; }
+
+        /* Menu */
         .menu { background: var(--cream); }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .menu-item { display: flex; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .menu-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--primary); }
-        .menu-item p { font-size: 0.85rem; color: var(--text-light); }
-        .menu-item .price { font-family: 'Zen Old Mincho', serif; font-size: 1.3rem; color: var(--primary); }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 35px 0; border-bottom: 1px solid rgba(93,78,55,0.15); transition: all 0.4s ease; }
+        .menu-item:hover { padding-left: 20px; background: rgba(196,167,125,0.05); }
+        .menu-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--primary); letter-spacing: 0.05em; }
+        .menu-item p { font-size: 0.9rem; color: var(--text-light); }
+        .menu-item .price { font-family: 'Zen Old Mincho', serif; font-size: 1.4rem; color: var(--accent); }
+
+        /* Commitment */
+        .commitment { background: var(--primary); color: white; position: relative; overflow: hidden; }
+        .commitment::before { content: '蕎麦'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Zen Old Mincho', serif; font-size: 15rem; opacity: 0.03; white-space: nowrap; pointer-events: none; }
+        .commitment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; position: relative; z-index: 2; }
+        .commitment-item { text-align: center; padding: 40px 30px; }
+        .commitment-icon { width: 80px; height: 80px; border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; transition: all 0.4s ease; }
+        .commitment-item:hover .commitment-icon { background: var(--accent); }
+        .commitment-icon .material-icons { font-size: 35px; color: var(--accent); transition: color 0.4s; }
+        .commitment-item:hover .commitment-icon .material-icons { color: var(--primary); }
+        .commitment-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 0.1em; }
+        .commitment-item p { font-size: 0.9rem; opacity: 0.8; line-height: 1.9; }
+
+        /* Info */
         .info { background: var(--white); }
-        .info-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .info-map { height: 300px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; }
-        .info-map .material-icons { font-size: 80px; color: white; opacity: 0.4; }
-        .info-detail h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.4rem; margin-bottom: 25px; color: var(--primary); }
-        .info-detail p { margin-bottom: 12px; font-size: 0.95rem; }
-        footer { background: var(--primary); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; margin-bottom: 20px; letter-spacing: 0.2em; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.85rem; opacity: 0.6; }
+        .info-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+        .info-map { height: 400px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); display: flex; align-items: center; justify-content: center; position: relative; }
+        .info-map::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 1px solid var(--accent); opacity: 0.3; }
+        .info-map .material-icons { font-size: 100px; color: white; opacity: 0.3; }
+        .info-detail h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; margin-bottom: 35px; color: var(--primary); letter-spacing: 0.1em; }
+        .info-detail p { margin-bottom: 18px; font-size: 0.95rem; display: flex; align-items: center; gap: 15px; }
+        .info-detail p .material-icons { font-size: 20px; color: var(--accent); }
+
+        /* Footer */
+        footer { background: var(--primary); color: white; padding: 80px 0 40px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 2.5rem; margin-bottom: 15px; letter-spacing: 0.3em; color: var(--accent); }
+        .footer-sub { font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; letter-spacing: 0.15em; }
+        .footer-info { display: flex; justify-content: center; gap: 60px; margin-bottom: 50px; }
+        .footer-info p { font-size: 0.9rem; opacity: 0.8; }
+        .footer-bottom { padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--accent); text-decoration: none; }
-        @media (max-width: 1024px) { .about-content, .info-content, .menu-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) { .about-content, .info-content, .menu-grid, .commitment-grid { grid-template-columns: 1fr; } .about-features { justify-content: center; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3.5rem; letter-spacing: 0.2em; } .section-header h2::before, .section-header h2::after { display: none; } .footer-info { flex-direction: column; gap: 15px; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">蕎仙</div><nav><ul><li><a href="#about">こだわり</a></li><li><a href="#menu">品書き</a></li><li><a href="#info">店舗情報</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>蕎仙</h1><p>毎朝石臼で挽く、香り高い手打ち蕎麦</p></div></section>
-    <section id="about" class="about"><div class="container"><div class="about-content"><div class="about-image"><span class="material-icons">restaurant</span></div><div class="about-text"><h3>手打ちへのこだわり</h3><p>当店では、厳選した国産そば粉を毎朝石臼で挽き、その日の分だけを手打ちしております。</p><p>つなぎを極力抑えた十割蕎麦の香りと喉越しを、ぜひご堪能ください。</p></div></div></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>品書き</h2></div><div class="menu-grid">
-        <div class="menu-item"><div><h4>もりそば</h4><p>香り高い十割蕎麦</p></div><span class="price">¥900</span></div>
-        <div class="menu-item"><div><h4>ざるそば</h4><p>海苔をあしらった定番</p></div><span class="price">¥1,000</span></div>
-        <div class="menu-item"><div><h4>天ざる</h4><p>季節の天ぷら付き</p></div><span class="price">¥1,600</span></div>
-        <div class="menu-item"><div><h4>鴨せいろ</h4><p>合鴨の旨みたっぷり</p></div><span class="price">¥1,800</span></div>
-        <div class="menu-item"><div><h4>かけそば</h4><p>温かいお蕎麦</p></div><span class="price">¥850</span></div>
-        <div class="menu-item"><div><h4>天ぷらそば</h4><p>海老天2本入り</p></div><span class="price">¥1,500</span></div>
-    </div></div></section>
-    <section id="info" class="info"><div class="container"><div class="section-header"><h2>店舗情報</h2></div><div class="info-content"><div class="info-map"><span class="material-icons">place</span></div><div class="info-detail"><h3>アクセス</h3><p>〒000-0000 東京都○○区○○1-2-3</p><p>○○駅 徒歩5分</p><p>TEL: 03-0000-0000</p><p>営業時間: 11:30〜14:30 / 17:30〜20:30</p><p>定休日: 水曜日</p></div></div></div></section>
-    <footer><div class="container"><div class="footer-logo">手打ち蕎麦 蕎仙</div><p>〒000-0000 東京都○○区○○1-2-3</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="preloader-logo">蕎仙</div>
+        <div class="preloader-text">手打ち蕎麦</div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">蕎仙</div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">こだわり</a></li>
+                        <li><a href="#menu">品書き</a></li>
+                        <li><a href="#info">店舗情報</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>蕎仙</h1>
+                <p class="hero-sub">手打ち蕎麦</p>
+                <div class="hero-line"></div>
+                <p class="hero-tagline">毎朝石臼で挽く、香り高い十割蕎麦</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image reveal">
+                    <span class="material-icons">restaurant</span>
+                </div>
+                <div class="about-text reveal">
+                    <h3>手打ちへのこだわり</h3>
+                    <p>当店では、厳選した国産そば粉を毎朝石臼で挽き、その日の分だけを手打ちしております。</p>
+                    <p>つなぎを極力抑えた十割蕎麦の香りと喉越しを、ぜひご堪能ください。職人が一本一本丁寧に打つ蕎麦は、まさに芸術品です。</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <span class="material-icons">grain</span>
+                            <span>国産そば粉</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="material-icons">construction</span>
+                            <span>石臼挽き</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="material-icons">front_hand</span>
+                            <span>毎日手打ち</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>品書き</h2>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>もりそば</h4>
+                        <p>香り高い十割蕎麦</p>
+                    </div>
+                    <span class="price">¥900</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>ざるそば</h4>
+                        <p>海苔をあしらった定番</p>
+                    </div>
+                    <span class="price">¥1,000</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>天ざる</h4>
+                        <p>季節の天ぷら付き</p>
+                    </div>
+                    <span class="price">¥1,600</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>鴨せいろ</h4>
+                        <p>合鴨の旨みたっぷり</p>
+                    </div>
+                    <span class="price">¥1,800</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>かけそば</h4>
+                        <p>温かいお蕎麦</p>
+                    </div>
+                    <span class="price">¥850</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>天ぷらそば</h4>
+                        <p>海老天2本入り</p>
+                    </div>
+                    <span class="price">¥1,500</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="commitment">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 style="color: var(--accent);">三つのこだわり</h2>
+            </div>
+            <div class="commitment-grid">
+                <div class="commitment-item reveal">
+                    <div class="commitment-icon"><span class="material-icons">eco</span></div>
+                    <h4>厳選素材</h4>
+                    <p>長野・北海道産の上質なそば粉のみを使用。香りと風味を最大限に引き出します。</p>
+                </div>
+                <div class="commitment-item reveal">
+                    <div class="commitment-icon"><span class="material-icons">schedule</span></div>
+                    <h4>毎朝手打ち</h4>
+                    <p>その日に提供する分だけを毎朝手打ち。鮮度と食感にこだわっています。</p>
+                </div>
+                <div class="commitment-item reveal">
+                    <div class="commitment-icon"><span class="material-icons">water_drop</span></div>
+                    <h4>天然水仕込み</h4>
+                    <p>富士山麓の天然水で仕込む生地。水の質が蕎麦の味を決めます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="info" class="info">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>店舗情報</h2>
+            </div>
+            <div class="info-content">
+                <div class="info-map reveal">
+                    <span class="material-icons">place</span>
+                </div>
+                <div class="info-detail reveal">
+                    <h3>アクセス</h3>
+                    <p><span class="material-icons">location_on</span>〒000-0000 東京都○○区○○1-2-3</p>
+                    <p><span class="material-icons">train</span>○○駅 徒歩5分</p>
+                    <p><span class="material-icons">phone</span>TEL: 03-0000-0000</p>
+                    <p><span class="material-icons">schedule</span>11:30〜14:30 / 17:30〜20:30</p>
+                    <p><span class="material-icons">event_busy</span>定休日: 水曜日</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">蕎仙</div>
+            <p class="footer-sub">手打ち蕎麦</p>
+            <div class="footer-info">
+                <p>〒000-0000 東京都○○区○○1-2-3</p>
+                <p>TEL: 03-0000-0000</p>
+            </div>
+            <div class="footer-bottom">
+                Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

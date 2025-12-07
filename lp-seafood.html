@@ -9,62 +9,296 @@
     <style>
         :root { --primary: #1565C0; --secondary: #0D47A1; --accent: #FF6F00; --dark: #1A1A2E; --text: #333; --text-light: #666; --cream: #F5F9FC; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s, visibility 0.5s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .wave-loader { display: flex; gap: 5px; align-items: flex-end; height: 50px; }
+        .wave { width: 8px; background: white; border-radius: 4px; animation: waveMove 1s ease-in-out infinite; }
+        .wave:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .wave:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+        .wave:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+        .wave:nth-child(4) { height: 35px; animation-delay: 0.3s; }
+        .wave:nth-child(5) { height: 25px; animation-delay: 0.4s; }
+        @keyframes waveMove { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
+        .preloader-text { font-family: 'Zen Maru Gothic', sans-serif; color: white; margin-top: 30px; font-size: 1.5rem; font-weight: 700; animation: fadeText 1.5s ease infinite; }
+        @keyframes fadeText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+
+        /* Header */
+        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s; }
+        header.scrolled { background: rgba(26, 26, 46, 0.98); box-shadow: 0 4px 30px rgba(21, 101, 192, 0.2); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--white); font-weight: 700; }
+        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2rem; color: var(--white); font-weight: 700; }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; }
-        .hero p { opacity: 0.95; font-size: 1.1rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--primary); font-weight: 700; }
-        .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .feature-card { text-align: center; padding: 40px 25px; background: var(--cream); border-radius: 15px; }
-        .feature-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
-        .feature-card p { font-size: 0.9rem; color: var(--text-light); }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; position: relative; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+        nav a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q25 30 50 50 Q75 70 100 50' fill='none' stroke='%23fff' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 4.5rem; font-weight: 700; margin-bottom: 25px; animation: waveText 1s ease; }
+        @keyframes waveText { 0% { transform: translateY(-30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        .hero p { opacity: 0.95; font-size: 1.2rem; animation: slideUp 1s ease 0.3s both; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Floating fish */
+        .floating-fish { position: absolute; font-size: 2.5rem; opacity: 0.15; animation: swimFish 12s ease-in-out infinite; }
+        @keyframes swimFish { 0%, 100% { transform: translateX(0) translateY(0); } 25% { transform: translateX(20px) translateY(-15px); } 50% { transform: translateX(0) translateY(-30px); } 75% { transform: translateX(-20px) translateY(-15px); } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2.2rem; color: var(--primary); font-weight: 700; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+        /* Features */
+        .features { background: var(--white); position: relative; }
+        .features::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='2' fill='%231565C0' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; position: relative; }
+        .feature-card { text-align: center; padding: 45px 30px; background: var(--cream); border-radius: 20px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-top: 4px solid transparent; }
+        .feature-card:hover { transform: translateY(-12px); border-top-color: var(--primary); box-shadow: 0 25px 50px rgba(21, 101, 192, 0.15); }
+        .feature-card .material-icons { font-size: 60px; color: var(--primary); margin-bottom: 25px; transition: all 0.4s; }
+        .feature-card:hover .material-icons { transform: scale(1.1); color: var(--accent); }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; color: var(--dark); }
+        .feature-card p { font-size: 0.95rem; color: var(--text-light); }
+
+        /* Menu */
         .menu { background: var(--cream); }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-        .menu-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .menu-image { height: 160px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
-        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
-        .menu-content { padding: 25px; }
-        .menu-card h4 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 700; }
-        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
-        .menu-card .price { font-size: 1.2rem; color: var(--accent); font-weight: 700; }
-        .drink { background: var(--primary); color: white; padding: 80px 0; text-align: center; }
-        .drink h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2rem; margin-bottom: 20px; }
-        .drink p { opacity: 0.9; margin-bottom: 10px; }
-        .drink .price { font-size: 2rem; margin-top: 15px; color: var(--accent); }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .menu-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .menu-card:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(21, 101, 192, 0.15); }
+        .menu-image { height: 180px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .menu-image::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%); animation: shimmer 3s ease-in-out infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        .menu-image .material-icons { font-size: 70px; color: white; opacity: 0.5; }
+        .menu-content { padding: 30px; }
+        .menu-card h4 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; color: var(--dark); }
+        .menu-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .menu-card .price { font-size: 1.4rem; color: var(--accent); font-weight: 700; }
+        .badge-recommend { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+
+        /* Drink */
+        .drink { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+        .drink::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: url("data:image/svg+xml,%3Csvg width='100%25' height='100' viewBox='0 0 1200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q300 100 600 50 Q900 0 1200 50 L1200 100 L0 100 Z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+        .drink-content { position: relative; z-index: 2; }
+        .drink h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2.5rem; margin-bottom: 25px; }
+        .drink p { opacity: 0.95; margin-bottom: 12px; font-size: 1.1rem; }
+        .drink .price { font-size: 3rem; margin-top: 25px; color: var(--accent); font-weight: 700; }
+        .drink-features { display: flex; justify-content: center; gap: 40px; margin-top: 35px; }
+        .drink-feature { background: rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 30px; font-size: 0.95rem; }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary)); }
+        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2rem; margin-bottom: 25px; }
+        footer p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 50px; height: 50px; border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--primary); color: white; transform: translateY(-5px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
+
         @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .features-grid, .menu-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.8rem; } .features-grid, .menu-grid { grid-template-columns: 1fr; } .drink-features { flex-direction: column; gap: 15px; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">潮</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#drink">ドリンク</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>海鮮酒場 潮</h1><p>毎朝市場直送、新鮮な魚介を</p></div></section>
-    <section class="features"><div class="container"><div class="section-header"><h2>三つのこだわり</h2></div><div class="features-grid">
-        <div class="feature-card"><span class="material-icons">sailing</span><h3>毎朝直送</h3><p>築地・豊洲から毎朝仕入れ</p></div>
-        <div class="feature-card"><span class="material-icons">restaurant</span><h3>職人の技</h3><p>熟練の板前が捌きます</p></div>
-        <div class="feature-card"><span class="material-icons">local_bar</span><h3>厳選日本酒</h3><p>全国の銘酒を取り揃え</p></div>
-    </div></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>おすすめ</h2></div><div class="menu-grid">
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">set_meal</span></div><div class="menu-content"><h4>本日の刺身盛り合わせ</h4><p>5種盛り / 7種盛り</p><span class="price">¥1,480〜</span></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">whatshot</span></div><div class="menu-content"><h4>浜焼き盛り合わせ</h4><p>海老・帆立・蛤など</p><span class="price">¥1,980</span></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">soup_kitchen</span></div><div class="menu-content"><h4>海鮮鍋</h4><p>〆の雑炊付き（2名様〜）</p><span class="price">¥2,980/人</span></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>海鮮丼</h4><p>新鮮なネタをたっぷり</p><span class="price">¥1,580</span></div></div>
-    </div></div></section>
-    <section id="drink" class="drink"><div class="container"><h2>飲み放題プラン</h2><p>生ビール・ハイボール・サワー・日本酒（10種）</p><p style="font-size: 0.9rem;">120分制</p><span class="price">¥1,980</span></div></section>
-    <footer id="access"><div class="container"><div class="footer-logo">海鮮酒場 潮</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 17:00〜24:00（L.O. 23:00）</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="wave-loader">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+        <p class="preloader-text">潮</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">潮</div>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">メニュー</a></li>
+                        <li><a href="#drink">ドリンク</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="floating-fish" style="top: 20%; left: 10%;">🐟</div>
+        <div class="floating-fish" style="top: 60%; left: 85%; animation-delay: -3s;">🦐</div>
+        <div class="floating-fish" style="top: 75%; left: 20%; animation-delay: -6s;">🦑</div>
+        <div class="floating-fish" style="top: 30%; left: 90%; animation-delay: -9s;">🦀</div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>海鮮酒場 潮</h1>
+                <p>毎朝市場直送、新鮮な魚介を</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>三つのこだわり</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <span class="material-icons">sailing</span>
+                    <h3>毎朝直送</h3>
+                    <p>築地・豊洲から毎朝仕入れ</p>
+                </div>
+                <div class="feature-card reveal">
+                    <span class="material-icons">restaurant</span>
+                    <h3>職人の技</h3>
+                    <p>熟練の板前が捌きます</p>
+                </div>
+                <div class="feature-card reveal">
+                    <span class="material-icons">local_bar</span>
+                    <h3>厳選日本酒</h3>
+                    <p>全国の銘酒を取り揃え</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>おすすめ</h2>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="badge-recommend">人気No.1</span>
+                        <span class="material-icons">set_meal</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>本日の刺身盛り合わせ</h4>
+                        <p>5種盛り / 7種盛り</p>
+                        <span class="price">¥1,480〜</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">whatshot</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>浜焼き盛り合わせ</h4>
+                        <p>海老・帆立・蛤など</p>
+                        <span class="price">¥1,980</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="badge-recommend">おすすめ</span>
+                        <span class="material-icons">soup_kitchen</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>海鮮鍋</h4>
+                        <p>〆の雑炊付き（2名様〜）</p>
+                        <span class="price">¥2,980/人</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">rice_bowl</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>海鮮丼</h4>
+                        <p>新鮮なネタをたっぷり</p>
+                        <span class="price">¥1,580</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="drink" class="drink">
+        <div class="container">
+            <div class="drink-content reveal">
+                <h2>飲み放題プラン</h2>
+                <p>生ビール・ハイボール・サワー・日本酒（10種）</p>
+                <p style="font-size: 0.95rem; opacity: 0.8;">120分制</p>
+                <span class="price">¥1,980</span>
+                <div class="drink-features">
+                    <div class="drink-feature">生ビール</div>
+                    <div class="drink-feature">日本酒10種</div>
+                    <div class="drink-feature">サワー各種</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-logo">海鮮酒場 潮</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>TEL: 03-0000-0000</p>
+            <p>営業: 17:00〜24:00（L.O. 23:00）</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+                <a href="#"><span class="material-icons">restaurant_menu</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

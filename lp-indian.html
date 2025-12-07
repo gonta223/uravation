@@ -9,68 +9,295 @@
     <style>
         :root { --primary: #FF5722; --secondary: #FFC107; --green: #4CAF50; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #FFF8E1; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), #E64A19); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s, visibility 0.5s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .spice-loader { display: flex; gap: 15px; }
+        .spice-dot { width: 20px; height: 20px; border-radius: 50%; animation: spiceDrop 1.2s ease-in-out infinite; }
+        .spice-dot:nth-child(1) { background: #FFC107; animation-delay: 0s; }
+        .spice-dot:nth-child(2) { background: #FF9800; animation-delay: 0.2s; }
+        .spice-dot:nth-child(3) { background: #FF5722; animation-delay: 0.4s; }
+        .spice-dot:nth-child(4) { background: #E64A19; animation-delay: 0.6s; }
+        @keyframes spiceDrop { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.2); } }
+        .preloader-text { color: var(--secondary); font-family: 'Poppins', sans-serif; margin-top: 30px; font-size: 1.4rem; font-weight: 600; animation: glowText 1.5s ease infinite; }
+        @keyframes glowText { 0%, 100% { text-shadow: 0 0 10px rgba(255,193,7,0.5); } 50% { text-shadow: 0 0 30px rgba(255,193,7,0.8); } }
+
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--primary); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+
+        /* Header */
+        header { background: var(--primary); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s; }
+        header.scrolled { background: rgba(255, 87, 34, 0.98); box-shadow: 0 4px 30px rgba(255, 87, 34, 0.3); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Poppins', sans-serif; font-size: 1.6rem; color: var(--secondary); font-weight: 700; }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: var(--secondary); font-weight: 700; }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), #E64A19); color: white; text-align: center; }
-        .hero h1 { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; }
-        .hero p { opacity: 0.95; font-size: 1.1rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: var(--primary); }
-        .curry { background: var(--white); }
-        .curry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .curry-card { text-align: center; padding: 30px 20px; background: var(--cream); border-radius: 15px; }
-        .curry-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .curry-card h4 { font-size: 1.1rem; margin-bottom: 8px; font-weight: 700; }
-        .curry-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
-        .curry-card .price { font-size: 1.2rem; color: var(--primary); font-weight: 700; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.3s; }
+        nav a:hover { color: var(--secondary); }
+
+        /* Hero */
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), #E64A19); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z' fill='none' stroke='%23FFC107' stroke-opacity='0.08' stroke-width='1'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Poppins', sans-serif; font-size: 4.5rem; font-weight: 700; margin-bottom: 20px; animation: scaleIn 1s ease; }
+        @keyframes scaleIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .hero p { opacity: 0.95; font-size: 1.2rem; animation: slideUp 1s ease 0.3s both; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Floating spices */
+        .floating-spice { position: absolute; font-size: 2rem; opacity: 0.15; animation: floatSpice 10s ease-in-out infinite; }
+        @keyframes floatSpice { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(180deg); } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: var(--primary); position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+
+        /* Curry */
+        .curry { background: var(--white); position: relative; }
+        .curry::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='2' fill='%23FF5722' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+        .curry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; position: relative; }
+        .curry-card { text-align: center; padding: 40px 25px; background: var(--cream); border-radius: 20px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .curry-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transform: scaleX(0); transition: transform 0.4s; }
+        .curry-card:hover::before { transform: scaleX(1); }
+        .curry-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(255, 87, 34, 0.2); }
+        .curry-card .material-icons { font-size: 60px; color: var(--primary); margin-bottom: 25px; transition: all 0.4s; }
+        .curry-card:hover .material-icons { transform: scale(1.1) rotate(10deg); }
+        .curry-card h4 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; color: var(--dark); }
+        .curry-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .curry-card .price { font-size: 1.4rem; color: var(--primary); font-weight: 700; }
+        .badge-popular { position: absolute; top: 15px; right: 15px; background: var(--secondary); color: var(--dark); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+
+        /* Naan */
         .naan { background: var(--cream); }
-        .naan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .naan-item { padding: 25px 15px; background: var(--white); border-radius: 10px; }
-        .naan-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .naan-item .price { color: var(--primary); font-weight: 700; }
-        .set { background: var(--primary); color: white; padding: 80px 0; }
+        .naan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; text-align: center; }
+        .naan-item { padding: 35px 20px; background: var(--white); border-radius: 15px; transition: all 0.3s; border: 2px solid transparent; }
+        .naan-item:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+        .naan-item h4 { font-size: 1.1rem; margin-bottom: 12px; color: var(--dark); }
+        .naan-item .price { color: var(--primary); font-weight: 700; font-size: 1.2rem; }
+
+        /* Set */
+        .set { background: linear-gradient(135deg, var(--primary), #E64A19); color: white; padding: 100px 0; position: relative; overflow: hidden; }
+        .set::before { content: '🕌'; position: absolute; font-size: 25rem; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .set .section-header h2 { color: var(--secondary); }
-        .set-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .set-card { background: rgba(255,255,255,0.1); padding: 35px; border-radius: 15px; border: 2px solid var(--secondary); }
-        .set-card h3 { font-size: 1.4rem; color: var(--secondary); margin-bottom: 15px; }
-        .set-card p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 15px; }
-        .set-card .price { font-size: 1.6rem; color: var(--secondary); font-weight: 700; }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Poppins', sans-serif; font-size: 1.6rem; color: var(--secondary); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        .set .section-header h2::after { background: var(--secondary); }
+        .set-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; position: relative; }
+        .set-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 45px 35px; border-radius: 20px; border: 2px solid var(--secondary); transition: all 0.4s; position: relative; overflow: hidden; }
+        .set-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(255,193,7,0.1) 50%, transparent 60%); animation: shimmerSet 4s ease-in-out infinite; }
+        @keyframes shimmerSet { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        .set-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.18); box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
+        .set-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.6rem; color: var(--secondary); margin-bottom: 18px; position: relative; }
+        .set-card p { font-size: 1rem; opacity: 0.9; margin-bottom: 20px; line-height: 1.8; }
+        .set-card .price { font-size: 2rem; color: var(--secondary); font-weight: 700; }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--green)); }
+        .footer-logo { font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: var(--secondary); margin-bottom: 25px; }
+        footer p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 50px; height: 50px; border: 2px solid var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--secondary); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--secondary); color: var(--dark); transform: translateY(-5px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
+
         @media (max-width: 1024px) { .curry-grid { grid-template-columns: repeat(2, 1fr); } .naan-grid, .set-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .curry-grid, .naan-grid, .set-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.8rem; } .curry-grid, .naan-grid, .set-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">TAJ MAHAL</div><nav><ul><li><a href="#curry">カレー</a></li><li><a href="#set">セット</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>TAJ MAHAL</h1><p>インド人シェフが作る本格カレー＆タンドール料理</p></div></section>
-    <section id="curry" class="curry"><div class="container"><div class="section-header"><h2>カレーメニュー</h2></div><div class="curry-grid">
-        <div class="curry-card"><span class="material-icons">restaurant</span><h4>バターチキン</h4><p>濃厚クリーミー</p><span class="price">¥980</span></div>
-        <div class="curry-card"><span class="material-icons">spa</span><h4>パラクパニール</h4><p>ほうれん草とチーズ</p><span class="price">¥1,080</span></div>
-        <div class="curry-card"><span class="material-icons">eco</span><h4>ダールカレー</h4><p>豆のやさしい味</p><span class="price">¥880</span></div>
-        <div class="curry-card"><span class="material-icons">set_meal</span><h4>キーマカレー</h4><p>スパイシー挽肉</p><span class="price">¥980</span></div>
-        <div class="curry-card"><span class="material-icons">whatshot</span><h4>ビンダルー</h4><p>激辛ポークカレー</p><span class="price">¥1,180</span></div>
-        <div class="curry-card"><span class="material-icons">cruelty_free</span><h4>マトンカレー</h4><p>骨付き羊肉</p><span class="price">¥1,280</span></div>
-    </div></div></section>
-    <section class="naan"><div class="container"><div class="section-header"><h2>ナン＆ライス</h2></div><div class="naan-grid">
-        <div class="naan-item"><h4>プレーンナン</h4><span class="price">¥300</span></div>
-        <div class="naan-item"><h4>ガーリックナン</h4><span class="price">¥400</span></div>
-        <div class="naan-item"><h4>チーズナン</h4><span class="price">¥450</span></div>
-        <div class="naan-item"><h4>サフランライス</h4><span class="price">¥300</span></div>
-    </div></div></section>
-    <section id="set" class="set"><div class="container"><div class="section-header"><h2>お得なセット</h2></div><div class="set-grid">
-        <div class="set-card"><h3>ランチセット</h3><p>カレー1種 + ナン or ライス + サラダ + ドリンク</p><span class="price">¥850〜</span></div>
-        <div class="set-card"><h3>タンドールセット</h3><p>タンドリーチキン + シークカバブ + カレー + ナン</p><span class="price">¥1,680</span></div>
-    </div></div></section>
-    <footer id="access"><div class="container"><div class="footer-logo">TAJ MAHAL</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 11:00〜15:00 / 17:00〜22:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="spice-loader">
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <p class="preloader-text">TAJ MAHAL</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">TAJ MAHAL</div>
+                <nav>
+                    <ul>
+                        <li><a href="#curry">カレー</a></li>
+                        <li><a href="#set">セット</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="floating-spice" style="top: 20%; left: 8%;">🌶️</div>
+        <div class="floating-spice" style="top: 65%; left: 88%; animation-delay: -2s;">🫚</div>
+        <div class="floating-spice" style="top: 80%; left: 12%; animation-delay: -4s;">🧅</div>
+        <div class="floating-spice" style="top: 30%; left: 92%; animation-delay: -6s;">🧄</div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>TAJ MAHAL</h1>
+                <p>インド人シェフが作る本格カレー＆タンドール料理</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="curry" class="curry">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>カレーメニュー</h2>
+            </div>
+            <div class="curry-grid">
+                <div class="curry-card reveal">
+                    <span class="badge-popular">人気No.1</span>
+                    <span class="material-icons">restaurant</span>
+                    <h4>バターチキン</h4>
+                    <p>濃厚クリーミー</p>
+                    <span class="price">¥980</span>
+                </div>
+                <div class="curry-card reveal">
+                    <span class="material-icons">spa</span>
+                    <h4>パラクパニール</h4>
+                    <p>ほうれん草とチーズ</p>
+                    <span class="price">¥1,080</span>
+                </div>
+                <div class="curry-card reveal">
+                    <span class="material-icons">eco</span>
+                    <h4>ダールカレー</h4>
+                    <p>豆のやさしい味</p>
+                    <span class="price">¥880</span>
+                </div>
+                <div class="curry-card reveal">
+                    <span class="material-icons">set_meal</span>
+                    <h4>キーマカレー</h4>
+                    <p>スパイシー挽肉</p>
+                    <span class="price">¥980</span>
+                </div>
+                <div class="curry-card reveal">
+                    <span class="badge-popular">激辛</span>
+                    <span class="material-icons">whatshot</span>
+                    <h4>ビンダルー</h4>
+                    <p>激辛ポークカレー</p>
+                    <span class="price">¥1,180</span>
+                </div>
+                <div class="curry-card reveal">
+                    <span class="material-icons">cruelty_free</span>
+                    <h4>マトンカレー</h4>
+                    <p>骨付き羊肉</p>
+                    <span class="price">¥1,280</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="naan">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>ナン＆ライス</h2>
+            </div>
+            <div class="naan-grid">
+                <div class="naan-item reveal">
+                    <h4>プレーンナン</h4>
+                    <span class="price">¥300</span>
+                </div>
+                <div class="naan-item reveal">
+                    <h4>ガーリックナン</h4>
+                    <span class="price">¥400</span>
+                </div>
+                <div class="naan-item reveal">
+                    <h4>チーズナン</h4>
+                    <span class="price">¥450</span>
+                </div>
+                <div class="naan-item reveal">
+                    <h4>サフランライス</h4>
+                    <span class="price">¥300</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="set" class="set">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>お得なセット</h2>
+            </div>
+            <div class="set-grid">
+                <div class="set-card reveal">
+                    <h3>ランチセット</h3>
+                    <p>カレー1種 + ナン or ライス + サラダ + ドリンク</p>
+                    <span class="price">¥850〜</span>
+                </div>
+                <div class="set-card reveal">
+                    <h3>タンドールセット</h3>
+                    <p>タンドリーチキン + シークカバブ + カレー + ナン</p>
+                    <span class="price">¥1,680</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-logo">TAJ MAHAL</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>TEL: 03-0000-0000</p>
+            <p>営業: 11:00〜15:00 / 17:00〜22:00</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+                <a href="#"><span class="material-icons">restaurant_menu</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

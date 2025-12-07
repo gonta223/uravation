@@ -9,73 +9,292 @@
     <style>
         :root { --primary: #8B7355; --primary-dark: #6B5344; --accent: #C4A77D; --dark: #2D2D2D; --text: #444; --text-light: #888; --cream: #F9F6F1; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.6s, visibility 0.6s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .wheel-loader { width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.2); border-radius: 50%; position: relative; animation: spinWheel 2s linear infinite; }
+        .wheel-loader::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background: var(--accent); border-radius: 50%; }
+        @keyframes spinWheel { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .preloader-text { font-family: 'Zen Old Mincho', serif; color: var(--cream); margin-top: 30px; font-size: 1.3rem; letter-spacing: 0.2em; animation: fadeText 2s ease infinite; }
+        @keyframes fadeText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+
+        /* Header */
+        header { background: var(--white); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        header.scrolled { padding: 15px 0; box-shadow: 0 4px 30px rgba(139, 115, 85, 0.15); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--primary); }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; color: var(--primary); }
         nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
-        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; border-radius: 3px; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3rem; font-weight: 400; margin-bottom: 25px; letter-spacing: 0.15em; }
-        .hero p { opacity: 0.9; margin-bottom: 40px; font-size: 1.1rem; }
-        .btn-primary { background: var(--accent); color: var(--dark); padding: 16px 50px; text-decoration: none; display: inline-block; font-weight: 500; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; position: relative; transition: all 0.3s; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        nav a:hover::after { width: 100%; }
+        .btn-header { background: var(--primary); color: white; padding: 12px 28px; text-decoration: none; font-size: 0.9rem; border-radius: 3px; transition: all 0.3s; }
+        .btn-header:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Hero */
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='35' fill='none' stroke='%23fff' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 30px; letter-spacing: 0.2em; animation: fadeInDown 1.2s ease; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero p { opacity: 0.9; margin-bottom: 45px; font-size: 1.15rem; animation: fadeIn 1.2s ease 0.3s both; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 0.9; } }
+        .btn-primary { background: var(--accent); color: var(--dark); padding: 18px 55px; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.25); }
+
+        /* Floating elements */
+        .floating-clay { position: absolute; font-size: 3rem; opacity: 0.1; animation: floatClay 10s ease-in-out infinite; }
+        @keyframes floatClay { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-25px) rotate(10deg); } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         section { padding: 100px 0; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header .en { font-size: 0.8rem; color: var(--primary); letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
-        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--dark); }
-        .courses { background: var(--white); }
-        .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .course-card { text-align: center; padding: 40px 25px; background: var(--cream); border-radius: 5px; }
-        .course-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .course-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 500; }
-        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
-        .course-price { font-size: 1.3rem; color: var(--primary); font-weight: 500; }
+        .section-header .en { font-size: 0.85rem; color: var(--primary); letter-spacing: 0.3em; margin-bottom: 12px; display: block; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; color: var(--dark); position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 50px; height: 2px; background: var(--primary); }
+
+        /* Courses */
+        .courses { background: var(--white); position: relative; }
+        .courses::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='2' fill='%238B7355' fill-opacity='0.03'/%3E%3C/svg%3E"); }
+        .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; position: relative; }
+        .course-card { text-align: center; padding: 50px 30px; background: var(--cream); border-radius: 10px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-top: 4px solid transparent; }
+        .course-card:hover { transform: translateY(-12px); border-top-color: var(--primary); box-shadow: 0 25px 60px rgba(139, 115, 85, 0.2); }
+        .course-card .material-icons { font-size: 55px; color: var(--primary); margin-bottom: 25px; transition: all 0.4s; }
+        .course-card:hover .material-icons { transform: scale(1.1); }
+        .course-card h3 { font-size: 1.3rem; margin-bottom: 18px; font-weight: 500; color: var(--dark); }
+        .course-card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; }
+        .course-price { font-size: 1.5rem; color: var(--primary); font-weight: 500; }
+
+        /* Gallery */
         .gallery { background: var(--cream); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .gallery-item { height: 200px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; border-radius: 5px; }
-        .gallery-item .material-icons { font-size: 50px; color: white; opacity: 0.5; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .gallery-item { height: 220px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; transition: all 0.4s; }
+        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0); transition: background 0.4s; }
+        .gallery-item:hover::before { background: rgba(0,0,0,0.2); }
+        .gallery-item:hover { transform: scale(1.05); }
+        .gallery-item .material-icons { font-size: 55px; color: white; opacity: 0.5; transition: all 0.4s; }
+        .gallery-item:hover .material-icons { opacity: 0.8; transform: scale(1.1); }
+
+        /* Features */
         .features { background: var(--white); }
-        .features-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .feature-item { display: flex; gap: 20px; align-items: flex-start; }
-        .feature-icon { width: 60px; height: 60px; background: var(--cream); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .feature-icon .material-icons { font-size: 28px; color: var(--primary); }
-        .feature-item h4 { font-size: 1.1rem; margin-bottom: 8px; font-weight: 500; }
-        .feature-item p { font-size: 0.9rem; color: var(--text-light); }
-        .cta { background: var(--primary); color: white; text-align: center; padding: 100px 0; }
-        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 20px; }
-        .btn-white { background: white; color: var(--primary); padding: 16px 50px; text-decoration: none; display: inline-block; margin-top: 25px; font-weight: 500; }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; color: var(--accent); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
+        .features-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; }
+        .feature-item { display: flex; gap: 25px; align-items: flex-start; transition: all 0.3s; }
+        .feature-item:hover { transform: translateX(10px); }
+        .feature-icon { width: 70px; height: 70px; background: var(--cream); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; }
+        .feature-item:hover .feature-icon { background: var(--primary); }
+        .feature-item:hover .feature-icon .material-icons { color: white; }
+        .feature-icon .material-icons { font-size: 32px; color: var(--primary); transition: color 0.3s; }
+        .feature-item h4 { font-size: 1.15rem; margin-bottom: 10px; font-weight: 500; color: var(--dark); }
+        .feature-item p { font-size: 0.95rem; color: var(--text-light); }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+        .cta::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); }
+        .cta h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; margin-bottom: 20px; position: relative; }
+        .cta p { opacity: 0.9; margin-bottom: 35px; font-size: 1.05rem; }
+        .btn-white { background: white; color: var(--primary); padding: 18px 55px; text-decoration: none; display: inline-block; font-weight: 500; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.25); }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 25px; }
+        footer p { font-size: 0.95rem; opacity: 0.7; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 45px; height: 45px; border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--accent); color: var(--dark); transform: translateY(-3px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--accent); text-decoration: none; }
+
         @media (max-width: 1024px) { .courses-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .courses-grid, .features-list { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .courses-grid, .features-list { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">つちのうた</div><nav><ul><li><a href="#courses">コース</a></li><li><a href="#gallery">作品</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">体験予約</a></div></div></header>
-    <section class="hero"><div class="container"><h1>土と向き合う時間</h1><p>初心者から経験者まで、あなたのペースで陶芸を楽しめる教室</p><a href="#contact" class="btn-primary">体験レッスンを予約</a></div></section>
-    <section id="courses" class="courses"><div class="container"><div class="section-header"><span class="en">COURSES</span><h2>コース案内</h2></div><div class="courses-grid">
-        <div class="course-card"><span class="material-icons">explore</span><h3>体験コース</h3><p>初めての方向け。手びねりで作品を1点制作</p><span class="course-price">¥3,500〜</span></div>
-        <div class="course-card"><span class="material-icons">school</span><h3>基礎コース</h3><p>月4回。ろくろの基本から学べます</p><span class="course-price">¥12,000/月</span></div>
-        <div class="course-card"><span class="material-icons">workspace_premium</span><h3>自由制作コース</h3><p>経験者向け。自由に作品制作を楽しめます</p><span class="course-price">¥15,000/月</span></div>
-    </div></div></section>
-    <section id="gallery" class="gallery"><div class="container"><div class="section-header"><span class="en">GALLERY</span><h2>生徒作品</h2></div><div class="gallery-grid">
-        <div class="gallery-item"><span class="material-icons">coffee</span></div>
-        <div class="gallery-item"><span class="material-icons">rice_bowl</span></div>
-        <div class="gallery-item"><span class="material-icons">local_florist</span></div>
-        <div class="gallery-item"><span class="material-icons">dinner_dining</span></div>
-    </div></div></section>
-    <section class="features"><div class="container"><div class="section-header"><span class="en">FEATURES</span><h2>教室の特徴</h2></div><div class="features-list">
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">schedule</span></div><div><h4>フレックス制</h4><p>ご都合の良い時間に予約できます</p></div></div>
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">person</span></div><div><h4>少人数制</h4><p>丁寧な指導を受けられます</p></div></div>
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">build</span></div><div><h4>設備完備</h4><p>道具・材料はすべて揃っています</p></div></div>
-        <div class="feature-item"><div class="feature-icon"><span class="material-icons">local_shipping</span></div><div><h4>配送対応</h4><p>完成作品をご自宅へお届けします</p></div></div>
-    </div></div></section>
-    <section class="cta" id="contact"><div class="container"><h2>まずは体験から</h2><p style="opacity: 0.9;">お気軽にお問い合わせください</p><a href="#" class="btn-white">体験を予約する</a></div></section>
-    <footer><div class="container"><div class="footer-logo">陶芸工房 つちのうた</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="wheel-loader"></div>
+        <p class="preloader-text">つちのうた</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">つちのうた</div>
+                <nav>
+                    <ul>
+                        <li><a href="#courses">コース</a></li>
+                        <li><a href="#gallery">作品</a></li>
+                        <li><a href="#contact">お問い合わせ</a></li>
+                    </ul>
+                </nav>
+                <a href="#contact" class="btn-header">体験予約</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="floating-clay" style="top: 20%; left: 10%;">🏺</div>
+        <div class="floating-clay" style="top: 60%; left: 85%; animation-delay: -3s;">🫖</div>
+        <div class="floating-clay" style="top: 75%; left: 15%; animation-delay: -6s;">🍵</div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>土と向き合う時間</h1>
+                <p>初心者から経験者まで、あなたのペースで陶芸を楽しめる教室</p>
+                <a href="#contact" class="btn-primary">体験レッスンを予約</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="courses">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="en">COURSES</span>
+                <h2>コース案内</h2>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card reveal">
+                    <span class="material-icons">explore</span>
+                    <h3>体験コース</h3>
+                    <p>初めての方向け。手びねりで作品を1点制作</p>
+                    <span class="course-price">¥3,500〜</span>
+                </div>
+                <div class="course-card reveal">
+                    <span class="material-icons">school</span>
+                    <h3>基礎コース</h3>
+                    <p>月4回。ろくろの基本から学べます</p>
+                    <span class="course-price">¥12,000/月</span>
+                </div>
+                <div class="course-card reveal">
+                    <span class="material-icons">workspace_premium</span>
+                    <h3>自由制作コース</h3>
+                    <p>経験者向け。自由に作品制作を楽しめます</p>
+                    <span class="course-price">¥15,000/月</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="en">GALLERY</span>
+                <h2>生徒作品</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal"><span class="material-icons">coffee</span></div>
+                <div class="gallery-item reveal"><span class="material-icons">rice_bowl</span></div>
+                <div class="gallery-item reveal"><span class="material-icons">local_florist</span></div>
+                <div class="gallery-item reveal"><span class="material-icons">dinner_dining</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="en">FEATURES</span>
+                <h2>教室の特徴</h2>
+            </div>
+            <div class="features-list">
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><span class="material-icons">schedule</span></div>
+                    <div>
+                        <h4>フレックス制</h4>
+                        <p>ご都合の良い時間に予約できます</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><span class="material-icons">person</span></div>
+                    <div>
+                        <h4>少人数制</h4>
+                        <p>丁寧な指導を受けられます</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><span class="material-icons">build</span></div>
+                    <div>
+                        <h4>設備完備</h4>
+                        <p>道具・材料はすべて揃っています</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-icon"><span class="material-icons">local_shipping</span></div>
+                    <div>
+                        <h4>配送対応</h4>
+                        <p>完成作品をご自宅へお届けします</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2 class="reveal">まずは体験から</h2>
+            <p class="reveal">お気軽にお問い合わせください</p>
+            <a href="#" class="btn-white reveal">体験を予約する</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">陶芸工房 つちのうた</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>TEL: 03-0000-0000</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1800);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

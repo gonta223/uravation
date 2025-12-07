@@ -9,56 +9,280 @@
     <style>
         :root { --primary: #1A1A1A; --accent: #C9A227; --brown: #8B7355; --dark: #0D0D0D; --text: #333; --text-light: #666; --cream: #FAF8F3; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--primary); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); font-weight: 300; overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.8s, visibility 0.8s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-logo { font-family: 'Zen Old Mincho', serif; font-size: 5rem; color: var(--accent); letter-spacing: 0.4em; animation: shimmer 2s ease infinite; }
+        @keyframes shimmer { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+        .preloader-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-top: 20px; letter-spacing: 0.3em; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: var(--primary); padding: 25px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.5s ease; }
+        header.scrolled { padding: 15px 0; box-shadow: 0 5px 30px rgba(0,0,0,0.5); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; color: var(--accent); letter-spacing: 0.15em; }
-        nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; opacity: 0.9; }
-        .hero { padding: 220px 0 180px; background: var(--primary); color: white; text-align: center; }
-        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 5rem; font-weight: 400; margin-bottom: 25px; color: var(--accent); letter-spacing: 0.3em; }
-        .hero p { opacity: 0.8; font-size: 1rem; letter-spacing: 0.15em; }
-        section { padding: 100px 0; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--primary); letter-spacing: 0.1em; }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--accent); letter-spacing: 0.2em; }
+        nav ul { display: flex; gap: 50px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; opacity: 0.8; letter-spacing: 0.1em; transition: all 0.3s; }
+        nav a:hover { opacity: 1; color: var(--accent); }
+
+        /* Hero */
+        .hero { padding: 280px 0 220px; background: var(--primary); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, transparent 0%, var(--primary) 70%); }
+        .hero-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='%23C9A227' fill-opacity='0.02'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 8rem; font-weight: 400; margin-bottom: 30px; color: var(--accent); letter-spacing: 0.5em; animation: fadeIn 1.5s ease; text-shadow: 0 0 60px rgba(201,162,39,0.3); }
+        .hero-line { width: 100px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 40px auto; animation: expandLine 1.2s ease 0.5s both; }
+        .hero-tagline { font-size: 1.1rem; letter-spacing: 0.3em; opacity: 0.8; animation: fadeIn 1.5s ease 0.8s both; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes expandLine { from { width: 0; } to { width: 100px; } }
+
+        section { padding: 120px 0; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; color: var(--primary); letter-spacing: 0.15em; }
+
+        /* Concept */
         .concept { background: var(--white); }
-        .concept-content { max-width: 700px; margin: 0 auto; text-align: center; }
-        .concept-content p { font-size: 1rem; color: var(--text-light); line-height: 2.2; margin-bottom: 20px; }
+        .concept-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .concept-icon { width: 100px; height: 100px; border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; }
+        .concept-icon .material-icons { font-size: 45px; color: var(--accent); }
+        .concept-content p { font-size: 1.1rem; color: var(--text-light); line-height: 2.5; margin-bottom: 25px; letter-spacing: 0.05em; }
+        .concept-features { display: flex; justify-content: center; gap: 60px; margin-top: 60px; }
+        .concept-feature { text-align: center; }
+        .concept-feature .material-icons { font-size: 30px; color: var(--accent); margin-bottom: 15px; }
+        .concept-feature h4 { font-family: 'Zen Old Mincho', serif; font-size: 1rem; color: var(--primary); letter-spacing: 0.1em; }
+
+        /* Course */
         .course { background: var(--cream); }
-        .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .course-card { background: var(--white); padding: 50px 40px; border-left: 4px solid var(--accent); }
-        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.5rem; margin-bottom: 20px; color: var(--primary); }
-        .course-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 25px; line-height: 2; }
-        .course-price { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; color: var(--accent); }
+        .course-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px; }
+        .course-card { background: var(--white); padding: 60px 50px; border-left: 4px solid var(--accent); position: relative; transition: all 0.4s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        .course-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px rgba(201,162,39,0.15); }
+        .course-card::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 100%; background: linear-gradient(90deg, rgba(201,162,39,0.05), transparent); transition: width 0.4s; }
+        .course-card:hover::before { width: 100%; }
+        .course-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 25px; color: var(--primary); letter-spacing: 0.15em; position: relative; }
+        .course-card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 30px; line-height: 2.2; position: relative; }
+        .course-price { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; color: var(--accent); position: relative; }
+
+        /* Lunch */
         .lunch { background: var(--white); }
-        .lunch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .lunch-item { text-align: center; padding: 30px 20px; background: var(--cream); }
-        .lunch-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.2rem; margin-bottom: 12px; color: var(--primary); }
-        .lunch-item p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
-        .lunch-item .price { font-size: 1.3rem; color: var(--accent); }
-        footer { background: var(--primary); color: white; padding: 60px 0 30px; text-align: center; }
-        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 2rem; color: var(--accent); margin-bottom: 25px; letter-spacing: 0.2em; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 40px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; opacity: 0.5; }
+        .lunch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
+        .lunch-item { text-align: center; padding: 50px 30px; background: var(--cream); transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .lunch-item::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 50px; height: 3px; background: var(--accent); }
+        .lunch-item:hover { background: var(--primary); }
+        .lunch-item:hover h4, .lunch-item:hover p, .lunch-item:hover .price { color: var(--white); }
+        .lunch-item:hover .price { color: var(--accent); }
+        .lunch-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--primary); letter-spacing: 0.1em; transition: color 0.4s; }
+        .lunch-item p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; transition: color 0.4s; }
+        .lunch-item .price { font-size: 1.5rem; color: var(--accent); transition: color 0.4s; }
+
+        /* Counter */
+        .counter { background: var(--primary); color: white; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+        .counter::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23C9A227' fill-opacity='0.1'/%3E%3C/svg%3E"); }
+        .counter-content { position: relative; z-index: 2; }
+        .counter h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.5rem; color: var(--accent); margin-bottom: 25px; letter-spacing: 0.2em; }
+        .counter p { font-size: 1rem; opacity: 0.8; line-height: 2.2; max-width: 600px; margin: 0 auto; }
+
+        /* Footer */
+        footer { background: var(--primary); color: white; padding: 80px 0 40px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 3rem; color: var(--accent); margin-bottom: 15px; letter-spacing: 0.3em; }
+        .footer-sub { font-size: 0.9rem; opacity: 0.6; margin-bottom: 50px; letter-spacing: 0.2em; }
+        .footer-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 800px; margin: 0 auto 50px; text-align: center; }
+        .footer-info-item h4 { font-size: 0.85rem; color: var(--accent); margin-bottom: 15px; letter-spacing: 0.1em; }
+        .footer-info-item p { font-size: 0.9rem; opacity: 0.8; }
+        .footer-bottom { padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.4; }
         .footer-bottom a { color: var(--accent); text-decoration: none; }
-        @media (max-width: 1024px) { .course-grid, .lunch-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3rem; } }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) { .course-grid, .lunch-grid { grid-template-columns: 1fr; } .footer-info { grid-template-columns: 1fr; } .concept-features { flex-direction: column; gap: 30px; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 4rem; letter-spacing: 0.2em; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">天晴</div><nav><ul><li><a href="#concept">こだわり</a></li><li><a href="#course">コース</a></li><li><a href="#lunch">ランチ</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>天晴</h1><p>一つ一つ、丁寧に揚げる</p></div></section>
-    <section id="concept" class="concept"><div class="container"><div class="section-header"><h2>職人の技</h2></div><div class="concept-content"><p>創業より受け継ぐ秘伝の衣と、厳選した太白胡麻油。</p><p>素材の持ち味を最大限に引き出す、江戸前天ぷらの真髄をご堪能ください。</p></div></div></section>
-    <section id="course" class="course"><div class="container"><div class="section-header"><h2>おまかせコース</h2></div><div class="course-grid">
-        <div class="course-card"><h3>松</h3><p>季節の野菜と海鮮を織り交ぜた、当店自慢のコース。天茶付き。</p><span class="course-price">¥8,800</span></div>
-        <div class="course-card"><h3>竹</h3><p>人気の天ぷらを厳選した、お手頃コース。天丼か天茶をお選びいただけます。</p><span class="course-price">¥6,600</span></div>
-    </div></div></section>
-    <section id="lunch" class="lunch"><div class="container"><div class="section-header"><h2>ランチ</h2></div><div class="lunch-grid">
-        <div class="lunch-item"><h4>天丼</h4><p>海老2本、野菜3種</p><span class="price">¥1,500</span></div>
-        <div class="lunch-item"><h4>上天丼</h4><p>海老2本、穴子、野菜3種</p><span class="price">¥2,200</span></div>
-        <div class="lunch-item"><h4>天ぷら定食</h4><p>盛り合わせ、ご飯、味噌汁</p><span class="price">¥1,800</span></div>
-    </div></div></section>
-    <footer><div class="container"><div class="footer-logo">天ぷら 天晴</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000（要予約）</p><p>営業: 昼 11:30-14:00 / 夜 17:30-21:00</p><p>定休日: 月曜日</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="preloader-logo">天晴</div>
+        <div class="preloader-sub">天ぷら</div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">天晴</div>
+                <nav>
+                    <ul>
+                        <li><a href="#concept">こだわり</a></li>
+                        <li><a href="#course">コース</a></li>
+                        <li><a href="#lunch">ランチ</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-pattern"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>天晴</h1>
+                <div class="hero-line"></div>
+                <p class="hero-tagline">一つ一つ、丁寧に揚げる</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="concept" class="concept">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>職人の技</h2>
+            </div>
+            <div class="concept-content reveal">
+                <div class="concept-icon"><span class="material-icons">restaurant</span></div>
+                <p>創業より受け継ぐ秘伝の衣と、厳選した太白胡麻油。</p>
+                <p>素材の持ち味を最大限に引き出す、江戸前天ぷらの真髄をご堪能ください。</p>
+                <p>カウンター席では、揚げたてを一品ずつお出しいたします。</p>
+                <div class="concept-features">
+                    <div class="concept-feature">
+                        <span class="material-icons">local_florist</span>
+                        <h4>太白胡麻油</h4>
+                    </div>
+                    <div class="concept-feature">
+                        <span class="material-icons">front_hand</span>
+                        <h4>熟練の技</h4>
+                    </div>
+                    <div class="concept-feature">
+                        <span class="material-icons">eco</span>
+                        <h4>旬の食材</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="course" class="course">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>おまかせコース</h2>
+            </div>
+            <div class="course-grid">
+                <div class="course-card reveal">
+                    <h3>松</h3>
+                    <p>季節の野菜と海鮮を織り交ぜた、当店自慢のコース。天茶付き。前菜、天ぷら10品、天茶または天丼、デザート。</p>
+                    <span class="course-price">¥8,800</span>
+                </div>
+                <div class="course-card reveal">
+                    <h3>竹</h3>
+                    <p>人気の天ぷらを厳選した、お手頃コース。天丼か天茶をお選びいただけます。天ぷら7品、〆、デザート。</p>
+                    <span class="course-price">¥6,600</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lunch" class="lunch">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>ランチ</h2>
+            </div>
+            <div class="lunch-grid">
+                <div class="lunch-item reveal">
+                    <h4>天丼</h4>
+                    <p>海老2本、野菜3種</p>
+                    <span class="price">¥1,500</span>
+                </div>
+                <div class="lunch-item reveal">
+                    <h4>上天丼</h4>
+                    <p>海老2本、穴子、野菜3種</p>
+                    <span class="price">¥2,200</span>
+                </div>
+                <div class="lunch-item reveal">
+                    <h4>天ぷら定食</h4>
+                    <p>盛り合わせ、ご飯、味噌汁</p>
+                    <span class="price">¥1,800</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="counter">
+        <div class="counter-content">
+            <h2>カウンター席のすすめ</h2>
+            <p>目の前で揚げる臨場感と、揚げたてのサクサク食感。カウンター席ならではの贅沢な時間をお過ごしください。ご予約をお勧めいたします。</p>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-logo">天晴</div>
+            <p class="footer-sub">天ぷら</p>
+            <div class="footer-info">
+                <div class="footer-info-item">
+                    <h4>住所</h4>
+                    <p>〒000-0000<br>東京都○○区○○1-2-3</p>
+                </div>
+                <div class="footer-info-item">
+                    <h4>営業時間</h4>
+                    <p>昼 11:30-14:00<br>夜 17:30-21:00</p>
+                </div>
+                <div class="footer-info-item">
+                    <h4>定休日・ご予約</h4>
+                    <p>月曜日定休<br>TEL: 03-0000-0000</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

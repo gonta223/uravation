@@ -9,61 +9,353 @@
     <style>
         :root { --primary: #FF6B35; --primary-dark: #E85A2A; --accent: #FFD93D; --dark: #1A1A1A; --text: #333; --text-light: #666; --cream: #FFF8F0; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--dark); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.6s, visibility 0.6s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-logo { font-family: 'Righteous', cursive; font-size: 4rem; color: var(--primary); animation: spicePulse 1s ease infinite; }
+        @keyframes spicePulse { 0%, 100% { text-shadow: 0 0 20px rgba(255,107,53,0.5); } 50% { text-shadow: 0 0 40px rgba(255,107,53,0.8), 0 0 60px rgba(255,217,61,0.5); } }
+        .spice-loader { display: flex; gap: 10px; margin-top: 30px; }
+        .spice-dot { width: 12px; height: 12px; border-radius: 50%; animation: spiceBounce 0.6s ease infinite; }
+        .spice-dot:nth-child(1) { background: var(--primary); animation-delay: 0s; }
+        .spice-dot:nth-child(2) { background: var(--accent); animation-delay: 0.1s; }
+        .spice-dot:nth-child(3) { background: #FF8C00; animation-delay: 0.2s; }
+        .spice-dot:nth-child(4) { background: #DC143C; animation-delay: 0.3s; }
+        @keyframes spiceBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: var(--dark); padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s ease; }
+        header.scrolled { box-shadow: 0 5px 30px rgba(255,107,53,0.3); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Righteous', cursive; font-size: 1.8rem; color: var(--primary); }
-        nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Righteous', cursive; font-size: 4rem; margin-bottom: 20px; }
-        .hero p { opacity: 0.95; font-size: 1.1rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 1.8rem; color: var(--primary-dark); font-weight: 700; }
+        .logo { font-family: 'Righteous', cursive; font-size: 2rem; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--white); text-decoration: none; font-size: 0.95rem; position: relative; transition: color 0.3s; }
+        nav a::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        nav a:hover { color: var(--primary); }
+        nav a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { padding: 220px 0 160px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #8B0000 100%); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero-spices { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .floating-spice { position: absolute; font-size: 30px; opacity: 0.15; animation: floatSpice 8s ease-in-out infinite; }
+        .floating-spice:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-spice:nth-child(2) { top: 60%; left: 85%; animation-delay: 2s; }
+        .floating-spice:nth-child(3) { top: 40%; left: 70%; animation-delay: 4s; }
+        .floating-spice:nth-child(4) { top: 80%; left: 20%; animation-delay: 1s; }
+        @keyframes floatSpice { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(180deg); } }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Righteous', cursive; font-size: 6rem; margin-bottom: 25px; text-shadow: 4px 4px 20px rgba(0,0,0,0.3); animation: fadeInUp 1s ease; }
+        .hero-tagline { font-size: 1.3rem; opacity: 0.95; margin-bottom: 40px; animation: fadeInUp 1s ease 0.2s both; }
+        .hero-badge { display: inline-flex; gap: 20px; animation: fadeInUp 1s ease 0.4s both; }
+        .badge { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 25px; border-radius: 50px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .badge .material-icons { font-size: 20px; color: var(--accent); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.2rem; color: var(--primary-dark); font-weight: 700; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 2px; }
+
+        /* Spice */
         .spice { background: var(--white); }
-        .spice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .spice-item { padding: 25px 15px; background: var(--cream); border-radius: 10px; }
-        .spice-item .material-icons { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
-        .spice-item h4 { font-size: 0.95rem; margin-bottom: 5px; }
-        .spice-item p { font-size: 0.8rem; color: var(--text-light); }
+        .spice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .spice-item { padding: 40px 25px; background: var(--cream); border-radius: 20px; text-align: center; transition: all 0.4s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .spice-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0); transition: transform 0.4s; }
+        .spice-item:hover::before { transform: scaleX(1); }
+        .spice-item:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(255,107,53,0.2); }
+        .spice-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(255,107,53,0.3); }
+        .spice-icon .material-icons { font-size: 40px; color: white; }
+        .spice-item h4 { font-size: 1.1rem; margin-bottom: 8px; font-weight: 700; }
+        .spice-item p { font-size: 0.85rem; color: var(--text-light); }
+
+        /* Menu */
         .menu { background: var(--cream); }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-        .menu-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .menu-image { height: 180px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
-        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
-        .menu-content { padding: 25px; }
-        .menu-card h4 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
-        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
-        .menu-card .price { font-size: 1.3rem; color: var(--primary); font-weight: 700; }
-        .spice-level { display: flex; gap: 5px; margin-top: 10px; }
-        .spice-level span { width: 20px; height: 20px; background: #ddd; border-radius: 50%; }
-        .spice-level span.active { background: var(--primary); }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Righteous', cursive; font-size: 1.8rem; color: var(--primary); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; opacity: 0.5; }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .menu-card { background: var(--white); border-radius: 25px; overflow: hidden; box-shadow: 0 15px 50px rgba(0,0,0,0.08); transition: all 0.4s ease; }
+        .menu-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(255,107,53,0.15); }
+        .menu-image { height: 200px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .menu-image::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='2' fill='%23fff' fill-opacity='0.1'/%3E%3C/svg%3E"); }
+        .menu-image .material-icons { font-size: 80px; color: white; opacity: 0.4; position: relative; z-index: 2; }
+        .menu-content { padding: 35px; }
+        .menu-card h4 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; color: var(--dark); }
+        .menu-card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; }
+        .menu-footer { display: flex; justify-content: space-between; align-items: center; }
+        .menu-card .price { font-size: 1.6rem; color: var(--primary); font-weight: 900; }
+        .spice-level { display: flex; gap: 6px; }
+        .spice-level span { width: 22px; height: 22px; background: #e0e0e0; border-radius: 50%; transition: all 0.3s; }
+        .spice-level span.active { background: linear-gradient(135deg, var(--primary), #FF8C00); box-shadow: 0 3px 10px rgba(255,107,53,0.4); }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+        .cta::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='%23FFD93D' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+        .cta-content { position: relative; z-index: 2; }
+        .cta h2 { font-size: 3rem; margin-bottom: 20px; font-weight: 900; }
+        .cta p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; }
+        .cta-features { display: flex; justify-content: center; gap: 50px; margin-top: 40px; }
+        .cta-feature { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .cta-feature .material-icons { font-size: 40px; color: var(--accent); }
+        .cta-feature span { font-size: 0.95rem; }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 70px 0 35px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 50px; }
+        .footer-brand .logo { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .footer-brand p { font-size: 0.95rem; opacity: 0.7; line-height: 1.8; }
+        .footer-section h4 { color: var(--primary); font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; }
+        .footer-section p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 12px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
-        @media (max-width: 1024px) { .spice-grid { grid-template-columns: repeat(2, 1fr); } .menu-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) { .spice-grid { grid-template-columns: repeat(2, 1fr); } .menu-grid { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; text-align: center; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 3.5rem; } .hero-badge { flex-direction: column; } .cta-features { flex-direction: column; gap: 25px; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">MASALA</div><nav><ul><li><a href="#spice">スパイス</a></li><li><a href="#menu">メニュー</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>MASALA</h1><p>20種類以上のスパイスを調合した本格カレー</p></div></section>
-    <section id="spice" class="spice"><div class="container"><div class="section-header"><h2>こだわりのスパイス</h2></div><div class="spice-grid">
-        <div class="spice-item"><span class="material-icons">local_fire_department</span><h4>クミン</h4><p>香りの土台</p></div>
-        <div class="spice-item"><span class="material-icons">grass</span><h4>コリアンダー</h4><p>爽やかな香り</p></div>
-        <div class="spice-item"><span class="material-icons">whatshot</span><h4>カルダモン</h4><p>清涼感</p></div>
-        <div class="spice-item"><span class="material-icons">spa</span><h4>ターメリック</h4><p>鮮やかな色</p></div>
-    </div></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>メニュー</h2></div><div class="menu-grid">
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">restaurant</span></div><div class="menu-content"><h4>チキンカレー</h4><p>骨付きチキンをじっくり煮込んだ定番</p><span class="price">¥1,100</span><div class="spice-level"><span class="active"></span><span class="active"></span><span></span><span></span><span></span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">eco</span></div><div class="menu-content"><h4>キーマカレー</h4><p>スパイシーな挽肉カレー</p><span class="price">¥1,000</span><div class="spice-level"><span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">set_meal</span></div><div class="menu-content"><h4>野菜カレー</h4><p>季節野菜たっぷり</p><span class="price">¥950</span><div class="spice-level"><span class="active"></span><span></span><span></span><span></span><span></span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">whatshot</span></div><div class="menu-content"><h4>激辛カレー</h4><p>ブートジョロキア使用</p><span class="price">¥1,200</span><div class="spice-level"><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span><span class="active"></span></div></div></div>
-    </div></div></section>
-    <footer id="access"><div class="container"><div class="footer-logo">MASALA</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>営業: 11:30〜14:30 / 18:00〜22:00</p><p>定休日: 火曜</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="preloader-logo">MASALA</div>
+        <div class="spice-loader">
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">MASALA</div>
+                <nav>
+                    <ul>
+                        <li><a href="#spice">スパイス</a></li>
+                        <li><a href="#menu">メニュー</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-spices">
+            <span class="floating-spice material-icons">local_fire_department</span>
+            <span class="floating-spice material-icons">spa</span>
+            <span class="floating-spice material-icons">grass</span>
+            <span class="floating-spice material-icons">whatshot</span>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>MASALA</h1>
+                <p class="hero-tagline">20種類以上のスパイスを調合した本格カレー</p>
+                <div class="hero-badge">
+                    <span class="badge"><span class="material-icons">eco</span>自家調合スパイス</span>
+                    <span class="badge"><span class="material-icons">restaurant</span>本格インド製法</span>
+                    <span class="badge"><span class="material-icons">favorite</span>辛さ調整可</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="spice" class="spice">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>こだわりのスパイス</h2>
+            </div>
+            <div class="spice-grid">
+                <div class="spice-item reveal">
+                    <div class="spice-icon"><span class="material-icons">local_fire_department</span></div>
+                    <h4>クミン</h4>
+                    <p>香りの土台となる基本スパイス</p>
+                </div>
+                <div class="spice-item reveal">
+                    <div class="spice-icon"><span class="material-icons">grass</span></div>
+                    <h4>コリアンダー</h4>
+                    <p>爽やかで芳醇な香り</p>
+                </div>
+                <div class="spice-item reveal">
+                    <div class="spice-icon"><span class="material-icons">whatshot</span></div>
+                    <h4>カルダモン</h4>
+                    <p>清涼感のある高貴な香り</p>
+                </div>
+                <div class="spice-item reveal">
+                    <div class="spice-icon"><span class="material-icons">spa</span></div>
+                    <h4>ターメリック</h4>
+                    <p>鮮やかな黄金色の源</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>メニュー</h2>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card reveal">
+                    <div class="menu-image"><span class="material-icons">restaurant</span></div>
+                    <div class="menu-content">
+                        <h4>チキンカレー</h4>
+                        <p>骨付きチキンをじっくり煮込んだ定番。スパイスの香りが引き立つ一皿。</p>
+                        <div class="menu-footer">
+                            <span class="price">¥1,100</span>
+                            <div class="spice-level">
+                                <span class="active"></span>
+                                <span class="active"></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image"><span class="material-icons">eco</span></div>
+                    <div class="menu-content">
+                        <h4>キーマカレー</h4>
+                        <p>スパイシーな挽肉カレー。クミンとコリアンダーが香る本格派。</p>
+                        <div class="menu-footer">
+                            <span class="price">¥1,000</span>
+                            <div class="spice-level">
+                                <span class="active"></span>
+                                <span class="active"></span>
+                                <span class="active"></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image"><span class="material-icons">set_meal</span></div>
+                    <div class="menu-content">
+                        <h4>野菜カレー</h4>
+                        <p>季節野菜たっぷり。ヘルシーで彩り豊かなベジタリアンメニュー。</p>
+                        <div class="menu-footer">
+                            <span class="price">¥950</span>
+                            <div class="spice-level">
+                                <span class="active"></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image"><span class="material-icons">whatshot</span></div>
+                    <div class="menu-content">
+                        <h4>激辛カレー</h4>
+                        <p>ブートジョロキア使用。辛さに挑戦したい方へ。完食者には認定証進呈！</p>
+                        <div class="menu-footer">
+                            <span class="price">¥1,200</span>
+                            <div class="spice-level">
+                                <span class="active"></span>
+                                <span class="active"></span>
+                                <span class="active"></span>
+                                <span class="active"></span>
+                                <span class="active"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-content">
+            <h2>スパイスの香りに誘われて</h2>
+            <p>店内で挽くスパイスの香りが食欲をそそります</p>
+            <div class="cta-features">
+                <div class="cta-feature">
+                    <span class="material-icons">rice_bowl</span>
+                    <span>ライス大盛無料</span>
+                </div>
+                <div class="cta-feature">
+                    <span class="material-icons">local_fire_department</span>
+                    <span>辛さ5段階調整</span>
+                </div>
+                <div class="cta-feature">
+                    <span class="material-icons">takeout_dining</span>
+                    <span>テイクアウトOK</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo">MASALA</span>
+                    <p>本場インドの味を東京で。20種類以上のスパイスを毎日店内で調合しています。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>営業時間</h4>
+                    <p>11:30〜14:30</p>
+                    <p>18:00〜22:00</p>
+                    <p>定休日: 火曜</p>
+                </div>
+                <div class="footer-section">
+                    <h4>アクセス</h4>
+                    <p>〒000-0000</p>
+                    <p>東京都○○区○○1-2-3</p>
+                    <p>TEL: 03-0000-0000</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

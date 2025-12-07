@@ -9,56 +9,301 @@
     <style>
         :root { --primary: #E91E63; --secondary: #FF9800; --green: #4CAF50; --gold: #FFD700; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #FFF9F5; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s, visibility 0.5s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .thai-loader { display: flex; gap: 10px; }
+        .lotus-petal { width: 15px; height: 40px; background: white; border-radius: 50% 50% 0 0; transform-origin: bottom center; animation: lotusBloom 1.5s ease-in-out infinite; }
+        .lotus-petal:nth-child(1) { animation-delay: 0s; }
+        .lotus-petal:nth-child(2) { animation-delay: 0.1s; }
+        .lotus-petal:nth-child(3) { animation-delay: 0.2s; }
+        .lotus-petal:nth-child(4) { animation-delay: 0.3s; }
+        .lotus-petal:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes lotusBloom { 0%, 100% { transform: scaleY(0.3) rotate(-10deg); opacity: 0.5; } 50% { transform: scaleY(1) rotate(10deg); opacity: 1; } }
+        .preloader-text { color: white; font-family: 'Prompt', sans-serif; margin-top: 30px; font-size: 1.3rem; animation: fadeText 1.5s ease infinite; }
+        @keyframes fadeText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+        /* Header */
+        header { background: transparent; padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.4s; }
+        header.scrolled { background: var(--white); box-shadow: 0 4px 30px rgba(233, 30, 99, 0.15); }
+        header.scrolled .logo { color: var(--primary); }
+        header.scrolled nav a { color: var(--dark); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Prompt', sans-serif; font-size: 1.6rem; color: var(--primary); font-weight: 700; }
+        .logo { font-family: 'Prompt', sans-serif; font-size: 1.8rem; color: white; font-weight: 700; transition: color 0.4s; }
         nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Prompt', sans-serif; font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; }
-        .hero p { opacity: 0.95; font-size: 1.1rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Prompt', sans-serif; font-size: 1.8rem; color: var(--primary); }
-        .menu { background: var(--white); }
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .menu-card { background: var(--cream); border-radius: 15px; overflow: hidden; }
-        .menu-image { height: 160px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; }
-        .menu-image .material-icons { font-size: 60px; color: white; opacity: 0.5; }
-        .menu-content { padding: 25px; text-align: center; }
-        .menu-card h4 { font-size: 1.1rem; margin-bottom: 8px; font-weight: 700; }
-        .menu-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
-        .menu-card .price { font-size: 1.2rem; color: var(--primary); font-weight: 700; }
-        .spicy-level { display: flex; justify-content: center; gap: 3px; margin-top: 10px; }
-        .spicy-level span { font-size: 1rem; }
-        .lunch { background: var(--cream); }
-        .lunch-box { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 15px; text-align: center; border: 3px solid var(--primary); }
-        .lunch-box h3 { font-family: 'Prompt', sans-serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; }
-        .lunch-box p { margin-bottom: 10px; }
-        .lunch-box .price { font-size: 2rem; color: var(--secondary); font-weight: 700; }
-        footer { background: var(--dark); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Prompt', sans-serif; font-size: 1.6rem; color: var(--primary); margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
+        nav a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.3s; position: relative; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.3s; }
+        nav a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='25' fill='none' stroke='%23fff' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E"); }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Prompt', sans-serif; font-size: 4.5rem; font-weight: 700; margin-bottom: 20px; animation: bounceIn 1s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+        .hero p { opacity: 0.95; font-size: 1.2rem; animation: slideUp 1s ease 0.3s both; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Floating elements */
+        .floating-thai { position: absolute; font-size: 2.5rem; opacity: 0.2; animation: floatThai 8s ease-in-out infinite; }
+        @keyframes floatThai { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-25px) rotate(15deg); } }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Prompt', sans-serif; font-size: 2.2rem; color: var(--primary); position: relative; display: inline-block; }
+        .section-header h2::after { content: '🌸'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; }
+
+        /* Menu */
+        .menu { background: var(--white); position: relative; }
+        .menu::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 10 Q50 30 40 50 Q30 30 40 10' fill='%23E91E63' fill-opacity='0.03'/%3E%3C/svg%3E"); }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; position: relative; }
+        .menu-card { background: var(--cream); border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .menu-card:hover { transform: translateY(-15px); box-shadow: 0 25px 60px rgba(233, 30, 99, 0.2); }
+        .menu-image { height: 180px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .menu-image::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%); animation: shimmer 3s ease-in-out infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        .menu-image .material-icons { font-size: 70px; color: white; opacity: 0.5; transition: all 0.4s; }
+        .menu-card:hover .menu-image .material-icons { transform: scale(1.2); opacity: 0.7; }
+        .menu-content { padding: 30px; text-align: center; }
+        .menu-card h4 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; color: var(--dark); }
+        .menu-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+        .menu-card .price { font-size: 1.4rem; color: var(--primary); font-weight: 700; }
+        .spicy-level { display: flex; justify-content: center; gap: 5px; margin-top: 12px; }
+        .spicy-level span { font-size: 1.1rem; transition: transform 0.3s; }
+        .menu-card:hover .spicy-level span { animation: spicyBounce 0.5s ease infinite; }
+        @keyframes spicyBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        /* Lunch */
+        .lunch { background: var(--cream); position: relative; }
+        .lunch-box { max-width: 650px; margin: 0 auto; background: var(--white); padding: 50px; border-radius: 25px; text-align: center; border: 4px solid var(--primary); position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(233, 30, 99, 0.15); }
+        .lunch-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary)); }
+        .lunch-box h3 { font-family: 'Prompt', sans-serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 25px; }
+        .lunch-box p { margin-bottom: 15px; font-size: 1.05rem; }
+        .lunch-box .price { font-size: 2.5rem; color: var(--secondary); font-weight: 700; display: block; margin-top: 20px; }
+        .lunch-badge { position: absolute; top: 20px; right: -35px; background: var(--secondary); color: white; padding: 8px 50px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 700; }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 60px 0 30px; text-align: center; position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--green)); }
+        .footer-logo { font-family: 'Prompt', sans-serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 25px; }
+        footer p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 12px; }
+        .footer-social { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+        .footer-social a { width: 50px; height: 50px; border: 2px solid var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); transition: all 0.3s; }
+        .footer-social a:hover { background: var(--primary); color: white; transform: translateY(-5px); }
+        .footer-bottom { margin-top: 35px; padding-top: 25px; border-top: 1px solid #444; font-size: 0.85rem; opacity: 0.5; }
         .footer-bottom a { color: var(--primary); text-decoration: none; }
+
         @media (max-width: 1024px) { .menu-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.2rem; } .menu-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.8rem; } .menu-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">SABAI SABAI</div><nav><ul><li><a href="#menu">メニュー</a></li><li><a href="#lunch">ランチ</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>SABAI SABAI</h1><p>本場タイの味を、気軽に楽しめるお店</p></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>人気メニュー</h2></div><div class="menu-grid">
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">ramen_dining</span></div><div class="menu-content"><h4>トムヤムクン</h4><p>海老たっぷり酸辣スープ</p><span class="price">¥1,280</span><div class="spicy-level"><span>🌶️</span><span>🌶️</span><span>🌶️</span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">restaurant</span></div><div class="menu-content"><h4>ガパオライス</h4><p>鶏挽肉バジル炒めご飯</p><span class="price">¥980</span><div class="spicy-level"><span>🌶️</span><span>🌶️</span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">set_meal</span></div><div class="menu-content"><h4>パッタイ</h4><p>タイ風焼きそば</p><span class="price">¥1,080</span><div class="spicy-level"><span>🌶️</span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">soup_kitchen</span></div><div class="menu-content"><h4>グリーンカレー</h4><p>ココナッツ香る辛口</p><span class="price">¥1,180</span><div class="spicy-level"><span>🌶️</span><span>🌶️</span><span>🌶️</span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">eco</span></div><div class="menu-content"><h4>ソムタム</h4><p>青パパイヤサラダ</p><span class="price">¥780</span><div class="spicy-level"><span>🌶️</span><span>🌶️</span></div></div></div>
-        <div class="menu-card"><div class="menu-image"><span class="material-icons">rice_bowl</span></div><div class="menu-content"><h4>カオマンガイ</h4><p>タイ式チキンライス</p><span class="price">¥980</span><div class="spicy-level"><span></span></div></div></div>
-    </div></div></section>
-    <section id="lunch" class="lunch"><div class="container"><div class="section-header"><h2>お得なランチ</h2></div><div class="lunch-box"><h3>ランチセット</h3><p>メイン1品 + ミニサラダ + スープ + ドリンク</p><p style="font-size: 0.9rem; color: var(--text-light);">11:30〜14:30 平日限定</p><span class="price">¥900〜</span></div></div></section>
-    <footer id="access"><div class="container"><div class="footer-logo">SABAI SABAI</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 03-0000-0000</p><p>営業: 11:30〜14:30 / 17:30〜22:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="thai-loader">
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+        </div>
+        <p class="preloader-text">SABAI SABAI</p>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">SABAI SABAI</div>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">メニュー</a></li>
+                        <li><a href="#lunch">ランチ</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="floating-thai" style="top: 15%; left: 10%;">🪷</div>
+        <div class="floating-thai" style="top: 60%; left: 85%; animation-delay: -2s;">🌶️</div>
+        <div class="floating-thai" style="top: 75%; left: 15%; animation-delay: -4s;">🥥</div>
+        <div class="floating-thai" style="top: 25%; left: 88%; animation-delay: -6s;">🍋</div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>SABAI SABAI</h1>
+                <p>本場タイの味を、気軽に楽しめるお店</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>人気メニュー</h2>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">ramen_dining</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>トムヤムクン</h4>
+                        <p>海老たっぷり酸辣スープ</p>
+                        <span class="price">¥1,280</span>
+                        <div class="spicy-level">
+                            <span>🌶️</span><span>🌶️</span><span>🌶️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">restaurant</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>ガパオライス</h4>
+                        <p>鶏挽肉バジル炒めご飯</p>
+                        <span class="price">¥980</span>
+                        <div class="spicy-level">
+                            <span>🌶️</span><span>🌶️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">set_meal</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>パッタイ</h4>
+                        <p>タイ風焼きそば</p>
+                        <span class="price">¥1,080</span>
+                        <div class="spicy-level">
+                            <span>🌶️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">soup_kitchen</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>グリーンカレー</h4>
+                        <p>ココナッツ香る辛口</p>
+                        <span class="price">¥1,180</span>
+                        <div class="spicy-level">
+                            <span>🌶️</span><span>🌶️</span><span>🌶️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">eco</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>ソムタム</h4>
+                        <p>青パパイヤサラダ</p>
+                        <span class="price">¥780</span>
+                        <div class="spicy-level">
+                            <span>🌶️</span><span>🌶️</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card reveal">
+                    <div class="menu-image">
+                        <span class="material-icons">rice_bowl</span>
+                    </div>
+                    <div class="menu-content">
+                        <h4>カオマンガイ</h4>
+                        <p>タイ式チキンライス</p>
+                        <span class="price">¥980</span>
+                        <div class="spicy-level">
+                            <span style="opacity: 0.3;">🌶️</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lunch" class="lunch">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>お得なランチ</h2>
+            </div>
+            <div class="lunch-box reveal">
+                <span class="lunch-badge">平日限定</span>
+                <h3>ランチセット</h3>
+                <p>メイン1品 + ミニサラダ + スープ + ドリンク</p>
+                <p style="font-size: 0.95rem; color: var(--text-light);">11:30〜14:30</p>
+                <span class="price">¥900〜</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-logo">SABAI SABAI</div>
+            <p>〒000-0000 東京都○○区○○1-2-3</p>
+            <p>TEL: 03-0000-0000</p>
+            <p>営業: 11:30〜14:30 / 17:30〜22:00</p>
+            <div class="footer-social">
+                <a href="#"><span class="material-icons">tag</span></a>
+                <a href="#"><span class="material-icons">photo_camera</span></a>
+                <a href="#"><span class="material-icons">restaurant_menu</span></a>
+            </div>
+            <div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -9,65 +9,317 @@
     <style>
         :root { --primary: #D4A574; --primary-dark: #B8956A; --accent: #8B7355; --dark: #2D2D2D; --text: #333; --text-light: #666; --cream: #FDF8F3; --white: #FFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.9; background: var(--cream); overflow-x: hidden; }
+
+        /* Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.6s, visibility 0.6s; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 3rem; color: var(--white); font-weight: 700; margin-bottom: 30px; }
+        .noodle-loader { display: flex; gap: 5px; }
+        .noodle { width: 4px; height: 40px; background: var(--white); border-radius: 2px; animation: noodleDance 0.6s ease infinite; }
+        .noodle:nth-child(2) { animation-delay: 0.1s; }
+        .noodle:nth-child(3) { animation-delay: 0.2s; }
+        .noodle:nth-child(4) { animation-delay: 0.3s; }
+        .noodle:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes noodleDance { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); transition: all 0.4s ease; }
+        header.scrolled { box-shadow: 0 5px 30px rgba(0,0,0,0.12); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; color: var(--accent); font-weight: 700; }
-        nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; }
-        .hero { padding: 180px 0 120px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-align: center; }
-        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 20px; }
-        .hero p { opacity: 0.95; font-size: 1.1rem; }
-        section { padding: 80px 0; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--accent); }
+        .logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; color: var(--accent); font-weight: 700; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 0.9rem; font-weight: 500; position: relative; transition: color 0.3s; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        nav a:hover { color: var(--primary); }
+        nav a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { padding: 200px 0 150px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; text-align: center; position: relative; overflow: hidden; }
+        .hero-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='2' fill='%23fff' fill-opacity='0.08'/%3E%3C/svg%3E"); }
+        .hero-wheat { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .wheat { position: absolute; font-size: 40px; opacity: 0.1; animation: floatWheat 6s ease-in-out infinite; }
+        .wheat:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .wheat:nth-child(2) { top: 60%; left: 85%; animation-delay: 1s; }
+        .wheat:nth-child(3) { top: 80%; left: 30%; animation-delay: 2s; }
+        @keyframes floatWheat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 4rem; font-weight: 700; margin-bottom: 25px; animation: fadeInUp 1s ease; }
+        .hero-tagline { font-size: 1.2rem; opacity: 0.95; margin-bottom: 40px; animation: fadeInUp 1s ease 0.2s both; }
+        .hero-badge { display: inline-flex; gap: 20px; animation: fadeInUp 1s ease 0.4s both; }
+        .badge { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 12px 25px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2rem; color: var(--accent); font-weight: 700; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 50px; height: 3px; background: var(--primary); border-radius: 2px; }
+
+        /* Features */
         .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .feature-card { text-align: center; padding: 35px 20px; }
-        .feature-card .material-icons { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; }
-        .feature-card p { font-size: 0.9rem; color: var(--text-light); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .feature-card { text-align: center; padding: 50px 30px; background: var(--cream); border-radius: 20px; transition: all 0.4s ease; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(212,165,116,0.2); }
+        .feature-icon { width: 90px; height: 90px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; box-shadow: 0 10px 30px rgba(212,165,116,0.3); }
+        .feature-icon .material-icons { font-size: 45px; color: white; }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; color: var(--accent); }
+        .feature-card p { font-size: 0.95rem; color: var(--text-light); line-height: 1.8; }
+
+        /* Menu */
         .menu { background: var(--cream); }
-        .menu-list { max-width: 700px; margin: 0 auto; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px dashed var(--primary); }
-        .menu-item h4 { font-size: 1.1rem; margin-bottom: 5px; }
-        .menu-item p { font-size: 0.85rem; color: var(--text-light); }
-        .menu-item .price { font-size: 1.2rem; color: var(--accent); font-weight: 700; }
+        .menu-list { max-width: 800px; margin: 0 auto; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 30px; background: var(--white); margin-bottom: 15px; border-radius: 15px; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .menu-item:hover { transform: translateX(10px); box-shadow: 0 10px 30px rgba(212,165,116,0.15); }
+        .menu-item h4 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 700; color: var(--dark); }
+        .menu-item p { font-size: 0.9rem; color: var(--text-light); }
+        .menu-item .price { font-size: 1.4rem; color: var(--primary); font-weight: 700; }
+
+        /* Gallery */
         .gallery { background: var(--white); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .gallery-item { height: 150px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-        .gallery-item .material-icons { font-size: 40px; color: white; opacity: 0.5; }
-        footer { background: var(--accent); color: white; padding: 50px 0 25px; text-align: center; }
-        .footer-logo { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; margin-bottom: 20px; }
-        footer p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.85rem; opacity: 0.7; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { height: 180px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; border-radius: 15px; transition: all 0.4s ease; cursor: pointer; overflow: hidden; position: relative; }
+        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0); transition: background 0.3s; }
+        .gallery-item:hover::before { background: rgba(0,0,0,0.2); }
+        .gallery-item:hover { transform: scale(1.05); }
+        .gallery-item .material-icons { font-size: 50px; color: white; opacity: 0.5; position: relative; z-index: 2; }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg, var(--accent), var(--primary-dark)); color: white; text-align: center; padding: 80px 0; }
+        .cta h2 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+        .cta-note { background: rgba(255,255,255,0.15); padding: 20px 40px; border-radius: 10px; display: inline-block; }
+        .cta-note p { margin: 0; font-size: 1rem; }
+
+        /* Footer */
+        footer { background: var(--accent); color: white; padding: 60px 0 30px; text-align: center; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 40px; text-align: left; }
+        .footer-brand .logo { font-size: 2rem; color: var(--white); margin-bottom: 15px; display: block; }
+        .footer-brand p { font-size: 0.9rem; opacity: 0.8; line-height: 1.8; }
+        .footer-section h4 { font-size: 1rem; margin-bottom: 20px; font-weight: 700; }
+        .footer-section p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.85rem; opacity: 0.6; }
         .footer-bottom a { color: var(--cream); text-decoration: none; }
-        @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2rem; } .features-grid, .gallery-grid { grid-template-columns: 1fr; } }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid { grid-template-columns: repeat(2, 1fr); } .footer-content { grid-template-columns: 1fr; text-align: center; } }
+        @media (max-width: 768px) { nav { display: none; } .hero h1 { font-size: 2.5rem; } .features-grid, .gallery-grid { grid-template-columns: 1fr; } .hero-badge { flex-direction: column; } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">麦の道</div><nav><ul><li><a href="#features">こだわり</a></li><li><a href="#menu">メニュー</a></li><li><a href="#access">アクセス</a></li></ul></nav></div></div></header>
-    <section class="hero"><div class="container"><h1>讃岐うどん 麦の道</h1><p>本場讃岐の味を、毎日手打ちでお届けします</p></div></section>
-    <section id="features" class="features"><div class="container"><div class="section-header"><h2>こだわり</h2></div><div class="features-grid">
-        <div class="feature-card"><span class="material-icons">grain</span><h3>厳選小麦</h3><p>香川県産の小麦粉を使用</p></div>
-        <div class="feature-card"><span class="material-icons">water_drop</span><h3>天然出汁</h3><p>いりこと昆布の天然出汁</p></div>
-        <div class="feature-card"><span class="material-icons">schedule</span><h3>毎日手打ち</h3><p>その日の分だけ打ちたて</p></div>
-    </div></div></section>
-    <section id="menu" class="menu"><div class="container"><div class="section-header"><h2>メニュー</h2></div><div class="menu-list">
-        <div class="menu-item"><div><h4>かけうどん</h4><p>シンプルに出汁を味わう</p></div><span class="price">¥450</span></div>
-        <div class="menu-item"><div><h4>ぶっかけうどん</h4><p>冷たい麺に特製たれ</p></div><span class="price">¥550</span></div>
-        <div class="menu-item"><div><h4>釜揚げうどん</h4><p>茹でたてをつけ汁で</p></div><span class="price">¥500</span></div>
-        <div class="menu-item"><div><h4>肉うどん</h4><p>甘辛く炊いた牛肉たっぷり</p></div><span class="price">¥750</span></div>
-        <div class="menu-item"><div><h4>天ぷらうどん</h4><p>サクサク天ぷら付き</p></div><span class="price">¥800</span></div>
-    </div></div></section>
-    <section class="gallery"><div class="container"><div class="section-header"><h2>店内の様子</h2></div><div class="gallery-grid">
-        <div class="gallery-item"><span class="material-icons">ramen_dining</span></div>
-        <div class="gallery-item"><span class="material-icons">storefront</span></div>
-        <div class="gallery-item"><span class="material-icons">soup_kitchen</span></div>
-        <div class="gallery-item"><span class="material-icons">table_restaurant</span></div>
-    </div></div></section>
-    <footer id="access"><div class="container"><div class="footer-logo">讃岐うどん 麦の道</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>営業: 11:00〜15:00（売切次第終了）</p><p>定休日: 日曜</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <div class="preloader">
+        <div class="preloader-logo">麦の道</div>
+        <div class="noodle-loader">
+            <div class="noodle"></div>
+            <div class="noodle"></div>
+            <div class="noodle"></div>
+            <div class="noodle"></div>
+            <div class="noodle"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">麦の道</div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">こだわり</a></li>
+                        <li><a href="#menu">メニュー</a></li>
+                        <li><a href="#gallery">店内</a></li>
+                        <li><a href="#access">アクセス</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-wheat">
+            <span class="wheat material-icons">grass</span>
+            <span class="wheat material-icons">grass</span>
+            <span class="wheat material-icons">grass</span>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>讃岐うどん 麦の道</h1>
+                <p class="hero-tagline">本場讃岐の味を、毎日手打ちでお届けします</p>
+                <div class="hero-badge">
+                    <span class="badge">香川県産小麦100%</span>
+                    <span class="badge">毎朝手打ち</span>
+                    <span class="badge">天然出汁</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>こだわり</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><span class="material-icons">grain</span></div>
+                    <h3>厳選小麦</h3>
+                    <p>香川県産の「さぬきの夢」を使用。讃岐うどんのためだけに開発された小麦粉です。</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><span class="material-icons">water_drop</span></div>
+                    <h3>天然出汁</h3>
+                    <p>いりこと昆布から丁寧に取った天然出汁。素材の旨みが詰まっています。</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><span class="material-icons">schedule</span></div>
+                    <h3>毎日手打ち</h3>
+                    <p>その日の分だけ朝から手打ち。打ちたてのコシと喉越しをお楽しみください。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>メニュー</h2>
+            </div>
+            <div class="menu-list">
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>かけうどん</h4>
+                        <p>シンプルに出汁を味わう定番メニュー</p>
+                    </div>
+                    <span class="price">¥450</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>ぶっかけうどん</h4>
+                        <p>冷たい麺に特製だれをかけて</p>
+                    </div>
+                    <span class="price">¥550</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>釜揚げうどん</h4>
+                        <p>茹でたてをつけ汁で。一番人気！</p>
+                    </div>
+                    <span class="price">¥500</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>肉うどん</h4>
+                        <p>甘辛く炊いた牛肉をたっぷりと</p>
+                    </div>
+                    <span class="price">¥750</span>
+                </div>
+                <div class="menu-item reveal">
+                    <div>
+                        <h4>天ぷらうどん</h4>
+                        <p>サクサクの天ぷらをのせて</p>
+                    </div>
+                    <span class="price">¥800</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>店内の様子</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal"><span class="material-icons">ramen_dining</span></div>
+                <div class="gallery-item reveal"><span class="material-icons">storefront</span></div>
+                <div class="gallery-item reveal"><span class="material-icons">soup_kitchen</span></div>
+                <div class="gallery-item reveal"><span class="material-icons">table_restaurant</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>本日も打ちたてでお待ちしております</h2>
+            <p>売り切れ次第終了となりますので、お早めにどうぞ</p>
+            <div class="cta-note">
+                <p>営業時間: 11:00〜15:00（売切次第終了）</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo">讃岐うどん 麦の道</span>
+                    <p>本場香川の味を東京で。毎朝手打ちする讃岐うどんをお楽しみください。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>営業時間</h4>
+                    <p>11:00〜15:00</p>
+                    <p>売切次第終了</p>
+                    <p>定休日: 日曜</p>
+                </div>
+                <div class="footer-section">
+                    <h4>アクセス</h4>
+                    <p>〒000-0000</p>
+                    <p>東京都○○区○○1-2-3</p>
+                    <p>TEL: 03-0000-0000</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
