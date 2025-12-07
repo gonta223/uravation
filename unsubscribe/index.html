@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解約・退会 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 40px; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 60px 20px; }
+
+        .page-header { text-align: center; margin-bottom: 50px; }
+        .sad-icon { font-size: 4rem; margin-bottom: 20px; }
+        .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .page-header p { color: #64748b; font-size: 1.05rem; line-height: 1.7; }
+
+        .retention-offer { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 20px; padding: 35px; color: white; margin-bottom: 30px; text-align: center; }
+        .retention-offer h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .retention-offer p { font-size: 1rem; opacity: 0.9; margin-bottom: 25px; }
+        .offer-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 12px; font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; }
+        .offer-btn { display: inline-block; padding: 14px 30px; background: white; color: #6366f1; border-radius: 10px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .offer-btn:hover { transform: translateY(-2px); }
+
+        .cancel-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .cancel-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+
+        .reason-list { display: flex; flex-direction: column; gap: 12px; }
+        .reason-item { display: flex; align-items: center; padding: 16px 18px; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.3s; }
+        .reason-item:hover { border-color: #6366f1; }
+        .reason-item.selected { border-color: #6366f1; background: rgba(99, 102, 241, 0.05); }
+        .reason-radio { width: 22px; height: 22px; border: 2px solid #cbd5e1; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .reason-item.selected .reason-radio { border-color: #6366f1; }
+        .reason-item.selected .reason-radio::after { content: ''; width: 10px; height: 10px; background: #6366f1; border-radius: 50%; }
+        .reason-text { font-size: 0.95rem; }
+
+        .feedback-section { margin-top: 25px; display: none; }
+        .feedback-section.active { display: block; }
+        .feedback-section label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 10px; }
+        .feedback-section textarea { width: 100%; min-height: 120px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; resize: vertical; }
+        .feedback-section textarea:focus { outline: none; border-color: #6366f1; }
+
+        .account-summary { background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 25px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 10px 0; }
+        .summary-row .label { color: #64748b; font-size: 0.9rem; }
+        .summary-row .value { font-weight: 600; }
+        .summary-row.total { border-top: 2px solid #e2e8f0; margin-top: 10px; padding-top: 15px; }
+
+        .warning-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 12px; padding: 20px; margin-bottom: 25px; display: flex; gap: 15px; }
+        .warning-box .icon { font-size: 1.5rem; }
+        .warning-box .text h4 { font-size: 0.95rem; font-weight: 600; color: #92400e; margin-bottom: 5px; }
+        .warning-box .text p { font-size: 0.9rem; color: #a16207; line-height: 1.6; }
+
+        .action-buttons { display: flex; gap: 15px; }
+        .action-btn { flex: 1; padding: 16px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: center; text-decoration: none; }
+        .action-btn.cancel { background: #ef4444; color: white; border: none; }
+        .action-btn.cancel:hover { background: #dc2626; }
+        .action-btn.keep { background: white; color: #6366f1; border: 2px solid #6366f1; }
+        .action-btn.keep:hover { background: #6366f1; color: white; }
+
+        .help-section { margin-top: 40px; text-align: center; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .help-section h4 { font-size: 1rem; font-weight: 600; margin-bottom: 15px; }
+        .help-section p { color: #64748b; font-size: 0.95rem; margin-bottom: 20px; }
+        .help-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .help-links a { color: #6366f1; text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+
+        @media (max-width: 500px) {
+            .container { padding: 40px 15px; }
+            .cancel-card { padding: 25px 20px; }
+            .action-buttons { flex-direction: column; }
+            .offer-badge { font-size: 1.1rem; padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="sad-icon">😢</div>
+            <h1>本当に解約されますか？</h1>
+            <p>ご解約の前に、もう少しだけお時間をいただけませんか？</p>
+        </div>
+
+        <div class="retention-offer">
+            <h3>🎁 特別なご提案</h3>
+            <p>解約をお考えの方限定で、特別割引をご用意しました</p>
+            <div class="offer-badge">次回更新 50% OFF</div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">このオファーは今だけ有効です</p>
+            <a href="#" class="offer-btn">オファーを適用して継続する</a>
+        </div>
+
+        <div class="cancel-card">
+            <h3>📝 解約理由をお聞かせください</h3>
+            <div class="reason-list">
+                <div class="reason-item">
+                    <div class="reason-radio"></div>
+                    <span class="reason-text">料金が高い</span>
+                </div>
+                <div class="reason-item selected">
+                    <div class="reason-radio"></div>
+                    <span class="reason-text">使用頻度が低い</span>
+                </div>
+                <div class="reason-item">
+                    <div class="reason-radio"></div>
+                    <span class="reason-text">必要な機能がない</span>
+                </div>
+                <div class="reason-item">
+                    <div class="reason-radio"></div>
+                    <span class="reason-text">他のサービスに乗り換える</span>
+                </div>
+                <div class="reason-item">
+                    <div class="reason-radio"></div>
+                    <span class="reason-text">一時的に利用を停止したい</span>
+                </div>
+                <div class="reason-item">
+                    <div class="reason-radio"></div>
+                    <span class="reason-text">その他</span>
+                </div>
+            </div>
+
+            <div class="feedback-section active">
+                <label>詳しくお聞かせください（任意）</label>
+                <textarea placeholder="改善のためにご意見をお聞かせください..."></textarea>
+            </div>
+        </div>
+
+        <div class="cancel-card">
+            <h3>📊 ご利用状況</h3>
+            <div class="account-summary">
+                <div class="summary-row">
+                    <span class="label">現在のプラン</span>
+                    <span class="value">Pro プラン</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">ご利用期間</span>
+                    <span class="value">8ヶ月</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">次回請求日</span>
+                    <span class="value">2025年1月7日</span>
+                </div>
+                <div class="summary-row">
+                    <span class="label">作成したプロジェクト</span>
+                    <span class="value">24件</span>
+                </div>
+                <div class="summary-row total">
+                    <span class="label">保存されているデータ</span>
+                    <span class="value">2.4 GB</span>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <div class="icon">⚠️</div>
+                <div class="text">
+                    <h4>解約後のデータについて</h4>
+                    <p>解約後30日間はデータが保持されます。それ以降は完全に削除され、復元することはできません。</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#" class="action-btn keep">やっぱり継続する</a>
+                <button class="action-btn cancel">解約を確定する</button>
+            </div>
+        </div>
+
+        <div class="help-section">
+            <h4>お困りのことはありませんか？</h4>
+            <p>解約の前に、サポートチームにご相談いただければ、問題解決のお手伝いができるかもしれません。</p>
+            <div class="help-links">
+                <a href="#">💬 チャットで相談</a>
+                <a href="#">📧 メールで問い合わせ</a>
+                <a href="#">📞 電話サポート</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニュースレター購読 - TechNews</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+
+        .page-container { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+
+        .left-section { padding: 60px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .left-section::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%); }
+
+        .logo { font-size: 1.5rem; font-weight: 900; position: absolute; top: 40px; left: 60px; }
+
+        .newsletter-content { position: relative; z-index: 10; max-width: 500px; }
+        .badge { display: inline-block; background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 30px; }
+        .newsletter-content h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; letter-spacing: -2px; }
+        .newsletter-content h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .newsletter-content p { font-size: 1.2rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 40px; }
+
+        .subscribe-form { display: flex; gap: 12px; margin-bottom: 30px; }
+        .subscribe-form input { flex: 1; padding: 18px 24px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; color: white; font-size: 1rem; }
+        .subscribe-form input::placeholder { color: rgba(255,255,255,0.4); }
+        .subscribe-form input:focus { outline: none; border-color: #6366f1; }
+        .subscribe-form button { padding: 18px 35px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+        .subscribe-form button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        .trust-signals { display: flex; gap: 25px; flex-wrap: wrap; }
+        .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+        .trust-item span:first-child { color: #22c55e; }
+
+        .subscriber-count { margin-top: 50px; display: flex; align-items: center; gap: 15px; }
+        .avatar-stack { display: flex; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #0f172a; margin-left: -12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .avatar:first-child { margin-left: 0; }
+        .avatar:nth-child(1) { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .avatar:nth-child(2) { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .avatar:nth-child(3) { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .avatar:nth-child(4) { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .subscriber-info p { font-size: 0.95rem; }
+        .subscriber-info p strong { color: white; }
+
+        .right-section { background: linear-gradient(135deg, #1e293b, #334155); padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+
+        .preview-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 35px; margin-bottom: 25px; }
+        .preview-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .preview-card h3 span { font-size: 1.3rem; }
+
+        .content-list { display: flex; flex-direction: column; gap: 18px; }
+        .content-item { display: flex; gap: 15px; }
+        .content-icon { width: 45px; height: 45px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .content-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 3px; }
+        .content-text p { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+        .sample-newsletter { background: white; border-radius: 16px; padding: 30px; color: #1e293b; }
+        .sample-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; }
+        .sample-logo { font-weight: 800; font-size: 1.2rem; }
+        .sample-date { font-size: 0.8rem; color: #64748b; }
+        .sample-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .sample-excerpt { font-size: 0.9rem; color: #64748b; line-height: 1.7; margin-bottom: 20px; }
+        .sample-topics { display: flex; gap: 10px; flex-wrap: wrap; }
+        .topic-tag { padding: 6px 14px; background: #f1f5f9; border-radius: 20px; font-size: 0.8rem; color: #64748b; }
+
+        .frequency-options { margin-top: 30px; }
+        .frequency-options h4 { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 15px; }
+        .freq-buttons { display: flex; gap: 10px; }
+        .freq-btn { padding: 12px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: rgba(255,255,255,0.7); font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .freq-btn.active { background: #6366f1; border-color: #6366f1; color: white; }
+
+        @media (max-width: 1000px) {
+            .page-container { grid-template-columns: 1fr; }
+            .left-section { padding: 100px 30px 60px; }
+            .right-section { padding: 30px; }
+            .newsletter-content h1 { font-size: 2.5rem; }
+            .subscribe-form { flex-direction: column; }
+            .logo { top: 30px; left: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="left-section">
+            <div class="logo">TechNews</div>
+
+            <div class="newsletter-content">
+                <span class="badge">📬 毎週火曜日配信</span>
+                <h1>テック業界の<span>最新情報</span>をお届け</h1>
+                <p>AI、Web3、スタートアップ、プログラミングなど、エンジニアとビジネスパーソンに役立つ厳選ニュースを毎週お届けします。</p>
+
+                <form class="subscribe-form">
+                    <input type="email" placeholder="メールアドレスを入力">
+                    <button type="submit">無料購読する</button>
+                </form>
+
+                <div class="trust-signals">
+                    <div class="trust-item">
+                        <span>✓</span>
+                        <span>いつでも解除可能</span>
+                    </div>
+                    <div class="trust-item">
+                        <span>✓</span>
+                        <span>広告なし</span>
+                    </div>
+                    <div class="trust-item">
+                        <span>✓</span>
+                        <span>スパムなし</span>
+                    </div>
+                </div>
+
+                <div class="subscriber-count">
+                    <div class="avatar-stack">
+                        <div class="avatar">👨‍💻</div>
+                        <div class="avatar">👩‍💼</div>
+                        <div class="avatar">🧑‍🔬</div>
+                        <div class="avatar">👨‍🎨</div>
+                    </div>
+                    <div class="subscriber-info">
+                        <p><strong>25,000+</strong> のエンジニア・<br>ビジネスパーソンが購読中</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="preview-card">
+                <h3><span>📰</span> 配信コンテンツ</h3>
+                <div class="content-list">
+                    <div class="content-item">
+                        <div class="content-icon">🤖</div>
+                        <div class="content-text">
+                            <h4>AI・機械学習</h4>
+                            <p>ChatGPT、画像生成AI、LLMの最新動向</p>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">💻</div>
+                        <div class="content-text">
+                            <h4>開発ツール・言語</h4>
+                            <p>新しいフレームワーク、便利なツール紹介</p>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">🚀</div>
+                        <div class="content-text">
+                            <h4>スタートアップ</h4>
+                            <p>注目の資金調達、新サービスローンチ情報</p>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-icon">📈</div>
+                        <div class="content-text">
+                            <h4>キャリア・働き方</h4>
+                            <p>エンジニアのキャリアパス、リモートワーク</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sample-newsletter">
+                <div class="sample-header">
+                    <div class="sample-logo">TechNews #142</div>
+                    <div class="sample-date">2024年12月3日</div>
+                </div>
+                <h4 class="sample-title">🔥 今週のトップニュース</h4>
+                <p class="sample-excerpt">OpenAIが新モデル「GPT-5」を発表。マルチモーダル性能が大幅に向上し、コード生成精度は従来比40%向上。エンタープライズ向け機能も強化され...</p>
+                <div class="sample-topics">
+                    <span class="topic-tag">AI</span>
+                    <span class="topic-tag">OpenAI</span>
+                    <span class="topic-tag">GPT-5</span>
+                </div>
+            </div>
+
+            <div class="frequency-options">
+                <h4>配信頻度を選択</h4>
+                <div class="freq-buttons">
+                    <button class="freq-btn active">週1回</button>
+                    <button class="freq-btn">週2回</button>
+                    <button class="freq-btn">毎日</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

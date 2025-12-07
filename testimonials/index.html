@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お客様の声 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+
+        .hero-section { background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 100px 20px; text-align: center; }
+        .hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero-section p { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto 40px; }
+
+        .stats-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 3rem; font-weight: 800; margin-bottom: 5px; }
+        .stat-label { font-size: 0.9rem; opacity: 0.7; }
+
+        .testimonials-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+
+        .filter-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 60px; flex-wrap: wrap; }
+        .filter-tab { padding: 12px 25px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .filter-tab:hover { border-color: #6366f1; }
+        .filter-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+        .testimonial-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s; position: relative; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .testimonial-card.featured { grid-column: span 2; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .testimonial-card.featured .rating { color: #fbbf24; }
+        .testimonial-card.featured .author-role { opacity: 0.8; }
+
+        .quote-icon { font-size: 3rem; opacity: 0.1; position: absolute; top: 20px; right: 25px; }
+        .testimonial-card.featured .quote-icon { opacity: 0.2; }
+
+        .rating { color: #f59e0b; font-size: 1.1rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .testimonial-text { font-size: 1.05rem; line-height: 1.8; margin-bottom: 25px; }
+        .testimonial-card.featured .testimonial-text { font-size: 1.2rem; }
+
+        .author-info { display: flex; align-items: center; gap: 15px; }
+        .author-avatar { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+        .testimonial-card:not(.featured) .author-avatar { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .testimonial-card.featured .author-avatar { background: rgba(255,255,255,0.2); }
+        .author-details .author-name { font-weight: 600; font-size: 1rem; margin-bottom: 3px; }
+        .author-details .author-role { font-size: 0.85rem; color: #64748b; }
+
+        .company-badge { display: inline-block; padding: 5px 12px; background: rgba(99, 102, 241, 0.1); color: #6366f1; border-radius: 6px; font-size: 0.8rem; font-weight: 600; margin-top: 10px; }
+        .testimonial-card.featured .company-badge { background: rgba(255,255,255,0.2); color: white; }
+
+        .video-testimonials { margin-top: 80px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .section-header p { color: #64748b; font-size: 1.1rem; }
+
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .video-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .video-thumbnail { aspect-ratio: 16/9; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; }
+        .play-button { width: 70px; height: 70px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: transform 0.3s; }
+        .video-card:hover .play-button { transform: scale(1.1); }
+        .video-info { padding: 20px; }
+        .video-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .video-info p { font-size: 0.85rem; color: #64748b; }
+
+        .logos-section { margin-top: 80px; text-align: center; padding: 60px 0; border-top: 1px solid #e2e8f0; }
+        .logos-section h3 { font-size: 0.9rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; }
+        .logos-grid { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; align-items: center; }
+        .logo-item { font-size: 1.5rem; font-weight: 800; color: #94a3b8; }
+
+        .cta-section { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 80px 20px; text-align: center; margin-top: 80px; border-radius: 30px; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 35px; }
+        .cta-btn { display: inline-block; padding: 18px 40px; background: white; color: #6366f1; border-radius: 12px; font-size: 1.05rem; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+
+        footer { padding: 40px 20px; text-align: center; color: #64748b; font-size: 0.9rem; }
+
+        @media (max-width: 1000px) {
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonial-card.featured { grid-column: span 2; }
+            .video-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 20px; }
+            header nav { display: none; }
+            .hero-section h1 { font-size: 2.5rem; }
+            .stats-row { gap: 30px; }
+            .stat-value { font-size: 2rem; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .testimonial-card.featured { grid-column: span 1; }
+            .video-grid { grid-template-columns: 1fr; }
+            .logos-grid { gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">製品</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+            <a href="#">サポート</a>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1>お客様の声</h1>
+        <p>10,000社以上の企業様にご利用いただいています。導入企業様の生の声をお届けします。</p>
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-value">4.9</div>
+                <div class="stat-label">平均評価</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">98%</div>
+                <div class="stat-label">継続率</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">レビュー数</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="testimonials-container">
+        <div class="filter-tabs">
+            <button class="filter-tab active">すべて</button>
+            <button class="filter-tab">スタートアップ</button>
+            <button class="filter-tab">中小企業</button>
+            <button class="filter-tab">大企業</button>
+            <button class="filter-tab">マーケティング</button>
+            <button class="filter-tab">開発チーム</button>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card featured">
+                <div class="quote-icon">"</div>
+                <div class="rating">★★★★★</div>
+                <p class="testimonial-text">AppNameを導入してから、チームの生産性が3倍に向上しました。特にリアルタイムコラボレーション機能は、リモートワーク時代の我々にとって不可欠なツールとなっています。導入を迷っている方には、ぜひ試してほしいです。</p>
+                <div class="author-info">
+                    <div class="author-avatar">👨‍💼</div>
+                    <div class="author-details">
+                        <div class="author-name">田中 健太</div>
+                        <div class="author-role">株式会社TechVentures CTO</div>
+                        <div class="company-badge">従業員 200名</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="rating">★★★★★</div>
+                <p class="testimonial-text">UIがとても直感的で、チームメンバー全員がすぐに使いこなせました。サポートの対応も素晴らしいです。</p>
+                <div class="author-info">
+                    <div class="author-avatar">👩‍💻</div>
+                    <div class="author-details">
+                        <div class="author-name">佐藤 美咲</div>
+                        <div class="author-role">デザインマネージャー</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="rating">★★★★★</div>
+                <p class="testimonial-text">データ分析機能が非常に強力。マーケティングの意思決定が格段に速くなりました。</p>
+                <div class="author-info">
+                    <div class="author-avatar">👨‍🔬</div>
+                    <div class="author-details">
+                        <div class="author-name">鈴木 一郎</div>
+                        <div class="author-role">マーケティング部長</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="rating">★★★★☆</div>
+                <p class="testimonial-text">API連携が充実していて、既存のツールとスムーズに統合できました。開発チームも大満足です。</p>
+                <div class="author-info">
+                    <div class="author-avatar">🧑‍💻</div>
+                    <div class="author-details">
+                        <div class="author-name">山田 太郎</div>
+                        <div class="author-role">エンジニアリングリード</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="rating">★★★★★</div>
+                <p class="testimonial-text">セキュリティ面での安心感が違います。金融業界でも問題なく利用できています。</p>
+                <div class="author-info">
+                    <div class="author-avatar">👩‍💼</div>
+                    <div class="author-details">
+                        <div class="author-name">高橋 恵子</div>
+                        <div class="author-role">情報セキュリティ責任者</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="rating">★★★★★</div>
+                <p class="testimonial-text">コストパフォーマンスが最高。他社製品と比較して半額以下で同等以上の機能が使えます。</p>
+                <div class="author-info">
+                    <div class="author-avatar">👨‍💼</div>
+                    <div class="author-details">
+                        <div class="author-name">伊藤 誠</div>
+                        <div class="author-role">経営企画室長</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-testimonials">
+            <div class="section-header">
+                <h2>動画インタビュー</h2>
+                <p>導入企業様の生の声をお聞きください</p>
+            </div>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>株式会社ABC様 導入事例</h4>
+                        <p>導入3ヶ月で生産性150%向上</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>XYZ株式会社様 導入事例</h4>
+                        <p>リモートワーク効率化の秘訣</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h4>DEF Inc.様 導入事例</h4>
+                        <p>グローバルチームでの活用法</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="logos-section">
+            <h3>導入企業</h3>
+            <div class="logos-grid">
+                <div class="logo-item">TechCorp</div>
+                <div class="logo-item">StartupX</div>
+                <div class="logo-item">GlobalInc</div>
+                <div class="logo-item">FinanceHub</div>
+                <div class="logo-item">MediaGroup</div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>次は、あなたの番です</h2>
+            <p>14日間の無料トライアルで、AppNameの価値を体験してください</p>
+            <a href="#" class="cta-btn">無料で始める →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ありがとうございます！</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; overflow: hidden; }
+
+        .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+        .confetti-piece { position: absolute; width: 10px; height: 10px; animation: fall 3s linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        .thankyou-container { text-align: center; max-width: 600px; position: relative; z-index: 10; }
+
+        .success-icon { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 40px; animation: bounce 0.6s ease; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .success-icon span { font-size: 4rem; }
+        @keyframes bounce { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        h1 { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 20px; letter-spacing: -1px; }
+        .subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.9); margin-bottom: 40px; line-height: 1.7; }
+
+        .info-card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); text-align: left; }
+        .info-card h3 { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .info-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .info-item:last-child { border-bottom: none; }
+        .info-item .label { color: #64748b; font-size: 0.95rem; }
+        .info-item .value { font-weight: 600; color: #1e293b; }
+
+        .next-steps { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 30px; margin-bottom: 30px; text-align: left; }
+        .next-steps h3 { color: white; font-size: 1rem; margin-bottom: 20px; }
+        .step-item { display: flex; gap: 15px; margin-bottom: 15px; color: white; }
+        .step-item:last-child { margin-bottom: 0; }
+        .step-number { width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600; flex-shrink: 0; }
+        .step-text { font-size: 0.95rem; opacity: 0.95; line-height: 1.6; }
+
+        .action-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .action-btn { padding: 16px 32px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .action-btn.primary { background: white; color: #6366f1; }
+        .action-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .action-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); }
+        .action-btn.secondary:hover { background: rgba(255,255,255,0.3); }
+
+        .social-share { margin-top: 40px; }
+        .social-share p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 15px; }
+        .social-icons { display: flex; gap: 15px; justify-content: center; }
+        .social-icons a { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; text-decoration: none; transition: all 0.3s; }
+        .social-icons a:hover { background: white; transform: translateY(-3px); }
+
+        .footer-note { margin-top: 50px; color: rgba(255,255,255,0.7); font-size: 0.85rem; }
+        .footer-note a { color: white; }
+
+        @media (max-width: 500px) {
+            h1 { font-size: 2rem; }
+            .info-card { padding: 25px; }
+            .action-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti" id="confetti"></div>
+
+    <div class="thankyou-container">
+        <div class="success-icon">
+            <span>🎉</span>
+        </div>
+
+        <h1>ありがとうございます！</h1>
+        <p class="subtitle">お申し込みが正常に完了しました。<br>確認メールをお送りしましたので、ご確認ください。</p>
+
+        <div class="info-card">
+            <h3>📋 お申し込み内容</h3>
+            <div class="info-item">
+                <span class="label">プラン</span>
+                <span class="value">Pro プラン（年間）</span>
+            </div>
+            <div class="info-item">
+                <span class="label">注文番号</span>
+                <span class="value">#ORD-2024-0789</span>
+            </div>
+            <div class="info-item">
+                <span class="label">お支払い金額</span>
+                <span class="value">¥39,380（税込）</span>
+            </div>
+            <div class="info-item">
+                <span class="label">ご利用開始日</span>
+                <span class="value">2024年12月7日</span>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h3>📌 次のステップ</h3>
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <p class="step-text">確認メールに記載されたリンクからアカウントを有効化してください</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <p class="step-text">プロフィールを設定し、チームメンバーを招待しましょう</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <p class="step-text">スタートガイドを参考に、最初のプロジェクトを作成してください</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="action-btn primary">ダッシュボードへ →</a>
+            <a href="#" class="action-btn secondary">スタートガイドを見る</a>
+        </div>
+
+        <div class="social-share">
+            <p>この嬉しいニュースをシェアしませんか？</p>
+            <div class="social-icons">
+                <a href="#">🐦</a>
+                <a href="#">📘</a>
+                <a href="#">💼</a>
+                <a href="#">📧</a>
+            </div>
+        </div>
+
+        <p class="footer-note">
+            ご不明な点がございましたら、<a href="#">サポートチーム</a>までお気軽にお問い合わせください。
+        </p>
+    </div>
+
+    <script>
+        // Confetti animation
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96f', '#f9c74f', '#ff85a2'];
+        const confettiContainer = document.getElementById('confetti');
+
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            confettiContainer.appendChild(confetti);
+        }
+    </script>
+</body>
+</html>

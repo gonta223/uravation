@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アプリをダウンロード - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0a0a0a; color: white; overflow-x: hidden; }
+
+        header { position: fixed; top: 0; left: 0; right: 0; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 900; }
+        nav { display: flex; gap: 30px; }
+        nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+
+        .hero-section { min-height: 100vh; display: flex; align-items: center; padding: 0 50px; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(99, 102, 241, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 30% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 50%); }
+
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1400px; margin: 0 auto; width: 100%; position: relative; z-index: 10; }
+
+        .hero-text h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; letter-spacing: -2px; }
+        .hero-text h1 span { background: linear-gradient(135deg, #6366f1, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-text p { font-size: 1.3rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 40px; }
+
+        .download-buttons { display: flex; gap: 15px; margin-bottom: 40px; }
+        .download-btn { display: flex; align-items: center; gap: 15px; padding: 16px 28px; background: white; border-radius: 14px; text-decoration: none; color: #0a0a0a; transition: all 0.3s; }
+        .download-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255,255,255,0.2); }
+        .download-btn .icon { font-size: 2rem; }
+        .download-btn .text { text-align: left; }
+        .download-btn .text span { display: block; font-size: 0.75rem; color: #64748b; }
+        .download-btn .text strong { font-size: 1.1rem; font-weight: 700; }
+
+        .platform-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .platform-link { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.6); font-size: 0.9rem; text-decoration: none; }
+        .platform-link:hover { color: white; }
+
+        .phone-mockup { position: relative; display: flex; justify-content: center; }
+        .phone-frame { width: 320px; height: 650px; background: linear-gradient(145deg, #1a1a2e, #16213e); border-radius: 45px; padding: 12px; box-shadow: 0 50px 100px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(255,255,255,0.1); }
+        .phone-screen { width: 100%; height: 100%; background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%); border-radius: 35px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .phone-screen .app-icon { width: 80px; height: 80px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 20px; }
+        .phone-screen h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        .phone-screen p { font-size: 0.9rem; opacity: 0.9; }
+
+        .floating-elements { position: absolute; inset: -100px; pointer-events: none; }
+        .float-el { position: absolute; border-radius: 20px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3)); animation: float 6s ease-in-out infinite; }
+        .float-el:nth-child(1) { width: 100px; height: 100px; top: 10%; left: -50px; animation-delay: 0s; }
+        .float-el:nth-child(2) { width: 60px; height: 60px; top: 60%; right: -30px; animation-delay: 2s; }
+        .float-el:nth-child(3) { width: 40px; height: 40px; bottom: 20%; left: 20%; animation-delay: 4s; border-radius: 50%; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(10deg); } }
+
+        .features-section { padding: 120px 50px; background: #0f0f1a; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .section-header p { color: rgba(255,255,255,0.6); font-size: 1.1rem; }
+
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 35px; text-align: center; transition: all 0.3s; }
+        .feature-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-5px); }
+        .feature-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 25px; }
+        .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+        .feature-card p { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+        .screenshots-section { padding: 120px 50px; }
+        .screenshots-scroll { display: flex; gap: 25px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
+        .screenshots-scroll::-webkit-scrollbar { display: none; }
+        .screenshot-item { flex-shrink: 0; width: 280px; height: 560px; background: linear-gradient(180deg, #667eea 0%, #764ba2 100%); border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+
+        .reviews-section { padding: 80px 50px; background: #0f0f1a; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 1000px; margin: 0 auto; }
+        .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 30px; }
+        .review-stars { color: #fbbf24; margin-bottom: 15px; }
+        .review-text { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 20px; }
+        .review-author { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+        .cta-section { padding: 120px 50px; text-align: center; }
+        .cta-section h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
+        .cta-section p { color: rgba(255,255,255,0.6); font-size: 1.2rem; margin-bottom: 40px; }
+        .qr-container { display: inline-block; background: white; padding: 25px; border-radius: 20px; margin-bottom: 30px; }
+        .qr-code { width: 150px; height: 150px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .qr-label { font-size: 0.9rem; color: #64748b; margin-top: 15px; }
+
+        footer { padding: 40px 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        @media (max-width: 1000px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 50px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .download-buttons { justify-content: center; }
+            .platform-links { justify-content: center; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .reviews-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 20px; }
+            nav { display: none; }
+            .hero-section { padding: 100px 20px 60px; }
+            .download-buttons { flex-direction: column; }
+            .features-section, .screenshots-section, .reviews-section, .cta-section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .phone-frame { width: 260px; height: 530px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">サポート</a>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>いつでもどこでも<span>あなたと一緒</span></h1>
+                <p>デスクトップと完全同期。外出先でもすべてのデータにアクセスし、チームとリアルタイムでコラボレーション。</p>
+
+                <div class="download-buttons">
+                    <a href="#" class="download-btn">
+                        <span class="icon">🍎</span>
+                        <div class="text">
+                            <span>Download on the</span>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="download-btn">
+                        <span class="icon">🤖</span>
+                        <div class="text">
+                            <span>GET IT ON</span>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="platform-links">
+                    <a href="#" class="platform-link">🖥️ Mac版</a>
+                    <a href="#" class="platform-link">🪟 Windows版</a>
+                    <a href="#" class="platform-link">🐧 Linux版</a>
+                    <a href="#" class="platform-link">🌐 Web版</a>
+                </div>
+            </div>
+
+            <div class="phone-mockup">
+                <div class="floating-elements">
+                    <div class="float-el"></div>
+                    <div class="float-el"></div>
+                    <div class="float-el"></div>
+                </div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="app-icon">📱</div>
+                        <h3>AppName</h3>
+                        <p>v3.5.2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="section-header">
+            <h2>モバイルならではの機能</h2>
+            <p>外出先でも最高の生産性を発揮</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📸</div>
+                <h3>スキャン機能</h3>
+                <p>カメラで書類を撮影し、すぐにデジタル化</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>プッシュ通知</h3>
+                <p>重要な更新をリアルタイムで受信</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>位置情報連携</h3>
+                <p>現在地に基づいたタスク管理</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⌚</div>
+                <h3>ウォッチ対応</h3>
+                <p>Apple Watch / Wear OSで手首から操作</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots-section">
+        <div class="section-header">
+            <h2>スクリーンショット</h2>
+            <p>美しく直感的なインターフェース</p>
+        </div>
+        <div class="screenshots-scroll">
+            <div class="screenshot-item">📊</div>
+            <div class="screenshot-item" style="background: linear-gradient(180deg, #f093fb, #f5576c);">📋</div>
+            <div class="screenshot-item" style="background: linear-gradient(180deg, #4facfe, #00f2fe);">💬</div>
+            <div class="screenshot-item" style="background: linear-gradient(180deg, #43e97b, #38f9d7);">⚙️</div>
+            <div class="screenshot-item" style="background: linear-gradient(180deg, #fa709a, #fee140);">📁</div>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <div class="section-header">
+            <h2>ユーザーレビュー</h2>
+            <p>App Store / Google Playでの評価</p>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">「最高のアプリ！デスクトップと完璧に同期されるので、外出先でも仕事が捗ります」</p>
+                <p class="review-author">- ユーザーA</p>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">「UIがとても美しく、操作性も抜群。毎日使っています」</p>
+                <p class="review-author">- ユーザーB</p>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">「オフラインでも使えるのが便利。地下鉄でも問題なく作業できます」</p>
+                <p class="review-author">- ユーザーC</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>今すぐダウンロード</h2>
+        <p>QRコードをスキャンしてアプリをダウンロード</p>
+        <div class="qr-container">
+            <div class="qr-code">📱</div>
+            <p class="qr-label">カメラでスキャン</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
