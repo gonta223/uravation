@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メディアライブラリ - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+
+        .header { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+        .search-box { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .search-box input { border: none; background: none; color: white; font-size: 0.9rem; width: 300px; }
+        .search-box input::placeholder { color: #64748b; }
+        .search-box input:focus { outline: none; }
+        .header-actions { display: flex; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+        .btn-primary { background: #6366f1; color: white; }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: white; }
+
+        .container { padding: 30px; }
+
+        .filters-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .filter-tabs { display: flex; gap: 10px; }
+        .filter-tab { padding: 10px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #94a3b8; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+        .filter-tab:hover { background: rgba(255,255,255,0.1); }
+        .filter-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .view-options { display: flex; gap: 15px; align-items: center; }
+        .sort-select { padding: 10px 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; font-size: 0.9rem; }
+        .view-toggle { display: flex; }
+        .view-btn { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #64748b; cursor: pointer; }
+        .view-btn:first-child { border-radius: 10px 0 0 10px; }
+        .view-btn:last-child { border-radius: 0 10px 10px 0; }
+        .view-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+
+        .media-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.3s; position: relative; }
+        .media-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.1); }
+        .media-card:hover .media-overlay { opacity: 1; }
+        .media-thumbnail { aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .media-thumbnail.image { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .media-thumbnail.video { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .media-thumbnail.audio { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .media-thumbnail.document { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .media-thumbnail .icon { font-size: 3rem; }
+        .media-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .media-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; gap: 10px; opacity: 0; transition: opacity 0.3s; }
+        .overlay-btn { width: 45px; height: 45px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.2rem; cursor: pointer; backdrop-filter: blur(10px); }
+        .overlay-btn:hover { background: rgba(255,255,255,0.3); }
+        .media-info { padding: 15px; }
+        .media-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .media-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; }
+        .media-type { display: flex; align-items: center; gap: 5px; }
+        .media-checkbox { position: absolute; top: 15px; left: 15px; width: 22px; height: 22px; background: rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.3); border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .media-card:hover .media-checkbox { opacity: 1; }
+        .media-checkbox.checked { background: #6366f1; border-color: #6366f1; opacity: 1; }
+        .media-checkbox.checked::after { content: '✓'; color: white; font-size: 0.8rem; }
+        .duration-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; }
+
+        .upload-zone { border: 2px dashed rgba(255,255,255,0.2); border-radius: 20px; padding: 60px; text-align: center; margin-top: 30px; transition: all 0.3s; }
+        .upload-zone:hover { border-color: #6366f1; background: rgba(99, 102, 241, 0.1); }
+        .upload-zone .icon { font-size: 4rem; margin-bottom: 20px; }
+        .upload-zone h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .upload-zone p { color: #64748b; margin-bottom: 20px; }
+        .upload-zone .formats { font-size: 0.85rem; color: #64748b; }
+
+        .selection-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 15px 25px; display: flex; align-items: center; gap: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .selection-bar .count { font-weight: 600; }
+        .selection-bar .actions { display: flex; gap: 10px; }
+        .selection-bar .action-btn { padding: 10px 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+        .selection-bar .action-btn:hover { background: rgba(255,255,255,0.15); }
+        .selection-bar .action-btn.danger { color: #ef4444; }
+        .selection-bar .close-btn { background: none; border: none; color: #64748b; cursor: pointer; font-size: 1.2rem; }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 15px; }
+            .search-box input { width: 100%; }
+            .filters-bar { flex-direction: column; gap: 15px; }
+            .media-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">🖼️ Media Library</div>
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" placeholder="ファイル名、タグで検索...">
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary">📁 フォルダ作成</button>
+            <button class="btn btn-primary">⬆️ アップロード</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filters-bar">
+            <div class="filter-tabs">
+                <div class="filter-tab active">すべて</div>
+                <div class="filter-tab">🖼️ 画像</div>
+                <div class="filter-tab">🎬 動画</div>
+                <div class="filter-tab">🎵 音声</div>
+                <div class="filter-tab">📄 ドキュメント</div>
+            </div>
+            <div class="view-options">
+                <select class="sort-select">
+                    <option>最新順</option>
+                    <option>名前順</option>
+                    <option>サイズ順</option>
+                </select>
+                <div class="view-toggle">
+                    <button class="view-btn active">⊞</button>
+                    <button class="view-btn">☰</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="media-grid">
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail image">
+                    <div class="icon">🌄</div>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">👁</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">hero-banner.jpg</div>
+                    <div class="media-meta">
+                        <span class="media-type">🖼️ JPG</span>
+                        <span>2.4 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox checked"></div>
+                <div class="media-thumbnail video">
+                    <div class="icon">🎬</div>
+                    <span class="duration-badge">2:34</span>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">▶️</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">product-demo.mp4</div>
+                    <div class="media-meta">
+                        <span class="media-type">🎬 MP4</span>
+                        <span>45.2 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail image">
+                    <div class="icon">👤</div>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">👁</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">team-photo.png</div>
+                    <div class="media-meta">
+                        <span class="media-type">🖼️ PNG</span>
+                        <span>1.8 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail audio">
+                    <div class="icon">🎵</div>
+                    <span class="duration-badge">3:45</span>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">▶️</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">podcast-ep12.mp3</div>
+                    <div class="media-meta">
+                        <span class="media-type">🎵 MP3</span>
+                        <span>8.5 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail document">
+                    <div class="icon">📄</div>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">👁</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">contract-2024.pdf</div>
+                    <div class="media-meta">
+                        <span class="media-type">📄 PDF</span>
+                        <span>542 KB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail image">
+                    <div class="icon">📊</div>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">👁</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">infographic-sales.svg</div>
+                    <div class="media-meta">
+                        <span class="media-type">🖼️ SVG</span>
+                        <span>124 KB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail video">
+                    <div class="icon">🎥</div>
+                    <span class="duration-badge">12:08</span>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">▶️</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">tutorial-onboarding.mp4</div>
+                    <div class="media-meta">
+                        <span class="media-type">🎬 MP4</span>
+                        <span>156 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card">
+                <div class="media-checkbox"></div>
+                <div class="media-thumbnail image">
+                    <div class="icon">🎨</div>
+                </div>
+                <div class="media-overlay">
+                    <button class="overlay-btn">👁</button>
+                    <button class="overlay-btn">⬇️</button>
+                    <button class="overlay-btn">✏️</button>
+                </div>
+                <div class="media-info">
+                    <div class="media-name">logo-variations.png</div>
+                    <div class="media-meta">
+                        <span class="media-type">🖼️ PNG</span>
+                        <span>856 KB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-zone">
+            <div class="icon">📤</div>
+            <h3>ファイルをドロップしてアップロード</h3>
+            <p>または クリックしてファイルを選択</p>
+            <button class="btn btn-primary">ファイルを選択</button>
+            <p class="formats">対応形式: JPG, PNG, GIF, SVG, MP4, MP3, PDF, DOC</p>
+        </div>
+    </div>
+
+    <div class="selection-bar" style="display: none;">
+        <span class="count">3件選択中</span>
+        <div class="actions">
+            <button class="action-btn">📁 移動</button>
+            <button class="action-btn">⬇️ ダウンロード</button>
+            <button class="action-btn">🔗 共有</button>
+            <button class="action-btn danger">🗑️ 削除</button>
+        </div>
+        <button class="close-btn">✕</button>
+    </div>
+</body>
+</html>

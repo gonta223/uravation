@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モーダルコレクション - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; padding: 40px 20px; }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .page-header { text-align: center; margin-bottom: 50px; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .page-header p { color: #64748b; font-size: 1.1rem; }
+
+        .modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+
+        .modal-demo { background: #1e293b; border-radius: 20px; padding: 40px; position: relative; overflow: hidden; min-height: 400px; display: flex; align-items: center; justify-content: center; }
+        .modal-demo::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.3); }
+
+        .modal { background: white; border-radius: 20px; padding: 35px; position: relative; z-index: 1; width: 100%; max-width: 450px; box-shadow: 0 25px 80px rgba(0,0,0,0.4); }
+        .modal-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border: none; background: #f1f5f9; border-radius: 50%; cursor: pointer; font-size: 1.2rem; color: #64748b; }
+
+        /* Confirmation Modal */
+        .modal.confirm { text-align: center; }
+        .modal.confirm .icon { width: 70px; height: 70px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px; }
+        .modal.confirm h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .modal.confirm p { color: #64748b; margin-bottom: 25px; }
+        .modal.confirm .btn-group { display: flex; gap: 12px; justify-content: center; }
+        .btn { padding: 14px 28px; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-cancel { background: #f1f5f9; color: #64748b; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-primary { background: #6366f1; color: white; }
+        .btn-success { background: #22c55e; color: white; }
+
+        /* Form Modal */
+        .modal.form h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .modal.form .subtitle { color: #64748b; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .modal.form .btn-group { display: flex; gap: 12px; justify-content: flex-end; margin-top: 25px; }
+
+        /* Success Modal */
+        .modal.success { text-align: center; }
+        .modal.success .icon { width: 80px; height: 80px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 20px; animation: scaleIn 0.5s ease; }
+        @keyframes scaleIn { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .modal.success h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; color: #16a34a; }
+        .modal.success p { color: #64748b; margin-bottom: 25px; line-height: 1.7; }
+
+        /* Alert Modal */
+        .modal.alert .icon { width: 50px; height: 50px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .modal.alert h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+        .modal.alert p { color: #64748b; margin-bottom: 20px; line-height: 1.7; }
+        .modal.alert .alert-list { background: #fef3c7; border-radius: 10px; padding: 15px; margin-bottom: 20px; }
+        .modal.alert .alert-list li { font-size: 0.9rem; color: #92400e; margin-bottom: 8px; list-style-position: inside; }
+        .modal.alert .alert-list li:last-child { margin-bottom: 0; }
+
+        /* Image Modal */
+        .modal.image { padding: 0; overflow: hidden; max-width: 500px; }
+        .modal.image .image-preview { height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .modal.image .image-content { padding: 25px; }
+        .modal.image h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .modal.image p { color: #64748b; font-size: 0.9rem; margin-bottom: 15px; }
+        .modal.image .meta { display: flex; gap: 20px; font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px; }
+        .modal.image .btn-group { display: flex; gap: 10px; }
+        .modal.image .btn { flex: 1; padding: 12px; }
+
+        /* Share Modal */
+        .modal.share h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; }
+        .share-link { display: flex; gap: 10px; margin-bottom: 25px; }
+        .share-link input { flex: 1; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; background: #f8fafc; }
+        .share-link .copy-btn { padding: 12px 20px; background: #6366f1; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+        .share-options { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .share-btn { width: 55px; height: 55px; border-radius: 50%; border: none; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; }
+        .share-btn:hover { transform: translateY(-3px); }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.facebook { background: #4267b2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.email { background: #64748b; }
+        .modal.share .divider { text-align: center; color: #94a3b8; font-size: 0.85rem; margin-bottom: 20px; position: relative; }
+        .modal.share .divider::before, .modal.share .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #e2e8f0; }
+        .modal.share .divider::before { left: 0; }
+        .modal.share .divider::after { right: 0; }
+        .invite-section { }
+        .invite-section label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 10px; }
+        .invite-input { display: flex; gap: 10px; }
+        .invite-input input { flex: 1; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; }
+        .invite-input select { padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; }
+        .invite-input .btn { white-space: nowrap; }
+
+        @media (max-width: 900px) {
+            .modal-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>モーダルコレクション</h1>
+            <p>様々なユースケースに対応したモーダルダイアログ</p>
+        </div>
+
+        <div class="modal-grid">
+            <!-- Confirmation Modal -->
+            <div class="modal-demo">
+                <div class="modal confirm">
+                    <button class="modal-close">×</button>
+                    <div class="icon">🗑️</div>
+                    <h3>削除の確認</h3>
+                    <p>このアイテムを削除してもよろしいですか？<br>この操作は取り消せません。</p>
+                    <div class="btn-group">
+                        <button class="btn btn-cancel">キャンセル</button>
+                        <button class="btn btn-danger">削除する</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Modal -->
+            <div class="modal-demo">
+                <div class="modal form">
+                    <button class="modal-close">×</button>
+                    <h3>新規プロジェクト作成</h3>
+                    <p class="subtitle">プロジェクトの詳細を入力してください</p>
+                    <div class="form-group">
+                        <label>プロジェクト名</label>
+                        <input type="text" placeholder="例: ウェブサイトリニューアル">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>カテゴリ</label>
+                            <select>
+                                <option>デザイン</option>
+                                <option>開発</option>
+                                <option>マーケティング</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>期限</label>
+                            <input type="date">
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-cancel">キャンセル</button>
+                        <button class="btn btn-primary">作成する</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Modal -->
+            <div class="modal-demo">
+                <div class="modal success">
+                    <button class="modal-close">×</button>
+                    <div class="icon">✓</div>
+                    <h3>送信完了！</h3>
+                    <p>お問い合わせを受け付けました。<br>担当者より2営業日以内にご連絡いたします。</p>
+                    <button class="btn btn-success" style="width: 100%;">閉じる</button>
+                </div>
+            </div>
+
+            <!-- Alert Modal -->
+            <div class="modal-demo">
+                <div class="modal alert">
+                    <button class="modal-close">×</button>
+                    <div class="icon">⚠️</div>
+                    <h3>保存されていない変更があります</h3>
+                    <p>ページを離れると、以下の変更が失われます：</p>
+                    <ul class="alert-list">
+                        <li>プロフィール画像の変更</li>
+                        <li>通知設定の変更</li>
+                        <li>連絡先情報の更新</li>
+                    </ul>
+                    <div class="btn-group" style="display: flex; gap: 12px;">
+                        <button class="btn btn-cancel" style="flex: 1;">破棄する</button>
+                        <button class="btn btn-primary" style="flex: 1;">保存して移動</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Preview Modal -->
+            <div class="modal-demo">
+                <div class="modal image">
+                    <button class="modal-close" style="top: 15px; right: 15px; background: rgba(255,255,255,0.9);">×</button>
+                    <div class="image-preview">🖼️</div>
+                    <div class="image-content">
+                        <h3>hero-banner-2024.png</h3>
+                        <p>キャンペーン用ヒーロー画像</p>
+                        <div class="meta">
+                            <span>📐 1920 × 1080</span>
+                            <span>📦 2.4 MB</span>
+                            <span>📅 12/08</span>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-cancel">削除</button>
+                            <button class="btn btn-primary">ダウンロード</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Share Modal -->
+            <div class="modal-demo">
+                <div class="modal share">
+                    <button class="modal-close">×</button>
+                    <h3>共有</h3>
+                    <div class="share-link">
+                        <input type="text" value="https://app.example.com/share/abc123" readonly>
+                        <button class="copy-btn">コピー</button>
+                    </div>
+                    <div class="share-options">
+                        <button class="share-btn twitter">𝕏</button>
+                        <button class="share-btn facebook">f</button>
+                        <button class="share-btn linkedin">in</button>
+                        <button class="share-btn email">✉</button>
+                    </div>
+                    <div class="divider">または</div>
+                    <div class="invite-section">
+                        <label>メールで招待</label>
+                        <div class="invite-input">
+                            <input type="email" placeholder="email@example.com">
+                            <select>
+                                <option>閲覧者</option>
+                                <option>編集者</option>
+                            </select>
+                            <button class="btn btn-primary">招待</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

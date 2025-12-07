@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カレンダー - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        .layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+
+        .sidebar { background: white; border-right: 1px solid #e2e8f0; padding: 25px; }
+        .logo { font-size: 1.3rem; font-weight: 800; margin-bottom: 30px; }
+        .new-event-btn { width: 100%; padding: 14px; background: #6366f1; border: none; border-radius: 12px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 30px; }
+
+        .mini-calendar { margin-bottom: 30px; }
+        .mini-calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .mini-calendar-header h3 { font-size: 1rem; font-weight: 700; }
+        .mini-calendar-header .nav { display: flex; gap: 5px; }
+        .mini-calendar-header .nav button { width: 28px; height: 28px; border: 1px solid #e2e8f0; background: white; border-radius: 6px; cursor: pointer; }
+        .mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+        .mini-grid .day-name { font-size: 0.7rem; color: #94a3b8; padding: 5px; }
+        .mini-grid .day { font-size: 0.8rem; padding: 8px; border-radius: 6px; cursor: pointer; }
+        .mini-grid .day:hover { background: #f1f5f9; }
+        .mini-grid .day.today { background: #6366f1; color: white; }
+        .mini-grid .day.other-month { color: #cbd5e1; }
+
+        .calendars-section { margin-bottom: 30px; }
+        .section-title { font-size: 0.75rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; }
+        .calendar-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; cursor: pointer; }
+        .calendar-item input { width: 16px; height: 16px; accent-color: #6366f1; }
+        .calendar-color { width: 12px; height: 12px; border-radius: 4px; }
+        .calendar-name { font-size: 0.9rem; }
+
+        .main-content { display: flex; flex-direction: column; }
+
+        .header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .today-btn { padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; font-weight: 500; cursor: pointer; }
+        .nav-btns { display: flex; gap: 5px; }
+        .nav-btns button { width: 36px; height: 36px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; }
+        .current-date { font-size: 1.5rem; font-weight: 700; }
+        .view-toggle { display: flex; gap: 5px; }
+        .view-btn { padding: 10px 18px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+        .view-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .calendar-container { flex: 1; padding: 20px; overflow: auto; }
+
+        .week-header { display: grid; grid-template-columns: 60px repeat(7, 1fr); background: white; border-radius: 12px 12px 0 0; border: 1px solid #e2e8f0; border-bottom: none; }
+        .week-header .time-col { padding: 15px; }
+        .week-header .day-col { padding: 15px; text-align: center; border-left: 1px solid #e2e8f0; }
+        .week-header .day-name { font-size: 0.8rem; color: #64748b; margin-bottom: 5px; }
+        .week-header .day-number { font-size: 1.5rem; font-weight: 700; }
+        .week-header .day-col.today .day-number { background: #6366f1; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+
+        .week-body { display: grid; grid-template-columns: 60px repeat(7, 1fr); background: white; border: 1px solid #e2e8f0; border-radius: 0 0 12px 12px; }
+        .time-slot { padding: 10px 5px; font-size: 0.75rem; color: #94a3b8; text-align: right; height: 60px; border-top: 1px solid #f1f5f9; }
+        .day-column { border-left: 1px solid #e2e8f0; position: relative; }
+        .hour-row { height: 60px; border-top: 1px solid #f1f5f9; }
+
+        .event { position: absolute; left: 4px; right: 4px; padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; overflow: hidden; }
+        .event .title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .event .time { font-size: 0.7rem; opacity: 0.8; }
+        .event.purple { background: #e0e7ff; border-left: 3px solid #6366f1; color: #4338ca; }
+        .event.green { background: #dcfce7; border-left: 3px solid #22c55e; color: #166534; }
+        .event.orange { background: #ffedd5; border-left: 3px solid #f97316; color: #c2410c; }
+        .event.pink { background: #fce7f3; border-left: 3px solid #ec4899; color: #be185d; }
+        .event.blue { background: #dbeafe; border-left: 3px solid #3b82f6; color: #1d4ed8; }
+
+        .upcoming-events { padding: 20px; background: white; border-left: 1px solid #e2e8f0; width: 300px; }
+        .upcoming-events h3 { font-size: 1rem; font-weight: 700; margin-bottom: 20px; }
+        .upcoming-item { padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; }
+        .upcoming-item .date { font-size: 0.75rem; color: #6366f1; font-weight: 600; margin-bottom: 5px; }
+        .upcoming-item .title { font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; }
+        .upcoming-item .time { font-size: 0.85rem; color: #64748b; display: flex; align-items: center; gap: 5px; }
+        .upcoming-item .attendees { display: flex; margin-top: 10px; }
+        .upcoming-item .attendee { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; margin-left: -8px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+        .upcoming-item .attendee:first-child { margin-left: 0; }
+
+        @media (max-width: 1200px) {
+            .upcoming-events { display: none; }
+        }
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">📅 Calendar</div>
+            <button class="new-event-btn">+ 予定を作成</button>
+
+            <div class="mini-calendar">
+                <div class="mini-calendar-header">
+                    <h3>2024年12月</h3>
+                    <div class="nav">
+                        <button>←</button>
+                        <button>→</button>
+                    </div>
+                </div>
+                <div class="mini-grid">
+                    <div class="day-name">日</div>
+                    <div class="day-name">月</div>
+                    <div class="day-name">火</div>
+                    <div class="day-name">水</div>
+                    <div class="day-name">木</div>
+                    <div class="day-name">金</div>
+                    <div class="day-name">土</div>
+                    <div class="day other-month">24</div>
+                    <div class="day other-month">25</div>
+                    <div class="day other-month">26</div>
+                    <div class="day other-month">27</div>
+                    <div class="day other-month">28</div>
+                    <div class="day other-month">29</div>
+                    <div class="day other-month">30</div>
+                    <div class="day">1</div>
+                    <div class="day">2</div>
+                    <div class="day">3</div>
+                    <div class="day">4</div>
+                    <div class="day">5</div>
+                    <div class="day">6</div>
+                    <div class="day">7</div>
+                    <div class="day today">8</div>
+                    <div class="day">9</div>
+                    <div class="day">10</div>
+                    <div class="day">11</div>
+                    <div class="day">12</div>
+                    <div class="day">13</div>
+                    <div class="day">14</div>
+                    <div class="day">15</div>
+                    <div class="day">16</div>
+                    <div class="day">17</div>
+                    <div class="day">18</div>
+                    <div class="day">19</div>
+                    <div class="day">20</div>
+                    <div class="day">21</div>
+                </div>
+            </div>
+
+            <div class="calendars-section">
+                <div class="section-title">マイカレンダー</div>
+                <div class="calendar-item">
+                    <input type="checkbox" checked>
+                    <div class="calendar-color" style="background: #6366f1;"></div>
+                    <span class="calendar-name">仕事</span>
+                </div>
+                <div class="calendar-item">
+                    <input type="checkbox" checked>
+                    <div class="calendar-color" style="background: #22c55e;"></div>
+                    <span class="calendar-name">プライベート</span>
+                </div>
+                <div class="calendar-item">
+                    <input type="checkbox" checked>
+                    <div class="calendar-color" style="background: #f97316;"></div>
+                    <span class="calendar-name">チームミーティング</span>
+                </div>
+                <div class="calendar-item">
+                    <input type="checkbox">
+                    <div class="calendar-color" style="background: #ec4899;"></div>
+                    <span class="calendar-name">祝日</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <button class="today-btn">今日</button>
+                    <div class="nav-btns">
+                        <button>←</button>
+                        <button>→</button>
+                    </div>
+                    <h1 class="current-date">2024年12月</h1>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn">日</button>
+                    <button class="view-btn active">週</button>
+                    <button class="view-btn">月</button>
+                    <button class="view-btn">年</button>
+                </div>
+            </header>
+
+            <div style="display: flex; flex: 1; overflow: hidden;">
+                <div class="calendar-container">
+                    <div class="week-header">
+                        <div class="time-col"></div>
+                        <div class="day-col"><div class="day-name">日</div><div class="day-number">8</div></div>
+                        <div class="day-col today"><div class="day-name">月</div><div class="day-number">9</div></div>
+                        <div class="day-col"><div class="day-name">火</div><div class="day-number">10</div></div>
+                        <div class="day-col"><div class="day-name">水</div><div class="day-number">11</div></div>
+                        <div class="day-col"><div class="day-name">木</div><div class="day-number">12</div></div>
+                        <div class="day-col"><div class="day-name">金</div><div class="day-number">13</div></div>
+                        <div class="day-col"><div class="day-name">土</div><div class="day-number">14</div></div>
+                    </div>
+
+                    <div class="week-body">
+                        <div class="time-slot">9:00</div>
+                        <div class="day-column">
+                            <div class="hour-row"></div>
+                        </div>
+                        <div class="day-column">
+                            <div class="hour-row">
+                                <div class="event purple" style="top: 0; height: 60px;">
+                                    <div class="title">チームスタンドアップ</div>
+                                    <div class="time">9:00 - 9:30</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+
+                        <div class="time-slot">10:00</div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column">
+                            <div class="hour-row">
+                                <div class="event green" style="top: 0; height: 120px;">
+                                    <div class="title">クライアントミーティング</div>
+                                    <div class="time">10:00 - 12:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-column">
+                            <div class="hour-row">
+                                <div class="event blue" style="top: 0; height: 60px;">
+                                    <div class="title">デザインレビュー</div>
+                                    <div class="time">10:00 - 11:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+
+                        <div class="time-slot">11:00</div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column">
+                            <div class="hour-row">
+                                <div class="event orange" style="top: 0; height: 60px;">
+                                    <div class="title">1on1ミーティング</div>
+                                    <div class="time">11:00 - 12:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+
+                        <div class="time-slot">12:00</div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+
+                        <div class="time-slot">13:00</div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+
+                        <div class="time-slot">14:00</div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column">
+                            <div class="hour-row">
+                                <div class="event pink" style="top: 0; height: 90px;">
+                                    <div class="title">プロジェクト進捗会議</div>
+                                    <div class="time">14:00 - 15:30</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column">
+                            <div class="hour-row">
+                                <div class="event purple" style="top: 0; height: 60px;">
+                                    <div class="title">スプリントレビュー</div>
+                                    <div class="time">14:00 - 15:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+
+                        <div class="time-slot">15:00</div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                        <div class="day-column"><div class="hour-row"></div></div>
+                    </div>
+                </div>
+
+                <aside class="upcoming-events">
+                    <h3>今後の予定</h3>
+                    <div class="upcoming-item">
+                        <div class="date">今日</div>
+                        <div class="title">プロジェクト進捗会議</div>
+                        <div class="time">🕐 14:00 - 15:30</div>
+                        <div class="attendees">
+                            <div class="attendee" style="background: #6366f1; color: white;">👩</div>
+                            <div class="attendee" style="background: #22c55e; color: white;">👨</div>
+                            <div class="attendee" style="background: #f59e0b; color: white;">👩</div>
+                        </div>
+                    </div>
+                    <div class="upcoming-item">
+                        <div class="date">明日</div>
+                        <div class="title">デザインレビュー</div>
+                        <div class="time">🕐 10:00 - 11:00</div>
+                        <div class="attendees">
+                            <div class="attendee" style="background: #6366f1; color: white;">👨</div>
+                            <div class="attendee" style="background: #ec4899; color: white;">👩</div>
+                        </div>
+                    </div>
+                    <div class="upcoming-item">
+                        <div class="date">12月11日（水）</div>
+                        <div class="title">スプリントレビュー</div>
+                        <div class="time">🕐 14:00 - 15:00</div>
+                        <div class="attendees">
+                            <div class="attendee" style="background: #22c55e; color: white;">👩</div>
+                            <div class="attendee" style="background: #6366f1; color: white;">👨</div>
+                            <div class="attendee" style="background: #f59e0b; color: white;">👨</div>
+                            <div class="attendee" style="background: #e2e8f0; color: #64748b;">+2</div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

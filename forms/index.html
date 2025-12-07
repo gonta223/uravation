@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォームコレクション - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; padding: 40px 20px; }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .page-header { text-align: center; margin-bottom: 50px; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .page-header p { color: #64748b; font-size: 1.1rem; }
+
+        .section { margin-bottom: 60px; }
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #e2e8f0; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+
+        .form-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .form-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+        .form-group label .required { color: #ef4444; }
+        .form-group .helper { font-size: 0.8rem; color: #94a3b8; margin-top: 6px; }
+        .form-group.error input, .form-group.error select, .form-group.error textarea { border-color: #ef4444; }
+        .form-group.error .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 6px; }
+        .form-group.success input { border-color: #22c55e; }
+
+        input, select, textarea { width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; transition: all 0.3s; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        input:disabled, select:disabled, textarea:disabled { background: #f1f5f9; cursor: not-allowed; }
+        textarea { resize: vertical; min-height: 120px; }
+
+        .input-icon { position: relative; }
+        .input-icon input { padding-left: 45px; }
+        .input-icon .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; color: #94a3b8; }
+        .input-icon.right input { padding-left: 16px; padding-right: 45px; }
+        .input-icon.right .icon { left: auto; right: 16px; }
+
+        .input-addon { display: flex; }
+        .input-addon input { border-radius: 12px 0 0 12px; }
+        .input-addon .addon { padding: 14px 20px; background: #f1f5f9; border: 2px solid #e2e8f0; border-left: none; border-radius: 0 12px 12px 0; color: #64748b; font-size: 0.95rem; white-space: nowrap; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* Checkbox & Radio */
+        .checkbox-group, .radio-group { display: flex; flex-direction: column; gap: 12px; }
+        .checkbox-item, .radio-item { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .checkbox-item input, .radio-item input { width: 20px; height: 20px; accent-color: #6366f1; cursor: pointer; }
+        .checkbox-item label, .radio-item label { font-size: 0.9rem; cursor: pointer; }
+
+        .checkbox-card, .radio-card { display: flex; gap: 15px; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.3s; }
+        .checkbox-card:hover, .radio-card:hover { border-color: #6366f1; }
+        .checkbox-card.selected, .radio-card.selected { border-color: #6366f1; background: #f0f3ff; }
+        .checkbox-card input, .radio-card input { width: 20px; height: 20px; accent-color: #6366f1; margin-top: 2px; }
+        .checkbox-card .content, .radio-card .content { flex: 1; }
+        .checkbox-card .title, .radio-card .title { font-weight: 600; font-size: 0.95rem; margin-bottom: 3px; }
+        .checkbox-card .desc, .radio-card .desc { font-size: 0.85rem; color: #64748b; }
+
+        /* Toggle Switch */
+        .toggle-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .toggle-item:last-child { border-bottom: none; }
+        .toggle-item .info .title { font-weight: 500; font-size: 0.95rem; }
+        .toggle-item .info .desc { font-size: 0.85rem; color: #64748b; margin-top: 2px; }
+        .toggle-switch { width: 50px; height: 28px; background: #e2e8f0; border-radius: 14px; position: relative; cursor: pointer; transition: background 0.3s; }
+        .toggle-switch.on { background: #6366f1; }
+        .toggle-switch::after { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle-switch.on::after { transform: translateX(22px); }
+
+        /* Range Slider */
+        .range-slider { }
+        .range-slider input[type="range"] { width: 100%; height: 8px; -webkit-appearance: none; background: #e2e8f0; border-radius: 4px; border: none; padding: 0; }
+        .range-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; background: #6366f1; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4); }
+        .range-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: #94a3b8; margin-top: 8px; }
+        .range-value { text-align: center; font-size: 1.5rem; font-weight: 700; color: #6366f1; margin-bottom: 15px; }
+
+        /* File Upload */
+        .file-upload { border: 2px dashed #e2e8f0; border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .file-upload:hover { border-color: #6366f1; background: #f0f3ff; }
+        .file-upload .icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .file-upload .text { font-weight: 500; margin-bottom: 5px; }
+        .file-upload .hint { font-size: 0.85rem; color: #94a3b8; }
+
+        /* Tags Input */
+        .tags-input { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; border: 2px solid #e2e8f0; border-radius: 12px; min-height: 50px; }
+        .tags-input .tag { display: flex; align-items: center; gap: 5px; padding: 6px 12px; background: #e0e7ff; color: #6366f1; border-radius: 20px; font-size: 0.85rem; }
+        .tags-input .tag .remove { cursor: pointer; font-size: 1rem; }
+        .tags-input input { flex: 1; min-width: 100px; border: none; padding: 6px; font-size: 0.9rem; }
+        .tags-input input:focus { outline: none; }
+
+        /* Button Styles */
+        .btn { padding: 14px 28px; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-primary { background: #6366f1; color: white; }
+        .btn-primary:hover { background: #4f46e5; }
+        .btn-secondary { background: #f1f5f9; color: #64748b; }
+        .btn-outline { background: transparent; border: 2px solid #e2e8f0; color: #64748b; }
+        .btn-outline:hover { border-color: #6366f1; color: #6366f1; }
+        .btn-group { display: flex; gap: 12px; margin-top: 25px; }
+
+        @media (max-width: 900px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>フォームコレクション</h1>
+            <p>様々なフォーム要素とバリデーション状態</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">テキスト入力</h2>
+            <div class="form-grid">
+                <div class="form-card">
+                    <h3>基本入力フィールド</h3>
+                    <div class="form-group">
+                        <label>ラベル <span class="required">*</span></label>
+                        <input type="text" placeholder="プレースホルダーテキスト">
+                        <div class="helper">ヘルパーテキストがここに表示されます</div>
+                    </div>
+                    <div class="form-group error">
+                        <label>エラー状態</label>
+                        <input type="text" value="無効な入力">
+                        <div class="error-msg">⚠️ このフィールドは必須です</div>
+                    </div>
+                    <div class="form-group success">
+                        <label>成功状態</label>
+                        <input type="text" value="有効な入力">
+                    </div>
+                    <div class="form-group">
+                        <label>無効状態</label>
+                        <input type="text" value="編集不可" disabled>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>アイコン付き入力</h3>
+                    <div class="form-group">
+                        <label>検索</label>
+                        <div class="input-icon">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="検索...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>メールアドレス</label>
+                        <div class="input-icon">
+                            <span class="icon">📧</span>
+                            <input type="email" placeholder="email@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>金額</label>
+                        <div class="input-icon right">
+                            <input type="text" placeholder="10,000">
+                            <span class="icon">円</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>ウェブサイト</label>
+                        <div class="input-addon">
+                            <input type="text" placeholder="yoursite">
+                            <span class="addon">.example.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">選択入力</h2>
+            <div class="form-grid">
+                <div class="form-card">
+                    <h3>チェックボックス</h3>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="c1" checked>
+                            <label for="c1">オプション 1（選択済み）</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="c2">
+                            <label for="c2">オプション 2</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="c3" disabled>
+                            <label for="c3">オプション 3（無効）</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <div class="checkbox-card selected">
+                            <input type="checkbox" checked>
+                            <div class="content">
+                                <div class="title">プロプラン</div>
+                                <div class="desc">すべての機能が使い放題</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>ラジオボタン</h3>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="plan" id="r1" checked>
+                            <label for="r1">月額プラン</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="plan" id="r2">
+                            <label for="r2">年額プラン（20%お得）</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 12px;">
+                        <div class="radio-card selected">
+                            <input type="radio" name="ship" checked>
+                            <div class="content">
+                                <div class="title">通常配送</div>
+                                <div class="desc">3-5営業日 • 無料</div>
+                            </div>
+                        </div>
+                        <div class="radio-card">
+                            <input type="radio" name="ship">
+                            <div class="content">
+                                <div class="title">速達配送</div>
+                                <div class="desc">1-2営業日 • ¥500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">特殊入力</h2>
+            <div class="form-grid">
+                <div class="form-card">
+                    <h3>トグルスイッチ</h3>
+                    <div class="toggle-item">
+                        <div class="info">
+                            <div class="title">メール通知</div>
+                            <div class="desc">重要なお知らせをメールで受け取る</div>
+                        </div>
+                        <div class="toggle-switch on"></div>
+                    </div>
+                    <div class="toggle-item">
+                        <div class="info">
+                            <div class="title">マーケティングメール</div>
+                            <div class="desc">製品の最新情報を受け取る</div>
+                        </div>
+                        <div class="toggle-switch"></div>
+                    </div>
+                    <div class="toggle-item">
+                        <div class="info">
+                            <div class="title">2段階認証</div>
+                            <div class="desc">ログイン

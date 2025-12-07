@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>データテーブル - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; padding: 30px; }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+        .page-header p { color: #64748b; }
+
+        .table-card { background: white; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); overflow: hidden; }
+
+        .table-toolbar { padding: 20px 25px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .toolbar-left { display: flex; gap: 15px; align-items: center; }
+        .search-box { display: flex; align-items: center; gap: 10px; background: #f1f5f9; padding: 10px 15px; border-radius: 10px; }
+        .search-box input { border: none; background: none; font-size: 0.9rem; width: 250px; }
+        .search-box input:focus { outline: none; }
+        .filter-btn { padding: 10px 18px; background: #f1f5f9; border: none; border-radius: 10px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .filter-btn:hover { background: #e2e8f0; }
+        .toolbar-right { display: flex; gap: 10px; }
+        .btn { padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+        .btn-secondary { background: #f1f5f9; color: #64748b; }
+        .btn-primary { background: #6366f1; color: white; }
+
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        th { text-align: left; padding: 15px 20px; background: #f8fafc; font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+        th.sortable { cursor: pointer; }
+        th.sortable:hover { color: #6366f1; }
+        th .sort-icon { margin-left: 5px; opacity: 0.5; }
+        th.sorted .sort-icon { opacity: 1; color: #6366f1; }
+        td { padding: 15px 20px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        tr:hover { background: #f8fafc; }
+        tr.selected { background: #f0f3ff; }
+
+        .checkbox { width: 18px; height: 18px; accent-color: #6366f1; cursor: pointer; }
+
+        .user-cell { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+        .user-info .name { font-weight: 600; }
+        .user-info .email { font-size: 0.8rem; color: #94a3b8; }
+
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .status-badge.active { background: #dcfce7; color: #16a34a; }
+        .status-badge.pending { background: #fef3c7; color: #d97706; }
+        .status-badge.inactive { background: #fee2e2; color: #dc2626; }
+        .status-badge.draft { background: #f1f5f9; color: #64748b; }
+
+        .progress-cell { display: flex; align-items: center; gap: 10px; }
+        .progress-bar { width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 4px; }
+        .progress-fill.high { background: #22c55e; }
+        .progress-fill.medium { background: #f59e0b; }
+        .progress-fill.low { background: #ef4444; }
+        .progress-value { font-size: 0.85rem; color: #64748b; min-width: 35px; }
+
+        .amount { font-weight: 600; font-family: 'Inter', monospace; }
+        .amount.positive { color: #22c55e; }
+        .amount.negative { color: #ef4444; }
+
+        .date-cell { color: #64748b; }
+
+        .actions-cell { display: flex; gap: 8px; }
+        .action-btn { width: 32px; height: 32px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+        .action-btn:hover { background: #f8fafc; border-color: #6366f1; }
+
+        .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+        .tag { padding: 3px 10px; background: #e0e7ff; color: #6366f1; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
+
+        .table-footer { padding: 15px 25px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .showing-info { font-size: 0.85rem; color: #64748b; }
+        .pagination { display: flex; gap: 5px; }
+        .page-btn { width: 36px; height: 36px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+        .page-btn:hover { border-color: #6366f1; }
+        .page-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .page-btn.nav { width: auto; padding: 0 15px; }
+
+        .bulk-actions { display: flex; gap: 10px; align-items: center; padding: 15px 25px; background: #f0f3ff; border-bottom: 1px solid #e2e8f0; }
+        .bulk-actions .count { font-weight: 600; color: #6366f1; margin-right: 15px; }
+        .bulk-btn { padding: 8px 16px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .bulk-btn:hover { border-color: #6366f1; }
+        .bulk-btn.danger { color: #ef4444; }
+        .clear-btn { margin-left: auto; background: none; border: none; color: #64748b; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .table-toolbar { flex-direction: column; align-items: stretch; }
+            .toolbar-left, .toolbar-right { flex-wrap: wrap; }
+            .search-box input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>データテーブル</h1>
+            <p>高機能なデータテーブルのデモ</p>
+        </div>
+
+        <div class="table-card">
+            <div class="table-toolbar">
+                <div class="toolbar-left">
+                    <div class="search-box">
+                        <span>🔍</span>
+                        <input type="text" placeholder="検索...">
+                    </div>
+                    <button class="filter-btn">🔽 フィルター</button>
+                    <button class="filter-btn">📅 期間</button>
+                    <button class="filter-btn">📊 列の表示</button>
+                </div>
+                <div class="toolbar-right">
+                    <button class="btn btn-secondary">⬇️ エクスポート</button>
+                    <button class="btn btn-primary">+ 新規追加</button>
+                </div>
+            </div>
+
+            <div class="bulk-actions" style="display: none;">
+                <span class="count">3件選択中</span>
+                <button class="bulk-btn">📁 移動</button>
+                <button class="bulk-btn">🏷️ タグ追加</button>
+                <button class="bulk-btn">📧 メール送信</button>
+                <button class="bulk-btn danger">🗑️ 削除</button>
+                <button class="clear-btn">選択解除</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"><input type="checkbox" class="checkbox"></th>
+                            <th class="sortable sorted">ID <span class="sort-icon">↑</span></th>
+                            <th class="sortable">ユーザー <span class="sort-icon">↕</span></th>
+                            <th class="sortable">ステータス <span class="sort-icon">↕</span></th>
+                            <th class="sortable">進捗 <span class="sort-icon">↕</span></th>
+                            <th class="sortable">金額 <span class="sort-icon">↕</span></th>
+                            <th>タグ</th>
+                            <th class="sortable">更新日 <span class="sort-icon">↕</span></th>
+                            <th style="width: 120px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td>#001</td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">👩</div>
+                                    <div class="user-info">
+                                        <div class="name">佐藤 美咲</div>
+                                        <div class="email">sato@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge active">アクティブ</span></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <div class="progress-bar"><div class="progress-fill high" style="width: 85%;"></div></div>
+                                    <span class="progress-value">85%</span>
+                                </div>
+                            </td>
+                            <td><span class="amount positive">+¥124,500</span></td>
+                            <td>
+                                <div class="tags">
+                                    <span class="tag">VIP</span>
+                                    <span class="tag">Pro</span>
+                                </div>
+                            </td>
+                            <td class="date-cell">2024/12/08</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="action-btn">👁</button>
+                                    <button class="action-btn">✏️</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="selected">
+                            <td><input type="checkbox" class="checkbox" checked></td>
+                            <td>#002</td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white;">👨</div>
+                                    <div class="user-info">
+                                        <div class="name">田中 健太</div>
+                                        <div class="email">tanaka@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge pending">保留中</span></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <div class="progress-bar"><div class="progress-fill medium" style="width: 45%;"></div></div>
+                                    <span class="progress-value">45%</span>
+                                </div>
+                            </td>
+                            <td><span class="amount positive">+¥89,200</span></td>
+                            <td>
+                                <div class="tags">
+                                    <span class="tag">新規</span>
+                                </div>
+                            </td>
+                            <td class="date-cell">2024/12/07</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="action-btn">👁</button>
+                                    <button class="action-btn">✏️</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td>#003</td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">👩</div>
+                                    <div class="user-info">
+                                        <div class="name">鈴木 花子</div>
+                                        <div class="email">suzuki@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge active">アクティブ</span></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <div class="progress-bar"><div class="progress-fill high" style="width: 100%;"></div></div>
+                                    <span class="progress-value">100%</span>
+                                </div>
+                            </td>
+                            <td><span class="amount positive">+¥256,800</span></td>
+                            <td>
+                                <div class="tags">
+                                    <span class="tag">VIP</span>
+                                    <span class="tag">Enterprise</span>
+                                </div>
+                            </td>
+                            <td class="date-cell">2024/12/06</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="action-btn">👁</button>
+                                    <button class="action-btn">✏️</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td>#004</td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white;">👨</div>
+                                    <div class="user-info">
+                                        <div class="name">高橋 裕太</div>
+                                        <div class="email">takahashi@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge inactive">無効</span></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <div class="progress-bar"><div class="progress-fill low" style="width: 15%;"></div></div>
+                                    <span class="progress-value">15%</span>
+                                </div>
+                            </td>
+                            <td><span class="amount negative">-¥12,300</span></td>
+                            <td>
+                                <div class="tags">
+                                    <span class="tag">要対応</span>
+                                </div>
+                            </td>
+                            <td class="date-cell">2024/12/05</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="action-btn">👁</button>
+                                    <button class="action-btn">✏️</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td>#005</td>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white;">👩</div>
+                                    <div class="user-info">
+                                        <div class="name">山田 理恵</div>
+                                        <div class="email">yamada@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-badge draft">下書き</span></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <div class="progress-bar"><div class="progress-fill medium" style="width: 60%;"></div></div>
+                                    <span class="progress-value">60%</span>
+                                </div>
+                            </td>
+                            <td><span class="amount positive">+¥45,600</span></td>
+                            <td>
+                                <div class="tags">
+                                    <span class="tag">Starter</span>
+                                </div>
+                            </td>
+                            <td class="date-cell">2024/12/04</td>
+                            <td>
+                                <div class="actions-cell">
+                                    <button class="action-btn">👁</button>
+                                    <button class="action-btn">✏️</button>
+                                    <button class="action-btn">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <div class="showing-info">1-5 / 248件</div>
+                <div class="pagination">
+                    <button class="page-btn nav">←</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">...</button>
+                    <button class="page-btn">50</button>
+                    <button class="page-btn nav">→</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
