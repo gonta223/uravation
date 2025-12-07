@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デモリクエスト - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        .page-container { display: grid; grid-template-columns: 1fr 500px; min-height: 100vh; }
+
+        .main-content { padding: 60px 80px; display: flex; flex-direction: column; justify-content: center; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 50px; }
+
+        h1 { font-size: 3rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; letter-spacing: -1px; }
+        h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .subtitle { font-size: 1.2rem; color: #64748b; line-height: 1.8; margin-bottom: 40px; }
+
+        .benefits { margin-bottom: 50px; }
+        .benefit-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+        .benefit-icon { width: 50px; height: 50px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .benefit-text h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+        .benefit-text p { font-size: 0.95rem; color: #64748b; }
+
+        .trust-section { padding-top: 40px; border-top: 1px solid #e2e8f0; }
+        .trust-section p { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; }
+        .trust-logos { display: flex; gap: 30px; align-items: center; opacity: 0.5; }
+        .trust-logo { font-size: 1.2rem; font-weight: 800; color: #94a3b8; }
+
+        .form-section { background: linear-gradient(135deg, #1e293b, #334155); padding: 60px 50px; display: flex; flex-direction: column; justify-content: center; }
+
+        .form-card { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .form-card h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; text-align: center; }
+        .form-card .form-subtitle { text-align: center; color: #64748b; font-size: 0.95rem; margin-bottom: 30px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+        .form-group label .required { color: #ef4444; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        input, select, textarea { width: 100%; padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; transition: all 0.3s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        textarea { resize: vertical; min-height: 100px; }
+
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 25px; }
+        .checkbox-group input { width: auto; margin-top: 3px; }
+        .checkbox-group label { font-size: 0.85rem; color: #64748b; }
+        .checkbox-group a { color: #6366f1; text-decoration: none; }
+
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        .form-footer { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
+        .form-footer a { color: #6366f1; text-decoration: none; }
+
+        .testimonial { margin-top: 30px; padding: 25px; background: #f8fafc; border-radius: 16px; }
+        .testimonial .quote { font-size: 0.95rem; font-style: italic; color: #475569; margin-bottom: 15px; line-height: 1.7; }
+        .testimonial .author { display: flex; align-items: center; gap: 12px; }
+        .testimonial .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .testimonial .info .name { font-weight: 600; font-size: 0.9rem; }
+        .testimonial .info .role { font-size: 0.8rem; color: #94a3b8; }
+
+        @media (max-width: 1100px) {
+            .page-container { grid-template-columns: 1fr; }
+            .main-content { padding: 40px 20px; }
+            h1 { font-size: 2.5rem; }
+            .form-section { padding: 40px 20px; }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="main-content">
+            <div class="logo">AppName</div>
+
+            <h1>あなたのチームに<span>最適な活用法</span>をご提案</h1>
+
+            <p class="subtitle">
+                専門スタッフが貴社の課題をヒアリングし、AppNameを使った解決策を30分でご提案します。導入事例やベストプラクティスもご紹介。
+            </p>
+
+            <div class="benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">💡</div>
+                    <div class="benefit-text">
+                        <h3>貴社に合わせたデモ</h3>
+                        <p>業界・規模に合わせた活用事例とベストプラクティスをご紹介</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">❓</div>
+                    <div class="benefit-text">
+                        <h3>Q&A対応</h3>
+                        <p>機能、料金、セキュリティなど、どんな質問にもお答えします</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎁</div>
+                    <div class="benefit-text">
+                        <h3>特典あり</h3>
+                        <p>デモ参加で限定eBookと14日間の無料トライアル延長をプレゼント</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trust-section">
+                <p>3,000社以上の企業に導入いただいています</p>
+                <div class="trust-logos">
+                    <span class="trust-logo">ACME</span>
+                    <span class="trust-logo">TechCo</span>
+                    <span class="trust-logo">GlobalIT</span>
+                    <span class="trust-logo">SysCorp</span>
+                    <span class="trust-logo">DataPro</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-card">
+                <h2>デモをリクエスト</h2>
+                <p class="form-subtitle">以下のフォームにご記入ください（所要時間：1分）</p>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>お名前 <span class="required">*</span></label>
+                            <input type="text" placeholder="山田 太郎" required>
+                        </div>
+                        <div class="form-group">
+                            <label>会社名 <span class="required">*</span></label>
+                            <input type="text" placeholder="株式会社サンプル" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>メールアドレス <span class="required">*</span></label>
+                        <input type="email" placeholder="yamada@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>電話番号</label>
+                        <input type="tel" placeholder="03-1234-5678">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>従業員数 <span class="required">*</span></label>
+                            <select required>
+                                <option value="">選択してください</option>
+                                <option>1-10名</option>
+                                <option>11-50名</option>
+                                <option>51-200名</option>
+                                <option>201-500名</option>
+                                <option>501-1000名</option>
+                                <option>1000名以上</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>部署 <span class="required">*</span></label>
+                            <select required>
+                                <option value="">選択してください</option>
+                                <option>経営・役員</option>
+                                <option>営業</option>
+                                <option>マーケティング</option>
+                                <option>開発・エンジニアリング</option>
+                                <option>人事・総務</option>
+                                <option>カスタマーサクセス</option>
+                                <option>その他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ご興味のある機能（複数選択可）</label>
+                        <select>
+                            <option value="">選択してください</option>
+                            <option>タスク管理</option>
+                            <option>プロジェクト管理</option>
+                            <option>チームコラボレーション</option>
+                            <option>自動化・ワークフロー</option>
+                            <option>レポート・分析</option>
+                            <option>外部ツール連携</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>現在の課題やご要望</label>
+                        <textarea placeholder="現在お使いのツールや、解決したい課題があればお聞かせください"></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" required>
+                        <label for="consent"><a href="#">プライバシーポリシー</a>に同意します</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">デモをリクエストする →</button>
+
+                    <p class="form-footer">
+                        すでにアカウントをお持ちですか？ <a href="#">ログイン</a>
+                    </p>
+                </form>
+
+                <div class="testimonial">
+                    <p class="quote">「デモでAppNameの可能性を実感できました。導入後、チームの生産性が40%向上しました。」</p>
+                    <div class="author">
+                        <div class="avatar">👩‍💼</div>
+                        <div class="info">
+                            <div class="name">佐藤 美咲</div>
+                            <div class="role">株式会社テックソリューションズ プロジェクトマネージャー</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

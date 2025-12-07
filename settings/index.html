@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; color: #1e293b; display: flex; min-height: 100vh; }
+
+        .sidebar { width: 260px; background: #1e293b; color: white; display: flex; flex-direction: column; position: fixed; height: 100vh; }
+        .sidebar-header { padding: 25px; border-bottom: 1px solid #334155; }
+        .logo { font-size: 1.4rem; font-weight: 800; }
+        .sidebar-nav { flex: 1; padding: 20px 0; overflow-y: auto; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 14px 25px; color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-item:hover { background: rgba(99, 102, 241, 0.1); color: white; }
+        .nav-item.active { background: rgba(99, 102, 241, 0.1); color: white; border-left-color: #6366f1; }
+        .nav-item .icon { font-size: 1.2rem; width: 24px; text-align: center; }
+
+        .main-content { margin-left: 260px; flex: 1; }
+
+        .top-bar { background: white; border-bottom: 1px solid #e2e8f0; padding: 25px 40px; }
+        .top-bar h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; }
+        .top-bar p { color: #64748b; font-size: 0.95rem; }
+
+        .settings-container { max-width: 900px; padding: 40px; }
+
+        .settings-nav { display: flex; gap: 5px; margin-bottom: 30px; background: white; padding: 8px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .settings-nav-item { padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; color: #64748b; text-decoration: none; transition: all 0.3s; }
+        .settings-nav-item:hover { background: #f1f5f9; color: #1e293b; }
+        .settings-nav-item.active { background: #6366f1; color: white; }
+
+        .settings-section { background: white; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .section-header { padding: 25px 30px; border-bottom: 1px solid #f1f5f9; }
+        .section-header h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+        .section-header p { font-size: 0.9rem; color: #64748b; }
+        .section-body { padding: 25px 30px; }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+        .form-group .hint { font-size: 0.85rem; color: #64748b; margin-top: 6px; }
+        .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        input[type="text"], input[type="email"], input[type="password"], select, textarea {
+            width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; transition: all 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        textarea { resize: vertical; min-height: 100px; }
+
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; }
+        .toggle-row:last-child { border: none; }
+        .toggle-info .title { font-weight: 500; margin-bottom: 3px; }
+        .toggle-info .desc { font-size: 0.85rem; color: #64748b; }
+        .toggle { width: 50px; height: 28px; background: #e2e8f0; border-radius: 14px; position: relative; cursor: pointer; transition: all 0.3s; }
+        .toggle.active { background: #6366f1; }
+        .toggle::after { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle.active::after { left: 25px; }
+
+        .radio-group { display: flex; flex-direction: column; gap: 12px; }
+        .radio-item { display: flex; align-items: center; gap: 12px; padding: 15px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; }
+        .radio-item:hover { background: #f1f5f9; }
+        .radio-item.selected { border-color: #6366f1; background: rgba(99, 102, 241, 0.05); }
+        .radio-item input { display: none; }
+        .radio-circle { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .radio-item.selected .radio-circle { border-color: #6366f1; }
+        .radio-circle::after { content: ''; width: 10px; height: 10px; background: #6366f1; border-radius: 50%; opacity: 0; transition: all 0.3s; }
+        .radio-item.selected .radio-circle::after { opacity: 1; }
+        .radio-info .title { font-weight: 500; margin-bottom: 2px; }
+        .radio-info .desc { font-size: 0.85rem; color: #64748b; }
+
+        .plan-card { display: flex; justify-content: space-between; align-items: center; padding: 25px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 16px; color: white; margin-bottom: 20px; }
+        .plan-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
+        .plan-info p { opacity: 0.9; font-size: 0.95rem; }
+        .plan-card .upgrade-btn { padding: 12px 24px; background: white; color: #6366f1; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+
+        .usage-bar { margin-top: 20px; }
+        .usage-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .usage-header .used { font-weight: 500; }
+        .usage-header .limit { color: #64748b; }
+        .usage-progress { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+        .usage-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); border-radius: 4px; }
+
+        .sessions-list { list-style: none; }
+        .session-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; }
+        .session-item:last-child { border: none; }
+        .session-info { display: flex; align-items: center; gap: 15px; }
+        .session-icon { width: 45px; height: 45px; background: #f1f5f9; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .session-details .device { font-weight: 500; margin-bottom: 3px; }
+        .session-details .location { font-size: 0.85rem; color: #64748b; }
+        .session-badge { padding: 4px 12px; background: #dcfce7; color: #16a34a; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+        .revoke-btn { padding: 8px 16px; background: #fee2e2; color: #dc2626; border: none; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+
+        .btn-group { display: flex; gap: 12px; margin-top: 25px; }
+        .btn { padding: 12px 24px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #6366f1; color: white; border: none; }
+        .btn-primary:hover { background: #4f46e5; }
+        .btn-secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { background: #f8fafc; }
+
+        @media (max-width: 1000px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .settings-nav { overflow-x: auto; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .settings-container { padding: 20px; }
+            .settings-nav { flex-wrap: nowrap; }
+            .settings-nav-item { white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">AppName</div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item"><span class="icon">📊</span>ダッシュボード</a>
+            <a href="#" class="nav-item"><span class="icon">📁</span>プロジェクト</a>
+            <a href="#" class="nav-item"><span class="icon">✅</span>タスク</a>
+            <a href="#" class="nav-item"><span class="icon">👤</span>プロフィール</a>
+            <a href="#" class="nav-item active"><span class="icon">⚙️</span>設定</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <h1>設定</h1>
+            <p>アカウントと環境設定を管理</p>
+        </div>
+
+        <div class="settings-container">
+            <nav class="settings-nav">
+                <a href="#" class="settings-nav-item active">一般</a>
+                <a href="#" class="settings-nav-item">セキュリティ</a>
+                <a href="#" class="settings-nav-item">通知</a>
+                <a href="#" class="settings-nav-item">プラン・請求</a>
+                <a href="#" class="settings-nav-item">連携</a>
+                <a href="#" class="settings-nav-item">API</a>
+            </nav>
+
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>👤 基本情報</h2>
+                    <p>アカウントの基本情報を設定します</p>
+                </div>
+                <div class="section-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>氏名</label>
+                            <input type="text" value="田中 太郎">
+                        </div>
+                        <div class="form-group">
+                            <label>表示名</label>
+                            <input type="text" value="tanaka.taro">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>メールアドレス</label>
+                        <input type="email" value="tanaka@company.com">
+                        <p class="hint">メールアドレスを変更すると、確認メールが送信されます</p>
+                    </div>
+                    <div class="form-group">
+                        <label>自己紹介</label>
+                        <textarea placeholder="自己紹介を入力...">プロダクト開発とチームマネジメントに情熱を注いでいます。</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary">変更を保存</button>
+                        <button class="btn btn-secondary">キャンセル</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>🌍 言語と地域</h2>
+                    <p>表示言語とタイムゾーンを設定します</p>
+                </div>
+                <div class="section-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>言語</label>
+                            <select>
+                                <option selected>日本語</option>
+                                <option>English</option>
+                                <option>中文</option>
+                                <option>한국어</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>タイムゾーン</label>
+                            <select>
+                                <option selected>Asia/Tokyo (GMT+9)</option>
+                                <option>America/New_York (GMT-5)</option>
+                                <option>Europe/London (GMT+0)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>日付形式</label>
+                            <select>
+                                <option selected>YYYY/MM/DD</option>
+                                <option>MM/DD/YYYY</option>
+                                <option>DD/MM/YYYY</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>週の開始日</label>
+                            <select>
+                                <option selected>月曜日</option>
+                                <option>日曜日</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>🎨 外観</h2>
+                    <p>アプリの表示設定をカスタマイズします</p>
+                </div>
+                <div class="section-body">
+                    <div class="form-group">
+                        <label>テーマ</label>
+                        <div class="radio-group">
+                            <label class="radio-item selected">
+                                <input type="radio" name="theme" checked>
+                                <span class="radio-circle"></span>
+                                <div class="radio-info">
+                                    <div class="title">☀️ ライトモード</div>
+                                    <div class="desc">明るい背景で表示します</div>
+                                </div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="theme">
+                                <span class="radio-circle"></span>
+                                <div class="radio-info">
+                                    <div class="title">🌙 ダークモード</div>
+                                    <div class="desc">暗い背景で表示します</div>
+                                </div>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="theme">
+                                <span class="radio-circle"></span>
+                                <div class="radio-info">
+                                    <div class="title">💻 システム設定に従う</div>
+                                    <div class="desc">OSの設定に合わせて自動切り替え</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>🔒 セキュリティ</h2>
+                    <p>アカウントのセキュリティ設定</p>
+                </div>
+                <div class="section-body">
+                    <div class="toggle-row">
+                        <div class="toggle-info">
+                            <div class="title">二要素認証</div>
+                            <div class="desc">ログイン時に追加の認証を要求します</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="toggle-row">
+                        <div class="toggle-info">
+                            <div class="title">ログインアラート</div>
+                            <div class="desc">新しいデバイスからのログイン時にメール通知</div>
+                        </div>
+                        <div class="toggle active"></div>
+                    </div>
+                    <div class="toggle-row">
+                        <div class="toggle-info">
+                            <div class="title">セッションタイムアウト</div>
+                            <div class="desc">30分間操作がない場合に自動ログアウト</div>
+                        </div>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>📱 アクティブセッション</h2>
+                    <p>現在ログイン中のデバイス</p>
+                </div>
+                <div class="section-body">
+                    <ul class="sessions-list">
+                        <li class="session-item">
+                            <div class="session-info">
+                                <div class="session-icon">💻</div>
+                                <div class="session-details">
+                                    <div class="device">MacBook Pro - Chrome</div>
+                                    <div class="location">東京, 日本 • 現在のセッション</div>
+                                </div>
+                            </div>
+                            <span class="session-badge">現在</span>
+                        </li>
+                        <li class="session-item">
+                            <div class="session-info">
+                                <div class="session-icon">📱</div>
+                                <div class="session-details">
+                                    <div class="device">iPhone 14 Pro - Safari</div>
+                                    <div class="location">東京, 日本 • 2時間前</div>
+                                </div>
+                            </div>
+                            <button class="revoke-btn">ログアウト</button>
+                        </li>
+                        <li class="session-item">
+                            <div class="session-info">
+                                <div class="session-icon">🖥️</div>
+                                <div class="session-details">
+                                    <div class="device">Windows PC - Edge</div>
+                                    <div class="location">大阪, 日本 • 3日前</div>
+                                </div>
+                            </div>
+                            <button class="revoke-btn">ログアウト</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-header">
+                    <h2>💳 プラン・使用量</h2>
+                    <p>現在のプランと使用状況</p>
+                </div>
+                <div class="section-body">
+                    <div class="plan-card">
+                        <div class="plan-info">
+                            <h3>Pro プラン</h3>
+                            <p>月額 ¥1,980 / ユーザー • 次回請求日: 2025年1月15日</p>
+                        </div>
+                        <button class="upgrade-btn">プラン変更</button>
+                    </div>
+                    <div class="usage-bar">
+                        <div class="usage-header">
+                            <span class="used">ストレージ使用量</span>
+                            <span class="limit">7.2 GB / 10 GB</span>
+                        </div>
+                        <div class="usage-progress">
+                            <div class="usage-fill" style="width: 72%;"></div>
+                        </div>
+                    </div>
+                    <div class="usage-bar">
+                        <div class="usage-header">
+                            <span class="used">API呼び出し</span>
+                            <span class="limit">8,432 / 10,000</span>
+                        </div>
+                        <div class="usage-progress">
+                            <div class="usage-fill" style="width: 84%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('.toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => toggle.classList.toggle('active'));
+        });
+        document.querySelectorAll('.radio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.radio-item').forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
