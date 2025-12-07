@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 | AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #6366f1; --dark: #0f172a; --text: #334155; --text-light: #64748b; --light: #f1f5f9; --white: #fff; --border: #e2e8f0; --danger: #ef4444; --success: #22c55e; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: var(--light); color: var(--text); }
+
+        .app-layout { display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar { width: 280px; background: var(--white); border-right: 1px solid var(--border); padding: 25px; position: fixed; height: 100vh; }
+        .sidebar-logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 40px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li { margin-bottom: 5px; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: var(--text-light); text-decoration: none; border-radius: 10px; transition: all 0.3s; font-size: 0.9rem; }
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+        .sidebar-menu .material-icons { font-size: 22px; }
+
+        /* Main Content */
+        .main-content { flex: 1; margin-left: 280px; padding: 40px; }
+        .page-header { margin-bottom: 40px; }
+        .page-header h1 { font-size: 1.8rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .page-header p { color: var(--text-light); }
+
+        /* Settings Sections */
+        .settings-section { background: var(--white); border-radius: 16px; padding: 30px; margin-bottom: 25px; }
+        .section-title { font-size: 1.1rem; font-weight: 600; color: var(--dark); margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        .section-title .material-icons { color: var(--primary); }
+
+        /* Profile Section */
+        .profile-header { display: flex; align-items: center; gap: 25px; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
+        .profile-avatar { width: 100px; height: 100px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: 700; position: relative; }
+        .avatar-edit { position: absolute; bottom: 0; right: 0; width: 32px; height: 32px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .avatar-edit .material-icons { font-size: 16px; color: white; }
+        .profile-info h3 { font-size: 1.3rem; font-weight: 600; color: var(--dark); margin-bottom: 5px; }
+        .profile-info p { color: var(--text-light); font-size: 0.9rem; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; color: var(--dark); margin-bottom: 8px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); }
+
+        /* Toggle Switch */
+        .toggle-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
+        .toggle-item:last-child { border-bottom: none; }
+        .toggle-info h4 { font-size: 0.95rem; font-weight: 500; color: var(--dark); margin-bottom: 3px; }
+        .toggle-info p { font-size: 0.85rem; color: var(--text-light); }
+        .toggle-switch { width: 50px; height: 28px; background: var(--border); border-radius: 14px; position: relative; cursor: pointer; transition: background 0.3s; }
+        .toggle-switch.active { background: var(--primary); }
+        .toggle-switch::after { content: ''; width: 22px; height: 22px; background: white; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: left 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle-switch.active::after { left: 25px; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 15px; margin-top: 25px; }
+        .btn { padding: 12px 30px; border-radius: 10px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-primary:hover { background: #4f46e5; }
+        .btn-outline { background: white; color: var(--text); border: 1px solid var(--border); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-danger { background: var(--danger); color: white; border: none; }
+
+        /* Danger Zone */
+        .danger-zone { border: 1px solid var(--danger); background: rgba(239, 68, 68, 0.05); }
+        .danger-zone .section-title { color: var(--danger); }
+        .danger-zone .section-title .material-icons { color: var(--danger); }
+
+        @media (max-width: 1024px) { .form-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; } .profile-header { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">AppName</div>
+            <ul class="sidebar-menu">
+                <li><a href="#"><span class="material-icons">dashboard</span> ダッシュボード</a></li>
+                <li><a href="#"><span class="material-icons">folder</span> プロジェクト</a></li>
+                <li><a href="#"><span class="material-icons">people</span> チーム</a></li>
+                <li><a href="#"><span class="material-icons">analytics</span> 分析</a></li>
+                <li><a href="#" class="active"><span class="material-icons">settings</span> 設定</a></li>
+                <li><a href="#"><span class="material-icons">help</span> ヘルプ</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>設定</h1>
+                <p>アカウントとアプリケーションの設定を管理します</p>
+            </div>
+
+            <div class="settings-section">
+                <h2 class="section-title"><span class="material-icons">person</span> プロフィール設定</h2>
+                <div class="profile-header">
+                    <div class="profile-avatar">YT<div class="avatar-edit"><span class="material-icons">edit</span></div></div>
+                    <div class="profile-info">
+                        <h3>山田 太郎</h3>
+                        <p>yamada@example.com</p>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>姓</label>
+                        <input type="text" value="山田">
+                    </div>
+                    <div class="form-group">
+                        <label>名</label>
+                        <input type="text" value="太郎">
+                    </div>
+                    <div class="form-group">
+                        <label>メールアドレス</label>
+                        <input type="email" value="yamada@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>電話番号</label>
+                        <input type="tel" value="090-0000-0000">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary">変更を保存</button>
+                    <button class="btn btn-outline">キャンセル</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2 class="section-title"><span class="material-icons">notifications</span> 通知設定</h2>
+                <div class="toggle-item">
+                    <div class="toggle-info">
+                        <h4>メール通知</h4>
+                        <p>重要な更新をメールでお知らせします</p>
+                    </div>
+                    <div class="toggle-switch active"></div>
+                </div>
+                <div class="toggle-item">
+                    <div class="toggle-info">
+                        <h4>プッシュ通知</h4>
+                        <p>ブラウザでプッシュ通知を受け取ります</p>
+                    </div>
+                    <div class="toggle-switch"></div>
+                </div>
+                <div class="toggle-item">
+                    <div class="toggle-info">
+                        <h4>マーケティングメール</h4>
+                        <p>新機能やお知らせを受け取ります</p>
+                    </div>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2 class="section-title"><span class="material-icons">security</span> セキュリティ</h2>
+                <div class="toggle-item">
+                    <div class="toggle-info">
+                        <h4>二段階認証</h4>
+                        <p>アカウントのセキュリティを強化します</p>
+                    </div>
+                    <div class="toggle-switch active"></div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-outline">パスワードを変更</button>
+                </div>
+            </div>
+
+            <div class="settings-section danger-zone">
+                <h2 class="section-title"><span class="material-icons">warning</span> 危険な操作</h2>
+                <p style="margin-bottom: 20px; color: var(--text-light);">アカウントを削除すると、すべてのデータが完全に削除されます。この操作は取り消せません。</p>
+                <button class="btn btn-danger">アカウントを削除</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

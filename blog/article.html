@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT APIを使った実践的なアプリケーション開発入門 | TECH INSIGHT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #2563eb; --dark: #0f172a; --text: #334155; --text-light: #64748b; --light: #f8fafc; --white: #fff; --border: #e2e8f0; --code-bg: #1e293b; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--white); }
+        a { text-decoration: none; color: var(--primary); }
+
+        header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+        .logo span { color: var(--primary); }
+
+        .article-header { background: linear-gradient(135deg, var(--primary), #7c3aed); padding: 100px 20px 80px; color: white; }
+        .article-header-content { max-width: 800px; margin: 0 auto; }
+        .article-category { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
+        .article-header h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.4; margin-bottom: 25px; }
+        .article-meta { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+        .author { display: flex; align-items: center; gap: 12px; }
+        .author-avatar { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        .author-info .name { font-weight: 600; }
+        .author-info .date { font-size: 0.9rem; opacity: 0.9; }
+        .read-time { display: flex; align-items: center; gap: 5px; font-size: 0.9rem; opacity: 0.9; }
+
+        .article-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+
+        .article-content h2 { font-size: 1.8rem; font-weight: 700; color: var(--dark); margin: 50px 0 25px; padding-bottom: 15px; border-bottom: 2px solid var(--border); }
+        .article-content h3 { font-size: 1.4rem; font-weight: 600; color: var(--dark); margin: 40px 0 20px; }
+        .article-content p { margin-bottom: 25px; font-size: 1.05rem; }
+        .article-content ul, .article-content ol { margin: 25px 0; padding-left: 25px; }
+        .article-content li { margin-bottom: 10px; }
+
+        .code-block { background: var(--code-bg); border-radius: 12px; padding: 25px; margin: 30px 0; overflow-x: auto; }
+        .code-block code { color: #e2e8f0; font-family: 'Menlo', 'Monaco', monospace; font-size: 0.9rem; line-height: 1.7; }
+        .code-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .code-lang { color: #94a3b8; font-size: 0.8rem; font-weight: 600; }
+        .code-copy { background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
+
+        .callout { background: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--primary); padding: 25px; border-radius: 0 12px 12px 0; margin: 30px 0; }
+        .callout-title { font-weight: 600; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .callout p { margin: 0; }
+
+        .article-image { width: 100%; height: 400px; background: var(--light); border-radius: 12px; margin: 30px 0; display: flex; align-items: center; justify-content: center; }
+        .article-image .material-icons { font-size: 80px; color: #cbd5e1; }
+
+        /* Share & Tags */
+        .article-footer { border-top: 1px solid var(--border); padding-top: 40px; margin-top: 60px; }
+        .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+        .tag { background: var(--light); padding: 8px 18px; border-radius: 20px; font-size: 0.85rem; color: var(--text-light); }
+        .share-section { display: flex; justify-content: space-between; align-items: center; }
+        .share-label { font-weight: 600; color: var(--dark); }
+        .share-buttons { display: flex; gap: 10px; }
+        .share-btn { width: 45px; height: 45px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; color: var(--text-light); transition: all 0.3s; }
+        .share-btn:hover { background: var(--primary); color: white; }
+
+        /* Author Bio */
+        .author-bio { background: var(--light); border-radius: 16px; padding: 35px; margin-top: 50px; display: flex; gap: 25px; }
+        .author-bio-avatar { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; flex-shrink: 0; }
+        .author-bio-content h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--dark); }
+        .author-bio-content .title { font-size: 0.9rem; color: var(--primary); margin-bottom: 12px; }
+        .author-bio-content p { font-size: 0.95rem; color: var(--text-light); margin: 0; }
+
+        /* Related */
+        .related { padding: 60px 20px; background: var(--light); }
+        .related-content { max-width: 1000px; margin: 0 auto; }
+        .related h2 { font-size: 1.5rem; margin-bottom: 30px; text-align: center; color: var(--dark); }
+        .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .related-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .related-image { height: 150px; background: linear-gradient(135deg, #06b6d4, #0891b2); display: flex; align-items: center; justify-content: center; }
+        .related-image .material-icons { font-size: 50px; color: white; opacity: 0.4; }
+        .related-content-inner { padding: 20px; }
+        .related-content-inner h3 { font-size: 1rem; font-weight: 600; color: var(--dark); margin-bottom: 10px; }
+        .related-content-inner .meta { font-size: 0.8rem; color: var(--text-light); }
+
+        footer { background: var(--dark); color: white; padding: 40px 20px; text-align: center; }
+        .footer-logo { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        footer p { opacity: 0.5; font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .article-header h1 { font-size: 1.8rem; }
+            .related-grid { grid-template-columns: 1fr; }
+            .author-bio { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">TECH<span>INSIGHT</span></a>
+        </div>
+    </header>
+
+    <div class="article-header">
+        <div class="article-header-content">
+            <span class="article-category">AI・機械学習</span>
+            <h1>ChatGPT APIを使った実践的なアプリケーション開発入門</h1>
+            <div class="article-meta">
+                <div class="author">
+                    <div class="author-avatar">ST</div>
+                    <div class="author-info">
+                        <div class="name">佐藤 太郎</div>
+                        <div class="date">2024年12月5日</div>
+                    </div>
+                </div>
+                <div class="read-time"><span class="material-icons">schedule</span> 10分で読めます</div>
+            </div>
+        </div>
+    </div>
+
+    <article class="article-container">
+        <div class="article-content">
+            <p>OpenAIのChatGPT APIは、自然言語処理を活用したアプリケーション開発において革命的なツールとなっています。本記事では、APIの基本的な使い方から、実践的なアプリケーション構築まで、ステップバイステップで解説します。</p>
+
+            <div class="article-image"><span class="material-icons">psychology</span></div>
+
+            <h2>はじめに：ChatGPT APIとは</h2>
+            <p>ChatGPT APIは、OpenAIが提供する大規模言語モデル（LLM）へのアクセスを可能にするインターフェースです。テキスト生成、質問応答、要約、翻訳など、様々な自然言語処理タスクに活用できます。</p>
+
+            <div class="callout">
+                <div class="callout-title"><span class="material-icons">lightbulb</span> ポイント</div>
+                <p>APIを使用するには、OpenAIアカウントを作成し、APIキーを取得する必要があります。</p>
+            </div>
+
+            <h2>環境セットアップ</h2>
+            <p>まず、Node.js環境でOpenAI公式ライブラリをインストールします。</p>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">bash</span>
+                    <button class="code-copy">コピー</button>
+                </div>
+                <code>npm install openai</code>
+            </div>
+
+            <h3>基本的な実装</h3>
+            <p>以下は、ChatGPT APIを使用した基本的なテキスト生成の例です。</p>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">javascript</span>
+                    <button class="code-copy">コピー</button>
+                </div>
+                <code>import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+async function generateResponse(prompt) {
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [
+      { role: "system", content: "You are a helpful assistant." },
+      { role: "user", content: prompt }
+    ],
+  });
+
+  return completion.choices[0].message.content;
+}</code>
+            </div>
+
+            <h2>実践的なユースケース</h2>
+            <p>ChatGPT APIは様々な用途に活用できます：</p>
+            <ul>
+                <li>カスタマーサポートチャットボット</li>
+                <li>コンテンツ生成・要約ツール</li>
+                <li>コードレビュー・説明アシスタント</li>
+                <li>翻訳・ローカライゼーションツール</li>
+            </ul>
+
+            <h2>まとめ</h2>
+            <p>ChatGPT APIを活用することで、従来は困難だった自然言語処理タスクを簡単に実装できるようになりました。本記事で紹介した基礎を踏まえ、ぜひ独自のアプリケーション開発に挑戦してみてください。</p>
+        </div>
+
+        <div class="article-footer">
+            <div class="tags">
+                <span class="tag">ChatGPT</span>
+                <span class="tag">API</span>
+                <span class="tag">AI</span>
+                <span class="tag">OpenAI</span>
+                <span class="tag">JavaScript</span>
+            </div>
+            <div class="share-section">
+                <span class="share-label">この記事をシェア</span>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn"><span class="material-icons">share</span></a>
+                    <a href="#" class="share-btn"><span class="material-icons">link</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-bio">
+            <div class="author-bio-avatar">ST</div>
+            <div class="author-bio-content">
+                <h4>佐藤 太郎</h4>
+                <p class="title">シニアエンジニア / テックライター</p>
+                <p>10年以上のソフトウェア開発経験を持つエンジニア。AI・機械学習領域を中心に技術記事を執筆。</p>
+            </div>
+        </div>
+    </article>
+
+    <section class="related">
+        <div class="related-content">
+            <h2>関連記事</h2>
+            <div class="related-grid">
+                <a href="#" class="related-card">
+                    <div class="related-image"><span class="material-icons">code</span></div>
+                    <div class="related-content-inner">
+                        <h3>GPT-4 Turboの新機能まとめ</h3>
+                        <p class="meta">2024年11月30日</p>
+                    </div>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-image" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);"><span class="material-icons">auto_awesome</span></div>
+                    <div class="related-content-inner">
+                        <h3>LangChainで作るAIエージェント</h3>
+                        <p class="meta">2024年11月25日</p>
+                    </div>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-image" style="background: linear-gradient(135deg, #22c55e, #16a34a);"><span class="material-icons">speed</span></div>
+                    <div class="related-content-inner">
+                        <h3>API呼び出しのコスト最適化</h3>
+                        <p class="meta">2024年11月20日</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">TECHINSIGHT</div>
+        <p>© 2024 TECHINSIGHT. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

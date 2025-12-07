@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ようこそ！</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #f4f4f4; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #22c55e, #16a34a); padding: 50px 30px; text-align: center; }
+        .header-icon { font-size: 60px; margin-bottom: 20px; }
+        .header h1 { color: white; font-size: 32px; margin: 0 0 10px; font-weight: 700; }
+        .header p { color: rgba(255,255,255,0.9); font-size: 16px; margin: 0; }
+        .content { padding: 40px 30px; }
+        .greeting { font-size: 20px; color: #333; margin-bottom: 20px; font-weight: 600; }
+        .message { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 30px; }
+        .steps { background: #f8f9fa; border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+        .steps h3 { font-size: 18px; color: #333; margin: 0 0 20px; }
+        .step-item { display: flex; gap: 15px; margin-bottom: 20px; }
+        .step-item:last-child { margin-bottom: 0; }
+        .step-number { width: 36px; height: 36px; background: #22c55e; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+        .step-content h4 { font-size: 15px; color: #333; margin: 0 0 5px; font-weight: 600; }
+        .step-content p { font-size: 14px; color: #666; margin: 0; }
+        .cta-button { display: block; background: #22c55e; color: white; padding: 16px 30px; text-decoration: none; border-radius: 10px; font-size: 16px; font-weight: 600; text-align: center; margin-bottom: 30px; }
+        .help-section { text-align: center; padding: 25px; background: #f8f9fa; border-radius: 12px; }
+        .help-section h3 { font-size: 16px; color: #333; margin: 0 0 10px; }
+        .help-section p { font-size: 14px; color: #666; margin: 0 0 15px; }
+        .help-link { color: #22c55e; text-decoration: none; font-weight: 600; }
+        .footer { background: #1e1e2d; padding: 30px; text-align: center; }
+        .footer-logo { font-size: 20px; font-weight: 700; color: white; margin-bottom: 15px; }
+        .footer-text { color: rgba(255,255,255,0.5); font-size: 12px; line-height: 1.7; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="header-icon">🎉</div>
+            <h1>ようこそ！</h1>
+            <p>アカウント登録が完了しました</p>
+        </div>
+
+        <div class="content">
+            <p class="greeting">山田 太郎 様</p>
+            <p class="message">AppNameへのご登録ありがとうございます！アカウントの準備が整いました。これからのご利用を心よりお待ちしております。</p>
+
+            <div class="steps">
+                <h3>🚀 はじめの3ステップ</h3>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>プロフィールを設定</h4>
+                        <p>アバターや自己紹介を追加しましょう</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>チュートリアルを見る</h4>
+                        <p>基本的な使い方を2分で学べます</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>最初のプロジェクトを作成</h4>
+                        <p>さっそく使い始めましょう！</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="cta-button">ダッシュボードへ</a>
+
+            <div class="help-section">
+                <h3>💬 サポートが必要ですか？</h3>
+                <p>ご不明点がございましたら、お気軽にお問い合わせください</p>
+                <a href="#" class="help-link">ヘルプセンターを見る →</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-logo">AppName</div>
+            <p class="footer-text">
+                © 2024 AppName Inc. All Rights Reserved.<br>
+                〒100-0001 東京都千代田区○○1-2-3
+            </p>
+        </div>
+    </div>
+</body>
+</html>

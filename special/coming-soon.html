@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | 近日公開</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif; background: #000; color: white; min-height: 100vh; overflow: hidden; }
+
+        /* Animated gradient background */
+        .bg-gradient { position: fixed; inset: 0; background: linear-gradient(-45deg, #0f0f0f, #1a1a2e, #16213e, #0f0f0f); background-size: 400% 400%; animation: gradientBG 15s ease infinite; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Floating particles */
+        .particles { position: fixed; inset: 0; overflow: hidden; }
+        .particle { position: absolute; width: 4px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 50%; animation: float 10s infinite; }
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; top: 80%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 35%; top: 50%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 50%; top: 30%; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 65%; top: 70%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 80%; top: 40%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 90%; top: 60%; animation-delay: 2.5s; }
+        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; } 50% { transform: translateY(-100px) scale(1.5); opacity: 0.8; } }
+
+        .container { position: relative; z-index: 10; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+
+        .logo { font-size: 2rem; font-weight: 700; margin-bottom: 60px; letter-spacing: 0.1em; }
+        .logo span { background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .main-title { font-size: 5rem; font-weight: 700; margin-bottom: 20px; line-height: 1.1; }
+        .main-title span { display: block; background: linear-gradient(135deg, #fff, rgba(255,255,255,0.6)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .subtitle { font-size: 1.3rem; color: rgba(255,255,255,0.6); margin-bottom: 60px; max-width: 500px; line-height: 1.7; }
+
+        .countdown { display: flex; gap: 30px; margin-bottom: 60px; }
+        .countdown-item { text-align: center; }
+        .countdown-number { font-size: 4rem; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .countdown-label { font-size: 0.9rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.2em; margin-top: 10px; }
+        .countdown-separator { font-size: 3rem; color: rgba(255,255,255,0.3); align-self: flex-start; margin-top: 10px; }
+
+        .notify-form { display: flex; gap: 15px; max-width: 450px; width: 100%; margin-bottom: 40px; }
+        .notify-form input { flex: 1; padding: 18px 25px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; background: rgba(255,255,255,0.05); color: white; font-size: 1rem; backdrop-filter: blur(10px); }
+        .notify-form input::placeholder { color: rgba(255,255,255,0.4); }
+        .notify-form input:focus { outline: none; border-color: #667eea; }
+        .notify-form button { padding: 18px 35px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 50px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+        .notify-form button:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+
+        .social-links { display: flex; gap: 20px; }
+        .social-links a { width: 50px; height: 50px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 1.2rem; transition: all 0.3s; }
+        .social-links a:hover { border-color: #667eea; background: rgba(102, 126, 234, 0.2); }
+
+        .features { position: absolute; bottom: 40px; left: 0; right: 0; display: flex; justify-content: center; gap: 60px; }
+        .feature { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        .feature-icon { font-size: 1.2rem; }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .countdown { gap: 15px; }
+            .countdown-number { font-size: 2.5rem; }
+            .countdown-separator { font-size: 2rem; }
+            .notify-form { flex-direction: column; }
+            .features { flex-direction: column; gap: 15px; bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo">NEXT<span>APP</span></div>
+
+        <h1 class="main-title">
+            <span>Something</span>
+            <span>Amazing</span>
+            <span>Is Coming</span>
+        </h1>
+
+        <p class="subtitle">革新的な新サービスを準備中です。ローンチ時にお知らせを受け取りませんか？</p>
+
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number">14</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-item">
+                <div class="countdown-number">08</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-item">
+                <div class="countdown-number">32</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-item">
+                <div class="countdown-number">15</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+
+        <form class="notify-form">
+            <input type="email" placeholder="メールアドレスを入力">
+            <button type="submit">通知を受け取る</button>
+        </form>
+
+        <div class="social-links">
+            <a href="#">𝕏</a>
+            <a href="#">📷</a>
+            <a href="#">▶️</a>
+        </div>
+
+        <div class="features">
+            <div class="feature"><span class="feature-icon">🚀</span> 高速パフォーマンス</div>
+            <div class="feature"><span class="feature-icon">🔒</span> セキュア</div>
+            <div class="feature"><span class="feature-icon">✨</span> AI搭載</div>
+        </div>
+    </div>
+</body>
+</html>

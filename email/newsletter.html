@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニュースレター</title>
+    <style>
+        body { margin: 0; padding: 0; background: #f4f4f4; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; }
+        .header { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 40px 30px; text-align: center; }
+        .header img { width: 120px; margin-bottom: 20px; }
+        .header h1 { color: #ffffff; font-size: 28px; margin: 0 0 10px; font-weight: 600; }
+        .header p { color: rgba(255,255,255,0.9); font-size: 16px; margin: 0; }
+        .content { padding: 40px 30px; }
+        .greeting { font-size: 18px; color: #333; margin-bottom: 20px; }
+        .intro { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 30px; }
+        .featured-article { background: #f8f9fa; border-radius: 12px; overflow: hidden; margin-bottom: 30px; }
+        .featured-image { height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; }
+        .featured-content { padding: 25px; }
+        .featured-badge { display: inline-block; background: #6366f1; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+        .featured-title { font-size: 20px; color: #333; margin: 0 0 12px; font-weight: 600; }
+        .featured-excerpt { font-size: 14px; color: #666; line-height: 1.7; margin: 0 0 15px; }
+        .read-more { display: inline-block; background: #6366f1; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600; }
+        .articles-grid { margin-bottom: 30px; }
+        .article-item { display: flex; gap: 15px; padding: 20px 0; border-bottom: 1px solid #eee; }
+        .article-item:last-child { border-bottom: none; }
+        .article-thumb { width: 80px; height: 80px; background: linear-gradient(135deg, #f97316, #fb923c); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; }
+        .article-info h3 { font-size: 16px; color: #333; margin: 0 0 8px; font-weight: 600; }
+        .article-info p { font-size: 13px; color: #888; margin: 0; }
+        .article-item:nth-child(2) .article-thumb { background: linear-gradient(135deg, #22c55e, #4ade80); }
+        .article-item:nth-child(3) .article-thumb { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+        .cta-section { background: #1e1e2d; padding: 35px; border-radius: 12px; text-align: center; margin-bottom: 30px; }
+        .cta-section h2 { color: white; font-size: 22px; margin: 0 0 12px; }
+        .cta-section p { color: rgba(255,255,255,0.8); font-size: 14px; margin: 0 0 20px; }
+        .cta-button { display: inline-block; background: #6366f1; color: white; padding: 14px 35px; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600; }
+        .footer { background: #1e1e2d; padding: 40px 30px; text-align: center; }
+        .footer-logo { font-size: 24px; font-weight: 700; color: white; margin-bottom: 20px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { display: inline-block; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; margin: 0 5px; line-height: 40px; color: white; text-decoration: none; font-size: 18px; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; margin: 0 15px; }
+        .footer-text { color: rgba(255,255,255,0.5); font-size: 12px; line-height: 1.7; }
+        .unsubscribe { color: rgba(255,255,255,0.5); text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>TECHINSIGHT</h1>
+            <p>Weekly Newsletter - 2024年12月号</p>
+        </div>
+
+        <div class="content">
+            <p class="greeting">山田 太郎 様</p>
+            <p class="intro">今週のTECHINSIGHTニュースレターをお届けします。最新の技術トレンドやキャリアに役立つ情報をピックアップしました。</p>
+
+            <div class="featured-article">
+                <div class="featured-image">🤖</div>
+                <div class="featured-content">
+                    <span class="featured-badge">今週の注目記事</span>
+                    <h2 class="featured-title">ChatGPT APIを使った実践的なアプリケーション開発入門</h2>
+                    <p class="featured-excerpt">OpenAIのAPIを活用して、実用的なAIアプリケーションを構築する方法を詳しく解説します。</p>
+                    <a href="#" class="read-more">記事を読む →</a>
+                </div>
+            </div>
+
+            <h3 style="font-size: 18px; color: #333; margin-bottom: 20px;">📚 今週の人気記事</h3>
+            <div class="articles-grid">
+                <div class="article-item">
+                    <div class="article-thumb">💻</div>
+                    <div class="article-info">
+                        <h3>TypeScript 5.3の新機能を徹底解説</h3>
+                        <p>2024年12月3日 • 6分で読めます</p>
+                    </div>
+                </div>
+                <div class="article-item">
+                    <div class="article-thumb">☁️</div>
+                    <div class="article-info">
+                        <h3>AWS Lambdaのコスト最適化テクニック</h3>
+                        <p>2024年12月1日 • 8分で読めます</p>
+                    </div>
+                </div>
+                <div class="article-item">
+                    <div class="article-thumb">🎨</div>
+                    <div class="article-info">
+                        <h3>エンジニアが知るべきUIデザインの基礎</h3>
+                        <p>2024年11月28日 • 7分で読めます</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>🎉 プレミアムプラン登場</h2>
+                <p>限定コンテンツや動画チュートリアルにアクセスできます</p>
+                <a href="#" class="cta-button">詳細を見る</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-logo">TECHINSIGHT</div>
+            <div class="social-links">
+                <a href="#">𝕏</a>
+                <a href="#">in</a>
+                <a href="#">▶</a>
+            </div>
+            <div class="footer-links">
+                <a href="#">ウェブサイト</a>
+                <a href="#">設定</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+            <p class="footer-text">
+                このメールは techinsight.example.com にご登録いただいた方にお送りしています。<br>
+                配信停止をご希望の場合は<a href="#" class="unsubscribe">こちら</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

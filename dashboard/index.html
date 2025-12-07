@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #6366f1; --primary-light: #818cf8; --success: #22c55e; --warning: #f59e0b; --danger: #ef4444; --dark: #1e1e2d; --sidebar: #1e1e2d; --card: #ffffff; --bg: #f1f5f9; --text: #334155; --text-light: #94a3b8; --border: #e2e8f0; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); }
+
+        .dashboard { display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar { width: 260px; background: var(--sidebar); color: white; padding: 25px 0; position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar-logo { padding: 0 25px 30px; font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .sidebar-logo .material-icons { color: var(--primary); font-size: 32px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li { margin-bottom: 5px; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 14px 25px; color: var(--text-light); transition: all 0.3s; font-size: 0.9rem; }
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: rgba(99, 102, 241, 0.1); color: white; border-left: 3px solid var(--primary); }
+        .sidebar-menu a .material-icons { font-size: 22px; }
+        .sidebar-section { padding: 20px 25px 10px; font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* Main Content */
+        .main-content { flex: 1; margin-left: 260px; }
+
+        /* Header */
+        .header { background: var(--card); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header-search { display: flex; align-items: center; gap: 10px; background: var(--bg); padding: 10px 20px; border-radius: 10px; width: 300px; }
+        .header-search input { border: none; background: none; width: 100%; font-size: 0.9rem; }
+        .header-search .material-icons { color: var(--text-light); font-size: 20px; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .header-actions .icon-btn { width: 42px; height: 42px; border-radius: 10px; background: var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+        .header-actions .icon-btn .badge { position: absolute; top: -5px; right: -5px; width: 18px; height: 18px; background: var(--danger); color: white; border-radius: 50%; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+        .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .user-avatar { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; }
+        .user-info { text-align: right; }
+        .user-info .name { font-weight: 600; font-size: 0.9rem; }
+        .user-info .role { font-size: 0.75rem; color: var(--text-light); }
+
+        /* Page Content */
+        .page-content { padding: 30px; }
+        .page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-bottom: 30px; }
+        .stat-card { background: var(--card); padding: 25px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .stat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .stat-icon.blue { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+        .stat-icon.green { background: rgba(34, 197, 94, 0.1); color: var(--success); }
+        .stat-icon.yellow { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .stat-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .stat-change { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .stat-change.up { background: rgba(34, 197, 94, 0.1); color: var(--success); }
+        .stat-change.down { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+        .stat-label { font-size: 0.9rem; color: var(--text-light); }
+
+        /* Charts Row */
+        .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; margin-bottom: 30px; }
+        .chart-card { background: var(--card); border-radius: 16px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .chart-header h3 { font-size: 1.1rem; font-weight: 600; }
+        .chart-tabs { display: flex; gap: 5px; background: var(--bg); padding: 4px; border-radius: 8px; }
+        .chart-tabs button { padding: 8px 16px; border: none; background: none; font-size: 0.85rem; border-radius: 6px; cursor: pointer; color: var(--text-light); }
+        .chart-tabs button.active { background: white; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .chart-placeholder { height: 280px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; opacity: 0.8; }
+        .chart-placeholder .material-icons { font-size: 60px; opacity: 0.5; }
+
+        /* Pie Chart */
+        .pie-chart { display: flex; align-items: center; justify-content: center; height: 200px; }
+        .pie-placeholder { width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(var(--primary) 0% 45%, var(--success) 45% 70%, var(--warning) 70% 85%, var(--danger) 85% 100%); display: flex; align-items: center; justify-content: center; }
+        .pie-placeholder::after { content: ''; width: 100px; height: 100px; background: white; border-radius: 50%; }
+        .pie-legend { margin-top: 20px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.9rem; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+        /* Table */
+        .table-card { background: var(--card); border-radius: 16px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .table-header h3 { font-size: 1.1rem; font-weight: 600; }
+        .table-actions button { padding: 8px 16px; border: 1px solid var(--border); background: white; border-radius: 8px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; font-weight: 600; }
+        td { font-size: 0.9rem; }
+        .user-cell { display: flex; align-items: center; gap: 12px; }
+        .user-cell .avatar { width: 36px; height: 36px; border-radius: 8px; background: var(--bg); display: flex; align-items: center; justify-content: center; }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+        .status-badge.active { background: rgba(34, 197, 94, 0.1); color: var(--success); }
+        .status-badge.pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .status-badge.inactive { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+        @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .charts-row { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; } .stats-grid { grid-template-columns: 1fr; } .header-search { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><span class="material-icons">insights</span> Analytics</div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><span class="material-icons">dashboard</span> ダッシュボード</a></li>
+                <li><a href="analytics.html"><span class="material-icons">analytics</span> アナリティクス</a></li>
+                <li><a href="#"><span class="material-icons">people</span> ユーザー管理</a></li>
+                <li><a href="#"><span class="material-icons">inventory_2</span> 商品管理</a></li>
+                <li><a href="#"><span class="material-icons">shopping_cart</span> 注文管理</a></li>
+            </ul>
+            <div class="sidebar-section">設定</div>
+            <ul class="sidebar-menu">
+                <li><a href="#"><span class="material-icons">settings</span> 設定</a></li>
+                <li><a href="#"><span class="material-icons">help</span> ヘルプ</a></li>
+                <li><a href="#"><span class="material-icons">logout</span> ログアウト</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-search">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="検索...">
+                </div>
+                <div class="header-actions">
+                    <div class="icon-btn"><span class="material-icons">notifications</span><span class="badge">3</span></div>
+                    <div class="icon-btn"><span class="material-icons">mail</span></div>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <div class="name">山田 太郎</div>
+                            <div class="role">管理者</div>
+                        </div>
+                        <div class="user-avatar">YT</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <h1 class="page-title">ダッシュボード</h1>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon blue"><span class="material-icons">people</span></div>
+                            <span class="stat-change up">+12.5%</span>
+                        </div>
+                        <div class="stat-value">24,532</div>
+                        <div class="stat-label">総ユーザー数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon green"><span class="material-icons">payments</span></div>
+                            <span class="stat-change up">+8.2%</span>
+                        </div>
+                        <div class="stat-value">¥12.4M</div>
+                        <div class="stat-label">今月の売上</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon yellow"><span class="material-icons">shopping_bag</span></div>
+                            <span class="stat-change down">-3.1%</span>
+                        </div>
+                        <div class="stat-value">1,432</div>
+                        <div class="stat-label">今月の注文</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon red"><span class="material-icons">trending_up</span></div>
+                            <span class="stat-change up">+15.3%</span>
+                        </div>
+                        <div class="stat-value">68.4%</div>
+                        <div class="stat-label">コンバージョン率</div>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>売上推移</h3>
+                            <div class="chart-tabs">
+                                <button>日</button>
+                                <button class="active">週</button>
+                                <button>月</button>
+                                <button>年</button>
+                            </div>
+                        </div>
+                        <div class="chart-placeholder"><span class="material-icons">show_chart</span></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header"><h3>カテゴリ別売上</h3></div>
+                        <div class="pie-chart"><div class="pie-placeholder"></div></div>
+                        <div class="pie-legend">
+                            <div class="legend-item"><span class="legend-dot" style="background: var(--primary)"></span> 家電 45%</div>
+                            <div class="legend-item"><span class="legend-dot" style="background: var(--success)"></span> ファッション 25%</div>
+                            <div class="legend-item"><span class="legend-dot" style="background: var(--warning)"></span> 食品 15%</div>
+                            <div class="legend-item"><span class="legend-dot" style="background: var(--danger)"></span> その他 15%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>最近の注文</h3>
+                        <div class="table-actions">
+                            <button><span class="material-icons">filter_list</span> フィルター</button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>注文ID</th><th>顧客</th><th>商品</th><th>金額</th><th>ステータス</th><th>日時</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#12345</td>
+                                <td><div class="user-cell"><div class="avatar"><span class="material-icons">person</span></div>田中 一郎</div></td>
+                                <td>MacBook Pro 14"</td>
+                                <td>¥298,000</td>
+                                <td><span class="status-badge active">完了</span></td>
+                                <td>2024/12/07 14:30</td>
+                            </tr>
+                            <tr>
+                                <td>#12344</td>
+                                <td><div class="user-cell"><div class="avatar"><span class="material-icons">person</span></div>佐藤 花子</div></td>
+                                <td>iPhone 15 Pro</td>
+                                <td>¥159,800</td>
+                                <td><span class="status-badge pending">発送中</span></td>
+                                <td>2024/12/07 12:15</td>
+                            </tr>
+                            <tr>
+                                <td>#12343</td>
+                                <td><div class="user-cell"><div class="avatar"><span class="material-icons">person</span></div>鈴木 次郎</div></td>
+                                <td>AirPods Pro</td>
+                                <td>¥39,800</td>
+                                <td><span class="status-badge active">完了</span></td>
+                                <td>2024/12/07 10:45</td>
+                            </tr>
+                            <tr>
+                                <td>#12342</td>
+                                <td><div class="user-cell"><div class="avatar"><span class="material-icons">person</span></div>高橋 三郎</div></td>
+                                <td>iPad Air</td>
+                                <td>¥92,800</td>
+                                <td><span class="status-badge inactive">キャンセル</span></td>
+                                <td>2024/12/07 09:20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

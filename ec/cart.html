@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ショッピングカート | MONO STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a1a; --accent: #e63946; --success: #28a745; --gray: #666; --light: #f5f5f5; --white: #fff; --border: #e0e0e0; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--primary); line-height: 1.7; background: var(--light); }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: var(--white); border-bottom: 1px solid var(--border); }
+        .header-main { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 700; }
+
+        .page-title { padding: 40px 0; text-align: center; }
+        .page-title h1 { font-size: 2rem; margin-bottom: 10px; }
+
+        .cart-section { padding: 40px 0 100px; }
+        .cart-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
+
+        .cart-items { background: var(--white); border-radius: 20px; padding: 30px; }
+        .cart-header { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 40px; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 0.9rem; color: var(--gray); }
+
+        .cart-item { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 40px; gap: 20px; align-items: center; padding: 25px 0; border-bottom: 1px solid var(--border); }
+        .cart-item:last-child { border-bottom: none; }
+
+        .item-info { display: flex; gap: 20px; align-items: center; }
+        .item-image { width: 100px; height: 100px; background: var(--light); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .item-image .material-icons { font-size: 40px; color: #ccc; }
+        .item-details h3 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .item-details p { font-size: 0.85rem; color: var(--gray); }
+
+        .item-price { font-family: 'Poppins', sans-serif; font-weight: 600; }
+
+        .quantity-control { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 8px; }
+        .quantity-control button { width: 35px; height: 35px; border: none; background: none; cursor: pointer; font-size: 1.2rem; }
+        .quantity-control input { width: 40px; height: 35px; border: none; text-align: center; font-weight: 600; }
+
+        .item-total { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+        .remove-btn { width: 40px; height: 40px; border: none; background: none; cursor: pointer; color: var(--gray); transition: color 0.3s; }
+        .remove-btn:hover { color: var(--accent); }
+
+        .cart-summary { background: var(--white); border-radius: 20px; padding: 30px; height: fit-content; position: sticky; top: 100px; }
+        .cart-summary h2 { font-size: 1.3rem; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .summary-row.total { font-size: 1.3rem; font-weight: 700; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .summary-row .label { color: var(--gray); }
+        .summary-row .value { font-family: 'Poppins', sans-serif; }
+        .summary-row.discount .value { color: var(--accent); }
+
+        .coupon-input { display: flex; gap: 10px; margin: 25px 0; }
+        .coupon-input input { flex: 1; padding: 12px 15px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.9rem; }
+        .coupon-input button { padding: 12px 20px; background: var(--light); border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+
+        .checkout-btn { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 25px; transition: background 0.3s; }
+        .checkout-btn:hover { background: #333; }
+
+        .secure-badge { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; color: var(--gray); font-size: 0.85rem; }
+        .secure-badge .material-icons { font-size: 18px; color: var(--success); }
+
+        .continue-shopping { display: flex; align-items: center; gap: 8px; color: var(--gray); margin-top: 30px; }
+        .continue-shopping:hover { color: var(--primary); }
+
+        .empty-cart { text-align: center; padding: 80px 40px; }
+        .empty-cart .material-icons { font-size: 100px; color: #ddd; margin-bottom: 20px; }
+        .empty-cart h2 { font-size: 1.5rem; margin-bottom: 15px; }
+        .empty-cart p { color: var(--gray); margin-bottom: 30px; }
+        .empty-cart a { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 14px 35px; border-radius: 30px; font-weight: 600; }
+
+        footer { background: var(--primary); color: white; padding: 40px 0; text-align: center; }
+        .footer-logo { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        footer p { opacity: 0.5; font-size: 0.85rem; }
+
+        @media (max-width: 1024px) { .cart-layout { grid-template-columns: 1fr; } .cart-summary { position: static; } }
+        @media (max-width: 768px) {
+            .cart-header { display: none; }
+            .cart-item { grid-template-columns: 1fr; gap: 15px; }
+            .item-info { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-main">
+                <a href="index.html" class="logo">MONO</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <div class="container">
+            <h1>ショッピングカート</h1>
+            <p>3点の商品が入っています</p>
+        </div>
+    </div>
+
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-layout">
+                <div class="cart-items">
+                    <div class="cart-header">
+                        <span>商品</span>
+                        <span>価格</span>
+                        <span>数量</span>
+                        <span>小計</span>
+                        <span></span>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <div class="item-image"><span class="material-icons">checkroom</span></div>
+                            <div class="item-details">
+                                <h3>オーバーサイズ コットンTシャツ</h3>
+                                <p>カラー: ブラック / サイズ: M</p>
+                            </div>
+                        </div>
+                        <div class="item-price">¥4,980</div>
+                        <div class="quantity-control">
+                            <button>−</button>
+                            <input type="number" value="2" min="1">
+                            <button>+</button>
+                        </div>
+                        <div class="item-total">¥9,960</div>
+                        <button class="remove-btn"><span class="material-icons">close</span></button>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <div class="item-image"><span class="material-icons">dry_cleaning</span></div>
+                            <div class="item-details">
+                                <h3>ウールブレンド チェスターコート</h3>
+                                <p>カラー: ネイビー / サイズ: L</p>
+                            </div>
+                        </div>
+                        <div class="item-price">¥24,800</div>
+                        <div class="quantity-control">
+                            <button>−</button>
+                            <input type="number" value="1" min="1">
+                            <button>+</button>
+                        </div>
+                        <div class="item-total">¥24,800</div>
+                        <button class="remove-btn"><span class="material-icons">close</span></button>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="item-info">
+                            <div class="item-image"><span class="material-icons">watch</span></div>
+                            <div class="item-details">
+                                <h3>ミニマル デザインウォッチ</h3>
+                                <p>カラー: シルバー</p>
+                            </div>
+                        </div>
+                        <div class="item-price">¥18,500</div>
+                        <div class="quantity-control">
+                            <button>−</button>
+                            <input type="number" value="1" min="1">
+                            <button>+</button>
+                        </div>
+                        <div class="item-total">¥18,500</div>
+                        <button class="remove-btn"><span class="material-icons">close</span></button>
+                    </div>
+
+                    <a href="index.html" class="continue-shopping">
+                        <span class="material-icons">arrow_back</span>
+                        買い物を続ける
+                    </a>
+                </div>
+
+                <div class="cart-summary">
+                    <h2>注文内容</h2>
+                    <div class="summary-row">
+                        <span class="label">小計（3点）</span>
+                        <span class="value">¥53,260</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">配送料</span>
+                        <span class="value">無料</span>
+                    </div>
+                    <div class="summary-row discount">
+                        <span class="label">クーポン割引</span>
+                        <span class="value">-¥5,000</span>
+                    </div>
+                    <div class="coupon-input">
+                        <input type="text" placeholder="クーポンコード">
+                        <button>適用</button>
+                    </div>
+                    <div class="summary-row total">
+                        <span class="label">合計（税込）</span>
+                        <span class="value">¥48,260</span>
+                    </div>
+                    <button class="checkout-btn">
+                        <span class="material-icons">lock</span>
+                        レジに進む
+                    </button>
+                    <div class="secure-badge">
+                        <span class="material-icons">verified_user</span>
+                        SSL暗号化で安全にお買い物
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">MONO</div>
+            <p>© 2024 MONO STORE. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

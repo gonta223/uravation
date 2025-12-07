@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONO STORE | オンラインショップ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a1a1a; --accent: #e63946; --gray: #666; --light: #f5f5f5; --white: #fff; --border: #e0e0e0; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--primary); line-height: 1.7; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--primary); color: white; text-align: center; padding: 8px; font-size: 0.85rem; }
+        .header-main { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.05em; }
+        .search-bar { flex: 1; max-width: 500px; margin: 0 40px; position: relative; }
+        .search-bar input { width: 100%; padding: 12px 20px 12px 50px; border: 2px solid var(--border); border-radius: 30px; font-size: 0.95rem; }
+        .search-bar .material-icons { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--gray); }
+        .header-actions { display: flex; gap: 25px; align-items: center; }
+        .header-actions a { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: var(--gray); }
+        .header-actions .material-icons { font-size: 26px; color: var(--primary); margin-bottom: 3px; }
+        .cart-badge { position: relative; }
+        .cart-badge::after { content: '3'; position: absolute; top: -8px; right: -8px; background: var(--accent); color: white; width: 18px; height: 18px; border-radius: 50%; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+
+        /* Navigation */
+        .nav-bar { border-bottom: 1px solid var(--border); }
+        .nav-bar ul { display: flex; justify-content: center; gap: 50px; list-style: none; padding: 15px 0; }
+        .nav-bar a { font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-bar a:hover { color: var(--accent); }
+
+        /* Hero Banner */
+        .hero-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 0; margin-bottom: 60px; }
+        .banner-content { display: flex; justify-content: space-between; align-items: center; }
+        .banner-text h2 { font-size: 2.8rem; font-weight: 700; margin-bottom: 15px; }
+        .banner-text p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 25px; }
+        .banner-btn { background: white; color: var(--primary); padding: 14px 35px; border-radius: 30px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+        .banner-image { font-size: 10rem; opacity: 0.3; }
+
+        /* Section */
+        section { margin-bottom: 80px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 700; }
+        .view-all { color: var(--gray); font-size: 0.9rem; display: flex; align-items: center; gap: 5px; }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .product-card { background: var(--white); border-radius: 15px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .product-image { height: 280px; background: var(--light); display: flex; align-items: center; justify-content: center; position: relative; }
+        .product-image .material-icons { font-size: 80px; color: #ccc; }
+        .product-badge { position: absolute; top: 15px; left: 15px; background: var(--accent); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .product-wishlist { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .product-wishlist .material-icons { font-size: 20px; color: var(--gray); }
+        .product-info { padding: 20px; }
+        .product-category { font-size: 0.8rem; color: var(--gray); margin-bottom: 5px; }
+        .product-name { font-size: 1rem; font-weight: 500; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        .product-price .original { font-size: 0.9rem; color: var(--gray); text-decoration: line-through; margin-left: 10px; font-weight: 400; }
+        .product-rating { display: flex; align-items: center; gap: 5px; margin-top: 10px; }
+        .product-rating .material-icons { font-size: 16px; color: #ffc107; }
+        .product-rating span { font-size: 0.85rem; color: var(--gray); }
+
+        /* Categories */
+        .categories-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+        .category-card { text-align: center; padding: 30px 20px; background: var(--light); border-radius: 15px; transition: background 0.3s; }
+        .category-card:hover { background: var(--primary); color: white; }
+        .category-card:hover .material-icons { color: white; }
+        .category-card .material-icons { font-size: 40px; color: var(--primary); margin-bottom: 15px; display: block; }
+        .category-card span { font-size: 0.9rem; font-weight: 500; }
+
+        /* Features */
+        .features { background: var(--light); padding: 60px 0; margin: 80px 0; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
+        .feature-item .material-icons { font-size: 48px; color: var(--primary); margin-bottom: 15px; }
+        .feature-item h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .feature-item p { font-size: 0.85rem; color: var(--gray); }
+
+        /* Footer */
+        footer { background: var(--primary); color: white; padding: 80px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .footer-logo { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 20px; }
+        .footer-desc { opacity: 0.7; font-size: 0.9rem; margin-bottom: 20px; }
+        .footer-social { display: flex; gap: 15px; }
+        .footer-social a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .footer-social .material-icons { font-size: 20px; }
+        .footer-title { font-weight: 600; margin-bottom: 20px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { opacity: 0.7; font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.5; font-size: 0.85rem; }
+
+        @media (max-width: 1200px) { .product-grid { grid-template-columns: repeat(3, 1fr); } .categories-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) {
+            .search-bar { display: none; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .categories-grid, .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            .banner-image { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">送料無料キャンペーン実施中！10,000円以上のご購入で全国どこでも送料無料</div>
+        <div class="container">
+            <div class="header-main">
+                <div class="logo">MONO</div>
+                <div class="search-bar">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="商品を検索...">
+                </div>
+                <div class="header-actions">
+                    <a href="#"><span class="material-icons">person_outline</span>アカウント</a>
+                    <a href="#"><span class="material-icons">favorite_border</span>お気に入り</a>
+                    <a href="cart.html" class="cart-badge"><span class="material-icons">shopping_bag</span>カート</a>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <div class="container">
+                <ul>
+                    <li><a href="#">新着商品</a></li>
+                    <li><a href="#">ランキング</a></li>
+                    <li><a href="#">メンズ</a></li>
+                    <li><a href="#">レディース</a></li>
+                    <li><a href="#">アクセサリー</a></li>
+                    <li><a href="#">セール</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h2>WINTER SALE<br>最大50%OFF</h2>
+                    <p>期間限定！人気アイテムがお買い得</p>
+                    <a href="#" class="banner-btn">セール会場へ <span class="material-icons">arrow_forward</span></a>
+                </div>
+                <div class="banner-image">🎁</div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <section>
+            <div class="section-header">
+                <h2>カテゴリー</h2>
+            </div>
+            <div class="categories-grid">
+                <a href="#" class="category-card"><span class="material-icons">checkroom</span>トップス</a>
+                <a href="#" class="category-card"><span class="material-icons">dry_cleaning</span>アウター</a>
+                <a href="#" class="category-card"><span class="material-icons">straighten</span>パンツ</a>
+                <a href="#" class="category-card"><span class="material-icons">watch</span>時計</a>
+                <a href="#" class="category-card"><span class="material-icons">shopping_bag</span>バッグ</a>
+                <a href="#" class="category-card"><span class="material-icons">diamond</span>アクセサリー</a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>新着商品</h2>
+                <a href="#" class="view-all">すべて見る <span class="material-icons">arrow_forward</span></a>
+            </div>
+            <div class="product-grid">
+                <a href="product.html" class="product-card">
+                    <div class="product-image">
+                        <span class="material-icons">checkroom</span>
+                        <span class="product-badge">NEW</span>
+                        <div class="product-wishlist"><span class="material-icons">favorite_border</span></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">トップス</div>
+                        <h3 class="product-name">オーバーサイズ コットンTシャツ</h3>
+                        <div class="product-price">¥4,980</div>
+                        <div class="product-rating"><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star_half</span><span>(128)</span></div>
+                    </div>
+                </a>
+                <a href="product.html" class="product-card">
+                    <div class="product-image">
+                        <span class="material-icons">dry_cleaning</span>
+                        <span class="product-badge" style="background:#1a1a1a">SALE</span>
+                        <div class="product-wishlist"><span class="material-icons">favorite_border</span></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">アウター</div>
+                        <h3 class="product-name">ウールブレンド チェスターコート</h3>
+                        <div class="product-price">¥24,800<span class="original">¥39,800</span></div>
+                        <div class="product-rating"><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span>(256)</span></div>
+                    </div>
+                </a>
+                <a href="product.html" class="product-card">
+                    <div class="product-image">
+                        <span class="material-icons">watch</span>
+                        <div class="product-wishlist"><span class="material-icons">favorite_border</span></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">時計</div>
+                        <h3 class="product-name">ミニマル デザインウォッチ</h3>
+                        <div class="product-price">¥18,500</div>
+                        <div class="product-rating"><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star_border</span><span>(89)</span></div>
+                    </div>
+                </a>
+                <a href="product.html" class="product-card">
+                    <div class="product-image">
+                        <span class="material-icons">shopping_bag</span>
+                        <span class="product-badge">NEW</span>
+                        <div class="product-wishlist"><span class="material-icons">favorite_border</span></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">バッグ</div>
+                        <h3 class="product-name">レザー トートバッグ</h3>
+                        <div class="product-price">¥32,000</div>
+                        <div class="product-rating"><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span>(312)</span></div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>人気ランキング</h2>
+                <a href="#" class="view-all">すべて見る <span class="material-icons">arrow_forward</span></a>
+            </div>
+            <div class="product-grid">
+                <a href="product.html" class="product-card">
+                    <div class="product-image"><span class="material-icons">straighten</span></div>
+                    <div class="product-info">
+                        <div class="product-category">パンツ</div>
+                        <h3 class="product-name">テーパードスラックス</h3>
+                        <div class="product-price">¥8,900</div>
+                    </div>
+                </a>
+                <a href="product.html" class="product-card">
+                    <div class="product-image"><span class="material-icons">checkroom</span></div>
+                    <div class="product-info">
+                        <div class="product-category">トップス</div>
+                        <h3 class="product-name">ニットセーター</h3>
+                        <div class="product-price">¥7,800</div>
+                    </div>
+                </a>
+                <a href="product.html" class="product-card">
+                    <div class="product-image"><span class="material-icons">diamond</span></div>
+                    <div class="product-info">
+                        <div class="product-category">アクセサリー</div>
+                        <h3 class="product-name">シルバーネックレス</h3>
+                        <div class="product-price">¥12,500</div>
+                    </div>
+                </a>
+                <a href="product.html" class="product-card">
+                    <div class="product-image"><span class="material-icons">dry_cleaning</span></div>
+                    <div class="product-info">
+                        <div class="product-category">アウター</div>
+                        <h3 class="product-name">ダウンジャケット</h3>
+                        <div class="product-price">¥29,800</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="material-icons">local_shipping</span>
+                    <h4>送料無料</h4>
+                    <p>10,000円以上で送料無料</p>
+                </div>
+                <div class="feature-item">
+                    <span class="material-icons">autorenew</span>
+                    <h4>返品無料</h4>
+                    <p>30日間返品OK</p>
+                </div>
+                <div class="feature-item">
+                    <span class="material-icons">verified</span>
+                    <h4>安心品質</h4>
+                    <p>厳選された商品のみ</p>
+                </div>
+                <div class="feature-item">
+                    <span class="material-icons">support_agent</span>
+                    <h4>サポート</h4>
+                    <p>24時間チャット対応</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">MONO</div>
+                    <p class="footer-desc">シンプルで上質なライフスタイルを提案するオンラインショップ</p>
+                    <div class="footer-social">
+                        <a href="#"><span class="material-icons">share</span></a>
+                        <a href="#"><span class="material-icons">camera_alt</span></a>
+                        <a href="#"><span class="material-icons">smart_display</span></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-title">ショップ</div>
+                    <ul class="footer-links">
+                        <li><a href="#">新着商品</a></li>
+                        <li><a href="#">ランキング</a></li>
+                        <li><a href="#">セール</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">カテゴリー</div>
+                    <ul class="footer-links">
+                        <li><a href="#">メンズ</a></li>
+                        <li><a href="#">レディース</a></li>
+                        <li><a href="#">アクセサリー</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">ヘルプ</div>
+                    <ul class="footer-links">
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#">配送について</a></li>
+                        <li><a href="#">返品について</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">会社情報</div>
+                    <ul class="footer-links">
+                        <li><a href="#">会社概要</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                        <li><a href="#">特定商取引法</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2024 MONO STORE. All Rights Reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

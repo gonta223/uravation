@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あなたに最適なプログラミング言語診断</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); min-height: 100vh; padding: 40px 20px; }
+
+        .quiz-container { max-width: 700px; margin: 0 auto; }
+
+        /* Start Screen */
+        .quiz-start { background: white; border-radius: 24px; padding: 60px 40px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .quiz-start-icon { font-size: 80px; margin-bottom: 30px; }
+        .quiz-start h1 { font-size: 2rem; font-weight: 700; color: #1e1e2d; margin-bottom: 15px; }
+        .quiz-start p { color: #666; font-size: 1.1rem; margin-bottom: 40px; line-height: 1.7; }
+        .start-btn { padding: 18px 50px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+        .quiz-info { display: flex; justify-content: center; gap: 40px; margin-top: 40px; color: #888; font-size: 0.9rem; }
+        .quiz-info span { display: flex; align-items: center; gap: 8px; }
+
+        /* Question Screen */
+        .quiz-question { background: white; border-radius: 24px; padding: 50px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); display: none; }
+        .quiz-progress { display: flex; align-items: center; gap: 15px; margin-bottom: 40px; }
+        .progress-bar { flex: 1; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 4px; transition: width 0.5s; }
+        .progress-text { font-size: 0.9rem; color: #888; font-weight: 500; }
+
+        .question-number { font-size: 0.9rem; color: #667eea; font-weight: 600; margin-bottom: 15px; }
+        .question-text { font-size: 1.5rem; font-weight: 600; color: #1e1e2d; margin-bottom: 35px; line-height: 1.5; }
+
+        .options { display: flex; flex-direction: column; gap: 15px; }
+        .option { padding: 20px 25px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 15px; }
+        .option:hover { border-color: #667eea; background: rgba(102, 126, 234, 0.05); }
+        .option.selected { border-color: #667eea; background: rgba(102, 126, 234, 0.1); }
+        .option-icon { width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .option.selected .option-icon { border-color: #667eea; background: #667eea; }
+        .option.selected .option-icon::after { content: '✓'; color: white; font-size: 14px; }
+        .option-text { font-size: 1rem; color: #333; }
+
+        .quiz-nav { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-btn { padding: 14px 30px; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .nav-btn.back { background: transparent; border: 1px solid #ddd; color: #666; }
+        .nav-btn.next { background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Result Screen */
+        .quiz-result { background: white; border-radius: 24px; padding: 50px 40px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2); display: none; }
+        .result-icon { font-size: 100px; margin-bottom: 30px; }
+        .result-title { font-size: 1.2rem; color: #888; margin-bottom: 10px; }
+        .result-language { font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+        .result-description { font-size: 1.1rem; color: #666; line-height: 1.8; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        .result-stats { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; padding: 30px; background: #f8f9fa; border-radius: 16px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #667eea; }
+        .stat-label { font-size: 0.85rem; color: #888; margin-top: 5px; }
+
+        .result-features { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+        .feature-tag { padding: 10px 20px; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 20px; font-size: 0.9rem; font-weight: 500; }
+
+        .result-actions { display: flex; gap: 15px; justify-content: center; }
+        .result-btn { padding: 16px 35px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+        .result-btn.primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; }
+        .result-btn.secondary { background: white; color: #667eea; border: 2px solid #667eea; }
+
+        .share-section { margin-top: 40px; padding-top: 30px; border-top: 1px solid #eee; }
+        .share-section p { color: #888; font-size: 0.9rem; margin-bottom: 15px; }
+        .share-buttons { display: flex; gap: 10px; justify-content: center; }
+        .share-btn { width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; }
+        .share-btn:hover { border-color: #667eea; background: rgba(102, 126, 234, 0.1); }
+
+        @media (max-width: 600px) {
+            .quiz-start, .quiz-question, .quiz-result { padding: 40px 25px; }
+            .quiz-start h1 { font-size: 1.5rem; }
+            .question-text { font-size: 1.2rem; }
+            .result-language { font-size: 2rem; }
+            .result-stats { flex-direction: column; gap: 20px; }
+            .result-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Start Screen -->
+        <div class="quiz-start" id="startScreen">
+            <div class="quiz-start-icon">💻</div>
+            <h1>あなたに最適な<br>プログラミング言語診断</h1>
+            <p>5つの質問に答えるだけで、あなたにぴったりのプログラミング言語がわかります！</p>
+            <button class="start-btn" onclick="startQuiz()">診断スタート</button>
+            <div class="quiz-info">
+                <span>⏱️ 約2分</span>
+                <span>❓ 5問</span>
+                <span>🎯 無料</span>
+            </div>
+        </div>
+
+        <!-- Question Screen -->
+        <div class="quiz-question" id="questionScreen">
+            <div class="quiz-progress">
+                <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 20%"></div></div>
+                <span class="progress-text" id="progressText">1/5</span>
+            </div>
+
+            <div class="question-number" id="questionNumber">Question 01</div>
+            <h2 class="question-text" id="questionText">どんなものを作りたいですか？</h2>
+
+            <div class="options" id="optionsContainer">
+                <div class="option" onclick="selectOption(this, 'web')">
+                    <div class="option-icon"></div>
+                    <span class="option-text">Webサイト・Webアプリ</span>
+                </div>
+                <div class="option" onclick="selectOption(this, 'mobile')">
+                    <div class="option-icon"></div>
+                    <span class="option-text">スマホアプリ</span>
+                </div>
+                <div class="option" onclick="selectOption(this, 'data')">
+                    <div class="option-icon"></div>
+                    <span class="option-text">データ分析・AI</span>
+                </div>
+                <div class="option" onclick="selectOption(this, 'game')">
+                    <div class="option-icon"></div>
+                    <span class="option-text">ゲーム</span>
+                </div>
+            </div>
+
+            <div class="quiz-nav">
+                <button class="nav-btn back" id="backBtn" onclick="prevQuestion()">戻る</button>
+                <button class="nav-btn next" id="nextBtn" onclick="nextQuestion()" disabled>次へ</button>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="quiz-result" id="resultScreen">
+            <div class="result-icon">🎉</div>
+            <p class="result-title">あなたにおすすめの言語は...</p>
+            <h2 class="result-language" id="resultLanguage">Python</h2>
+            <p class="result-description" id="resultDescription">
+                初心者に優しく、AI・データ分析からWeb開発まで幅広く使える万能言語です。シンプルな文法で学習しやすく、豊富なライブラリが特徴です。
+            </p>
+
+            <div class="result-stats">
+                <div class="stat-item">
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">マッチ度</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">初級</div>
+                    <div class="stat-label">難易度</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">高</div>
+                    <div class="stat-label">需要</div>
+                </div>
+            </div>
+
+            <div class="result-features">
+                <span class="feature-tag">AI・機械学習</span>
+                <span class="feature-tag">データ分析</span>
+                <span class="feature-tag">Web開発</span>
+                <span class="feature-tag">自動化</span>
+            </div>
+
+            <div class="result-actions">
+                <a href="#" class="result-btn primary">学習を始める</a>
+                <button class="result-btn secondary" onclick="restartQuiz()">もう一度診断</button>
+            </div>
+
+            <div class="share-section">
+                <p>結果をシェアする</p>
+                <div class="share-buttons">
+                    <button class="share-btn">𝕏</button>
+                    <button class="share-btn">📘</button>
+                    <button class="share-btn">🔗</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let answers = [];
+
+        function startQuiz() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('questionScreen').style.display = 'block';
+        }
+
+        function selectOption(element, value) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            answers[currentQuestion] = value;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < 4) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateQuestion();
+            }
+        }
+
+        function updateQuestion() {
+            const questions = [
+                { q: 'どんなものを作りたいですか？', opts: ['Webサイト・Webアプリ', 'スマホアプリ', 'データ分析・AI', 'ゲーム'] },
+                { q: '学習にどのくらい時間をかけられますか？', opts: ['週に2-3時間', '週に5-10時間', '週に10時間以上', 'フルタイムで学習可能'] },
+                { q: 'プログラミング経験はありますか？', opts: ['全くの初心者', '少し触ったことがある', '他の言語を習得済み', '実務経験あり'] },
+                { q: '重視するポイントは？', opts: ['学習のしやすさ', '就職・転職に有利', '最新技術に触れたい', '高収入が狙える'] },
+                { q: '好きな作業スタイルは？', opts: ['コツコツと積み上げる', '創造的に自由に作る', 'ロジカルに問題を解く', 'チームで協力する'] }
+            ];
+
+            document.getElementById('questionNumber').textContent = `Question 0${currentQuestion + 1}`;
+            document.getElementById('questionText').textContent = questions[currentQuestion].q;
+            document.getElementById('progressFill').style.width = `${(currentQuestion + 1) * 20}%`;
+            document.getElementById('progressText').textContent = `${currentQuestion + 1}/5`;
+            document.getElementById('backBtn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').textContent = currentQuestion === 4 ? '結果を見る' : '次へ';
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = questions[currentQuestion].opts.map((opt, i) =>
+                `<div class="option" onclick="selectOption(this, '${i}')"><div class="option-icon"></div><span class="option-text">${opt}</span></div>`
+            ).join('');
+
+            document.getElementById('nextBtn').disabled = !answers[currentQuestion];
+        }
+
+        function showResult() {
+            document.getElementById('questionScreen').style.display = 'none';
+            document.getElementById('resultScreen').style.display = 'block';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

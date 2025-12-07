@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>採用情報 | NEXUS Inc.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0066cc; --primary-dark: #004499; --accent: #ff6b35; --dark: #1a1a1a; --gray: #666; --light: #f8f9fa; --white: #fff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { font-size: 0.9rem; font-weight: 500; }
+
+        .hero { min-height: 70vh; background: linear-gradient(135deg, var(--accent) 0%, #ff8c42 100%); display: flex; align-items: center; padding-top: 80px; color: white; position: relative; overflow: hidden; }
+        .hero::before { content: 'RECRUIT'; position: absolute; right: -5%; top: 50%; transform: translateY(-50%); font-size: 15rem; font-weight: 900; opacity: 0.1; }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; opacity: 0.95; }
+
+        section { padding: 120px 0; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header .en { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 10px; display: block; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 700; }
+
+        /* Message */
+        .message { background: var(--light); }
+        .message-content { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: center; }
+        .message-image { height: 500px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+        .message-image .material-icons { font-size: 120px; color: white; opacity: 0.3; }
+        .message-text h3 { font-size: 2rem; margin-bottom: 25px; line-height: 1.5; }
+        .message-text p { color: var(--gray); margin-bottom: 20px; font-size: 1.05rem; }
+        .message-name { margin-top: 30px; font-weight: 500; }
+        .message-name span { font-size: 0.85rem; color: var(--gray); display: block; margin-bottom: 5px; }
+
+        /* Data */
+        .data-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .data-card { background: white; padding: 40px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .data-number { font-size: 3.5rem; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+        .data-number span { font-size: 1.5rem; }
+        .data-label { color: var(--gray); font-size: 0.95rem; }
+
+        /* Jobs */
+        .jobs { background: var(--light); }
+        .jobs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .job-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 5px 30px rgba(0,0,0,0.05); transition: transform 0.3s; }
+        .job-card:hover { transform: translateY(-5px); }
+        .job-type { font-size: 0.8rem; background: var(--accent); color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
+        .job-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
+        .job-card p { color: var(--gray); font-size: 0.95rem; margin-bottom: 20px; }
+        .job-link { color: var(--primary); font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+
+        /* Interview */
+        .interview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .interview-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .interview-image { height: 250px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; }
+        .interview-image .material-icons { font-size: 80px; color: white; opacity: 0.4; }
+        .interview-content { padding: 30px; }
+        .interview-content h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .interview-meta { color: var(--gray); font-size: 0.85rem; }
+
+        /* CTA */
+        .cta { background: var(--accent); color: white; text-align: center; }
+        .cta h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta p { opacity: 0.9; margin-bottom: 40px; font-size: 1.1rem; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: white; color: var(--accent); padding: 18px 50px; border-radius: 30px; font-weight: 700; font-size: 1.1rem; }
+
+        footer { background: var(--dark); color: white; padding: 40px 0; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        footer p { opacity: 0.5; font-size: 0.85rem; }
+
+        @media (max-width: 1024px) { .message-content, .data-grid, .jobs-grid, .interview-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) {
+            nav { display: none; } .hero h1 { font-size: 2.2rem; }
+            .message-content, .data-grid, .jobs-grid, .interview-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo">NEXUS</a>
+                <nav><ul><li><a href="index.html">トップ</a></li><li><a href="#message">メッセージ</a></li><li><a href="#jobs">募集職種</a></li><li><a href="#interview">社員紹介</a></li></ul></nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>共に未来を<br>創りませんか</h1>
+            <p>私たちと一緒に、テクノロジーで世界を変える仲間を募集しています</p>
+        </div>
+    </section>
+
+    <section id="message" class="message">
+        <div class="container">
+            <div class="message-content">
+                <div class="message-image"><span class="material-icons">person</span></div>
+                <div class="message-text">
+                    <h3>挑戦する人を、<br>全力で応援する会社です</h3>
+                    <p>NEXUSは「テクノロジーで社会をより良くする」というビジョンのもと、常に新しい挑戦を続けています。</p>
+                    <p>失敗を恐れず、自ら考え行動できる人。チームで協力しながら大きな目標に向かって進める人。そんな仲間を私たちは求めています。</p>
+                    <p>年齢や経験に関係なく、意欲ある人には大きなチャンスが待っています。</p>
+                    <div class="message-name">
+                        <span>代表取締役CEO</span>
+                        山田 太郎
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <span class="en">DATA</span>
+                <h2>数字で見るNEXUS</h2>
+            </div>
+            <div class="data-grid">
+                <div class="data-card"><div class="data-number">500<span>名</span></div><div class="data-label">社員数</div></div>
+                <div class="data-card"><div class="data-number">32<span>歳</span></div><div class="data-label">平均年齢</div></div>
+                <div class="data-card"><div class="data-number">40<span>%</span></div><div class="data-label">女性比率</div></div>
+                <div class="data-card"><div class="data-number">95<span>%</span></div><div class="data-label">有給取得率</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="jobs" class="jobs">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">JOBS</span>
+                <h2>募集職種</h2>
+            </div>
+            <div class="jobs-grid">
+                <div class="job-card">
+                    <span class="job-type">エンジニア</span>
+                    <h3>フロントエンドエンジニア</h3>
+                    <p>React/Vue.jsを使用したWebアプリケーション開発をお任せします。</p>
+                    <a href="#" class="job-link">詳細を見る <span class="material-icons">arrow_forward</span></a>
+                </div>
+                <div class="job-card">
+                    <span class="job-type">エンジニア</span>
+                    <h3>バックエンドエンジニア</h3>
+                    <p>Go/Python/Node.jsを使用したAPI開発・インフラ構築を担当します。</p>
+                    <a href="#" class="job-link">詳細を見る <span class="material-icons">arrow_forward</span></a>
+                </div>
+                <div class="job-card">
+                    <span class="job-type">デザイナー</span>
+                    <h3>UI/UXデザイナー</h3>
+                    <p>ユーザー体験を重視したプロダクトデザインをリードしていただきます。</p>
+                    <a href="#" class="job-link">詳細を見る <span class="material-icons">arrow_forward</span></a>
+                </div>
+                <div class="job-card">
+                    <span class="job-type">ビジネス</span>
+                    <h3>プロダクトマネージャー</h3>
+                    <p>事業戦略の立案からプロダクト開発のリードまで幅広く担当します。</p>
+                    <a href="#" class="job-link">詳細を見る <span class="material-icons">arrow_forward</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="interview">
+        <div class="container">
+            <div class="section-header">
+                <span class="en">INTERVIEW</span>
+                <h2>社員インタビュー</h2>
+            </div>
+            <div class="interview-grid">
+                <div class="interview-card">
+                    <div class="interview-image"><span class="material-icons">person</span></div>
+                    <div class="interview-content">
+                        <h3>若手でも大きなプロジェクトを任せてもらえる</h3>
+                        <p class="interview-meta">エンジニア / 入社3年目</p>
+                    </div>
+                </div>
+                <div class="interview-card">
+                    <div class="interview-image"><span class="material-icons">person</span></div>
+                    <div class="interview-content">
+                        <h3>フルリモートで育児と両立しています</h3>
+                        <p class="interview-meta">デザイナー / 入社5年目</p>
+                    </div>
+                </div>
+                <div class="interview-card">
+                    <div class="interview-image"><span class="material-icons">person</span></div>
+                    <div class="interview-content">
+                        <h3>異業種からの転職でも活躍できる環境</h3>
+                        <p class="interview-meta">PM / 入社2年目</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>エントリーはこちら</h2>
+            <p>皆さまからのご応募をお待ちしております</p>
+            <a href="#" class="cta-btn">エントリーフォーム <span class="material-icons">arrow_forward</span></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">NEXUS</div>
+            <p>© 2024 NEXUS Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

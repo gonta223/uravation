@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECH INSIGHT | テックブログ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #2563eb; --dark: #0f172a; --text: #334155; --text-light: #64748b; --light: #f8fafc; --white: #fff; --border: #e2e8f0; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--light); }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+        .logo span { color: var(--primary); }
+        nav ul { display: flex; gap: 35px; list-style: none; }
+        nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-light); transition: color 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .search-btn, .subscribe-btn { display: flex; align-items: center; gap: 8px; }
+        .search-btn { background: none; border: none; cursor: pointer; color: var(--text-light); }
+        .subscribe-btn { background: var(--primary); color: white; padding: 10px 25px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
+
+        /* Hero / Featured */
+        .featured { padding: 60px 0; }
+        .featured-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+        .featured-main { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .featured-image { height: 400px; background: linear-gradient(135deg, var(--primary), #7c3aed); display: flex; align-items: center; justify-content: center; }
+        .featured-image .material-icons { font-size: 100px; color: white; opacity: 0.3; }
+        .featured-content { padding: 35px; }
+        .featured-category { display: inline-block; background: rgba(37, 99, 235, 0.1); color: var(--primary); padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; }
+        .featured-title { font-size: 1.8rem; font-weight: 700; color: var(--dark); margin-bottom: 15px; line-height: 1.4; }
+        .featured-excerpt { color: var(--text-light); margin-bottom: 20px; }
+        .featured-meta { display: flex; align-items: center; gap: 20px; font-size: 0.85rem; color: var(--text-light); }
+        .author { display: flex; align-items: center; gap: 10px; }
+        .author-avatar { width: 36px; height: 36px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 600; }
+
+        .featured-sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .sidebar-image { height: 150px; background: linear-gradient(135deg, #f97316, #fb923c); display: flex; align-items: center; justify-content: center; }
+        .sidebar-image .material-icons { font-size: 50px; color: white; opacity: 0.4; }
+        .sidebar-content { padding: 20px; }
+        .sidebar-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; color: var(--dark); line-height: 1.5; }
+        .sidebar-content .meta { font-size: 0.8rem; color: var(--text-light); }
+        .sidebar-card:nth-child(2) .sidebar-image { background: linear-gradient(135deg, #22c55e, #4ade80); }
+
+        /* Articles Grid */
+        .articles-section { padding: 60px 0; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+        .tab-nav { display: flex; gap: 5px; background: var(--white); padding: 5px; border-radius: 10px; }
+        .tab-nav button { padding: 10px 20px; border: none; background: none; font-size: 0.9rem; font-weight: 500; color: var(--text-light); border-radius: 8px; cursor: pointer; }
+        .tab-nav button.active { background: var(--primary); color: white; }
+
+        .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .article-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
+        .article-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .article-image { height: 200px; background: linear-gradient(135deg, #06b6d4, #0891b2); display: flex; align-items: center; justify-content: center; position: relative; }
+        .article-image .material-icons { font-size: 60px; color: white; opacity: 0.4; }
+        .article-card:nth-child(2) .article-image { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .article-card:nth-child(3) .article-image { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .article-card:nth-child(4) .article-image { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .article-card:nth-child(5) .article-image { background: linear-gradient(135deg, #10b981, #059669); }
+        .article-card:nth-child(6) .article-image { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .article-content { padding: 25px; }
+        .article-category { font-size: 0.75rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+        .article-title { font-size: 1.1rem; font-weight: 600; color: var(--dark); margin-bottom: 15px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .article-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-light); }
+
+        /* Newsletter */
+        .newsletter { background: var(--dark); padding: 80px 0; margin: 60px 0; }
+        .newsletter-content { text-align: center; max-width: 600px; margin: 0 auto; }
+        .newsletter h2 { font-size: 2rem; color: white; margin-bottom: 15px; }
+        .newsletter p { color: rgba(255,255,255,0.7); margin-bottom: 30px; }
+        .newsletter-form { display: flex; gap: 15px; }
+        .newsletter-form input { flex: 1; padding: 15px 25px; border: none; border-radius: 10px; font-size: 1rem; }
+        .newsletter-form button { padding: 15px 35px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+
+        /* Footer */
+        footer { background: var(--white); padding: 60px 0 30px; border-top: 1px solid var(--border); }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 40px; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        .footer-desc { color: var(--text-light); font-size: 0.9rem; }
+        .footer-title { font-weight: 600; margin-bottom: 20px; color: var(--dark); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--text-light); font-size: 0.9rem; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-light); }
+
+        @media (max-width: 1024px) { .featured-grid { grid-template-columns: 1fr; } .articles-grid { grid-template-columns: repeat(2, 1fr); } .footer-content { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .articles-grid { grid-template-columns: 1fr; } .newsletter-form { flex-direction: column; } .footer-content { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">TECH<span>INSIGHT</span></div>
+                <nav><ul><li><a href="#">ホーム</a></li><li><a href="#">プログラミング</a></li><li><a href="#">AI・機械学習</a></li><li><a href="#">キャリア</a></li></ul></nav>
+                <div class="header-actions">
+                    <button class="search-btn"><span class="material-icons">search</span></button>
+                    <a href="#" class="subscribe-btn">購読する</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="featured">
+        <div class="container">
+            <div class="featured-grid">
+                <a href="article.html" class="featured-main">
+                    <div class="featured-image"><span class="material-icons">psychology</span></div>
+                    <div class="featured-content">
+                        <span class="featured-category">AI・機械学習</span>
+                        <h2 class="featured-title">ChatGPT APIを使った実践的なアプリケーション開発入門</h2>
+                        <p class="featured-excerpt">OpenAIのAPIを活用して、実用的なAIアプリケーションを構築する方法を詳しく解説します。</p>
+                        <div class="featured-meta">
+                            <div class="author"><div class="author-avatar">ST</div><span>佐藤 太郎</span></div>
+                            <span>2024年12月5日</span>
+                            <span>10分で読めます</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="featured-sidebar">
+                    <a href="article.html" class="sidebar-card">
+                        <div class="sidebar-image"><span class="material-icons">code</span></div>
+                        <div class="sidebar-content">
+                            <h3>React 19の新機能まとめ</h3>
+                            <p class="meta">2024年12月3日 • 5分</p>
+                        </div>
+                    </a>
+                    <a href="article.html" class="sidebar-card">
+                        <div class="sidebar-image"><span class="material-icons">work</span></div>
+                        <div class="sidebar-content">
+                            <h3>エンジニア転職市場2024年の動向</h3>
+                            <p class="meta">2024年12月1日 • 8分</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="articles-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>最新記事</h2>
+                <div class="tab-nav">
+                    <button class="active">すべて</button>
+                    <button>プログラミング</button>
+                    <button>AI</button>
+                    <button>キャリア</button>
+                </div>
+            </div>
+            <div class="articles-grid">
+                <a href="article.html" class="article-card">
+                    <div class="article-image"><span class="material-icons">terminal</span></div>
+                    <div class="article-content">
+                        <span class="article-category">プログラミング</span>
+                        <h3 class="article-title">TypeScript 5.3の新機能を徹底解説</h3>
+                        <div class="article-meta"><span>2024年11月28日</span><span>6分</span></div>
+                    </div>
+                </a>
+                <a href="article.html" class="article-card">
+                    <div class="article-image"><span class="material-icons">cloud</span></div>
+                    <div class="article-content">
+                        <span class="article-category">クラウド</span>
+                        <h3 class="article-title">AWS Lambdaのコスト最適化テクニック</h3>
+                        <div class="article-meta"><span>2024年11月25日</span><span>8分</span></div>
+                    </div>
+                </a>
+                <a href="article.html" class="article-card">
+                    <div class="article-image"><span class="material-icons">design_services</span></div>
+                    <div class="article-content">
+                        <span class="article-category">デザイン</span>
+                        <h3 class="article-title">エンジニアが知るべきUIデザインの基礎</h3>
+                        <div class="article-meta"><span>2024年11月22日</span><span>7分</span></div>
+                    </div>
+                </a>
+                <a href="article.html" class="article-card">
+                    <div class="article-image"><span class="material-icons">security</span></div>
+                    <div class="article-content">
+                        <span class="article-category">セキュリティ</span>
+                        <h3 class="article-title">2024年版Webセキュリティ対策ガイド</h3>
+                        <div class="article-meta"><span>2024年11月20日</span><span>12分</span></div>
+                    </div>
+                </a>
+                <a href="article.html" class="article-card">
+                    <div class="article-image"><span class="material-icons">speed</span></div>
+                    <div class="article-content">
+                        <span class="article-category">パフォーマンス</span>
+                        <h3 class="article-title">Next.jsアプリのパフォーマンス最適化</h3>
+                        <div class="article-meta"><span>2024年11月18日</span><span>9分</span></div>
+                    </div>
+                </a>
+                <a href="article.html" class="article-card">
+                    <div class="article-image"><span class="material-icons">groups</span></div>
+                    <div class="article-content">
+                        <span class="article-category">チーム開発</span>
+                        <h3 class="article-title">効率的なコードレビューの進め方</h3>
+                        <div class="article-meta"><span>2024年11月15日</span><span>5分</span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>ニュースレターに登録</h2>
+                <p>最新の技術情報やキャリアに関する記事を毎週お届けします</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="メールアドレスを入力">
+                    <button type="submit">登録する</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">TECHINSIGHT</div>
+                    <p class="footer-desc">エンジニアのためのテックブログ。最新の技術情報やキャリアに関する情報を発信しています。</p>
+                </div>
+                <div>
+                    <div class="footer-title">カテゴリー</div>
+                    <ul class="footer-links">
+                        <li><a href="#">プログラミング</a></li>
+                        <li><a href="#">AI・機械学習</a></li>
+                        <li><a href="#">クラウド</a></li>
+                        <li><a href="#">キャリア</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">リンク</div>
+                    <ul class="footer-links">
+                        <li><a href="#">運営者情報</a></li>
+                        <li><a href="#">お問い合わせ</a></li>
+                        <li><a href="#">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">SNS</div>
+                    <ul class="footer-links">
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2024 TECHINSIGHT. All Rights Reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

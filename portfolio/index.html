@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUKI TANAKA | Designer & Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #000; --accent: #ff3b30; --gray: #666; --light: #f5f5f5; --white: #fff; }
+        body { font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif; color: var(--primary); line-height: 1.7; background: var(--white); }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+        /* Header */
+        header { position: fixed; top: 0; left: 0; right: 0; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: white; }
+        nav { display: flex; gap: 40px; }
+        nav a { font-size: 0.9rem; color: white; font-weight: 500; }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; background: var(--primary); color: white; position: relative; overflow: hidden; }
+        .hero-content { max-width: 900px; }
+        .hero-subtitle { font-size: 1rem; opacity: 0.7; margin-bottom: 20px; letter-spacing: 0.2em; text-transform: uppercase; }
+        .hero h1 { font-size: 5rem; font-weight: 700; line-height: 1.1; margin-bottom: 30px; }
+        .hero p { font-size: 1.3rem; opacity: 0.8; max-width: 600px; margin-bottom: 50px; }
+        .hero-btn { display: inline-flex; align-items: center; gap: 15px; background: white; color: var(--primary); padding: 18px 40px; font-weight: 600; font-size: 1rem; transition: transform 0.3s; }
+        .hero-btn:hover { transform: translateX(10px); }
+        .hero-scroll { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .hero-scroll span { font-size: 0.8rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.2em; }
+        .hero-scroll .material-icons { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+        /* Works */
+        section { padding: 150px 0; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 80px; }
+        .section-header h2 { font-size: 4rem; font-weight: 700; }
+        .section-header p { font-size: 1rem; color: var(--gray); max-width: 400px; }
+
+        .works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px; }
+        .work-item { position: relative; }
+        .work-image { height: 500px; background: var(--light); overflow: hidden; margin-bottom: 30px; }
+        .work-image-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; transition: transform 0.5s; }
+        .work-item:hover .work-image-inner { transform: scale(1.05); }
+        .work-image .material-icons { font-size: 80px; color: white; opacity: 0.5; }
+        .work-number { font-size: 0.9rem; color: var(--gray); margin-bottom: 10px; }
+        .work-title { font-size: 1.8rem; font-weight: 600; margin-bottom: 10px; }
+        .work-category { font-size: 0.9rem; color: var(--gray); }
+        .work-item:nth-child(2) .work-image-inner { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .work-item:nth-child(3) .work-image-inner { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .work-item:nth-child(4) .work-image-inner { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+        /* About */
+        .about { background: var(--light); }
+        .about-content { display: grid; grid-template-columns: 1fr 1.5fr; gap: 100px; align-items: center; }
+        .about-image { height: 600px; background: var(--primary); display: flex; align-items: center; justify-content: center; }
+        .about-image .material-icons { font-size: 150px; color: white; opacity: 0.3; }
+        .about-text h2 { font-size: 3rem; font-weight: 700; margin-bottom: 30px; }
+        .about-text p { font-size: 1.1rem; color: var(--gray); margin-bottom: 20px; line-height: 1.9; }
+        .skills { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 40px; }
+        .skill-tag { padding: 10px 25px; border: 1px solid var(--primary); font-size: 0.9rem; font-weight: 500; }
+
+        /* Contact */
+        .contact { text-align: center; }
+        .contact h2 { font-size: 4rem; font-weight: 700; margin-bottom: 30px; }
+        .contact p { font-size: 1.2rem; color: var(--gray); margin-bottom: 50px; }
+        .contact-email { font-size: 2.5rem; font-weight: 700; color: var(--primary); display: inline-block; border-bottom: 3px solid var(--primary); padding-bottom: 5px; transition: color 0.3s; }
+        .contact-email:hover { color: var(--accent); border-color: var(--accent); }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 60px; }
+        .social-links a { width: 60px; height: 60px; border: 1px solid var(--primary); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .social-links a:hover { background: var(--primary); color: white; }
+
+        /* Footer */
+        footer { padding: 40px; text-align: center; font-size: 0.85rem; color: var(--gray); }
+
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3rem; }
+            .works-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-content { grid-template-columns: 1fr; gap: 50px; }
+            .section-header h2 { font-size: 2.5rem; }
+        }
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .contact h2 { font-size: 2rem; }
+            .contact-email { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">YT.</div>
+        <nav>
+            <a href="#works">Works</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <p class="hero-subtitle">Designer & Developer</p>
+                <h1>クリエイティブな<br>デジタル体験を<br>デザインする</h1>
+                <p>東京を拠点に、Webデザインとフロントエンド開発を手がけるクリエイターです。</p>
+                <a href="#works" class="hero-btn">View Works <span class="material-icons">arrow_forward</span></a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <span class="material-icons">expand_more</span>
+        </div>
+    </section>
+
+    <section id="works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Selected<br>Works</h2>
+                <p>ブランディング、Webデザイン、アプリ開発など、様々なプロジェクトを手がけています。</p>
+            </div>
+            <div class="works-grid">
+                <a href="#" class="work-item">
+                    <div class="work-image"><div class="work-image-inner"><span class="material-icons">web</span></div></div>
+                    <div class="work-number">01</div>
+                    <h3 class="work-title">E-Commerce Platform</h3>
+                    <p class="work-category">Web Design / Development</p>
+                </a>
+                <a href="#" class="work-item">
+                    <div class="work-image"><div class="work-image-inner"><span class="material-icons">phone_iphone</span></div></div>
+                    <div class="work-number">02</div>
+                    <h3 class="work-title">Fitness App UI</h3>
+                    <p class="work-category">UI/UX Design</p>
+                </a>
+                <a href="#" class="work-item">
+                    <div class="work-image"><div class="work-image-inner"><span class="material-icons">brush</span></div></div>
+                    <div class="work-number">03</div>
+                    <h3 class="work-title">Brand Identity</h3>
+                    <p class="work-category">Branding / Visual Design</p>
+                </a>
+                <a href="#" class="work-item">
+                    <div class="work-image"><div class="work-image-inner"><span class="material-icons">dashboard</span></div></div>
+                    <div class="work-number">04</div>
+                    <h3 class="work-title">Analytics Dashboard</h3>
+                    <p class="work-category">Web App / Dashboard</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image"><span class="material-icons">person</span></div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>5年以上のデザイン・開発経験を持ち、スタートアップから大企業まで、様々なクライアントのプロジェクトに携わってきました。</p>
+                    <p>ユーザー中心のデザイン思考と、最新のフロントエンド技術を組み合わせ、美しく機能的なデジタルプロダクトを創造することを得意としています。</p>
+                    <div class="skills">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">Framer Motion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Let's Work<br>Together</h2>
+            <p>新しいプロジェクトのご相談、お気軽にお問い合わせください。</p>
+            <a href="mailto:hello@yukitanaka.design" class="contact-email">hello@yukitanaka.design</a>
+            <div class="social-links">
+                <a href="#"><span class="material-icons">share</span></a>
+                <a href="#"><span class="material-icons">camera_alt</span></a>
+                <a href="#"><span class="material-icons">code</span></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Yuki Tanaka. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

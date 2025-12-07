@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ | NEXUS Inc.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0066cc; --primary-dark: #004499; --dark: #1a1a1a; --gray: #666; --light: #f8f9fa; --white: #fff; --error: #dc3545; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; background: var(--light); }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: white; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { font-size: 0.9rem; font-weight: 500; }
+
+        .page-header { background: var(--primary); color: white; padding: 80px 0; text-align: center; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .page-header p { opacity: 0.9; }
+
+        .contact-section { padding: 80px 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; }
+
+        .contact-info { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); height: fit-content; }
+        .contact-info h3 { font-size: 1.3rem; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid var(--primary); }
+        .info-item { display: flex; gap: 15px; margin-bottom: 25px; }
+        .info-item .material-icons { color: var(--primary); font-size: 24px; }
+        .info-item h4 { font-size: 0.9rem; margin-bottom: 5px; color: var(--gray); }
+        .info-item p { font-size: 1rem; }
+
+        .contact-form { background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 30px; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 10px; font-size: 0.95rem; }
+        .form-group label .required { color: var(--error); font-size: 0.8rem; margin-left: 5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px 20px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { min-height: 200px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; }
+        .checkbox-group input { width: auto; margin-top: 5px; }
+        .checkbox-group label { font-weight: 400; font-size: 0.9rem; color: var(--gray); }
+        .checkbox-group a { color: var(--primary); text-decoration: underline; }
+
+        .submit-btn { background: var(--primary); color: white; padding: 18px 60px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.3s, transform 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .submit-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        footer { background: var(--dark); color: white; padding: 40px 0; text-align: center; margin-top: 60px; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        footer p { opacity: 0.5; font-size: 0.85rem; }
+
+        @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { nav { display: none; } .form-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo">NEXUS</a>
+                <nav><ul><li><a href="index.html">トップ</a></li><li><a href="index.html#about">会社概要</a></li><li><a href="index.html#services">事業内容</a></li><li><a href="recruit.html">採用情報</a></li></ul></nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>お問い合わせ</h1>
+            <p>サービスに関するご質問・ご相談はこちらから</p>
+        </div>
+    </div>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>お問い合わせ先</h3>
+                    <div class="info-item">
+                        <span class="material-icons">location_on</span>
+                        <div>
+                            <h4>所在地</h4>
+                            <p>〒100-0001<br>東京都千代田区○○1-2-3<br>NEXUSビル 10F</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="material-icons">phone</span>
+                        <div>
+                            <h4>電話番号</h4>
+                            <p>03-0000-0000</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="material-icons">mail</span>
+                        <div>
+                            <h4>メールアドレス</h4>
+                            <p>info@nexus.example.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="material-icons">schedule</span>
+                        <div>
+                            <h4>営業時間</h4>
+                            <p>平日 9:00〜18:00<br>（土日祝日休み）</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>会社名<span class="required">必須</span></label>
+                                <input type="text" placeholder="株式会社〇〇">
+                            </div>
+                            <div class="form-group">
+                                <label>部署名</label>
+                                <input type="text" placeholder="営業部">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>お名前<span class="required">必須</span></label>
+                                <input type="text" placeholder="山田 太郎">
+                            </div>
+                            <div class="form-group">
+                                <label>フリガナ<span class="required">必須</span></label>
+                                <input type="text" placeholder="ヤマダ タロウ">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>メールアドレス<span class="required">必須</span></label>
+                                <input type="email" placeholder="example@company.com">
+                            </div>
+                            <div class="form-group">
+                                <label>電話番号</label>
+                                <input type="tel" placeholder="03-0000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>お問い合わせ種別<span class="required">必須</span></label>
+                            <select>
+                                <option value="">選択してください</option>
+                                <option value="service">サービスについて</option>
+                                <option value="estimate">お見積りのご依頼</option>
+                                <option value="partner">パートナーシップについて</option>
+                                <option value="recruit">採用について</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>お問い合わせ内容<span class="required">必須</span></label>
+                            <textarea placeholder="お問い合わせ内容をご記入ください"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="privacy">
+                                <label for="privacy"><a href="#">プライバシーポリシー</a>に同意する</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">送信する <span class="material-icons">send</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">NEXUS</div>
+            <p>© 2024 NEXUS Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
