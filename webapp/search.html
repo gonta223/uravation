@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>検索結果 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; min-height: 100vh; }
+
+        .app-header { background: white; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; align-items: center; gap: 30px; position: sticky; top: 0; z-index: 100; }
+        .header-logo { font-size: 1.3rem; font-weight: 700; color: #1e293b; }
+        .search-bar { flex: 1; max-width: 600px; display: flex; background: #f1f5f9; border-radius: 12px; overflow: hidden; }
+        .search-bar input { flex: 1; padding: 14px 20px; border: none; background: transparent; font-size: 0.95rem; }
+        .search-bar input:focus { outline: none; }
+        .search-bar button { padding: 14px 20px; background: #6366f1; color: white; border: none; font-weight: 600; cursor: pointer; }
+        .header-nav { display: flex; gap: 20px; }
+        .header-nav a { text-decoration: none; color: #64748b; font-size: 0.9rem; }
+
+        .search-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+
+        .search-header { margin-bottom: 25px; }
+        .search-header h1 { font-size: 1.5rem; font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+        .search-header h1 span { color: #6366f1; }
+        .search-meta { font-size: 0.9rem; color: #64748b; }
+
+        .search-filters { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+        .filter-btn { padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; color: #64748b; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+        .filter-btn:hover { border-color: #6366f1; color: #6366f1; }
+        .filter-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .filter-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+        .filter-btn:not(.active) .filter-count { background: #f1f5f9; color: #64748b; }
+
+        .search-results { display: flex; flex-direction: column; gap: 15px; }
+
+        .result-card { background: white; border-radius: 16px; padding: 25px; transition: all 0.3s; cursor: pointer; }
+        .result-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .result-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .result-type { padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .result-type.project { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+        .result-type.task { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .result-type.document { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .result-type.member { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+        .result-title { font-size: 1.15rem; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+        .result-title mark { background: rgba(99, 102, 241, 0.2); color: #6366f1; padding: 0 3px; border-radius: 3px; }
+        .result-description { font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 15px; }
+        .result-description mark { background: rgba(99, 102, 241, 0.2); color: #6366f1; padding: 0 3px; border-radius: 3px; }
+        .result-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+        .result-meta-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #94a3b8; }
+        .result-actions { display: flex; gap: 10px; }
+        .result-action { width: 36px; height: 36px; border: 1px solid #e2e8f0; border-radius: 8px; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+        .result-action:hover { background: #f1f5f9; }
+
+        .member-result { display: flex; align-items: center; gap: 20px; }
+        .member-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 600; flex-shrink: 0; }
+        .member-info { flex: 1; }
+        .member-info h3 { font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+        .member-info p { font-size: 0.9rem; color: #64748b; }
+        .member-info .role { color: #6366f1; font-weight: 500; }
+
+        .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 40px; }
+        .page-btn { width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 10px; background: white; cursor: pointer; font-weight: 500; transition: all 0.3s; }
+        .page-btn.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .page-btn:hover:not(.active) { background: #f1f5f9; }
+
+        .no-results { text-align: center; padding: 80px 20px; }
+        .no-results-icon { font-size: 4rem; margin-bottom: 20px; }
+        .no-results h3 { font-size: 1.3rem; font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+        .no-results p { color: #64748b; margin-bottom: 25px; }
+        .suggestion-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .suggestion-tag { padding: 8px 16px; background: #f1f5f9; border-radius: 20px; font-size: 0.85rem; color: #64748b; cursor: pointer; transition: all 0.3s; }
+        .suggestion-tag:hover { background: #6366f1; color: white; }
+
+        @media (max-width: 600px) {
+            .app-header { flex-wrap: wrap; }
+            .search-bar { order: 3; width: 100%; max-width: none; }
+            .header-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-logo">AppName</div>
+        <div class="search-bar">
+            <input type="text" value="プロジェクト管理" placeholder="検索...">
+            <button>検索</button>
+        </div>
+        <nav class="header-nav">
+            <a href="#">ダッシュボード</a>
+            <a href="#">プロジェクト</a>
+            <a href="profile.html">プロフィール</a>
+        </nav>
+    </header>
+
+    <div class="search-container">
+        <div class="search-header">
+            <h1>「<span>プロジェクト管理</span>」の検索結果</h1>
+            <p class="search-meta">24件の結果が見つかりました（0.12秒）</p>
+        </div>
+
+        <div class="search-filters">
+            <button class="filter-btn active">すべて <span class="filter-count">24</span></button>
+            <button class="filter-btn">プロジェクト <span class="filter-count">8</span></button>
+            <button class="filter-btn">タスク <span class="filter-count">10</span></button>
+            <button class="filter-btn">ドキュメント <span class="filter-count">4</span></button>
+            <button class="filter-btn">メンバー <span class="filter-count">2</span></button>
+        </div>
+
+        <div class="search-results">
+            <div class="result-card">
+                <div class="result-header">
+                    <span class="result-type project">プロジェクト</span>
+                    <div class="result-actions">
+                        <button class="result-action">⭐</button>
+                        <button class="result-action">⋮</button>
+                    </div>
+                </div>
+                <h3 class="result-title">ECサイトリニューアル<mark>プロジェクト</mark></h3>
+                <p class="result-description">既存ECサイトの全面リニューアル。UI/UX改善と<mark>管理</mark>システムの刷新を含む大規模プロジェクト。</p>
+                <div class="result-meta">
+                    <span class="result-meta-item">👥 5人のメンバー</span>
+                    <span class="result-meta-item">📅 2024/12/31まで</span>
+                    <span class="result-meta-item">📊 進捗 75%</span>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-header">
+                    <span class="result-type task">タスク</span>
+                    <div class="result-actions">
+                        <button class="result-action">⭐</button>
+                        <button class="result-action">⋮</button>
+                    </div>
+                </div>
+                <h3 class="result-title"><mark>プロジェクト管理</mark>ツールの選定</h3>
+                <p class="result-description">チームで使用する<mark>プロジェクト管理</mark>ツールの比較検討と導入決定。Notion, Asana, Jiraを比較。</p>
+                <div class="result-meta">
+                    <span class="result-meta-item">📁 インフラ整備</span>
+                    <span class="result-meta-item">👤 田中 健太</span>
+                    <span class="result-meta-item">✅ 完了</span>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-header">
+                    <span class="result-type document">ドキュメント</span>
+                    <div class="result-actions">
+                        <button class="result-action">⭐</button>
+                        <button class="result-action">⋮</button>
+                    </div>
+                </div>
+                <h3 class="result-title"><mark>プロジェクト管理</mark>ガイドライン</h3>
+                <p class="result-description">社内の<mark>プロジェクト</mark>運営における標準的なフローと<mark>管理</mark>方法についてのドキュメント。</p>
+                <div class="result-meta">
+                    <span class="result-meta-item">📄 10ページ</span>
+                    <span class="result-meta-item">✏️ 最終更新: 2024/12/01</span>
+                    <span class="result-meta-item">👁️ 156回閲覧</span>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="member-result">
+                    <div class="member-avatar">佐</div>
+                    <div class="member-info">
+                        <span class="result-type member" style="display: inline-block; margin-bottom: 8px;">メンバー</span>
+                        <h3>佐藤 花子</h3>
+                        <p><span class="role">プロジェクトマネージャー</span> - プロダクト開発部</p>
+                    </div>
+                    <div class="result-actions">
+                        <button class="result-action">💬</button>
+                        <button class="result-action">⋮</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-header">
+                    <span class="result-type task">タスク</span>
+                    <div class="result-actions">
+                        <button class="result-action">⭐</button>
+                        <button class="result-action">⋮</button>
+                    </div>
+                </div>
+                <h3 class="result-title"><mark>管理</mark>画面の設計レビュー</h3>
+                <p class="result-description"><mark>プロジェクト</mark>のダッシュボードと<mark>管理</mark>画面のUIデザインレビューを実施。</p>
+                <div class="result-meta">
+                    <span class="result-meta-item">📁 ECサイトリニューアル</span>
+                    <span class="result-meta-item">👤 山本 太郎</span>
+                    <span class="result-meta-item">🔄 進行中</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn">←</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">→</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .header-logo { font-size: 1.5rem; font-weight: 800; }
+
+        .legal-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+
+        .legal-header { text-align: center; margin-bottom: 50px; }
+        .legal-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .legal-header p { color: #64748b; }
+        .last-updated { display: inline-block; background: #f1f5f9; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; color: #64748b; margin-top: 15px; }
+
+        .privacy-summary { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 16px; padding: 35px; color: white; margin-bottom: 40px; }
+        .privacy-summary h2 { font-size: 1.2rem; margin-bottom: 20px; }
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .summary-item { text-align: center; }
+        .summary-item .icon { font-size: 2rem; margin-bottom: 10px; }
+        .summary-item h3 { font-size: 0.95rem; margin-bottom: 5px; }
+        .summary-item p { font-size: 0.8rem; opacity: 0.9; }
+
+        .legal-content { background: white; border-radius: 16px; padding: 50px; }
+
+        .legal-section { margin-bottom: 40px; }
+        .legal-section:last-child { margin-bottom: 0; }
+        .legal-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #f1f5f9; display: flex; align-items: center; gap: 12px; }
+        .section-icon { font-size: 1.3rem; }
+        .legal-section h3 { font-size: 1.05rem; font-weight: 600; margin: 25px 0 15px; color: #334155; }
+        .legal-section p { font-size: 0.95rem; color: #475569; line-height: 1.9; margin-bottom: 15px; }
+        .legal-section ul { margin: 15px 0; padding-left: 25px; }
+        .legal-section li { font-size: 0.95rem; color: #475569; line-height: 1.9; margin-bottom: 10px; }
+
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .data-table th, .data-table td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .data-table th { background: #f8fafc; font-size: 0.85rem; font-weight: 600; color: #64748b; }
+        .data-table td { font-size: 0.9rem; }
+
+        .highlight-box { background: #f8fafc; border-left: 4px solid #6366f1; padding: 20px 25px; border-radius: 0 12px 12px 0; margin: 25px 0; }
+        .highlight-box.warning { border-left-color: #f59e0b; background: #fffbeb; }
+        .highlight-box p { margin: 0; color: #475569; }
+
+        .rights-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+        .rights-item { background: #f8fafc; padding: 20px; border-radius: 12px; }
+        .rights-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .rights-item p { font-size: 0.85rem; color: #64748b; margin: 0; }
+
+        footer { padding: 40px 20px; text-align: center; color: #64748b; font-size: 0.85rem; }
+        footer a { color: #6366f1; text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .legal-content { padding: 30px 20px; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .rights-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">AppName</div>
+    </header>
+
+    <div class="legal-container">
+        <div class="legal-header">
+            <h1>プライバシーポリシー</h1>
+            <p>お客様の個人情報の取り扱いについて</p>
+            <span class="last-updated">最終更新日: 2024年12月1日</span>
+        </div>
+
+        <div class="privacy-summary">
+            <h2>プライバシーへの取り組み</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="icon">🔒</div>
+                    <h3>安全な保管</h3>
+                    <p>256bit暗号化で保護</p>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">🚫</div>
+                    <h3>販売しません</h3>
+                    <p>データの第三者販売なし</p>
+                </div>
+                <div class="summary-item">
+                    <div class="icon">🎛️</div>
+                    <h3>あなたが管理</h3>
+                    <p>いつでも削除可能</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="legal-content">
+            <section class="legal-section">
+                <h2><span class="section-icon">📋</span> 収集する情報</h2>
+                <p>当社は、サービス提供のために以下の情報を収集します。</p>
+
+                <h3>お客様から直接提供される情報</h3>
+                <ul>
+                    <li>アカウント登録情報（氏名、メールアドレス、パスワード）</li>
+                    <li>プロフィール情報（表示名、プロフィール画像）</li>
+                    <li>お支払い情報（クレジットカード情報は決済代行会社が管理）</li>
+                    <li>お問い合わせ内容</li>
+                </ul>
+
+                <h3>自動的に収集される情報</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>情報の種類</th>
+                            <th>収集目的</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IPアドレス</td>
+                            <td>セキュリティ、不正アクセス防止</td>
+                        </tr>
+                        <tr>
+                            <td>デバイス情報</td>
+                            <td>サービス最適化</td>
+                        </tr>
+                        <tr>
+                            <td>利用状況</td>
+                            <td>サービス改善、分析</td>
+                        </tr>
+                        <tr>
+                            <td>Cookie</td>
+                            <td>認証、設定の保存</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="legal-section">
+                <h2><span class="section-icon">🎯</span> 情報の利用目的</h2>
+                <p>収集した情報は、以下の目的で利用します。</p>
+                <ul>
+                    <li>本サービスの提供・運営・維持</li>
+                    <li>ユーザーサポートの提供</li>
+                    <li>サービスの改善・新機能の開発</li>
+                    <li>利用状況の分析</li>
+                    <li>不正行為の検出・防止</li>
+                    <li>法令に基づく対応</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p>お客様の同意なく、収集した情報をマーケティング目的で第三者に提供することはありません。</p>
+                </div>
+            </section>
+
+            <section class="legal-section">
+                <h2><span class="section-icon">🤝</span> 情報の共有</h2>
+                <p>当社は、以下の場合を除き、個人情報を第三者と共有しません。</p>
+                <ul>
+                    <li>お客様の同意がある場合</li>
+                    <li>サービス提供に必要な業務委託先との共有（守秘義務契約あり）</li>
+                    <li>法令に基づく開示要求がある場合</li>
+                    <li>当社の権利・財産を保護するために必要な場合</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h2><span class="section-icon">✋</span> お客様の権利</h2>
+                <p>お客様は、ご自身の個人情報について以下の権利を有します。</p>
+
+                <div class="rights-grid">
+                    <div class="rights-item">
+                        <h4>👁️ アクセス権</h4>
+                        <p>保有する個人情報の開示を請求できます</p>
+                    </div>
+                    <div class="rights-item">
+                        <h4>✏️ 訂正権</h4>
+                        <p>不正確な情報の訂正を請求できます</p>
+                    </div>
+                    <div class="rights-item">
+                        <h4>🗑️ 削除権</h4>
+                        <p>個人情報の削除を請求できます</p>
+                    </div>
+                    <div class="rights-item">
+                        <h4>📦 ポータビリティ権</h4>
+                        <p>データのエクスポートを請求できます</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning">
+                    <p>これらの権利行使をご希望の場合は、設定ページまたはお問い合わせフォームよりご連絡ください。</p>
+                </div>
+            </section>
+
+            <section class="legal-section">
+                <h2><span class="section-icon">🔐</span> セキュリティ</h2>
+                <p>当社は、お客様の情報を保護するために以下のセキュリティ対策を実施しています。</p>
+                <ul>
+                    <li>SSL/TLS暗号化通信の使用</li>
+                    <li>データの暗号化保存</li>
+                    <li>アクセス権限の管理</li>
+                    <li>定期的なセキュリティ監査</li>
+                    <li>従業員へのセキュリティ教育</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h2><span class="section-icon">📧</span> お問い合わせ</h2>
+                <p>本ポリシーに関するご質問は、以下までお問い合わせください。</p>
+                <p>
+                    <strong>株式会社AppName プライバシー担当</strong><br>
+                    メール: privacy@appname.example.com<br>
+                    住所: 〒150-0002 東京都渋谷区渋谷2-24-12
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <a href="terms.html">利用規約</a> ・ <a href="#">プライバシーポリシー</a> ・ <a href="#">お問い合わせ</a><br><br>
+            © 2024 AppName Inc. All Rights Reserved.
+        </p>
+    </footer>
+</body>
+</html>

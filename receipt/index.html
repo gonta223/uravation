@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>領収書 #RCP-2024-0456</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f1f5f9; padding: 40px 20px; }
+
+        .receipt-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+
+        .receipt-header { background: #1e293b; color: white; padding: 40px; text-align: center; position: relative; }
+        .receipt-header::after { content: ''; position: absolute; bottom: -20px; left: 0; right: 0; height: 40px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="%23f1f5f9"/></svg>'); background-size: 20px 20px; }
+        .receipt-title { font-size: 0.9rem; letter-spacing: 3px; opacity: 0.8; margin-bottom: 10px; }
+        .receipt-header h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: 5px; }
+
+        .receipt-body { padding: 50px 40px 40px; }
+
+        .paid-stamp { position: absolute; top: 30px; right: 30px; transform: rotate(15deg); }
+        .paid-stamp span { display: block; padding: 10px 20px; border: 3px solid #22c55e; border-radius: 8px; color: #22c55e; font-size: 1.2rem; font-weight: 800; letter-spacing: 3px; }
+
+        .receipt-info { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+        .info-group h3 { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .info-group p { font-size: 0.95rem; color: #1e293b; line-height: 1.7; }
+
+        .receipt-details { border-top: 2px dashed #e2e8f0; border-bottom: 2px dashed #e2e8f0; padding: 30px 0; margin-bottom: 30px; }
+        .detail-row { display: flex; justify-content: space-between; padding: 12px 0; }
+        .detail-row .label { color: #64748b; font-size: 0.95rem; }
+        .detail-row .value { font-size: 0.95rem; font-weight: 500; }
+
+        .receipt-items { margin-bottom: 30px; }
+        .receipt-items h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; color: #1e293b; }
+        .item-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .item-row:last-child { border-bottom: none; }
+        .item-info .item-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 5px; }
+        .item-info .item-desc { font-size: 0.8rem; color: #94a3b8; }
+        .item-price { text-align: right; }
+        .item-price .price { font-size: 0.95rem; font-weight: 600; }
+        .item-price .qty { font-size: 0.8rem; color: #94a3b8; }
+
+        .receipt-totals { background: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+        .total-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 0.95rem; }
+        .total-row.grand { font-size: 1.3rem; font-weight: 700; padding-top: 15px; margin-top: 10px; border-top: 2px solid #e2e8f0; }
+        .total-row.grand .value { color: #6366f1; }
+
+        .receipt-footer { text-align: center; padding-top: 30px; border-top: 1px solid #e2e8f0; }
+        .receipt-footer .company { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .receipt-footer p { font-size: 0.85rem; color: #64748b; line-height: 1.8; }
+        .receipt-footer .thank-you { font-size: 1.1rem; color: #6366f1; font-weight: 600; margin-top: 20px; }
+
+        .barcode { margin-top: 30px; text-align: center; }
+        .barcode-image { font-family: 'Libre Barcode 128', monospace; font-size: 60px; letter-spacing: -5px; }
+        .barcode-text { font-size: 0.8rem; color: #94a3b8; margin-top: 5px; }
+
+        .actions-bar { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
+        .action-btn { padding: 14px 30px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+        .action-btn.primary { background: #6366f1; color: white; border: none; }
+        .action-btn.secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .receipt-container { box-shadow: none; }
+            .actions-bar { display: none; }
+        }
+
+        @media (max-width: 500px) {
+            .receipt-info { grid-template-columns: 1fr; gap: 20px; }
+            .receipt-body { padding: 40px 25px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <div class="receipt-header">
+            <div class="paid-stamp"><span>PAID</span></div>
+            <p class="receipt-title">RECEIPT</p>
+            <h1>領収書</h1>
+        </div>
+
+        <div class="receipt-body">
+            <div class="receipt-info">
+                <div class="info-group">
+                    <h3>宛名</h3>
+                    <p>
+                        <strong>株式会社サンプル</strong><br>
+                        経理部 山田 太郎 様
+                    </p>
+                </div>
+                <div class="info-group">
+                    <h3>発行情報</h3>
+                    <p>
+                        領収書番号: RCP-2024-0456<br>
+                        発行日: 2024年12月7日
+                    </p>
+                </div>
+            </div>
+
+            <div class="receipt-details">
+                <div class="detail-row">
+                    <span class="label">お支払い日</span>
+                    <span class="value">2024年12月7日</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">お支払い方法</span>
+                    <span class="value">クレジットカード (VISA **** 3456)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">注文番号</span>
+                    <span class="value">ORD-2024-0789</span>
+                </div>
+            </div>
+
+            <div class="receipt-items">
+                <h3>明細</h3>
+                <div class="item-row">
+                    <div class="item-info">
+                        <div class="item-name">Proプラン（年間）</div>
+                        <div class="item-desc">2024/12/07 〜 2025/12/06</div>
+                    </div>
+                    <div class="item-price">
+                        <div class="price">¥29,800</div>
+                        <div class="qty">× 1</div>
+                    </div>
+                </div>
+                <div class="item-row">
+                    <div class="item-info">
+                        <div class="item-name">追加ストレージ（100GB）</div>
+                        <div class="item-desc">年間オプション</div>
+                    </div>
+                    <div class="item-price">
+                        <div class="price">¥6,000</div>
+                        <div class="qty">× 1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="receipt-totals">
+                <div class="total-row">
+                    <span>小計</span>
+                    <span>¥35,800</span>
+                </div>
+                <div class="total-row">
+                    <span>消費税（10%）</span>
+                    <span>¥3,580</span>
+                </div>
+                <div class="total-row grand">
+                    <span>合計金額</span>
+                    <span class="value">¥39,380</span>
+                </div>
+            </div>
+
+            <div class="receipt-footer">
+                <div class="company">株式会社AppName</div>
+                <p>
+                    〒150-0002 東京都渋谷区渋谷2-24-12<br>
+                    渋谷スクランブルスクエア 35F<br>
+                    TEL: 03-1234-5678<br>
+                    登録番号: T1234567890123
+                </p>
+                <p class="thank-you">Thank you for your business! 🙏</p>
+
+                <div class="barcode">
+                    <div class="barcode-image">|||||||||||||||||||||||</div>
+                    <div class="barcode-text">RCP-2024-0456</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions-bar">
+        <button class="action-btn primary" onclick="window.print()">📄 印刷 / PDF保存</button>
+        <button class="action-btn secondary">📧 メールで送信</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>はじめましょう - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+
+        .onboarding-container { max-width: 600px; width: 100%; }
+
+        .onboarding-card { background: white; border-radius: 24px; padding: 50px; box-shadow: 0 25px 80px rgba(0,0,0,0.2); }
+
+        .progress-bar { display: flex; gap: 8px; margin-bottom: 40px; }
+        .progress-step { flex: 1; height: 6px; background: #e2e8f0; border-radius: 3px; transition: background 0.3s; }
+        .progress-step.active { background: #6366f1; }
+        .progress-step.completed { background: #22c55e; }
+
+        .step-indicator { text-align: center; margin-bottom: 30px; }
+        .step-indicator span { font-size: 0.9rem; color: #94a3b8; }
+
+        .step-content { display: none; }
+        .step-content.active { display: block; }
+
+        .step-header { text-align: center; margin-bottom: 40px; }
+        .step-icon { width: 80px; height: 80px; background: rgba(99, 102, 241, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.5rem; }
+        .step-header h2 { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 10px; }
+        .step-header p { font-size: 1rem; color: #64748b; }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 600; color: #334155; margin-bottom: 10px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #6366f1; }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+
+        .avatar-upload { display: flex; align-items: center; gap: 25px; }
+        .avatar-preview { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: white; flex-shrink: 0; }
+        .avatar-actions { display: flex; flex-direction: column; gap: 10px; }
+        .upload-btn { padding: 12px 25px; background: #f1f5f9; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        .upload-btn:hover { background: #e2e8f0; }
+
+        .role-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .role-option { padding: 25px; border: 2px solid #e2e8f0; border-radius: 16px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .role-option:hover { border-color: #6366f1; }
+        .role-option.selected { border-color: #6366f1; background: rgba(99, 102, 241, 0.05); }
+        .role-option .icon { font-size: 2rem; margin-bottom: 10px; }
+        .role-option h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .role-option p { font-size: 0.85rem; color: #64748b; }
+
+        .interest-tags { display: flex; flex-wrap: wrap; gap: 12px; }
+        .interest-tag { padding: 12px 20px; border: 2px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .interest-tag:hover { border-color: #6366f1; }
+        .interest-tag.selected { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-btn { padding: 16px 35px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .nav-btn.back { background: transparent; border: none; color: #64748b; }
+        .nav-btn.back:hover { color: #1e293b; }
+        .nav-btn.next { background: #6366f1; color: white; border: none; }
+        .nav-btn.next:hover { background: #4f46e5; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .success-content { text-align: center; }
+        .success-icon { width: 100px; height: 100px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 3rem; }
+        .success-content h2 { font-size: 2rem; font-weight: 700; color: #1e293b; margin-bottom: 15px; }
+        .success-content p { font-size: 1rem; color: #64748b; margin-bottom: 30px; }
+        .start-btn { display: inline-block; padding: 18px 50px; background: #6366f1; color: white; text-decoration: none; border-radius: 12px; font-size: 1.1rem; font-weight: 600; }
+
+        @media (max-width: 500px) {
+            .onboarding-card { padding: 30px 20px; }
+            .role-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <div class="onboarding-card">
+            <div class="progress-bar">
+                <div class="progress-step active" id="prog1"></div>
+                <div class="progress-step" id="prog2"></div>
+                <div class="progress-step" id="prog3"></div>
+                <div class="progress-step" id="prog4"></div>
+            </div>
+
+            <div class="step-indicator">
+                <span id="stepText">ステップ 1 / 4</span>
+            </div>
+
+            <!-- Step 1: Profile -->
+            <div class="step-content active" id="step1">
+                <div class="step-header">
+                    <div class="step-icon">👤</div>
+                    <h2>プロフィールを設定</h2>
+                    <p>まずはあなたについて教えてください</p>
+                </div>
+
+                <div class="avatar-upload">
+                    <div class="avatar-preview">😊</div>
+                    <div class="avatar-actions">
+                        <button class="upload-btn">📷 写真をアップロード</button>
+                        <span style="font-size: 0.8rem; color: #94a3b8;">PNG, JPG (最大2MB)</span>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 25px;">
+                    <label>表示名</label>
+                    <input type="text" placeholder="山田 太郎" value="山田 太郎">
+                </div>
+
+                <div class="form-group">
+                    <label>自己紹介（任意）</label>
+                    <textarea placeholder="簡単な自己紹介を入力してください..."></textarea>
+                </div>
+            </div>
+
+            <!-- Step 2: Role -->
+            <div class="step-content" id="step2">
+                <div class="step-header">
+                    <div class="step-icon">💼</div>
+                    <h2>あなたの役割は？</h2>
+                    <p>最適な体験を提供するために教えてください</p>
+                </div>
+
+                <div class="role-options">
+                    <div class="role-option" onclick="selectRole(this)">
+                        <div class="icon">👨‍💻</div>
+                        <h4>エンジニア</h4>
+                        <p>開発・技術担当</p>
+                    </div>
+                    <div class="role-option" onclick="selectRole(this)">
+                        <div class="icon">🎨</div>
+                        <h4>デザイナー</h4>
+                        <p>UI/UXデザイン担当</p>
+                    </div>
+                    <div class="role-option" onclick="selectRole(this)">
+                        <div class="icon">📊</div>
+                        <h4>マネージャー</h4>
+                        <p>プロジェクト管理</p>
+                    </div>
+                    <div class="role-option selected" onclick="selectRole(this)">
+                        <div class="icon">🚀</div>
+                        <h4>その他</h4>
+                        <p>上記以外の役割</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Interests -->
+            <div class="step-content" id="step3">
+                <div class="step-header">
+                    <div class="step-icon">🎯</div>
+                    <h2>興味のある分野</h2>
+                    <p>関連するコンテンツをおすすめします</p>
+                </div>
+
+                <div class="interest-tags">
+                    <span class="interest-tag selected" onclick="toggleInterest(this)">プロジェクト管理</span>
+                    <span class="interest-tag" onclick="toggleInterest(this)">チームコラボ</span>
+                    <span class="interest-tag selected" onclick="toggleInterest(this)">タスク管理</span>
+                    <span class="interest-tag" onclick="toggleInterest(this)">ドキュメント</span>
+                    <span class="interest-tag" onclick="toggleInterest(this)">分析・レポート</span>
+                    <span class="interest-tag" onclick="toggleInterest(this)">自動化</span>
+                    <span class="interest-tag" onclick="toggleInterest(this)">カレンダー連携</span>
+                    <span class="interest-tag selected" onclick="toggleInterest(this)">通知管理</span>
+                </div>
+            </div>
+
+            <!-- Step 4: Complete -->
+            <div class="step-content" id="step4">
+                <div class="success-content">
+                    <div class="success-icon">🎉</div>
+                    <h2>準備完了！</h2>
+                    <p>設定が完了しました。さっそく始めましょう！</p>
+                    <a href="#" class="start-btn">ダッシュボードへ</a>
+                </div>
+            </div>
+
+            <div class="nav-buttons" id="navButtons">
+                <button class="nav-btn back" onclick="prevStep()" id="backBtn" style="visibility: hidden;">← 戻る</button>
+                <button class="nav-btn next" onclick="nextStep()" id="nextBtn">次へ →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateUI() {
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById('step' + i).classList.remove('active');
+                document.getElementById('prog' + i).classList.remove('active', 'completed');
+            }
+            document.getElementById('step' + currentStep).classList.add('active');
+
+            for (let i = 1; i <= totalSteps; i++) {
+                if (i < currentStep) document.getElementById('prog' + i).classList.add('completed');
+                else if (i === currentStep) document.getElementById('prog' + i).classList.add('active');
+            }
+
+            document.getElementById('stepText').textContent = `ステップ ${currentStep} / ${totalSteps}`;
+            document.getElementById('backBtn').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+
+            if (currentStep === totalSteps) {
+                document.getElementById('navButtons').style.display = 'none';
+            } else {
+                document.getElementById('navButtons').style.display = 'flex';
+                document.getElementById('nextBtn').textContent = currentStep === totalSteps - 1 ? '完了' : '次へ →';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateUI();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+            }
+        }
+
+        function selectRole(el) {
+            document.querySelectorAll('.role-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function toggleInterest(el) {
+            el.classList.toggle('selected');
+        }
+    </script>
+</body>
+</html>
