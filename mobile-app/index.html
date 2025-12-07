@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モバイルアプリ - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; overflow-x: hidden; }
+
+        header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 100; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav { display: flex; gap: 30px; }
+        nav a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        nav a:hover { color: white; }
+        .header-btn { padding: 10px 25px; background: #6366f1; border: none; border-radius: 10px; color: white; font-weight: 600; cursor: pointer; }
+
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 40px 80px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 40%); }
+
+        .hero-content { max-width: 600px; position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2); padding: 8px 20px; border-radius: 30px; font-size: 0.9rem; margin-bottom: 30px; }
+        .hero-badge .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
+        .hero h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
+        .hero h1 span { background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.3rem; color: #94a3b8; line-height: 1.8; margin-bottom: 40px; }
+
+        .download-buttons { display: flex; gap: 15px; margin-bottom: 40px; }
+        .store-btn { display: flex; align-items: center; gap: 15px; padding: 15px 30px; background: white; border-radius: 14px; text-decoration: none; color: #0f172a; transition: all 0.3s; }
+        .store-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255,255,255,0.2); }
+        .store-btn .icon { font-size: 2rem; }
+        .store-btn .text { text-align: left; }
+        .store-btn .text .label { font-size: 0.75rem; color: #64748b; }
+        .store-btn .text .store { font-size: 1.1rem; font-weight: 700; }
+
+        .hero-stats { display: flex; gap: 40px; }
+        .stat { }
+        .stat .value { font-size: 2rem; font-weight: 800; }
+        .stat .label { font-size: 0.9rem; color: #64748b; }
+
+        .phone-mockup { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); z-index: 1; }
+        .phone-frame { width: 320px; height: 650px; background: linear-gradient(145deg, #1e293b, #334155); border-radius: 50px; padding: 15px; box-shadow: 0 50px 100px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); position: relative; }
+        .phone-screen { width: 100%; height: 100%; background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%); border-radius: 38px; overflow: hidden; position: relative; }
+        .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 35px; background: #0f172a; border-radius: 0 0 20px 20px; }
+        .phone-content { padding: 50px 20px 20px; text-align: center; }
+        .phone-content .app-icon { width: 80px; height: 80px; background: white; border-radius: 20px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+        .phone-content h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .phone-content p { font-size: 0.85rem; opacity: 0.8; margin-bottom: 30px; }
+        .phone-cards { display: flex; flex-direction: column; gap: 12px; }
+        .phone-card { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 15px; border-radius: 16px; display: flex; align-items: center; gap: 12px; text-align: left; }
+        .phone-card .icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .phone-card .info { flex: 1; }
+        .phone-card .title { font-size: 0.9rem; font-weight: 600; }
+        .phone-card .desc { font-size: 0.75rem; opacity: 0.7; }
+
+        .features { padding: 100px 40px; }
+        .features .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .section-header p { font-size: 1.1rem; color: #94a3b8; max-width: 600px; margin: 0 auto; }
+
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; transition: all 0.3s; }
+        .feature-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-5px); }
+        .feature-icon { width: 70px; height: 70px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 25px; }
+        .feature-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .feature-card p { color: #94a3b8; line-height: 1.7; }
+
+        .screenshots { padding: 100px 40px; background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.05)); }
+        .screenshots .container { max-width: 1200px; margin: 0 auto; }
+        .screenshots-slider { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .screenshot { width: 250px; height: 500px; background: linear-gradient(145deg, #1e293b, #334155); border-radius: 35px; padding: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .screenshot-inner { width: 100%; height: 100%; border-radius: 28px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #64748b; }
+        .screenshot-inner.s1 { background: linear-gradient(180deg, #6366f1, #4f46e5); }
+        .screenshot-inner.s2 { background: linear-gradient(180deg, #22c55e, #16a34a); }
+        .screenshot-inner.s3 { background: linear-gradient(180deg, #f59e0b, #d97706); }
+        .screenshot-inner.s4 { background: linear-gradient(180deg, #ec4899, #db2777); }
+
+        .reviews { padding: 100px 40px; }
+        .reviews .container { max-width: 1200px; margin: 0 auto; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; }
+        .review-stars { color: #fbbf24; font-size: 1.2rem; margin-bottom: 15px; }
+        .review-text { font-size: 1rem; line-height: 1.8; margin-bottom: 20px; color: #e2e8f0; }
+        .review-author { display: flex; align-items: center; gap: 12px; }
+        .review-avatar { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .review-info .name { font-weight: 600; font-size: 0.95rem; }
+        .review-info .date { font-size: 0.8rem; color: #64748b; }
+
+        .cta-section { padding: 100px 40px; }
+        .cta-card { max-width: 900px; margin: 0 auto; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 30px; padding: 80px 60px; text-align: center; position: relative; overflow: hidden; }
+        .cta-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%); }
+        .cta-card h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; position: relative; }
+        .cta-card p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 40px; position: relative; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; position: relative; }
+        .cta-buttons .store-btn { background: rgba(0,0,0,0.3); color: white; }
+        .cta-buttons .store-btn:hover { background: rgba(0,0,0,0.5); }
+        .qr-code { margin-top: 40px; position: relative; }
+        .qr-code p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px; }
+        .qr-placeholder { width: 120px; height: 120px; background: white; border-radius: 16px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #64748b; }
+
+        footer { padding: 60px 40px 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-links { display: flex; gap: 30px; }
+        .footer-links a { color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: white; }
+        .copyright { color: #64748b; font-size: 0.85rem; }
+
+        @media (max-width: 1200px) {
+            .phone-mockup { display: none; }
+            .hero-content { max-width: 100%; text-align: center; }
+            .download-buttons, .hero-stats { justify-content: center; }
+        }
+        @media (max-width: 900px) {
+            .features-grid, .reviews-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .download-buttons { flex-direction: column; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .cta-card { padding: 50px 25px; }
+            .cta-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">スクリーンショット</a>
+            <a href="#">レビュー</a>
+            <a href="#">サポート</a>
+        </nav>
+        <button class="header-btn">ダウンロード</button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                <span>iOS & Android 対応</span>
+            </div>
+            <h1>いつでもどこでも<span>生産性</span>を手に</h1>
+            <p>デスクトップと同じパワフルな機能をモバイルで。外出先でもチームとつながり、タスクを管理しましょう。</p>
+
+            <div class="download-buttons">
+                <a href="#" class="store-btn">
+                    <span class="icon">🍎</span>
+                    <div class="text">
+                        <div class="label">Download on the</div>
+                        <div class="store">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="store-btn">
+                    <span class="icon">▶️</span>
+                    <div class="text">
+                        <div class="label">GET IT ON</div>
+                        <div class="store">Google Play</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="value">4.8★</div>
+                    <div class="label">アプリ評価</div>
+                </div>
+                <div class="stat">
+                    <div class="value">500K+</div>
+                    <div class="label">ダウンロード</div>
+                </div>
+                <div class="stat">
+                    <div class="value">#1</div>
+                    <div class="label">仕事効率化</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="phone-mockup">
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="phone-notch"></div>
+                    <div class="phone-content">
+                        <div class="app-icon">📱</div>
+                        <h3>おかえりなさい！</h3>
+                        <p>今日のタスクを確認しましょう</p>
+                        <div class="phone-cards">
+                            <div class="phone-card">
+                                <div class="icon">📋</div>
+                                <div class="info">
+                                    <div class="title">プロジェクトA</div>
+                                    <div class="desc">3件の未完了タスク</div>
+                                </div>
+                            </div>
+                            <div class="phone-card">
+                                <div class="icon">💬</div>
+                                <div class="info">
+                                    <div class="title">チームチャット</div>
+                                    <div class="desc">5件の新着メッセージ</div>
+                                </div>
+                            </div>
+                            <div class="phone-card">
+                                <div class="icon">📅</div>
+                                <div class="info">
+                                    <div class="title">今日の予定</div>
+                                    <div class="desc">14:00 週次ミーティング</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>モバイルでできること</h2>
+                <p>デスクトップと同等の機能を、タッチ操作に最適化してお届けします。</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>リアルタイム同期</h3>
+                    <p>デスクトップとモバイル間でデータが即座に同期。どこからでも最新の状態にアクセス。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>プッシュ通知</h3>
+                    <p>重要な更新やメンションを見逃さない。カスタマイズ可能な通知設定。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📴</div>
+                    <h3>オフライン対応</h3>
+                    <p>インターネット接続がなくても作業可能。オンライン復帰時に自動同期。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>生体認証</h3>
+                    <p>Face IDやTouch IDでセキュアにログイン。PINコードにも対応。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📷</div>
+                    <h3>カメラ連携</h3>
+                    <p>写真を直接タスクに添付。ドキュメントスキャン機能も搭載。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <h3>音声入力</h3>
+                    <p>ハンズフリーでタスク作成やコメント追加。Siri、Googleアシスタント対応。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots">
+        <div class="container">
+            <div class="section-header">
+                <h2>スクリーンショット</h2>
+                <p>美しく使いやすいインターフェースをご覧ください</p>
+            </div>
+
+            <div class="screenshots-slider">
+                <div class="screenshot">
+                    <div class="screenshot-inner s1">ダッシュボード</div>
+                </div>
+                <div class="screenshot">
+                    <div class="screenshot-inner s2">タスク一覧</div>
+                </div>
+                <div class="screenshot">
+                    <div class="screenshot-inner s3">チャット</div>
+                </div>
+                <div class="screenshot">
+                    <div class="screenshot-inner s4">カレンダー</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>ユーザーレビュー</h2>
+                <p>App Store & Google Play でいただいた評価</p>
+            </div>
+
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">「外出先でもチームとシームレスに連携できるのが最高。通知も適切で、本当に必要な時だけ知らせてくれる。」</p>
+                    <div class="review-author">
+                        <div class="review-avatar">👨‍💼</div>
+                        <div class="review-info">
+                            <div class="name">田中 健太</div>
+                            <div class="date">2024/12/05</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">「オフラインでも使えるのがありがたい。地下鉄の移動中でもタスクを確認・編集できる。」</p>
+                    <div class="review-author">
+                        <div class="review-avatar">👩‍💻</div>
+                        <div class="review-info">
+                            <div class="name">佐藤 美咲</div>
+                            <div class="date">2024/12/03</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★☆</div>
+                    <p class="review-text">「UIがきれいで操作も直感的。Widgetが追加されたらさらに便利になりそう。期待してます！」</p>
+                    <div class="review-author">
+                        <div class="review-avatar">👨‍🎨</div>
+                        <div class="review-info">
+                            <div class="name">鈴木 翔太</div>
+                            <div class="date">2024/11/28</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-card">
+            <h2>今すぐダウンロード</h2>
+            <p>無料でお使いいただけます。プレミアム機能も14日間お試し可能。</p>
+            <div class="cta-buttons">
+                <a href="#" class="store-btn">
+                    <span class="icon">🍎</span>
+                    <div class="text">
+                        <div class="label">Download on the</div>
+                        <div class="store">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="store-btn">
+                    <span class="icon">▶️</span>
+                    <div class="text">
+                        <div class="label">GET IT ON</div>
+                        <div class="store">Google Play</div>
+                    </div>
+                </a>
+            </div>
+            <div class="qr-code">
+                <p>またはQRコードをスキャン</p>
+                <div class="qr-placeholder">QR Code</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシー</a>
+                <a href="#">サポート</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+            <div class="copyright">© 2024 AppName. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

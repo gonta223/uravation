@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サポートチケット - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        .header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+        .breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #64748b; }
+        .breadcrumb a { color: #6366f1; text-decoration: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+
+        .ticket-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+        .ticket-title-section { }
+        .ticket-id { font-size: 0.85rem; color: #64748b; margin-bottom: 8px; }
+        .ticket-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
+        .ticket-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+        .meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #64748b; }
+        .meta-item .icon { font-size: 1rem; }
+
+        .ticket-actions { display: flex; gap: 10px; }
+        .action-btn { padding: 12px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+        .action-btn.primary { background: #6366f1; color: white; }
+        .action-btn.primary:hover { background: #4f46e5; }
+        .action-btn.secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .action-btn.secondary:hover { border-color: #6366f1; color: #6366f1; }
+
+        .ticket-layout { display: grid; grid-template-columns: 1fr 350px; gap: 30px; }
+
+        .ticket-main { }
+
+        .status-bar { display: flex; gap: 15px; margin-bottom: 25px; }
+        .status-badge { padding: 8px 16px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; }
+        .status-badge.open { background: #dcfce7; color: #16a34a; }
+        .status-badge.progress { background: #fef3c7; color: #d97706; }
+        .status-badge.closed { background: #f1f5f9; color: #64748b; }
+        .priority-badge { padding: 8px 16px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; }
+        .priority-badge.high { background: #fee2e2; color: #dc2626; }
+        .priority-badge.medium { background: #fef3c7; color: #d97706; }
+        .priority-badge.low { background: #e0e7ff; color: #6366f1; }
+
+        .conversation { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+        .conversation-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; }
+        .conversation-header h3 { font-size: 1.1rem; font-weight: 700; }
+        .sort-select { padding: 8px 15px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem; }
+
+        .message { margin-bottom: 25px; }
+        .message:last-child { margin-bottom: 0; }
+        .message-header { display: flex; gap: 15px; margin-bottom: 12px; }
+        .message-avatar { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+        .message-avatar.customer { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); }
+        .message-avatar.support { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .message-info { flex: 1; }
+        .message-info .top { display: flex; align-items: center; gap: 10px; margin-bottom: 3px; }
+        .message-info .name { font-weight: 600; font-size: 0.95rem; }
+        .message-info .badge { font-size: 0.7rem; padding: 2px 8px; background: #6366f1; color: white; border-radius: 4px; }
+        .message-info .time { font-size: 0.8rem; color: #94a3b8; }
+        .message-body { margin-left: 60px; padding: 20px; background: #f8fafc; border-radius: 12px; font-size: 0.95rem; line-height: 1.8; }
+        .message.support .message-body { background: #f0f3ff; border-left: 3px solid #6366f1; }
+
+        .message-attachments { margin-left: 60px; margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .attachment { display: flex; align-items: center; gap: 8px; padding: 10px 15px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+        .attachment:hover { border-color: #6366f1; }
+        .attachment .icon { font-size: 1.1rem; }
+
+        .reply-box { background: white; border-radius: 20px; padding: 25px; }
+        .reply-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+        .reply-textarea { width: 100%; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; font-family: inherit; resize: vertical; min-height: 150px; margin-bottom: 15px; }
+        .reply-textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .reply-actions { display: flex; justify-content: space-between; align-items: center; }
+        .reply-tools { display: flex; gap: 10px; }
+        .tool-btn { width: 40px; height: 40px; border: 1px solid #e2e8f0; background: white; border-radius: 10px; cursor: pointer; font-size: 1rem; }
+        .tool-btn:hover { background: #f8fafc; }
+        .reply-submit { display: flex; gap: 10px; }
+
+        .ticket-sidebar { }
+
+        .sidebar-card { background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        .sidebar-card h4 { font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; }
+
+        .detail-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .detail-item:last-child { border-bottom: none; }
+        .detail-label { font-size: 0.9rem; color: #64748b; }
+        .detail-value { font-size: 0.9rem; font-weight: 500; }
+        .detail-value.link { color: #6366f1; cursor: pointer; }
+
+        .assignee { display: flex; align-items: center; gap: 12px; padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 15px; }
+        .assignee-avatar { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; }
+        .assignee-info .name { font-weight: 600; font-size: 0.95rem; }
+        .assignee-info .role { font-size: 0.8rem; color: #64748b; }
+        .reassign-btn { width: 100%; padding: 10px; background: none; border: 1px dashed #e2e8f0; border-radius: 10px; color: #64748b; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+        .reassign-btn:hover { border-color: #6366f1; color: #6366f1; }
+
+        .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { padding: 6px 12px; background: #f1f5f9; border-radius: 20px; font-size: 0.8rem; color: #64748b; }
+
+        .related-list { }
+        .related-item { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
+        .related-item:last-child { border-bottom: none; }
+        .related-item:hover { color: #6366f1; }
+        .related-item .id { font-size: 0.8rem; color: #94a3b8; min-width: 70px; }
+        .related-item .title { font-size: 0.85rem; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .activity-timeline { }
+        .activity-item { display: flex; gap: 15px; padding: 12px 0; }
+        .activity-dot { width: 10px; height: 10px; background: #6366f1; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+        .activity-content { flex: 1; }
+        .activity-content .text { font-size: 0.85rem; line-height: 1.5; }
+        .activity-content .time { font-size: 0.75rem; color: #94a3b8; margin-top: 3px; }
+
+        @media (max-width: 1000px) {
+            .ticket-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">🎫 Support</div>
+            <nav class="breadcrumb">
+                <a href="#">チケット一覧</a>
+                <span>›</span>
+                <span>#TKT-2024-0891</span>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="ticket-header">
+            <div class="ticket-title-section">
+                <div class="ticket-id">#TKT-2024-0891</div>
+                <h1 class="ticket-title">ログインができなくなりました</h1>
+                <div class="ticket-meta">
+                    <div class="meta-item">
+                        <span class="icon">👤</span>
+                        <span>田中 一郎</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="icon">📅</span>
+                        <span>2024年12月8日 10:30</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="icon">💬</span>
+                        <span>4件の返信</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="action-btn secondary">マージ</button>
+                <button class="action-btn secondary">エスカレート</button>
+                <button class="action-btn primary">解決済みにする</button>
+            </div>
+        </div>
+
+        <div class="ticket-layout">
+            <main class="ticket-main">
+                <div class="status-bar">
+                    <span class="status-badge progress">🔄 対応中</span>
+                    <span class="priority-badge high">🔴 高優先度</span>
+                </div>
+
+                <div class="conversation">
+                    <div class="conversation-header">
+                        <h3>会話履歴</h3>
+                        <select class="sort-select">
+                            <option>新しい順</option>
+                            <option>古い順</option>
+                        </select>
+                    </div>
+
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="message-avatar customer">👤</div>
+                            <div class="message-info">
+                                <div class="top">
+                                    <span class="name">田中 一郎</span>
+                                    <span class="time">2024/12/08 10:30</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-body">
+                            お世話になっております。<br><br>
+                            本日の朝からログインができなくなってしまいました。<br>
+                            パスワードは間違いなく正しいものを入力しているのですが、「認証エラー」と表示されてしまいます。<br><br>
+                            ブラウザのキャッシュクリアも試しましたが、状況は変わりませんでした。<br>
+                            至急対応をお願いできますでしょうか。
+                        </div>
+                        <div class="message-attachments">
+                            <div class="attachment">
+                                <span class="icon">📷</span>
+                                <span>error_screenshot.png</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message support">
+                        <div class="message-header">
+                            <div class="message-avatar support">👩‍💼</div>
+                            <div class="message-info">
+                                <div class="top">
+                                    <span class="name">佐藤 美咲</span>
+                                    <span class="badge">サポート</span>
+                                    <span class="time">2024/12/08 10:45</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-body">
+                            田中様<br><br>
+                            お問い合わせいただきありがとうございます。<br>
+                            ご不便をおかけして申し訳ございません。<br><br>
+                            スクリーンショットを確認いたしました。<br>
+                            本件について調査を開始いたします。<br><br>
+                            差し支えなければ、以下の情報をお知らせいただけますでしょうか：<br>
+                            ・ご利用のブラウザとバージョン<br>
+                            ・最後に正常にログインできた日時<br>
+                            ・2段階認証の設定有無
+                        </div>
+                    </div>
+
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="message-avatar customer">👤</div>
+                            <div class="message-info">
+                                <div class="top">
+                                    <span class="name">田中 一郎</span>
+                                    <span class="time">2024/12/08 11:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-body">
+                            ご返信ありがとうございます。<br><br>
+                            ・ブラウザ: Chrome バージョン 120.0.6099.130<br>
+                            ・最終ログイン: 昨日の18時頃<br>
+                            ・2段階認証: 設定しています（Google Authenticator）<br><br>
+                            よろしくお願いいたします。
+                        </div>
+                    </div>
+
+                    <div class="message support">
+                        <div class="message-header">
+                            <div class="message-avatar support">👩‍💼</div>
+                            <div class="message-info">
+                                <div class="top">
+                                    <span class="name">佐藤 美咲</span>
+                                    <span class="badge">サポート</span>
+                                    <span class="time">2024/12/08 11:15</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-body">
+                            田中様<br><br>
+                            詳細な情報をありがとうございます。<br><br>
+                            確認したところ、昨晩のセキュリティアップデートにより、2段階認証の再設定が必要になっている可能性がございます。<br><br>
+                            以下の手順で2段階認証をリセットしていただけますでしょうか：<br>
+                            1. ログイン画面で「2段階認証に問題がある」をクリック<br>
+                            2. 登録メールアドレスにリセットコードを送信<br>
+                            3. コードを入力して2段階認証を再設定<br><br>
+                            ご不明点がございましたらお知らせください。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reply-box">
+                    <h3>返信を作成</h3>
+                    <textarea class="reply-textarea" placeholder="返信内容を入力してください..."></textarea>
+                    <div class="reply-actions">
+                        <div class="reply-tools">
+                            <button class="tool-btn">📎</button>
+                            <button class="tool-btn">🖼️</button>
+                            <button class="tool-btn">📝</button>
+                            <button class="tool-btn">😊</button>
+                        </div>
+                        <div class="reply-submit">
+                            <button class="action-btn secondary">下書き保存</button>
+                            <button class="action-btn primary">送信する</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="ticket-sidebar">
+                <div class="sidebar-card">
+                    <h4>チケット詳細</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">ステータス</span>
+                        <span class="detail-value">対応中</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">優先度</span>
+                        <span class="detail-value">高</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">カテゴリ</span>
+                        <span class="detail-value">ログイン・認証</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">作成日</span>
+                        <span class="detail-value">2024/12/08</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">更新日</span>
+                        <span class="detail-value">2024/12/08</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">SLA期限</span>
+                        <span class="detail-value" style="color: #dc2626;">残り2時間</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>担当者</h4>
+                    <div class="assignee">
+                        <div class="assignee-avatar">👩‍💼</div>
+                        <div class="assignee-info">
+                            <div class="name">佐藤 美咲</div>
+                            <div class="role">カスタマーサポート</div>
+                        </div>
+                    </div>
+                    <button class="reassign-btn">+ 担当者を変更</button>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>顧客情報</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">名前</span>
+                        <span class="detail-value">田中 一郎</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">メール</span>
+                        <span class="detail-value link">tanaka@example.com</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">プラン</span>
+                        <span class="detail-value">Business</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">過去のチケット</span>
+                        <span class="detail-value link">3件</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>タグ</h4>
+                    <div class="tag-list">
+                        <span class="tag">ログイン</span>
+                        <span class="tag">2段階認証</span>
+                        <span class="tag">緊急</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>関連チケット</h4>
+                    <div class="related-list">
+                        <div class="related-item">
+                            <span class="id">#TKT-0889</span>
+                            <span class="title">パスワードリセットできない</span>
+                        </div>
+                        <div class="related-item">
+                            <span class="id">#TKT-0876</span>
+                            <span class="title">2段階認証の設定方法</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4>アクティビティ</h4>
+                    <div class="activity-timeline">
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div class="activity-content">
+                                <div class="text">佐藤美咲が返信しました</div>
+                                <div class="time">11:15</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div class="activity-content">
+                                <div class="text">ステータスを「対応中」に変更</div>
+                                <div class="time">10:45</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div class="activity-content">
+                                <div class="text">佐藤美咲がアサインされました</div>
+                                <div class="time">10:35</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot"></div>
+                            <div class="activity-content">
+                                <div class="text">チケットが作成されました</div>
+                                <div class="time">10:30</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

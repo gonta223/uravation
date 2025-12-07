@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アナリティクス - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+
+        .header { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+        .nav-tabs { display: flex; gap: 5px; }
+        .nav-tab { padding: 10px 20px; background: transparent; border: none; color: #64748b; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.3s; }
+        .nav-tab:hover { color: white; }
+        .nav-tab.active { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .date-picker { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 10px; cursor: pointer; }
+        .date-picker span { font-size: 0.9rem; }
+        .export-btn { padding: 10px 20px; background: #6366f1; border: none; border-radius: 10px; color: white; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px; }
+
+        .metrics-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-bottom: 30px; }
+        .metric-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; }
+        .metric-card .label { font-size: 0.85rem; color: #64748b; margin-bottom: 10px; }
+        .metric-card .value { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+        .metric-card .change { display: inline-flex; align-items: center; gap: 5px; font-size: 0.85rem; padding: 4px 10px; border-radius: 20px; }
+        .metric-card .change.up { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .metric-card .change.down { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .metric-card .sparkline { margin-top: 15px; height: 40px; background: linear-gradient(to right, transparent, rgba(99, 102, 241, 0.3)); border-radius: 4px; position: relative; }
+        .metric-card .sparkline::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, #6366f1, #a855f7); border-radius: 2px; }
+
+        .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; margin-bottom: 30px; }
+
+        .chart-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 25px; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .chart-header h3 { font-size: 1.1rem; font-weight: 700; }
+        .chart-legend { display: flex; gap: 20px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #94a3b8; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        .chart-placeholder { height: 250px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%); border-radius: 12px; position: relative; display: flex; align-items: flex-end; padding: 20px; gap: 10px; }
+        .chart-bar { flex: 1; background: linear-gradient(180deg, #6366f1, #4f46e5); border-radius: 6px 6px 0 0; transition: height 0.5s; }
+
+        .donut-chart { width: 200px; height: 200px; margin: 0 auto; position: relative; }
+        .donut-chart::before { content: ''; position: absolute; inset: 30px; background: #0f172a; border-radius: 50%; }
+        .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+        .donut-center .value { font-size: 1.8rem; font-weight: 800; }
+        .donut-center .label { font-size: 0.8rem; color: #64748b; }
+
+        .donut-legend { margin-top: 25px; }
+        .donut-legend-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .donut-legend-item:last-child { border-bottom: none; }
+        .donut-legend-item .left { display: flex; align-items: center; gap: 10px; }
+        .donut-legend-item .dot { width: 12px; height: 12px; border-radius: 4px; }
+        .donut-legend-item .name { font-size: 0.9rem; }
+        .donut-legend-item .value { font-weight: 600; }
+
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; }
+
+        .table-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 25px; }
+        .table-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+
+        .data-table { width: 100%; }
+        .data-table th { text-align: left; padding: 12px 0; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .data-table td { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table .page-name { display: flex; align-items: center; gap: 10px; }
+        .data-table .page-icon { width: 32px; height: 32px; background: rgba(99, 102, 241, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .progress-bar .fill { height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); border-radius: 3px; }
+
+        .geo-list .geo-item { display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .geo-list .geo-item:last-child { border-bottom: none; }
+        .geo-list .flag { font-size: 1.5rem; }
+        .geo-list .info { flex: 1; }
+        .geo-list .country { font-size: 0.9rem; font-weight: 500; }
+        .geo-list .sessions { font-size: 0.8rem; color: #64748b; }
+        .geo-list .percentage { font-weight: 600; color: #a5b4fc; }
+
+        .realtime-card { position: relative; overflow: hidden; }
+        .realtime-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle, rgba(34, 197, 94, 0.2), transparent); }
+        .realtime-header { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
+        .realtime-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .realtime-value { font-size: 4rem; font-weight: 900; margin-bottom: 10px; }
+        .realtime-label { color: #64748b; margin-bottom: 25px; }
+        .realtime-pages h4 { font-size: 0.85rem; color: #64748b; margin-bottom: 15px; }
+        .realtime-page { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.9rem; }
+        .realtime-page .count { color: #22c55e; font-weight: 600; }
+
+        @media (max-width: 1200px) {
+            .metrics-row { grid-template-columns: repeat(3, 1fr); }
+            .charts-grid { grid-template-columns: 1fr; }
+            .bottom-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .metrics-row { grid-template-columns: 1fr 1fr; }
+            .header { flex-direction: column; gap: 20px; }
+            .nav-tabs { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">📊 Analytics</div>
+            <div class="nav-tabs">
+                <button class="nav-tab active">概要</button>
+                <button class="nav-tab">リアルタイム</button>
+                <button class="nav-tab">オーディエンス</button>
+                <button class="nav-tab">獲得</button>
+                <button class="nav-tab">行動</button>
+                <button class="nav-tab">コンバージョン</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="date-picker">
+                <span>📅</span>
+                <span>過去30日間</span>
+                <span>▼</span>
+            </div>
+            <button class="export-btn">エクスポート</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="metrics-row">
+            <div class="metric-card">
+                <div class="label">ユーザー</div>
+                <div class="value">128,432</div>
+                <span class="change up">↑ 12.5%</span>
+                <div class="sparkline"></div>
+            </div>
+            <div class="metric-card">
+                <div class="label">セッション</div>
+                <div class="value">256,891</div>
+                <span class="change up">↑ 8.3%</span>
+                <div class="sparkline"></div>
+            </div>
+            <div class="metric-card">
+                <div class="label">直帰率</div>
+                <div class="value">42.3%</div>
+                <span class="change down">↓ 3.2%</span>
+                <div class="sparkline"></div>
+            </div>
+            <div class="metric-card">
+                <div class="label">平均セッション時間</div>
+                <div class="value">4:32</div>
+                <span class="change up">↑ 15.7%</span>
+                <div class="sparkline"></div>
+            </div>
+            <div class="metric-card">
+                <div class="label">ページ/セッション</div>
+                <div class="value">5.8</div>
+                <span class="change up">↑ 6.1%</span>
+                <div class="sparkline"></div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>トラフィック推移</h3>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #6366f1;"></div>
+                            今期
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: #475569;"></div>
+                            前期
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-bar" style="height: 60%;"></div>
+                    <div class="chart-bar" style="height: 75%;"></div>
+                    <div class="chart-bar" style="height: 45%;"></div>
+                    <div class="chart-bar" style="height: 90%;"></div>
+                    <div class="chart-bar" style="height: 65%;"></div>
+                    <div class="chart-bar" style="height: 85%;"></div>
+                    <div class="chart-bar" style="height: 70%;"></div>
+                    <div class="chart-bar" style="height: 95%;"></div>
+                    <div class="chart-bar" style="height: 55%;"></div>
+                    <div class="chart-bar" style="height: 80%;"></div>
+                    <div class="chart-bar" style="height: 75%;"></div>
+                    <div class="chart-bar" style="height: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>トラフィックソース</h3>
+                </div>
+                <div class="donut-chart" style="background: conic-gradient(#6366f1 0deg 144deg, #22c55e 144deg 234deg, #f59e0b 234deg 288deg, #64748b 288deg 360deg); border-radius: 50%;">
+                    <div class="donut-center">
+                        <div class="value">256K</div>
+                        <div class="label">セッション</div>
+                    </div>
+                </div>
+                <div class="donut-legend">
+                    <div class="donut-legend-item">
+                        <div class="left">
+                            <div class="dot" style="background: #6366f1;"></div>
+                            <span class="name">オーガニック</span>
+                        </div>
+                        <span class="value">40%</span>
+                    </div>
+                    <div class="donut-legend-item">
+                        <div class="left">
+                            <div class="dot" style="background: #22c55e;"></div>
+                            <span class="name">ダイレクト</span>
+                        </div>
+                        <span class="value">25%</span>
+                    </div>
+                    <div class="donut-legend-item">
+                        <div class="left">
+                            <div class="dot" style="background: #f59e0b;"></div>
+                            <span class="name">リファラル</span>
+                        </div>
+                        <span class="value">15%</span>
+                    </div>
+                    <div class="donut-legend-item">
+                        <div class="left">
+                            <div class="dot" style="background: #64748b;"></div>
+                            <span class="name">その他</span>
+                        </div>
+                        <span class="value">20%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="table-card">
+                <h3>人気ページ</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ページ</th>
+                            <th>PV</th>
+                            <th>割合</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="page-name">
+                                    <div class="page-icon">🏠</div>
+                                    /home
+                                </div>
+                            </td>
+                            <td>45,231</td>
+                            <td>
+                                <div class="progress-bar"><div class="fill" style="width: 85%;"></div></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="page-name">
+                                    <div class="page-icon">💰</div>
+                                    /pricing
+                                </div>
+                            </td>
+                            <td>32,109</td>
+                            <td>
+                                <div class="progress-bar"><div class="fill" style="width: 65%;"></div></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="page-name">
+                                    <div class="page-icon">📦</div>
+                                    /features
+                                </div>
+                            </td>
+                            <td>28,456</td>
+                            <td>
+                                <div class="progress-bar"><div class="fill" style="width: 55%;"></div></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="page-name">
+                                    <div class="page-icon">📝</div>
+                                    /blog
+                                </div>
+                            </td>
+                            <td>21,892</td>
+                            <td>
+                                <div class="progress-bar"><div class="fill" style="width: 42%;"></div></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-card">
+                <h3>地域別アクセス</h3>
+                <div class="geo-list">
+                    <div class="geo-item">
+                        <span class="flag">🇯🇵</span>
+                        <div class="info">
+                            <div class="country">日本</div>
+                            <div class="sessions">156,432 セッション</div>
+                        </div>
+                        <span class="percentage">61%</span>
+                    </div>
+                    <div class="geo-item">
+                        <span class="flag">🇺🇸</span>
+                        <div class="info">
+                            <div class="country">アメリカ</div>
+                            <div class="sessions">45,231 セッション</div>
+                        </div>
+                        <span class="percentage">18%</span>
+                    </div>
+                    <div class="geo-item">
+                        <span class="flag">🇬🇧</span>
+                        <div class="info">
+                            <div class="country">イギリス</div>
+                            <div class="sessions">23,109 セッション</div>
+                        </div>
+                        <span class="percentage">9%</span>
+                    </div>
+                    <div class="geo-item">
+                        <span class="flag">🇩🇪</span>
+                        <div class="info">
+                            <div class="country">ドイツ</div>
+                            <div class="sessions">15,892 セッション</div>
+                        </div>
+                        <span class="percentage">6%</span>
+                    </div>
+                    <div class="geo-item">
+                        <span class="flag">🇫🇷</span>
+                        <div class="info">
+                            <div class="country">フランス</div>
+                            <div class="sessions">10,456 セッション</div>
+                        </div>
+                        <span class="percentage">4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-card realtime-card">
+                <div class="realtime-header">
+                    <div class="realtime-dot"></div>
+                    <h3>リアルタイム</h3>
+                </div>
+                <div class="realtime-value">247</div>
+                <div class="realtime-label">現在のアクティブユーザー</div>
+                <div class="realtime-pages">
+                    <h4>閲覧中のページ</h4>
+                    <div class="realtime-page">
+                        <span>/pricing</span>
+                        <span class="count">89</span>
+                    </div>
+                    <div class="realtime-page">
+                        <span>/features</span>
+                        <span class="count">67</span>
+                    </div>
+                    <div class="realtime-page">
+                        <span>/demo</span>
+                        <span class="count">45</span>
+                    </div>
+                    <div class="realtime-page">
+                        <span>/blog/ai-trends</span>
+                        <span class="count">32</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
