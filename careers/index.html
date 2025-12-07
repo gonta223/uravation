@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>採用情報 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 100px 50px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 50%); animation: rotate 30s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -2px; position: relative; }
+        .hero h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 40px; position: relative; }
+        .hero-btn { display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; position: relative; }
+
+        .benefits-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .section-header p { color: #64748b; }
+
+        .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .benefit-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .benefit-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .benefit-card .icon { width: 60px; height: 60px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 20px; }
+        .benefit-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+        .benefit-card p { font-size: 0.95rem; color: #64748b; line-height: 1.7; }
+
+        .jobs-section { background: white; padding: 80px 20px; }
+        .jobs-container { max-width: 1000px; margin: 0 auto; }
+
+        .jobs-filter { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+        .filter-btn { padding: 12px 24px; background: #f1f5f9; border: none; border-radius: 30px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .filter-btn:hover { background: #e2e8f0; }
+        .filter-btn.active { background: #6366f1; color: white; }
+
+        .job-card { background: #f8fafc; border-radius: 16px; padding: 30px; margin-bottom: 15px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; border: 1px solid #e2e8f0; transition: all 0.3s; }
+        .job-card:hover { border-color: #6366f1; transform: translateX(5px); }
+        .job-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .job-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+        .job-meta span { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: #64748b; }
+        .job-tags { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        .job-tag { padding: 5px 12px; background: white; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.8rem; color: #64748b; }
+        .job-tag.new { background: #dcfce7; color: #16a34a; border-color: #bbf7d0; }
+        .apply-btn { padding: 14px 28px; background: #6366f1; color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s; }
+        .apply-btn:hover { background: #4f46e5; }
+
+        .culture-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .culture-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; align-items: center; }
+        .culture-images { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .culture-img { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 16px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .culture-img:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+        .culture-content h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; }
+        .culture-content p { font-size: 1.05rem; color: #64748b; line-height: 1.8; margin-bottom: 25px; }
+        .culture-list { list-style: none; }
+        .culture-list li { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-size: 1rem; border-bottom: 1px solid #e2e8f0; }
+        .culture-list li:last-child { border: none; }
+        .culture-list .check { color: #22c55e; font-weight: bold; }
+
+        .process-section { background: #1e293b; color: white; padding: 80px 20px; }
+        .process-container { max-width: 1000px; margin: 0 auto; }
+        .process-header { text-align: center; margin-bottom: 50px; }
+        .process-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; position: relative; }
+        .process-steps::before { content: ''; position: absolute; top: 40px; left: 60px; right: 60px; height: 2px; background: linear-gradient(90deg, #6366f1, #a855f7); }
+        .process-step { text-align: center; position: relative; }
+        .step-number { width: 80px; height: 80px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; margin: 0 auto 20px; position: relative; z-index: 1; }
+        .process-step h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .process-step p { font-size: 0.9rem; opacity: 0.7; }
+
+        .testimonials-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .testimonial-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .testimonial-card .quote { font-size: 1rem; color: #475569; line-height: 1.8; margin-bottom: 25px; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 15px; }
+        .author-avatar { width: 50px; height: 50px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .author-info .name { font-weight: 600; margin-bottom: 3px; }
+        .author-info .role { font-size: 0.85rem; color: #64748b; }
+
+        .cta-section { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 80px 20px; text-align: center; color: white; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+        .cta-btn { display: inline-block; padding: 18px 40px; background: white; color: #6366f1; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; }
+
+        @media (max-width: 1000px) {
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .culture-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: repeat(2, 1fr); }
+            .process-steps::before { display: none; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .job-card { grid-template-columns: 1fr; }
+            .apply-btn { width: 100%; }
+            .process-steps { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+            <a href="#">会社情報</a>
+        </nav>
+        <a href="#" class="header-cta">無料で始める</a>
+    </header>
+
+    <section class="hero">
+        <h1>一緒に<span>未来</span>を創ろう</h1>
+        <p>AppNameは急成長中のスタートアップです。<br>あなたの才能を活かし、世界を変えるプロダクトを一緒に作りませんか？</p>
+        <a href="#jobs" class="hero-btn">募集中のポジションを見る</a>
+    </section>
+
+    <section class="benefits-section">
+        <div class="section-header">
+            <h2>働く環境・福利厚生</h2>
+            <p>チームメンバーが最高のパフォーマンスを発揮できる環境を整えています</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="icon">🏠</div>
+                <h3>フルリモートOK</h3>
+                <p>日本全国どこからでも勤務可能。オフィス出社も自由に選択できます。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">⏰</div>
+                <h3>フレックスタイム</h3>
+                <p>コアタイムなしの完全フレックス。自分のペースで最高の成果を。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">💰</div>
+                <h3>競争力のある報酬</h3>
+                <p>業界トップクラスの給与水準とストックオプション制度。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">📚</div>
+                <h3>学習支援</h3>
+                <p>年間50万円の学習費用補助。書籍、カンファレンス、研修など。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">🏥</div>
+                <h3>充実の福利厚生</h3>
+                <p>各種社会保険完備、健康診断、メンタルヘルスサポート。</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">🎉</div>
+                <h3>チームイベント</h3>
+                <p>四半期ごとのオフサイト、チームビルディング費用補助。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="jobs-section" id="jobs">
+        <div class="jobs-container">
+            <div class="section-header">
+                <h2>募集中のポジション</h2>
+                <p>あなたのスキルを活かせるポジションを探してください</p>
+            </div>
+
+            <div class="jobs-filter">
+                <button class="filter-btn active">すべて</button>
+                <button class="filter-btn">エンジニアリング</button>
+                <button class="filter-btn">デザイン</button>
+                <button class="filter-btn">セールス</button>
+                <button class="filter-btn">マーケティング</button>
+                <button class="filter-btn">カスタマーサクセス</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-info">
+                    <h3>Senior Backend Engineer</h3>
+                    <div class="job-meta">
+                        <span>📍 フルリモート</span>
+                        <span>💼 正社員</span>
+                        <span>💰 800万〜1,200万円</span>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag new">NEW</span>
+                        <span class="job-tag">Go</span>
+                        <span class="job-tag">Kubernetes</span>
+                        <span class="job-tag">マイクロサービス</span>
+                    </div>
+                </div>
+                <button class="apply-btn">応募する</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-info">
+                    <h3>Senior Frontend Engineer</h3>
+                    <div class="job-meta">
+                        <span>📍 フルリモート</span>
+                        <span>💼 正社員</span>
+                        <span>💰 700万〜1,100万円</span>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag new">NEW</span>
+                        <span class="job-tag">React</span>
+                        <span class="job-tag">TypeScript</span>
+                        <span class="job-tag">Next.js</span>
+                    </div>
+                </div>
+                <button class="apply-btn">応募する</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-info">
+                    <h3>Product Designer</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート</span>
+                        <span>💼 正社員</span>
+                        <span>💰 600万〜900万円</span>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag">Figma</span>
+                        <span class="job-tag">UX/UI</span>
+                        <span class="job-tag">デザインシステム</span>
+                    </div>
+                </div>
+                <button class="apply-btn">応募する</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-info">
+                    <h3>Enterprise Sales</h3>
+                    <div class="job-meta">
+                        <span>📍 東京</span>
+                        <span>💼 正社員</span>
+                        <span>💰 700万〜1,000万円 + インセンティブ</span>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag">エンタープライズ</span>
+                        <span class="job-tag">SaaS</span>
+                    </div>
+                </div>
+                <button class="apply-btn">応募する</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-info">
+                    <h3>Customer Success Manager</h3>
+                    <div class="job-meta">
+                        <span>📍 東京 / リモート</span>
+                        <span>💼 正社員</span>
+                        <span>💰 500万〜800万円</span>
+                    </div>
+                    <div class="job-tags">
+                        <span class="job-tag">カスタマーサクセス</span>
+                        <span class="job-tag">SaaS</span>
+                    </div>
+                </div>
+                <button class="apply-btn">応募する</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="culture-section">
+        <div class="culture-grid">
+            <div class="culture-images">
+                <div class="culture-img">🏢</div>
+                <div class="culture-img">💻</div>
+                <div class="culture-img">🎉</div>
+            </div>
+            <div class="culture-content">
+                <h2>カルチャー</h2>
+                <p>AppNameは、多様なバックグラウンドを持つメンバーが集まり、オープンでフラットな環境で働いています。</p>
+                <ul class="culture-list">
+                    <li><span class="check">✓</span> 心理的安全性を重視したチーム</li>
+                    <li><span class="check">✓</span> 失敗を恐れず挑戦できる環境</li>
+                    <li><span class="check">✓</span> 透明性の高い情報共有</li>
+                    <li><span class="check">✓</span> 継続的な学習とフィードバック</li>
+                    <li><span class="check">✓</span> ワークライフバランスの尊重</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="process-container">
+            <div class="process-header">
+                <h2>選考プロセス</h2>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>書類選考</h4>
+                    <p>3営業日以内に<br>ご連絡します</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>カジュアル面談</h4>
+                    <p>会社・チームについて<br>お話しします</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>技術面接</h4>
+                    <p>スキル・経験に<br>ついて確認</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>オファー</h4>
+                    <p>条件提示と<br>入社日調整</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="section-header">
+            <h2>社員の声</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="quote">「前職では考えられないスピード感で、プロダクトを改善できる環境が最高です。自分のアイデアがすぐに形になる喜びを感じています。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨‍💻</div>
+                    <div class="author-info">
+                        <div class="name">佐藤 翔</div>
+                        <div class="role">Frontend Engineer（2023年入社）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">「フルリモートでも、チームとの一体感を感じられます。週次のオンライン雑談会や、四半期のオフサイトが楽しみです。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👩‍🎨</div>
+                    <div class="author-info">
+                        <div class="name">田中 美咲</div>
+                        <div class="role">Product Designer（2022年入社）</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">「学習支援制度を活用して、海外カンファレンスに参加できました。成長意欲のある人には最高の環境だと思います。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨‍🔬</div>
+                    <div class="author-info">
+                        <div class="name">山田 健太</div>
+                        <div class="role">ML Engineer（2023年入社）</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>あなたの挑戦を待っています</h2>
+        <p>カジュアル面談も大歓迎。まずはお気軽にお話ししましょう。</p>
+        <a href="#" class="cta-btn">カジュアル面談を申し込む</a>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

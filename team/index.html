@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チーム紹介 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 100px 50px; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+        .values-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .values-header { text-align: center; margin-bottom: 50px; }
+        .values-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .values-header p { color: #64748b; }
+
+        .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .value-card { background: white; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .value-card .icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .value-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .value-card p { font-size: 0.9rem; color: #64748b; line-height: 1.6; }
+
+        .team-section { max-width: 1200px; margin: 0 auto; padding: 0 20px 80px; }
+        .team-header { text-align: center; margin-bottom: 50px; }
+        .team-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+
+        .team-category { margin-bottom: 60px; }
+        .team-category h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 30px; color: #6366f1; }
+
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .team-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .team-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .team-card .photo { height: 250px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+        .team-card .info { padding: 25px; }
+        .team-card .name { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+        .team-card .role { font-size: 0.9rem; color: #6366f1; margin-bottom: 12px; }
+        .team-card .bio { font-size: 0.85rem; color: #64748b; line-height: 1.6; margin-bottom: 15px; }
+        .team-card .social { display: flex; gap: 10px; }
+        .team-card .social a { width: 35px; height: 35px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: all 0.3s; }
+        .team-card .social a:hover { background: #6366f1; }
+
+        .founders-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .founder-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: grid; grid-template-columns: 300px 1fr; }
+        .founder-card .photo { background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 6rem; }
+        .founder-card .info { padding: 40px; }
+        .founder-card .name { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; }
+        .founder-card .role { font-size: 1rem; color: #6366f1; margin-bottom: 20px; }
+        .founder-card .bio { font-size: 0.95rem; color: #64748b; line-height: 1.8; margin-bottom: 20px; }
+        .founder-card .quote { font-style: italic; padding: 20px; background: #f8fafc; border-radius: 12px; font-size: 0.95rem; color: #475569; border-left: 4px solid #6366f1; }
+
+        .stats-section { background: #1e293b; color: white; padding: 80px 50px; }
+        .stats-container { max-width: 1200px; margin: 0 auto; }
+        .stats-header { text-align: center; margin-bottom: 50px; }
+        .stats-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
+        .stat-item .value { font-size: 3.5rem; font-weight: 900; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-item .label { font-size: 1rem; opacity: 0.7; margin-top: 10px; }
+
+        .join-section { max-width: 800px; margin: 0 auto; padding: 80px 20px; text-align: center; }
+        .join-section h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .join-section p { font-size: 1.1rem; color: #64748b; margin-bottom: 30px; }
+        .join-btn { display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; }
+        .join-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; }
+
+        @media (max-width: 1000px) {
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .founders-grid { grid-template-columns: 1fr; }
+            .founder-card { grid-template-columns: 1fr; }
+            .founder-card .photo { height: 250px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .values-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .stats-section { padding: 60px 20px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+            <a href="#">会社情報</a>
+        </nav>
+        <a href="#" class="header-cta">無料で始める</a>
+    </header>
+
+    <section class="hero">
+        <h1>私たちのチーム</h1>
+        <p>世界中から集まった多様な才能が、あなたのビジネス成功のために日々挑戦しています</p>
+    </section>
+
+    <section class="values-section">
+        <div class="values-header">
+            <h2>私たちの価値観</h2>
+            <p>AppNameのチーム全員が大切にしている4つの価値観</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="icon">🚀</div>
+                <h3>スピード</h3>
+                <p>素早く動き、素早く学ぶ。完璧を待たず、改善を続ける</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">🤝</div>
+                <h3>信頼</h3>
+                <p>透明性を大切に。チームメイトとお客様への約束を守る</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">💡</div>
+                <h3>革新</h3>
+                <p>常識を疑い、新しい解決策を追求。失敗を恐れない</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">🎯</div>
+                <h3>顧客中心</h3>
+                <p>すべての決定はお客様の成功のため。フィードバックを大切に</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="team-header">
+            <h2>チームメンバー</h2>
+        </div>
+
+        <div class="team-category">
+            <h3>👑 創業メンバー</h3>
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="photo">👨‍💼</div>
+                    <div class="info">
+                        <div class="name">田中 健太</div>
+                        <div class="role">CEO & Co-Founder</div>
+                        <p class="bio">元Google、Meta出身。10年以上のプロダクト開発経験を持つ。スタンフォード大学MBA。2社のスタートアップを成功に導いた実績。</p>
+                        <div class="quote">「テクノロジーの力で、誰もがビジネスで成功できる世界を作りたい」</div>
+                    </div>
+                </div>
+                <div class="founder-card">
+                    <div class="photo">👩‍💼</div>
+                    <div class="info">
+                        <div class="name">山田 美咲</div>
+                        <div class="role">CTO & Co-Founder</div>
+                        <p class="bio">元Amazon、Apple出身。分散システムとAIの専門家。MIT卒業後、大規模システムの設計に従事。OSS貢献多数。</p>
+                        <div class="quote">「最高の技術で、最高のユーザー体験を提供することが私たちの使命です」</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-category">
+            <h3>💼 経営チーム</h3>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="photo">👨‍💻</div>
+                    <div class="info">
+                        <div class="name">佐藤 大輔</div>
+                        <div class="role">VP of Engineering</div>
+                        <p class="bio">元Microsoft。15年のエンジニアリング経験</p>
+                        <div class="social">
+                            <a href="#">🐦</a>
+                            <a href="#">💼</a>
+                            <a href="#">🐙</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="photo">👩‍💼</div>
+                    <div class="info">
+                        <div class="name">鈴木 愛</div>
+                        <div class="role">VP of Sales</div>
+                        <p class="bio">元Salesforce。エンタープライズ営業のスペシャリスト</p>
+                        <div class="social">
+                            <a href="#">🐦</a>
+                            <a href="#">💼</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="photo">👨‍🎨</div>
+                    <div class="info">
+                        <div class="name">伊藤 拓海</div>
+                        <div class="role">VP of Design</div>
+                        <p class="bio">元Airbnb。人間中心デザインの実践者</p>
+                        <div class="social">
+                            <a href="#">🐦</a>
+                            <a href="#">🎨</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="photo">👩‍📊</div>
+                    <div class="info">
+                        <div class="name">高橋 恵</div>
+                        <div class="role">CFO</div>
+                        <p class="bio">元Goldman Sachs。IPO経験3社</p>
+                        <div class="social">
+                            <a href="#">🐦</a>
+                            <a href="#">💼</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-category">
+            <h3>🛠️ エンジニアリング</h3>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="photo">👨‍💻</div>
+                    <div class="info">
+                        <div class="name">木村 翔太</div>
+                        <div class="role">Senior Backend Engineer</div>
+                        <p class="bio">分散システム・マイクロサービスの設計</p>
+                        <div class="social">
+                            <a href="#">🐙</a>
+                            <a href="#">💼</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="photo">👩‍💻</div>
+                    <div class="info">
+                        <div class="name">渡辺 優子</div>
+                        <div class="role">Senior Frontend Engineer</div>
+                        <p class="bio">React/TypeScriptのエキスパート</p>
+                        <div class="social">
+                            <a href="#">🐙</a>
+                            <a href="#">🐦</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="photo">👨‍🔬</div>
+                    <div class="info">
+                        <div class="name">中村 健</div>
+                        <div class="role">ML Engineer</div>
+                        <p class="bio">自然言語処理・推薦システムの開発</p>
+                        <div class="social">
+                            <a href="#">🐙</a>
+                            <a href="#">📝</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="photo">👩‍🔧</div>
+                    <div class="info">
+                        <div class="name">小林 麻衣</div>
+                        <div class="role">DevOps Engineer</div>
+                        <p class="bio">インフラ・CI/CDパイプラインの構築</p>
+                        <div class="social">
+                            <a href="#">🐙</a>
+                            <a href="#">💼</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stats-header">
+                <h2>チームの数字</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="value">85+</div>
+                    <div class="label">チームメンバー</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">12</div>
+                    <div class="label">国籍</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">45%</div>
+                    <div class="label">女性比率</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">4.8</div>
+                    <div class="label">従業員満足度</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="join-section">
+        <h2>一緒に働きませんか？</h2>
+        <p>私たちは常に優秀な人材を探しています。<br>あなたの才能を活かせるポジションが見つかるかもしれません。</p>
+        <a href="#" class="join-btn">採用情報を見る →</a>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

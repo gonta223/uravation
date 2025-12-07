@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API ドキュメント - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: #e2e8f0; display: flex; min-height: 100vh; }
+
+        .sidebar { width: 280px; background: #1e293b; border-right: 1px solid #334155; display: flex; flex-direction: column; position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar-header { padding: 25px; border-bottom: 1px solid #334155; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 5px; }
+        .version { font-size: 0.8rem; color: #64748b; }
+
+        .sidebar-search { padding: 15px 20px; }
+        .sidebar-search input { width: 100%; padding: 12px 15px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white; font-size: 0.9rem; }
+        .sidebar-search input::placeholder { color: #64748b; }
+        .sidebar-search input:focus { outline: none; border-color: #6366f1; }
+
+        .sidebar-nav { flex: 1; padding: 15px 0; overflow-y: auto; }
+        .nav-section { margin-bottom: 20px; }
+        .nav-section-title { padding: 10px 25px; font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-item { display: block; padding: 10px 25px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-item:hover { background: rgba(99, 102, 241, 0.1); color: white; }
+        .nav-item.active { background: rgba(99, 102, 241, 0.1); color: #6366f1; border-left-color: #6366f1; }
+        .nav-item .method { font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-right: 8px; }
+        .nav-item .method.get { background: #22c55e; color: white; }
+        .nav-item .method.post { background: #3b82f6; color: white; }
+        .nav-item .method.put { background: #f59e0b; color: white; }
+        .nav-item .method.delete { background: #ef4444; color: white; }
+
+        .main-content { margin-left: 280px; flex: 1; min-height: 100vh; }
+
+        .top-bar { background: #1e293b; border-bottom: 1px solid #334155; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+        .breadcrumb { font-size: 0.9rem; color: #94a3b8; }
+        .breadcrumb a { color: #94a3b8; text-decoration: none; }
+        .breadcrumb a:hover { color: white; }
+        .top-bar-actions { display: flex; gap: 15px; }
+        .top-bar-btn { padding: 10px 18px; background: #334155; border: none; border-radius: 8px; color: #e2e8f0; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+        .top-bar-btn:hover { background: #475569; }
+        .top-bar-btn.primary { background: #6366f1; }
+        .top-bar-btn.primary:hover { background: #4f46e5; }
+
+        .content-area { padding: 40px; max-width: 1000px; }
+
+        .page-header { margin-bottom: 40px; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 15px; }
+        .page-header p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
+
+        .quick-start { background: #1e293b; border-radius: 16px; padding: 30px; margin-bottom: 40px; }
+        .quick-start h2 { font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 20px; }
+        .quick-start p { color: #94a3b8; margin-bottom: 15px; }
+
+        .code-block { background: #0f172a; border-radius: 12px; overflow: hidden; margin: 20px 0; }
+        .code-header { background: #1e293b; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+        .code-lang { font-size: 0.85rem; color: #64748b; }
+        .copy-btn { padding: 6px 12px; background: #334155; border: none; border-radius: 6px; color: #94a3b8; font-size: 0.8rem; cursor: pointer; }
+        .copy-btn:hover { background: #475569; color: white; }
+        .code-content { padding: 20px; overflow-x: auto; }
+        .code-content pre { font-family: 'Fira Code', monospace; font-size: 0.9rem; line-height: 1.6; color: #e2e8f0; margin: 0; }
+        .code-content .comment { color: #64748b; }
+        .code-content .string { color: #22c55e; }
+        .code-content .keyword { color: #f472b6; }
+        .code-content .property { color: #60a5fa; }
+
+        .endpoint-section { margin-bottom: 50px; }
+        .endpoint-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .endpoint-method { padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; }
+        .endpoint-method.get { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .endpoint-method.post { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .endpoint-method.put { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .endpoint-method.delete { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .endpoint-path { font-family: 'Fira Code', monospace; font-size: 1.1rem; color: white; }
+
+        .endpoint-description { color: #94a3b8; line-height: 1.7; margin-bottom: 25px; }
+
+        .params-section { margin-bottom: 30px; }
+        .params-title { font-size: 1rem; font-weight: 600; color: white; margin-bottom: 15px; }
+        .params-table { width: 100%; border-collapse: collapse; }
+        .params-table th, .params-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #334155; }
+        .params-table th { font-size: 0.8rem; font-weight: 600; color: #64748b; text-transform: uppercase; }
+        .params-table td { font-size: 0.9rem; }
+        .param-name { font-family: 'Fira Code', monospace; color: #f472b6; }
+        .param-type { font-size: 0.8rem; background: #334155; padding: 3px 8px; border-radius: 4px; color: #94a3b8; }
+        .param-required { font-size: 0.75rem; background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+        .param-optional { font-size: 0.75rem; background: rgba(100, 116, 139, 0.2); color: #64748b; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+
+        .response-section { background: #1e293b; border-radius: 12px; padding: 25px; }
+        .response-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .response-tab { padding: 8px 16px; background: transparent; border: 1px solid #334155; border-radius: 8px; color: #94a3b8; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+        .response-tab:hover { border-color: #6366f1; }
+        .response-tab.active { background: #6366f1; border-color: #6366f1; color: white; }
+        .status-code { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .status-badge { padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; }
+        .status-badge.success { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-badge.error { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .sdk-section { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 40px; }
+        .sdk-card { background: #1e293b; border-radius: 12px; padding: 20px; text-align: center; transition: all 0.3s; cursor: pointer; border: 1px solid #334155; }
+        .sdk-card:hover { border-color: #6366f1; transform: translateY(-3px); }
+        .sdk-card .icon { font-size: 2rem; margin-bottom: 10px; }
+        .sdk-card .name { font-weight: 600; color: white; margin-bottom: 5px; }
+        .sdk-card .version { font-size: 0.8rem; color: #64748b; }
+
+        @media (max-width: 1000px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .sdk-section { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .content-area { padding: 20px; }
+            .page-header h1 { font-size: 2rem; }
+            .sdk-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">AppName API</div>
+            <div class="version">v2.0.0</div>
+        </div>
+        <div class="sidebar-search">
+            <input type="text" placeholder="ドキュメントを検索...">
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">はじめに</div>
+                <a href="#" class="nav-item active">概要</a>
+                <a href="#" class="nav-item">認証</a>
+                <a href="#" class="nav-item">エラーハンドリング</a>
+                <a href="#" class="nav-item">レート制限</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">ユーザー</div>
+                <a href="#" class="nav-item"><span class="method get">GET</span>ユーザー一覧</a>
+                <a href="#" class="nav-item"><span class="method get">GET</span>ユーザー取得</a>
+                <a href="#" class="nav-item"><span class="method post">POST</span>ユーザー作成</a>
+                <a href="#" class="nav-item"><span class="method put">PUT</span>ユーザー更新</a>
+                <a href="#" class="nav-item"><span class="method delete">DEL</span>ユーザー削除</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">プロジェクト</div>
+                <a href="#" class="nav-item"><span class="method get">GET</span>プロジェクト一覧</a>
+                <a href="#" class="nav-item"><span class="method get">GET</span>プロジェクト取得</a>
+                <a href="#" class="nav-item"><span class="method post">POST</span>プロジェクト作成</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">タスク</div>
+                <a href="#" class="nav-item"><span class="method get">GET</span>タスク一覧</a>
+                <a href="#" class="nav-item"><span class="method post">POST</span>タスク作成</a>
+                <a href="#" class="nav-item"><span class="method put">PUT</span>タスク更新</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Webhook</div>
+                <a href="#" class="nav-item">Webhook概要</a>
+                <a href="#" class="nav-item">イベント一覧</a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="breadcrumb">
+                <a href="#">ドキュメント</a> / 概要
+            </div>
+            <div class="top-bar-actions">
+                <button class="top-bar-btn">🌙 ダークモード</button>
+                <button class="top-bar-btn primary">APIキーを取得</button>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="page-header">
+                <h1>API ドキュメント</h1>
+                <p>AppName APIを使用して、プログラムからデータにアクセスし、アプリケーションを構築できます。RESTful設計で、JSON形式でデータをやり取りします。</p>
+            </div>
+
+            <div class="quick-start">
+                <h2>🚀 クイックスタート</h2>
+                <p>APIを使い始めるには、まずAPIキーを取得してください。</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">cURL</span>
+                        <button class="copy-btn">📋 コピー</button>
+                    </div>
+                    <div class="code-content">
+<pre><span class="comment"># ユーザー一覧を取得</span>
+curl -X GET https://api.appname.com/v2/users \
+  -H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="string">"Content-Type: application/json"</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="endpoint-section">
+                <div class="endpoint-header">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path">/v2/users</span>
+                </div>
+                <p class="endpoint-description">すべてのユーザーの一覧を取得します。ページネーション、フィルタリング、ソートに対応しています。</p>
+
+                <div class="params-section">
+                    <h3 class="params-title">クエリパラメータ</h3>
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>パラメータ</th>
+                                <th>型</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="param-name">page</span><span class="param-optional">optional</span></td>
+                                <td><span class="param-type">integer</span></td>
+                                <td>ページ番号（デフォルト: 1）</td>
+                            </tr>
+                            <tr>
+                                <td><span class="param-name">per_page</span><span class="param-optional">optional</span></td>
+                                <td><span class="param-type">integer</span></td>
+                                <td>1ページあたりの件数（デフォルト: 20、最大: 100）</td>
+                            </tr>
+                            <tr>
+                                <td><span class="param-name">status</span><span class="param-optional">optional</span></td>
+                                <td><span class="param-type">string</span></td>
+                                <td>ステータスでフィルタ: active, inactive, pending</td>
+                            </tr>
+                            <tr>
+                                <td><span class="param-name">sort</span><span class="param-optional">optional</span></td>
+                                <td><span class="param-type">string</span></td>
+                                <td>ソート順: created_at, updated_at, name</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="response-section">
+                    <div class="response-tabs">
+                        <button class="response-tab active">200 成功</button>
+                        <button class="response-tab">401 認証エラー</button>
+                        <button class="response-tab">429 レート制限</button>
+                    </div>
+                    <div class="status-code">
+                        <span class="status-badge success">200 OK</span>
+                        <span style="color: #64748b;">ユーザー一覧を返します</span>
+                    </div>
+                    <div class="code-block" style="margin: 0;">
+                        <div class="code-header">
+                            <span class="code-lang">JSON</span>
+                            <button class="copy-btn">📋 コピー</button>
+                        </div>
+                        <div class="code-content">
+<pre>{
+  <span class="property">"data"</span>: [
+    {
+      <span class="property">"id"</span>: <span class="string">"usr_1234567890"</span>,
+      <span class="property">"name"</span>: <span class="string">"田中 太郎"</span>,
+      <span class="property">"email"</span>: <span class="string">"tanaka@example.com"</span>,
+      <span class="property">"status"</span>: <span class="string">"active"</span>,
+      <span class="property">"created_at"</span>: <span class="string">"2024-01-15T09:00:00Z"</span>
+    }
+  ],
+  <span class="property">"meta"</span>: {
+    <span class="property">"total"</span>: 150,
+    <span class="property">"page"</span>: 1,
+    <span class="property">"per_page"</span>: 20,
+    <span class="property">"total_pages"</span>: 8
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="endpoint-section">
+                <div class="endpoint-header">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path">/v2/users</span>
+                </div>
+                <p class="endpoint-description">新しいユーザーを作成します。</p>
+
+                <div class="params-section">
+                    <h3 class="params-title">リクエストボディ</h3>
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>パラメータ</th>
+                                <th>型</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="param-name">name</span><span class="param-required">required</span></td>
+                                <td><span class="param-type">string</span></td>
+                                <td>ユーザー名</td>
+                            </tr>
+                            <tr>
+                                <td><span class="param-name">email</span><span class="param-required">required</span></td>
+                                <td><span class="param-type">string</span></td>
+                                <td>メールアドレス（一意である必要があります）</td>
+                            </tr>
+                            <tr>
+                                <td><span class="param-name">role</span><span class="param-optional">optional</span></td>
+                                <td><span class="param-type">string</span></td>
+                                <td>ロール: admin, member, viewer（デフォルト: member）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-lang">cURL</span>
+                        <button class="copy-btn">📋 コピー</button>
+                    </div>
+                    <div class="code-content">
+<pre>curl -X POST https://api.appname.com/v2/users \
+  -H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "name": "山田 花子",
+    "email": "yamada@example.com",
+    "role": "member"
+  }'</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="color: white; margin-bottom: 20px;">📦 SDK</h2>
+            <p style="color: #94a3b8; margin-bottom: 25px;">お好みの言語でAPIを簡単に利用できるSDKを提供しています。</p>
+
+            <div class="sdk-section">
+                <div class="sdk-card">
+                    <div class="icon">🟨</div>
+                    <div class="name">JavaScript</div>
+                    <div class="version">v2.1.0</div>
+                </div>
+                <div class="sdk-card">
+                    <div class="icon">🐍</div>
+                    <div class="name">Python</div>
+                    <div class="version">v2.0.3</div>
+                </div>
+                <div class="sdk-card">
+                    <div class="icon">💎</div>
+                    <div class="name">Ruby</div>
+                    <div class="version">v1.8.0</div>
+                </div>
+                <div class="sdk-card">
+                    <div class="icon">🐹</div>
+                    <div class="name">Go</div>
+                    <div class="version">v2.0.1</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
