@@ -3,431 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>みどり調剤薬局 | あなたの街のかかりつけ薬局</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>薬局AI研修 | Uravation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary: #2e7d32;
-            --secondary: #66bb6a;
-            --accent: #a5d6a7;
-            --dark: #1b5e20;
-            --light: #e8f5e9;
-            --white: #ffffff;
-        }
-        body { font-family: 'Noto Sans JP', sans-serif; color: #333; line-height: 1.8; }
-        
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        header.scrolled { box-shadow: 0 2px 20px rgba(46,125,50,0.15); }
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo .material-icons { font-size: 2rem; color: var(--secondary); }
-        nav a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav a:hover { color: var(--primary); }
-        
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            padding: 120px 50px 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -10%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23fff' stroke-width='0.3' opacity='0.2'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23fff' stroke-width='0.3' opacity='0.15'/%3E%3Ccircle cx='50' cy='50' r='25' fill='none' stroke='%23fff' stroke-width='0.3' opacity='0.1'/%3E%3C/svg%3E");
-            animation: pulse 4s ease-in-out infinite;
-        }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .hero-content { max-width: 600px; color: var(--white); position: relative; z-index: 1; }
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
-        }
-        .hero-features {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
-        }
-        .hero-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-        }
-        
+        :root { --primary: #2e8b57; --secondary: #3cb371; --dark: #1a1a2e; --light: #f8f8f8; --white: #fff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
+        .hero::before { content: '💊'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
+        .hero-content { max-width: 600px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        
         .section { padding: 100px 50px; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 15px; }
-        .section-title p { color: #666; font-size: 1.1rem; }
-        
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
         .services { background: var(--light); }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .service-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(46,125,50,0.15); }
-        .service-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 30px;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .service-header .material-icons { font-size: 2.5rem; }
-        .service-header h3 { font-size: 1.3rem; }
-        .service-body { padding: 30px; }
-        .service-body p { color: #666; margin-bottom: 15px; }
-        .service-body ul { list-style: none; }
-        .service-body li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            color: #555;
-        }
-        .service-body li .material-icons { color: var(--primary); font-size: 1.2rem; }
-        
-        .flow-section { background: var(--white); }
-        .flow-steps {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .flow-step {
-            text-align: center;
-            max-width: 200px;
-            position: relative;
-        }
-        .flow-step:not(:last-child)::after {
-            content: '→';
-            position: absolute;
-            right: -25px;
-            top: 40px;
-            font-size: 2rem;
-            color: var(--accent);
-        }
-        .flow-number {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            color: var(--white);
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        .flow-step h4 { color: var(--dark); margin-bottom: 10px; }
-        .flow-step p { font-size: 0.9rem; color: #666; }
-        
-        .info-section {
-            background: linear-gradient(135deg, var(--dark), var(--primary));
-            color: var(--white);
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .info-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .hours-table { width: 100%; border-collapse: collapse; }
-        .hours-table td { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
-        .hours-table td:first-child { width: 80px; }
-        
-        footer {
-            background: #1a1a2e;
-            color: var(--white);
-            padding: 60px 50px 30px;
-            text-align: center;
-        }
-        .footer-logo { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--accent); }
-        .copyright { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 30px; }
-        
-        .fixed-cta {
-            position: fixed;
-            bottom: -100px;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
-            transition: bottom 0.5s ease;
-            z-index: 999;
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
+        .service-card:hover { transform: translateY(-10px); }
+        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
+        .service-card p { color: #666; font-size: 0.95rem; }
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 30px 20px; }
+        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
+        .feature-item p { color: #888; font-size: 0.85rem; }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
+        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
+        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .fixed-cta .tel { background: var(--primary); color: var(--white); }
-        .fixed-cta .line { background: #06c755; color: var(--white); }
-        
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            nav { display: none; }
-            .hero { padding: 100px 20px 60px; }
-            .hero h1 { font-size: 2rem; }
-            .section { padding: 60px 20px; }
-            .section-title h2 { font-size: 1.8rem; }
-            .flow-step:not(:last-child)::after { display: none; }
-            .fixed-cta { padding: 15px 20px; }
-        }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; background: var(--primary); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <span class="material-icons">medication</span>
-            みどり調剤薬局
-        </div>
-        <nav>
-            <a href="#services">サービス</a>
-            <a href="#flow">ご利用の流れ</a>
-            <a href="#info">店舗情報</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="hero-content">
-            <h1>あなたの健康を<br>お薬でサポート</h1>
-            <p>処方箋受付はもちろん、お薬の相談、在宅医療まで。地域の皆様の健康を支える、かかりつけ薬局です。</p>
-            <div class="hero-features">
-                <div class="hero-feature">
-                    <span class="material-icons">local_shipping</span>
-                    配達対応
-                </div>
-                <div class="hero-feature">
-                    <span class="material-icons">chat</span>
-                    LINE相談
-                </div>
-                <div class="hero-feature">
-                    <span class="material-icons">access_time</span>
-                    20時まで営業
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <header><div class="logo">薬局AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
+    <section class="hero"><div class="hero-content"><h1>薬局業界のAI活用</h1><p>AI活用で業務効率化と顧客体験向上を実現します。</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
     <section class="services section" id="services">
-        <div class="section-title fade-in">
-            <h2>サービス内容</h2>
-            <p>お薬に関する様々なサービスをご提供</p>
-        </div>
+        <div class="section-header fade-in"><h2>サービス内容</h2></div>
         <div class="services-grid">
-            <div class="service-card fade-in stagger-1">
-                <div class="service-header">
-                    <span class="material-icons">receipt_long</span>
-                    <h3>処方箋調剤</h3>
-                </div>
-                <div class="service-body">
-                    <p>病院・クリニックの処方箋を承ります。</p>
-                    <ul>
-                        <li><span class="material-icons">check_circle</span>全国の処方箋対応</li>
-                        <li><span class="material-icons">check_circle</span>ジェネリック医薬品対応</li>
-                        <li><span class="material-icons">check_circle</span>お薬手帳アプリ連携</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="service-card fade-in stagger-2">
-                <div class="service-header">
-                    <span class="material-icons">home</span>
-                    <h3>在宅医療</h3>
-                </div>
-                <div class="service-body">
-                    <p>ご自宅へお薬をお届けし、服薬指導を行います。</p>
-                    <ul>
-                        <li><span class="material-icons">check_circle</span>定期訪問サービス</li>
-                        <li><span class="material-icons">check_circle</span>服薬カレンダー作成</li>
-                        <li><span class="material-icons">check_circle</span>医師・ケアマネ連携</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="service-card fade-in stagger-3">
-                <div class="service-header">
-                    <span class="material-icons">support_agent</span>
-                    <h3>健康相談</h3>
-                </div>
-                <div class="service-body">
-                    <p>お薬や健康に関するご相談を承ります。</p>
-                    <ul>
-                        <li><span class="material-icons">check_circle</span>OTC医薬品のご案内</li>
-                        <li><span class="material-icons">check_circle</span>サプリメント相談</li>
-                        <li><span class="material-icons">check_circle</span>血圧・体組成測定</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの活用法を学べます。</p></div>
+            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>業務効率化</h3><p>業界特有の課題に合わせた研修を提供します。</p></div>
+            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>導入支援</h3><p>研修後も3ヶ月間のサポートで定着までフォロー。</p></div>
         </div>
     </section>
-
-    <section class="flow-section section" id="flow">
-        <div class="section-title fade-in">
-            <h2>ご利用の流れ</h2>
-            <p>初めての方でも安心してご利用いただけます</p>
-        </div>
-        <div class="flow-steps">
-            <div class="flow-step fade-in stagger-1">
-                <div class="flow-number">1</div>
-                <h4>処方箋を受付</h4>
-                <p>病院の処方箋をお持ちください。FAX・LINEでも事前受付可能。</p>
-            </div>
-            <div class="flow-step fade-in stagger-2">
-                <div class="flow-number">2</div>
-                <h4>お薬の調剤</h4>
-                <p>薬剤師が処方箋を確認し、お薬を準備いたします。</p>
-            </div>
-            <div class="flow-step fade-in stagger-3">
-                <div class="flow-number">3</div>
-                <h4>服薬指導</h4>
-                <p>お薬の飲み方や注意点を丁寧にご説明します。</p>
-            </div>
-            <div class="flow-step fade-in stagger-4">
-                <div class="flow-number">4</div>
-                <h4>お渡し</h4>
-                <p>お会計後、お薬をお渡しします。配達も可能です。</p>
-            </div>
+    <section class="features section" id="features">
+        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="features-grid">
+            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
         </div>
     </section>
-
-    <section class="info-section section" id="info">
-        <div class="section-title fade-in">
-            <h2 style="color: #fff;">店舗情報</h2>
-        </div>
-        <div class="info-grid">
-            <div class="info-card fade-in stagger-1">
-                <h3><span class="material-icons">schedule</span>営業時間</h3>
-                <table class="hours-table">
-                    <tr><td>月〜金</td><td>9:00 〜 20:00</td></tr>
-                    <tr><td>土曜</td><td>9:00 〜 17:00</td></tr>
-                    <tr><td>日祝</td><td>定休日</td></tr>
-                </table>
-            </div>
-            <div class="info-card fade-in stagger-2">
-                <h3><span class="material-icons">location_on</span>アクセス</h3>
-                <p>〒123-4567<br>東京都○○区△△1-2-3<br>○○ビル1F</p>
-                <p style="margin-top: 15px;">○○駅 徒歩3分<br>駐車場2台完備</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-logo">みどり調剤薬局</div>
-        <p>〒123-4567 東京都○○区△△1-2-3</p>
-        <p>TEL: 03-1234-5678 / FAX: 03-1234-5679</p>
-        <p class="copyright">&copy; 2024 みどり調剤薬局 All Rights Reserved.</p>
-    </footer>
-
-    <div class="fixed-cta">
-        <a href="tel:03-1234-5678" class="tel">
-            <span class="material-icons">phone</span>
-            電話で相談
-        </a>
-        <a href="#" class="line">
-            <span class="material-icons">send</span>
-            LINE処方箋送信
-        </a>
-    </div>
-
+    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
+    <footer><div class="footer-logo">薬局AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
+    <div class="fixed-cta"><a href="#contact"><span class="material-icons">mail</span>無料相談</a></div>
     <script>
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, observerOptions);
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        const fixedCta = document.querySelector('.fixed-cta');
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            fixedCta.classList.toggle('visible', window.scrollY > 500);
-            header.classList.toggle('scrolled', window.scrollY > 100);
-        });
+        window.addEventListener('scroll', () => { document.querySelector('.fixed-cta').classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>

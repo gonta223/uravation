@@ -3,126 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プリントワークス | Uravation AI Training LP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>印刷会社AI研修 | Uravation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #2d3436; --secondary: #636e72; --accent: #0984e3; --yellow: #ffeaa7; --light: #f8f9fa; --text: #2d3436; --text-light: #636e72; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; overflow-x: hidden; background: var(--white); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; border-bottom: 1px solid #eee; }
-        header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; color: var(--primary); font-weight: 700; }
-        .logo span { color: var(--accent); }
-        nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
-        nav a:hover { color: var(--accent); }
-        .btn-header { background: var(--accent); color: var(--white); padding: 12px 28px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: all 0.3s; }
-        .btn-header:hover { background: var(--primary); }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: var(--accent); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.1; }
-        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
-        .hero-content { color: var(--white); }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); padding: 10px 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 25px; opacity: 0; animation: fadeInUp 0.8s ease 0.3s forwards; }
-        .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; opacity: 0; animation: fadeInUp 0.8s ease 0.5s forwards; }
-        .hero p { font-size: 1rem; opacity: 0.9; margin-bottom: 35px; opacity: 0; animation: fadeInUp 0.8s ease 0.7s forwards; }
-        .btn-hero { background: var(--accent); color: var(--white); padding: 18px 45px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; opacity: 0; animation: fadeInUp 0.8s ease 0.9s forwards; }
-        .btn-hero:hover { background: var(--white); color: var(--primary); transform: translateY(-3px); }
-        .hero-visual { opacity: 0; animation: scaleIn 1s ease 0.5s forwards; }
-        .hero-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .hero-card { background: rgba(255,255,255,0.1); padding: 30px; backdrop-filter: blur(10px); text-align: center; }
-        .hero-card .material-icons { font-size: 40px; color: var(--accent); margin-bottom: 10px; }
-        .hero-card span { font-size: 0.85rem; display: block; }
+        :root { --primary: #708090; --secondary: #778899; --dark: #1a1a2e; --light: #f8f8f8; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
+        .hero::before { content: '🖨️'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
+        .hero-content { max-width: 600px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; animation: fadeInUp 1s ease 0.5s forwards; opacity: 0; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; } .stagger-4 { transition-delay: 0.4s; }
-        section { padding: 100px 0; }
+        .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header .en { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 10px; display: block; font-weight: 600; }
-        .section-header h2 { font-size: 2rem; font-weight: 700; }
+        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
         .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
-        .service-card { background: var(--white); padding: 35px 25px; text-align: center; transition: all 0.4s; border-bottom: 3px solid transparent; }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-bottom-color: var(--accent); }
-        .service-icon { width: 70px; height: 70px; background: var(--light); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
-        .service-icon .material-icons { font-size: 35px; color: var(--accent); }
-        .service-card h3 { font-size: 1rem; margin-bottom: 10px; font-weight: 700; }
-        .service-card p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; }
-        .service-price { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: var(--accent); font-weight: 700; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
+        .service-card p { color: #666; font-size: 0.95rem; }
         .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .feature-item { display: flex; gap: 20px; }
-        .feature-num { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1; }
-        .feature-text h4 { font-size: 1.1rem; margin-bottom: 10px; font-weight: 700; }
-        .feature-text p { font-size: 0.9rem; color: var(--text-light); }
-        .flow { background: var(--primary); color: var(--white); }
-        .flow .section-header .en { color: var(--accent); }
-        .flow .section-header h2 { color: var(--white); }
-        .flow-steps { display: flex; justify-content: space-between; }
-        .flow-step { text-align: center; flex: 1; position: relative; }
-        .flow-step::after { content: ''; position: absolute; top: 35px; right: -50%; width: 100%; height: 2px; background: var(--accent); }
-        .flow-step:last-child::after { display: none; }
-        .flow-step-icon { width: 70px; height: 70px; background: var(--accent); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
-        .flow-step-icon .material-icons { font-size: 35px; color: var(--white); }
-        .flow-step h4 { font-size: 1rem; margin-bottom: 10px; }
-        .flow-step p { font-size: 0.85rem; opacity: 0.7; }
-        .cta { background: var(--accent); text-align: center; color: var(--white); }
-        .cta h2 { font-size: 2rem; margin-bottom: 15px; font-weight: 700; }
-        .cta p { font-size: 1rem; margin-bottom: 30px; opacity: 0.9; }
-        .btn-cta { background: var(--white); color: var(--accent); padding: 18px 50px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; }
-        .btn-cta:hover { background: var(--primary); color: var(--white); transform: translateY(-3px); }
-        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); padding: 15px 0; z-index: 999; transform: translateY(100%); transition: transform 0.4s; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
-        .fixed-cta.visible { transform: translateY(0); }
-        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
-        .fixed-cta-text { color: var(--text); font-size: 0.9rem; }
-        .fixed-cta-text span { color: var(--accent); font-weight: 700; }
-        .btn-fixed { background: var(--accent); color: var(--white); padding: 12px 30px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
-        .btn-fixed:hover { background: var(--primary); }
-        footer { background: var(--primary); color: var(--white); padding: 60px 0 30px; text-align: center; }
-        .footer-logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .footer-logo span { color: var(--accent); }
-        footer p { font-size: 0.9rem; opacity: 0.6; margin-bottom: 8px; }
-        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.4; }
-        .footer-bottom a { color: var(--accent); text-decoration: none; }
-        @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } .features-grid { grid-template-columns: 1fr; } .flow-steps { flex-direction: column; gap: 30px; } .flow-step::after { display: none; } }
-        @media (max-width: 768px) { nav { display: none; } .hero-inner { grid-template-columns: 1fr; text-align: center; } .hero h1 { font-size: 2rem; } .hero-visual { display: none; } .services-grid { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 30px 20px; }
+        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
+        .feature-item p { color: #888; font-size: 0.85rem; }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
+        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
+        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 20px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo">PRINT<span>WORKS</span></div><nav><ul><li><a href="#services">サービス</a></li><li><a href="#features">特徴</a></li><li><a href="#flow">ご注文の流れ</a></li><li><a href="#contact">お見積り</a></li></ul></nav><a href="#contact" class="btn-header">無料見積り</a></div></div></header>
-    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-content"><div class="hero-badge"><span class="material-icons">local_offer</span>初回10%OFF</div><h1>印刷のことなら<br>すべてお任せ</h1><p>名刺からポスター、パンフレットまで。<br>高品質な印刷物をスピーディーにお届けします。</p><a href="#contact" class="btn-hero"><span class="material-icons">calculate</span>無料見積り</a></div><div class="hero-visual"><div class="hero-cards"><div class="hero-card"><span class="material-icons">contact_page</span><span>名刺</span></div><div class="hero-card"><span class="material-icons">menu_book</span><span>パンフレット</span></div><div class="hero-card"><span class="material-icons">note</span><span>チラシ</span></div><div class="hero-card"><span class="material-icons">view_carousel</span><span>ポスター</span></div></div></div></div></div></section>
-    <section id="services" class="services"><div class="container"><div class="section-header fade-in"><span class="en">SERVICES</span><h2>サービス一覧</h2></div><div class="services-grid">
-        <div class="service-card fade-in stagger-1"><div class="service-icon"><span class="material-icons">contact_page</span></div><h3>名刺印刷</h3><p>100枚から対応<br>最短翌日出荷</p><div class="service-price">¥1,980〜</div></div>
-        <div class="service-card fade-in stagger-2"><div class="service-icon"><span class="material-icons">note</span></div><h3>チラシ印刷</h3><p>A4・B5など各サイズ<br>両面フルカラー対応</p><div class="service-price">¥2,980〜</div></div>
-        <div class="service-card fade-in stagger-3"><div class="service-icon"><span class="material-icons">menu_book</span></div><h3>パンフレット</h3><p>二つ折り・三つ折り<br>中綴じ冊子も対応</p><div class="service-price">¥9,800〜</div></div>
-        <div class="service-card fade-in stagger-4"><div class="service-icon"><span class="material-icons">view_carousel</span></div><h3>ポスター印刷</h3><p>A1・B1の大判も<br>高品質仕上げ</p><div class="service-price">¥980〜</div></div>
-    </div></div></section>
-    <section id="features" class="features"><div class="container"><div class="section-header fade-in"><span class="en">FEATURES</span><h2>選ばれる理由</h2></div><div class="features-grid">
-        <div class="feature-item fade-in stagger-1"><div class="feature-num">01</div><div class="feature-text"><h4>スピード対応</h4><p>最短翌日出荷。急ぎの印刷も安心してお任せください。</p></div></div>
-        <div class="feature-item fade-in stagger-2"><div class="feature-num">02</div><div class="feature-text"><h4>高品質印刷</h4><p>最新設備で美しい仕上がりを実現。色校正も対応可能。</p></div></div>
-        <div class="feature-item fade-in stagger-3"><div class="feature-num">03</div><div class="feature-text"><h4>デザイン制作</h4><p>デザインからお任せいただけます。プロが制作します。</p></div></div>
-    </div></div></section>
-    <section id="flow" class="flow"><div class="container"><div class="section-header fade-in"><span class="en">FLOW</span><h2>ご注文の流れ</h2></div><div class="flow-steps fade-in">
-        <div class="flow-step"><div class="flow-step-icon"><span class="material-icons">edit</span></div><h4>お見積り</h4><p>WEB・お電話で<br>お問い合わせ</p></div>
-        <div class="flow-step"><div class="flow-step-icon"><span class="material-icons">upload_file</span></div><h4>データ入稿</h4><p>印刷データを<br>お送りください</p></div>
-        <div class="flow-step"><div class="flow-step-icon"><span class="material-icons">print</span></div><h4>印刷</h4><p>高品質な印刷で<br>仕上げます</p></div>
-        <div class="flow-step"><div class="flow-step-icon"><span class="material-icons">local_shipping</span></div><h4>お届け</h4><p>全国どこでも<br>配送いたします</p></div>
-    </div></div></section>
-    <section id="contact" class="cta fade-in"><div class="container"><h2>まずは無料見積りから</h2><p>ご要望に合わせた最適なプランをご提案します</p><a href="tel:000-000-0000" class="btn-cta"><span class="material-icons">phone</span>000-000-0000</a></div></section>
-    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>初回10%OFF</span>｜お気軽にお問い合わせください</div><a href="tel:000-000-0000" class="btn-fixed"><span class="material-icons">phone</span>無料見積り</a></div></div></div>
-    <footer><div class="container"><div class="footer-logo">PRINT<span>WORKS</span></div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 000-000-0000 / 営業時間: 9:00-18:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
+    <header><div class="logo">印刷会社AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
+    <section class="hero"><div class="hero-content"><h1>印刷業界のAI活用</h1><p>見積もり・工程管理</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <section class="services section" id="services">
+        <div class="section-header fade-in"><h2>サービス内容</h2><p>AI活用で業務を効率化</p></div>
+        <div class="services-grid">
+            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>見積もりAI</h3><p>ChatGPTなど最新AIツールの基本操作から実践活用まで学べます。</p></div>
+            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>工程管理</h3><p>業界特有の課題に合わせたカスタマイズ研修を提供します。</p></div>
+            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>顧客対応</h3><p>研修後も3ヶ月間のサポートで定着までフォローします。</p></div>
+        </div>
+    </section>
+    <section class="features section" id="features">
+        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="features-grid">
+            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+        </div>
+    </section>
+    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
+    <footer><div class="footer-logo">印刷会社AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
+    <div class="fixed-cta"><a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a></div>
     <script>
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         const fixedCta = document.querySelector('.fixed-cta');
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>

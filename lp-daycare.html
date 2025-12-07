@@ -3,143 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ケアハート | Uravation AI Training LP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Rounded+Mplus+1c:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>保育園AI研修 | Uravation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #4A7C59; --accent: #E8B86D; --pink: #E8A0BF; --light-green: #A8D5BA; --cream: #FFF9F0; --text: #3D3D3D; --text-light: #666; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.8; background: var(--cream); overflow-x: hidden; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        header { background: var(--white); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        header.scrolled { box-shadow: 0 5px 30px rgba(0,0,0,0.1); }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 1.6rem; color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .logo .material-icons { font-size: 2rem; color: var(--pink); }
-        nav ul { display: flex; gap: 35px; list-style: none; }
-        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
-        nav a:hover { color: var(--primary); }
-        .btn-header { background: var(--primary); color: var(--white); padding: 10px 25px; text-decoration: none; font-size: 0.9rem; font-weight: 700; border-radius: 30px; transition: all 0.3s; }
-        .btn-header:hover { background: var(--accent); transform: translateY(-2px); }
-
-        .hero { padding: 150px 0 100px; background: linear-gradient(135deg, var(--light-green) 0%, var(--cream) 100%); position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(232,176,109,0.2) 0%, transparent 70%); border-radius: 50%; animation: float 8s ease-in-out infinite; }
-        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .hero-text h1 { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 2.8rem; color: var(--primary); margin-bottom: 20px; line-height: 1.4; opacity: 0; animation: fadeInUp 0.8s ease forwards; }
-        .hero-text h1 span { color: var(--accent); }
-        .hero-text p { color: var(--text-light); margin-bottom: 30px; font-size: 1.1rem; opacity: 0; animation: fadeInUp 0.8s ease 0.2s forwards; }
-        .hero-image { background: linear-gradient(135deg, var(--pink), var(--accent)); height: 400px; border-radius: 30px; display: flex; align-items: center; justify-content: center; opacity: 0; animation: scaleIn 0.8s ease 0.3s forwards; }
-        .hero-image .material-icons { font-size: 120px; color: rgba(255,255,255,0.5); }
-        .btn-primary { background: var(--primary); color: var(--white); padding: 18px 40px; text-decoration: none; font-size: 1rem; font-weight: 700; border-radius: 30px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; opacity: 0; animation: fadeInUp 0.8s ease 0.4s forwards; }
-        .btn-primary:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(74,124,89,0.3); }
-
+        :root { --primary: #ffb6c1; --secondary: #ff69b4; --dark: #1a1a2e; --light: #f8f8f8; --white: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
+        .hero::before { content: '👶'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
+        .hero-content { max-width: 600px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; animation: fadeInUp 1s ease 0.5s forwards; opacity: 0; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fade-in-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fade-in-right { opacity: 0; transform: translateX(50px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .scale-in { opacity: 0; transform: scale(0.9); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fade-in.visible, .fade-in-left.visible, .fade-in-right.visible, .scale-in.visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
-        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; } .stagger-3 { transition-delay: 0.3s; } .stagger-4 { transition-delay: 0.4s; }
-
-        section { padding: 100px 0; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header .en { font-size: 0.8rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 10px; display: block; font-weight: 700; }
-        .section-header h2 { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 2.2rem; color: var(--primary); }
-
-        .services { background: var(--white); }
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .service-card { background: var(--cream); padding: 40px 30px; border-radius: 20px; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .service-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--light-green)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; transition: all 0.4s; }
-        .service-card:hover .service-icon { transform: rotate(10deg) scale(1.1); }
-        .service-icon .material-icons { font-size: 36px; color: var(--white); }
-        .service-card h3 { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 1.3rem; color: var(--primary); margin-bottom: 15px; }
-        .service-card p { font-size: 0.9rem; color: var(--text-light); }
-
-        .features { background: var(--cream); }
-        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
-        .feature-item { background: var(--white); padding: 30px 20px; border-radius: 15px; text-align: center; transition: all 0.4s; border: 2px solid transparent; }
-        .feature-item:hover { border-color: var(--primary); }
-        .feature-num { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 2rem; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
-        .feature-item h4 { font-size: 1rem; color: var(--primary); margin-bottom: 10px; }
-        .feature-item p { font-size: 0.85rem; color: var(--text-light); }
-
-        .flow { background: var(--white); }
-        .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .flow-step { text-align: center; position: relative; }
-        .flow-step::after { content: '→'; position: absolute; right: -15px; top: 40px; font-size: 1.5rem; color: var(--accent); }
-        .flow-step:last-child::after { display: none; }
-        .flow-num { width: 60px; height: 60px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Rounded Mplus 1c', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0 auto 15px; }
-        .flow-step h4 { font-size: 1rem; color: var(--primary); margin-bottom: 10px; }
-        .flow-step p { font-size: 0.85rem; color: var(--text-light); }
-
-        .cta { background: linear-gradient(135deg, var(--primary), #3a6249); color: var(--white); text-align: center; border-radius: 30px; margin: 0 20px; }
-        .cta h2 { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 2rem; margin-bottom: 15px; }
-        .cta p { opacity: 0.9; margin-bottom: 30px; }
-        .btn-cta { background: var(--accent); color: var(--primary); padding: 18px 50px; text-decoration: none; font-weight: 700; border-radius: 30px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; }
-        .btn-cta:hover { background: var(--white); transform: translateY(-3px); }
-
-        .fixed-cta { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); padding: 15px 0; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); z-index: 999; transform: translateY(100%); transition: transform 0.4s; }
-        .fixed-cta.visible { transform: translateY(0); }
-        .fixed-cta-inner { display: flex; justify-content: space-between; align-items: center; }
-        .fixed-cta-text { color: var(--text); font-weight: 500; }
-        .fixed-cta-text span { color: var(--primary); font-weight: 700; }
-        .btn-fixed { background: var(--primary); color: var(--white); padding: 12px 30px; text-decoration: none; font-weight: 700; border-radius: 25px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-fixed:hover { background: var(--accent); }
-
-        footer { background: var(--primary); color: var(--white); padding: 60px 0 30px; text-align: center; }
-        .footer-logo { font-family: 'Rounded Mplus 1c', sans-serif; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; opacity: 0.6; }
-        .footer-bottom a { color: var(--accent); text-decoration: none; }
-
-        @media (max-width: 1024px) { .hero-inner { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } .features-grid, .flow-steps { grid-template-columns: repeat(2, 1fr); } .flow-step::after { display: none; } }
-        @media (max-width: 768px) { nav { display: none; } .hero-text h1 { font-size: 2rem; } .features-grid, .flow-steps { grid-template-columns: 1fr; } .fixed-cta-inner { flex-direction: column; gap: 10px; text-align: center; } }
+        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
+        .services { background: var(--light); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
+        .service-card p { color: #666; font-size: 0.95rem; }
+        .features { background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 30px 20px; }
+        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
+        .feature-item p { color: #888; font-size: 0.85rem; }
+        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
+        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
+        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+        .copyright { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 20px; }
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .fixed-cta.visible { bottom: 0; }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .fixed-cta .consult { background: var(--primary); color: var(--white); }
+        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
-    <header><div class="container"><div class="header-inner"><div class="logo"><span class="material-icons">favorite</span>ケアハート</div><nav><ul><li><a href="#services">サービス</a></li><li><a href="#features">選ばれる理由</a></li><li><a href="#contact">お問い合わせ</a></li></ul></nav><a href="#contact" class="btn-header">無料相談</a></div></div></header>
-
-    <section class="hero"><div class="container"><div class="hero-inner"><div class="hero-text"><h1>ご家族の<span>笑顔</span>を<br>守るために</h1><p>専門スタッフが24時間体制で、<br>安心・安全な介護サービスをご提供いたします。</p><a href="#contact" class="btn-primary"><span class="material-icons">phone</span>無料相談する</a></div><div class="hero-image"><span class="material-icons">elderly</span></div></div></div></section>
-
-    <section id="services" class="services"><div class="container"><div class="section-header fade-in"><span class="en">SERVICES</span><h2>サービス内容</h2></div><div class="services-grid">
-        <div class="service-card scale-in stagger-1"><div class="service-icon"><span class="material-icons">home</span></div><h3>デイサービス</h3><p>日帰りで入浴・食事・機能訓練などのサービスをご利用いただけます。</p></div>
-        <div class="service-card scale-in stagger-2"><div class="service-icon"><span class="material-icons">directions_walk</span></div><h3>訪問介護</h3><p>ご自宅にヘルパーが訪問し、身体介護や生活援助を行います。</p></div>
-        <div class="service-card scale-in stagger-3"><div class="service-icon"><span class="material-icons">night_shelter</span></div><h3>ショートステイ</h3><p>短期間の宿泊で、介護するご家族の負担を軽減します。</p></div>
-    </div></div></section>
-
-    <section id="features" class="features"><div class="container"><div class="section-header fade-in"><span class="en">FEATURES</span><h2>選ばれる理由</h2></div><div class="features-grid">
-        <div class="feature-item fade-in stagger-1"><div class="feature-num">01</div><h4>24時間対応</h4><p>緊急時も安心の24時間体制</p></div>
-        <div class="feature-item fade-in stagger-2"><div class="feature-num">02</div><h4>専門スタッフ</h4><p>介護福祉士・看護師常駐</p></div>
-        <div class="feature-item fade-in stagger-3"><div class="feature-num">03</div><h4>送迎サービス</h4><p>ご自宅まで安全に送迎</p></div>
-        <div class="feature-item fade-in stagger-4"><div class="feature-num">04</div><h4>個別ケアプラン</h4><p>お一人おひとりに合わせたプラン</p></div>
-    </div></div></section>
-
-    <section class="flow"><div class="container"><div class="section-header fade-in"><span class="en">FLOW</span><h2>ご利用の流れ</h2></div><div class="flow-steps">
-        <div class="flow-step fade-in stagger-1"><div class="flow-num">1</div><h4>お問い合わせ</h4><p>お電話・フォームから</p></div>
-        <div class="flow-step fade-in stagger-2"><div class="flow-num">2</div><h4>無料相談</h4><p>専門スタッフがご説明</p></div>
-        <div class="flow-step fade-in stagger-3"><div class="flow-num">3</div><h4>見学・体験</h4><p>施設をご見学いただけます</p></div>
-        <div class="flow-step fade-in stagger-4"><div class="flow-num">4</div><h4>ご利用開始</h4><p>ケアプランに沿ってスタート</p></div>
-    </div></div></section>
-
-    <section id="contact" class="cta fade-in"><div class="container"><h2>まずはお気軽にご相談ください</h2><p>ご家族の介護でお悩みの方、専門スタッフが丁寧にお答えします</p><a href="tel:0120-000-000" class="btn-cta"><span class="material-icons">phone</span>0120-000-000</a></div></section>
-
-    <div class="fixed-cta"><div class="container"><div class="fixed-cta-inner"><div class="fixed-cta-text"><span>無料相談</span>受付中｜お気軽にお電話ください</div><a href="tel:0120-000-000" class="btn-fixed"><span class="material-icons">phone</span>電話する</a></div></div></div>
-
-    <footer><div class="container"><div class="footer-logo"><span class="material-icons">favorite</span>ケアハート</div><p>〒000-0000 東京都○○区○○1-2-3</p><p>TEL: 0120-000-000 / 受付: 9:00〜18:00</p><div class="footer-bottom">Original design by <a href="https://store.studio.design/" target="_blank">STUDIO Store</a> | Uravation AI Training</div></div></footer>
-
+    <header><div class="logo">保育園AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
+    <section class="hero"><div class="hero-content"><h1>保育園のDX推進</h1><p>連絡・記録業務の効率化</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <section class="services section" id="services">
+        <div class="section-header fade-in"><h2>サービス内容</h2><p>AI活用で業務を効率化</p></div>
+        <div class="services-grid">
+            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの基本操作から実践活用まで学べます。</p></div>
+            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>連絡AI活用</h3><p>業界特有の課題に合わせたカスタマイズ研修を提供します。</p></div>
+            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>記録管理</h3><p>研修後も3ヶ月間のサポートで定着までフォローします。</p></div>
+        </div>
+    </section>
+    <section class="features section" id="features">
+        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="features-grid">
+            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
+            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+        </div>
+    </section>
+    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
+    <footer><div class="footer-logo">保育園AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
+    <div class="fixed-cta"><a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a></div>
     <script>
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
-        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => observer.observe(el));
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         const fixedCta = document.querySelector('.fixed-cta');
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); header.classList.toggle('scrolled', window.scrollY > 100); });
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); } }); });
+        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
     </script>
 </body>
 </html>
