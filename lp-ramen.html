@@ -3,83 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ラーメン店AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>麺道 MENDO | ラーメン店DX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #ff6347; --secondary: #ff7f50; --dark: #1a1a2e; --light: #f8f8f8; --white: #ffffff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '🍜'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; animation: fadeInUp 1s ease 0.5s forwards; opacity: 0; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --black: #0d0d0d;
+            --red: #c41e3a;
+            --red-dark: #8b0000;
+            --yellow: #ffd700;
+            --cream: #fff8dc;
+            --smoke: #f5f5f5;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--black); line-height: 1.8; overflow-x: hidden; }
+
+        /* Steam Animation */
+        .steam { position: absolute; width: 10px; height: 100px; background: linear-gradient(to top, rgba(255,255,255,0.15), transparent); border-radius: 50%; animation: steamRise 4s ease-in-out infinite; }
+        .steam:nth-child(1) { right: 15%; bottom: 15%; animation-delay: 0s; }
+        .steam:nth-child(2) { right: 18%; bottom: 20%; animation-delay: 0.8s; width: 8px; }
+        .steam:nth-child(3) { right: 12%; bottom: 18%; animation-delay: 1.6s; width: 12px; }
+        .steam:nth-child(4) { right: 20%; bottom: 12%; animation-delay: 2.4s; }
+        @keyframes steamRise { 0% { opacity: 0; transform: translateY(0) scaleX(1); } 30% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-120px) scaleX(2); } }
+
+        /* Noodle Bowl Icon */
+        .bowl-icon { position: absolute; right: 8%; top: 35%; font-size: 10rem; opacity: 0.1; animation: bowlFloat 5s ease-in-out infinite; }
+        @keyframes bowlFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Zen Antique Soft', serif; font-size: 2rem; font-weight: 400; color: var(--cream); }
+        .logo span { color: var(--red); }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--cream); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; opacity: 0.8; }
+        nav a:hover { opacity: 1; color: var(--yellow); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--black) 0%, var(--red-dark) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--cream); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c41e3a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-content { max-width: 650px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-block; background: var(--red); padding: 8px 25px; font-size: 0.85rem; margin-bottom: 25px; color: var(--white); font-weight: 700; animation: fadeIn 1s ease; }
+        .hero h1 { font-family: 'Zen Antique Soft', serif; font-size: 4rem; margin-bottom: 20px; line-height: 1.2; animation: slideUp 1s ease; }
+        .hero h1 span { color: var(--yellow); }
+        .hero p { font-size: 1.15rem; margin-bottom: 35px; opacity: 0.9; animation: slideUp 1s ease 0.2s both; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--yellow); color: var(--black); padding: 18px 45px; text-decoration: none; font-weight: 900; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; font-size: 1rem; }
+        .cta-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 30px rgba(255,215,0,0.4); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
-        .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
+        .section-header h2 { font-family: 'Zen Antique Soft', serif; font-size: 2.4rem; margin-bottom: 15px; color: var(--black); }
+        .section-header p { color: #666; font-size: 1rem; }
+
+        .services { background: var(--smoke); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 45px 35px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; border-top: 5px solid var(--red); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(0,0,0,0.15); }
+        .service-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--red), var(--red-dark)); border-radius: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.2rem; }
+        .service-card h3 { font-family: 'Zen Antique Soft', serif; font-size: 1.4rem; margin-bottom: 15px; color: var(--black); }
+        .service-card p { color: #666; font-size: 0.95rem; line-height: 1.8; }
+
+        .features { background: var(--black); color: var(--cream); }
+        .features .section-header h2 { color: var(--cream); }
         .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .copyright { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .feature-item { padding: 35px 20px; background: rgba(196,30,58,0.15); transition: all 0.3s ease; }
+        .feature-item:hover { background: rgba(196,30,58,0.3); transform: translateY(-5px); }
+        .feature-item .material-icons { font-size: 2.8rem; color: var(--yellow); margin-bottom: 15px; }
+        .feature-item h4 { font-family: 'Zen Antique Soft', serif; font-size: 1.1rem; margin-bottom: 8px; }
+        .feature-item p { color: rgba(255,248,220,0.7); font-size: 0.85rem; }
+
+        .cta-section { background: var(--red); color: var(--white); text-align: center; padding: 100px 50px; }
+        .cta-section h2 { font-family: 'Zen Antique Soft', serif; font-size: 2.4rem; margin-bottom: 15px; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.95; font-size: 1.1rem; }
+        .cta-section .cta-btn { background: var(--black); color: var(--yellow); }
+        .cta-section .cta-btn:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+
+        footer { background: var(--black); color: var(--cream); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Zen Antique Soft', serif; font-size: 2rem; margin-bottom: 20px; }
+        .copyright { color: rgba(255,248,220,0.5); font-size: 0.85rem; margin-top: 20px; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--black); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
-        .fixed-cta .consult { background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; text-decoration: none; font-weight: 700; background: var(--yellow); color: var(--black); transition: all 0.3s ease; }
+        .fixed-cta a:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.5rem; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .steam, .bowl-icon { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">ラーメン店AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>ラーメン店のAI化</h1><p>オペレーション効率化と集客強化</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">麺道<span>MENDO</span></div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="bowl-icon">🍜</div>
+        <div class="hero-content">
+            <div class="hero-badge">ラーメン店向けAI研修</div>
+            <h1>一杯入魂を<span>AIで支える</span></h1>
+            <p>オペレーション効率化・集客強化・廃棄削減まで、ラーメン店経営をAIがサポート。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">mail</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2><p>AI活用で業務を効率化</p></div>
+        <div class="section-header fade-in">
+            <h2>ラーメン店専門AI</h2>
+            <p>現場の熱気を知るプロが設計</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの基本操作から実践活用まで学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>顧客分析</h3><p>業界特有の課題に合わせたカスタマイズ研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>マーケティング</h3><p>研修後も3ヶ月間のサポートで定着までフォローします。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📊</div>
+                <h3>需要予測・仕込み最適化</h3>
+                <p>天気・曜日・イベントからAIが来客を予測。スープ・麺の仕込み量を最適化し、廃棄ロスを削減。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📱</div>
+                <h3>SNS集客自動化</h3>
+                <p>AIが最適な投稿時間・内容を提案。新メニュー告知やキャンペーンの効果を最大化。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">⚡</div>
+                <h3>オペレーション効率化</h3>
+                <p>券売機・POSデータを分析し、ピーク時の回転率向上。待ち時間削減で顧客満足度アップ。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">ramen_dining</span>
+                <h4>ラーメン店専門</h4>
+                <p>現場を知る講師陣</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">delete</span>
+                <h4>廃棄35%削減</h4>
+                <p>仕込み最適化の実績</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">trending_up</span>
+                <h4>売上1.3倍</h4>
+                <p>集客強化の成果</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">schedule</span>
+                <h4>1週間で習得</h4>
+                <p>忙しい店舗でも可能</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">ラーメン店AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>貴店の課題をお聞かせください</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">麺道 MENDO</div>
+        <p>ラーメン店のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
         const fixedCta = document.querySelector('.fixed-cta');
-        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>

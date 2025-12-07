@@ -3,79 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家電店AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>TECH NEXUS | 家電店DX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #1e90ff; --secondary: #4169e1; --dark: #1a1a2e; --light: #f8f8f8; --white: #fff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '📺'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --cyan: #06b6d4;
+            --cyan-light: #22d3ee;
+            --dark: #0f172a;
+            --darker: #020617;
+            --purple: #8b5cf6;
+            --light: #f0fdfa;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; overflow-x: hidden; }
+
+        /* Circuit Animation */
+        .circuit { position: absolute; width: 200px; height: 200px; right: 10%; top: 30%; opacity: 0.1; }
+        .circuit-line { position: absolute; background: var(--cyan); }
+        .circuit-line.h1 { width: 80px; height: 2px; top: 50px; left: 20px; animation: circuitPulse 2s ease-in-out infinite; }
+        .circuit-line.h2 { width: 60px; height: 2px; top: 100px; left: 60px; animation: circuitPulse 2s ease-in-out infinite 0.5s; }
+        .circuit-line.v1 { width: 2px; height: 50px; top: 50px; left: 100px; animation: circuitPulse 2s ease-in-out infinite 1s; }
+        .circuit-line.v2 { width: 2px; height: 80px; top: 70px; left: 60px; animation: circuitPulse 2s ease-in-out infinite 1.5s; }
+        .circuit-dot { position: absolute; width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; animation: dotGlow 1.5s ease-in-out infinite; }
+        .circuit-dot:nth-child(5) { top: 46px; left: 16px; }
+        .circuit-dot:nth-child(6) { top: 46px; left: 96px; animation-delay: 0.3s; }
+        .circuit-dot:nth-child(7) { top: 96px; left: 56px; animation-delay: 0.6s; }
+        @keyframes circuitPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        @keyframes dotGlow { 0%, 100% { box-shadow: 0 0 5px var(--cyan); } 50% { box-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan); } }
+
+        /* Floating Tech Icons */
+        .tech-float { position: absolute; font-size: 2.5rem; opacity: 0.08; animation: techFloat 6s ease-in-out infinite; }
+        .tech-float:nth-child(1) { right: 25%; top: 45%; animation-delay: 0s; }
+        .tech-float:nth-child(2) { right: 8%; top: 60%; animation-delay: 2s; font-size: 2rem; }
+        .tech-float:nth-child(3) { right: 18%; top: 70%; animation-delay: 4s; font-size: 3rem; }
+        @keyframes techFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(15,23,42,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--cyan); letter-spacing: 2px; }
+        .logo span { color: var(--white); }
+        nav a { margin-left: 30px; text-decoration: none; color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--cyan); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--purple) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 70% 50%, rgba(6,182,212,0.15) 0%, transparent 60%); }
+        .hero-content { max-width: 650px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(6,182,212,0.2); border: 1px solid var(--cyan); padding: 10px 25px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 25px; color: var(--cyan); animation: fadeIn 1s ease; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; margin-bottom: 20px; line-height: 1.15; font-weight: 700; animation: slideUp 1s ease; letter-spacing: 2px; }
+        .hero h1 span { color: var(--cyan); }
+        .hero p { font-size: 1.15rem; margin-bottom: 35px; opacity: 0.85; animation: slideUp 1s ease 0.2s both; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--cyan); color: var(--dark); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 4px; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; box-shadow: 0 0 30px rgba(6,182,212,0.3); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(6,182,212,0.5); background: var(--cyan-light); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
+        .section-header h2 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; margin-bottom: 15px; color: var(--dark); font-weight: 600; letter-spacing: 1px; }
+        .section-header p { color: #666; font-size: 1rem; }
+
         .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 45px 35px; border-radius: 8px; text-align: center; box-shadow: 0 10px 40px rgba(6,182,212,0.08); transition: all 0.4s ease; position: relative; overflow: hidden; border: 1px solid transparent; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(6,182,212,0.15); border-color: var(--cyan); }
+        .service-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--dark), var(--purple)); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.2rem; }
+        .service-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; margin-bottom: 15px; color: var(--dark); font-weight: 600; letter-spacing: 1px; }
+        .service-card p { color: #666; font-size: 0.95rem; line-height: 1.8; }
+
+        .features { background: var(--dark); color: var(--white); }
+        .features .section-header h2 { color: var(--white); }
         .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .feature-item { padding: 35px 20px; background: rgba(6,182,212,0.1); border-radius: 8px; border: 1px solid rgba(6,182,212,0.2); transition: all 0.3s ease; }
+        .feature-item:hover { background: rgba(6,182,212,0.2); transform: translateY(-8px); border-color: var(--cyan); }
+        .feature-item .material-icons { font-size: 2.8rem; color: var(--cyan); margin-bottom: 15px; }
+        .feature-item h4 { font-family: 'Orbitron', sans-serif; font-size: 1rem; margin-bottom: 8px; letter-spacing: 1px; }
+        .feature-item p { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+        .cta-section { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: var(--white); text-align: center; padding: 100px 50px; position: relative; }
+        .cta-section h2 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; margin-bottom: 15px; font-weight: 600; letter-spacing: 1px; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.95; font-size: 1.1rem; }
+        .cta-section .cta-btn { background: var(--white); color: var(--dark); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .cta-section .cta-btn:hover { box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+
+        footer { background: var(--darker); color: var(--white); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 20px; letter-spacing: 2px; color: var(--cyan); }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-top: 20px; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--dark); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.3); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; border-radius: 4px; text-decoration: none; font-weight: 600; background: var(--cyan); color: var(--dark); transition: all 0.3s ease; }
+        .fixed-cta a:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(6,182,212,0.5); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .circuit, .tech-float { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">家電店AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>家電販売のAI活用</h1><p>AI活用で業務効率化と顧客体験向上を実現します。</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">TECH<span>NEXUS</span></div>
+        <nav>
+            <a href="#services">SERVICE</a>
+            <a href="#features">FEATURES</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="circuit">
+            <div class="circuit-line h1"></div>
+            <div class="circuit-line h2"></div>
+            <div class="circuit-line v1"></div>
+            <div class="circuit-line v2"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+            <div class="circuit-dot"></div>
+        </div>
+        <div class="tech-float">📺</div>
+        <div class="tech-float">💻</div>
+        <div class="tech-float">📱</div>
+        <div class="hero-content">
+            <div class="hero-badge">ELECTRONICS AI</div>
+            <h1>FUTURE<br><span>RETAIL</span></h1>
+            <p>在庫予測・顧客分析・スマート接客まで、家電販売をAIでアップデート。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">mail</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2></div>
+        <div class="section-header fade-in">
+            <h2>ELECTRONICS AI</h2>
+            <p>テクノロジーで販売を進化</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの活用法を学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>業務効率化</h3><p>業界特有の課題に合わせた研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>導入支援</h3><p>研修後も3ヶ月間のサポートで定着までフォロー。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🎯</div>
+                <h3>スマート接客AI</h3>
+                <p>お客様のニーズをAIが分析し、最適な製品を提案。専門知識がなくても的確なアドバイスが可能に。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📊</div>
+                <h3>在庫・発注最適化</h3>
+                <p>新製品サイクル・季節需要をAIが予測。品切れと過剰在庫を同時に防止。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🔧</div>
+                <h3>アフターサービスAI</h3>
+                <p>購入履歴から保証期限・買い替え時期を予測し、最適なタイミングでフォロー。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>WHY CHOOSE US</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">devices</span>
+                <h4>家電業界専門</h4>
+                <p>製品知識が豊富</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">shopping_cart</span>
+                <h4>客単価30%向上</h4>
+                <p>提案精度の成果</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">inventory</span>
+                <h4>在庫回転1.5倍</h4>
+                <p>予測精度向上</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">rocket_launch</span>
+                <h4>即実践可能</h4>
+                <p>現場で即活用</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">家電店AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>GET STARTED</h2>
+        <p>貴店に最適なプランをご提案します</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">TECH NEXUS</div>
+        <p>家電店のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        window.addEventListener('scroll', () => { document.querySelector('.fixed-cta').classList.toggle('visible', window.scrollY > 500); });
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>

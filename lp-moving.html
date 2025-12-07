@@ -3,83 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>引越し業者AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>MOVE SMART | 引越しDX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #4169e1; --secondary: #1e90ff; --dark: #1a1a2e; --light: #f8f8f8; --white: #ffffff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '🚚'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; animation: fadeInUp 1s ease 0.5s forwards; opacity: 0; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --orange: #f97316;
+            --orange-light: #fb923c;
+            --blue: #3b82f6;
+            --blue-dark: #1e40af;
+            --navy: #1e3a5f;
+            --cream: #fff7ed;
+            --light: #f8fafc;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--navy); line-height: 1.8; overflow-x: hidden; }
+
+        /* Moving Truck Animation */
+        .truck { position: absolute; right: -150px; bottom: 20%; font-size: 5rem; opacity: 0.15; animation: truckMove 15s linear infinite; }
+        @keyframes truckMove { 0% { right: -150px; } 100% { right: 110%; } }
+
+        /* Floating Boxes */
+        .box { position: absolute; font-size: 2rem; opacity: 0.1; animation: boxFloat 8s ease-in-out infinite; }
+        .box:nth-child(1) { right: 10%; top: 25%; animation-delay: 0s; }
+        .box:nth-child(2) { right: 20%; top: 45%; animation-delay: 2s; font-size: 1.5rem; }
+        .box:nth-child(3) { right: 5%; top: 60%; animation-delay: 4s; font-size: 2.5rem; }
+        @keyframes boxFloat { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 30px rgba(30,58,95,0.1); }
+        .logo { font-family: 'Rubik', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--navy); }
+        .logo span { color: var(--orange); }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--navy); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--orange); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 50%, var(--blue) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; overflow: hidden; }
+        .hero-content { max-width: 650px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 25px; backdrop-filter: blur(5px); animation: fadeIn 1s ease; }
+        .hero h1 { font-family: 'Rubik', sans-serif; font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; font-weight: 700; animation: slideUp 1s ease; }
+        .hero h1 span { color: var(--cream); }
+        .hero p { font-size: 1.15rem; margin-bottom: 35px; opacity: 0.95; animation: slideUp 1s ease 0.2s both; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--orange); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 8px; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; box-shadow: 0 10px 30px rgba(30,58,95,0.2); }
+        .cta-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(30,58,95,0.3); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
-        .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
+        .section-header h2 { font-family: 'Rubik', sans-serif; font-size: 2.2rem; margin-bottom: 15px; color: var(--navy); font-weight: 700; }
+        .section-header p { color: #666; font-size: 1rem; }
+
+        .services { background: var(--cream); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 45px 35px; border-radius: 16px; text-align: center; box-shadow: 0 10px 40px rgba(30,58,95,0.08); transition: all 0.4s ease; border: 2px solid transparent; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(30,58,95,0.15); border-color: var(--orange); }
+        .service-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--orange), var(--orange-light)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.2rem; transform: rotate(-5deg); transition: transform 0.3s ease; }
+        .service-card:hover .service-icon { transform: rotate(0deg) scale(1.1); }
+        .service-card h3 { font-family: 'Rubik', sans-serif; font-size: 1.3rem; margin-bottom: 15px; color: var(--navy); font-weight: 600; }
+        .service-card p { color: #666; font-size: 0.95rem; line-height: 1.8; }
+
+        .features { background: var(--navy); color: var(--white); }
+        .features .section-header h2 { color: var(--white); }
         .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+        .feature-item { padding: 35px 20px; background: rgba(255,255,255,0.05); border-radius: 12px; transition: all 0.3s ease; }
+        .feature-item:hover { background: rgba(249,115,22,0.2); transform: translateY(-5px); }
+        .feature-item .material-icons { font-size: 2.8rem; color: var(--orange); margin-bottom: 15px; }
+        .feature-item h4 { font-family: 'Rubik', sans-serif; font-size: 1.05rem; margin-bottom: 8px; }
+        .feature-item p { color: rgba(255,255,255,0.7); font-size: 0.85rem; }
+
+        .cta-section { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: var(--white); text-align: center; padding: 100px 50px; position: relative; }
+        .cta-section h2 { font-family: 'Rubik', sans-serif; font-size: 2.2rem; margin-bottom: 15px; font-weight: 700; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.95; font-size: 1.1rem; }
+        .cta-section .cta-btn { background: var(--orange); color: var(--white); }
+        .cta-section .cta-btn:hover { background: var(--orange-light); }
+
+        footer { background: var(--navy); color: var(--white); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Rubik', sans-serif; font-size: 1.7rem; font-weight: 700; margin-bottom: 20px; }
         .copyright { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(30,58,95,0.15); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
-        .fixed-cta .consult { background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; border-radius: 8px; text-decoration: none; font-weight: 600; background: var(--orange); color: var(--white); transition: all 0.3s ease; }
+        .fixed-cta a:hover { background: var(--orange-light); transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.4rem; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .truck, .box { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">引越し業者AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>引越し業界のAI活用</h1><p>見積もり・配車の最適化</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">MOVE<span>SMART</span></div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="truck">🚚</div>
+        <div class="box">📦</div>
+        <div class="box">📦</div>
+        <div class="box">📦</div>
+        <div class="hero-content">
+            <div class="hero-badge">引越し業者向けAI研修</div>
+            <h1>引越しを<span>スマート</span>に</h1>
+            <p>見積もり自動化・配車最適化・顧客対応までAIで効率化。業務負担を減らし利益率アップ。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">mail</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2><p>AI活用で業務を効率化</p></div>
+        <div class="section-header fade-in">
+            <h2>引越し業者向けAI</h2>
+            <p>業務効率化と顧客満足度を両立</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>見積もりAI</h3><p>ChatGPTなど最新AIツールの基本操作から実践活用まで学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>配車最適化</h3><p>業界特有の課題に合わせたカスタマイズ研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>顧客対応</h3><p>研修後も3ヶ月間のサポートで定着までフォローします。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📝</div>
+                <h3>見積もりAI自動化</h3>
+                <p>写真・動画からAIが荷物量を自動判定。正確な見積もりを即座に提示し、成約率を向上。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🗺️</div>
+                <h3>配車・ルート最適化</h3>
+                <p>複数案件の最適ルートをAIが自動計算。燃料コスト削減と作業効率アップを実現。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📱</div>
+                <h3>顧客コミュニケーション</h3>
+                <p>問い合わせ対応・進捗連絡をAIチャットボットで自動化。24時間対応で顧客満足度向上。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">local_shipping</span>
+                <h4>引越し業界専門</h4>
+                <p>現場を知る講師陣</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">speed</span>
+                <h4>見積時間80%短縮</h4>
+                <p>AI自動化の実績</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">route</span>
+                <h4>燃料費20%削減</h4>
+                <p>ルート最適化効果</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">thumb_up</span>
+                <h4>顧客満足度向上</h4>
+                <p>24時間対応実現</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">引越し業者AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>貴社に最適なプランをご提案します</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">MOVE SMART</div>
+        <p>引越し業者のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
         const fixedCta = document.querySelector('.fixed-cta');
-        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>

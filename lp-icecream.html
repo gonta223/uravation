@@ -3,79 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アイスクリーム店AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>GELATO LAB | アイスクリーム店DX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #87ceeb; --secondary: #add8e6; --dark: #1a1a2e; --light: #f8f8f8; --white: #fff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '🍦'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --mint: #a8e6cf;
+            --strawberry: #ff8b94;
+            --vanilla: #fff5e6;
+            --chocolate: #6b4423;
+            --blueberry: #a388ee;
+            --mango: #ffcc5c;
+            --sky: #88d8f4;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--chocolate); line-height: 1.8; overflow-x: hidden; background: var(--vanilla); }
+
+        /* Floating Ice Cream */
+        .ice-float { position: absolute; font-size: 3.5rem; animation: iceFloat 4s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1)); }
+        .ice-float:nth-child(1) { right: 8%; top: 25%; animation-delay: 0s; }
+        .ice-float:nth-child(2) { right: 20%; top: 40%; animation-delay: 1s; font-size: 3rem; }
+        .ice-float:nth-child(3) { right: 12%; top: 55%; animation-delay: 2s; font-size: 2.8rem; }
+        @keyframes iceFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-20px) rotate(3deg); } }
+
+        /* Dripping Effect */
+        .drip { position: absolute; right: 25%; top: 35%; width: 8px; height: 30px; background: linear-gradient(to bottom, var(--strawberry), transparent); border-radius: 0 0 50% 50%; animation: dripFall 2s ease-in-out infinite; }
+        .drip:nth-child(5) { right: 27%; animation-delay: 0.5s; }
+        .drip:nth-child(6) { right: 23%; animation-delay: 1s; height: 25px; }
+        @keyframes dripFall { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.5); } 50% { opacity: 1; transform: translateY(0) scaleY(1); } 100% { opacity: 0; transform: translateY(30px) scaleY(1.2); } }
+
+        /* Sparkle */
+        .sparkle { position: absolute; width: 10px; height: 10px; background: var(--mango); border-radius: 50%; animation: sparkleAnim 1.5s ease-in-out infinite; }
+        .sparkle:nth-child(7) { right: 15%; top: 30%; }
+        .sparkle:nth-child(8) { right: 22%; top: 50%; animation-delay: 0.3s; }
+        .sparkle:nth-child(9) { right: 10%; top: 45%; animation-delay: 0.6s; }
+        @keyframes sparkleAnim { 0%, 100% { transform: scale(0); opacity: 0; } 50% { transform: scale(1); opacity: 1; } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,245,230,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 30px rgba(255,139,148,0.15); }
+        .logo { font-family: 'Comfortaa', cursive; font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, var(--strawberry), var(--blueberry)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--chocolate); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--strawberry); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--strawberry) 0%, var(--blueberry) 50%, var(--sky) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-content { max-width: 650px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.5); padding: 10px 25px; border-radius: 50px; font-size: 0.85rem; margin-bottom: 25px; backdrop-filter: blur(5px); animation: fadeIn 1s ease; }
+        .hero h1 { font-family: 'Comfortaa', cursive; font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; font-weight: 700; animation: slideUp 1s ease; text-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .hero h1 span { color: var(--mango); }
+        .hero p { font-size: 1.15rem; margin-bottom: 35px; opacity: 0.95; animation: slideUp 1s ease 0.2s both; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--strawberry); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .cta-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(0,0,0,0.2); background: var(--mango); color: var(--chocolate); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
-        .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .section-header h2 { font-family: 'Comfortaa', cursive; font-size: 2.2rem; margin-bottom: 15px; background: linear-gradient(135deg, var(--strawberry), var(--blueberry)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+        .section-header p { color: #888; font-size: 1rem; }
+
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: linear-gradient(135deg, var(--vanilla), var(--white)); padding: 45px 35px; border-radius: 30px; text-align: center; box-shadow: 0 10px 40px rgba(255,139,148,0.1); transition: all 0.4s ease; border: 2px solid transparent; }
+        .service-card:hover { transform: translateY(-10px) rotate(1deg); border-color: var(--strawberry); box-shadow: 0 25px 60px rgba(255,139,148,0.2); }
+        .service-icon { width: 90px; height: 90px; background: linear-gradient(135deg, var(--mint), var(--sky)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.5rem; box-shadow: 0 10px 30px rgba(168,230,207,0.4); }
+        .service-card h3 { font-family: 'Comfortaa', cursive; font-size: 1.3rem; margin-bottom: 15px; color: var(--chocolate); font-weight: 600; }
+        .service-card p { color: #777; font-size: 0.95rem; line-height: 1.8; }
+
+        .features { background: var(--vanilla); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 35px 20px; background: var(--white); border-radius: 25px; transition: all 0.3s ease; border: 2px solid transparent; }
+        .feature-item:hover { transform: translateY(-8px); border-color: var(--blueberry); background: linear-gradient(135deg, var(--strawberry), var(--blueberry)); }
+        .feature-item:hover .material-icons { color: var(--mango); }
+        .feature-item:hover h4, .feature-item:hover p { color: var(--white); }
+        .feature-item .material-icons { font-size: 2.8rem; color: var(--blueberry); margin-bottom: 15px; transition: color 0.3s; }
+        .feature-item h4 { font-size: 1.05rem; margin-bottom: 8px; color: var(--chocolate); font-weight: 600; transition: color 0.3s; }
+        .feature-item p { color: #888; font-size: 0.85rem; transition: color 0.3s; }
+
+        .cta-section { background: linear-gradient(135deg, var(--mint), var(--sky)); color: var(--chocolate); text-align: center; padding: 100px 50px; }
+        .cta-section h2 { font-family: 'Comfortaa', cursive; font-size: 2.2rem; margin-bottom: 15px; font-weight: 700; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.9; font-size: 1.1rem; }
+        .cta-section .cta-btn { background: var(--white); color: var(--blueberry); }
+
+        footer { background: var(--chocolate); color: var(--vanilla); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Comfortaa', cursive; font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--mint); }
+        .copyright { color: rgba(255,245,230,0.5); font-size: 0.85rem; margin-top: 20px; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(255,139,148,0.2); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; background: linear-gradient(135deg, var(--strawberry), var(--blueberry)); color: var(--white); transition: all 0.3s ease; }
+        .fixed-cta a:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.5rem; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .ice-float, .drip, .sparkle { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">アイスクリーム店AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>アイスクリーム店のDX</h1><p>AI活用で業務効率化と顧客体験向上を実現します。</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">GELATO LAB</div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="ice-float">🍦</div>
+        <div class="ice-float">🍨</div>
+        <div class="ice-float">🧁</div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="drip"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="hero-content">
+            <div class="hero-badge">アイスクリーム店向けAI研修</div>
+            <h1>冷たい幸せを<span>AIで届ける</span></h1>
+            <p>需要予測・フレーバー分析・在庫管理まで、アイスクリーム店経営をAIでサポート。廃棄削減と売上最大化を同時に実現。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">icecream</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2></div>
+        <div class="section-header fade-in">
+            <h2>アイス店専門AI</h2>
+            <p>季節と天候に左右される売上を安定化</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの活用法を学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>業務効率化</h3><p>業界特有の課題に合わせた研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>導入支援</h3><p>研修後も3ヶ月間のサポートで定着までフォロー。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🌡️</div>
+                <h3>天候連動需要予測</h3>
+                <p>気温・天候・曜日から販売量をAIが予測。製造量を最適化し、溶けロス・廃棄を大幅削減。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🎨</div>
+                <h3>フレーバー分析AI</h3>
+                <p>売れ筋・季節トレンド・SNS反応を分析。新フレーバー開発と品揃え最適化をサポート。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📱</div>
+                <h3>顧客分析・リピート促進</h3>
+                <p>購買履歴から好みを学習し、パーソナルおすすめを実現。アプリ連携でリピート率向上。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">ac_unit</span>
+                <h4>冷凍食品専門</h4>
+                <p>温度管理のプロ</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">delete_forever</span>
+                <h4>廃棄35%削減</h4>
+                <p>予測精度の実績</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">wb_sunny</span>
+                <h4>天候連動</h4>
+                <p>リアルタイム予測</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">repeat</span>
+                <h4>リピート1.8倍</h4>
+                <p>顧客分析で実現</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">アイスクリーム店AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>貴店の課題をお聞かせください</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">GELATO LAB</div>
+        <p>アイスクリーム店のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        window.addEventListener('scroll', () => { document.querySelector('.fixed-cta').classList.toggle('visible', window.scrollY > 500); });
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>

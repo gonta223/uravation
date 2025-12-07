@@ -3,79 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>豆腐店AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>豆匠 MAMESHOW | 豆腐店DX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #f5deb3; --secondary: #deb887; --dark: #1a1a2e; --light: #f8f8f8; --white: #fff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '🍚'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --kinari: #f5f3eb;
+            --sumi: #2d2d2d;
+            --matcha: #6b8e4e;
+            --hinoki: #d4c5a3;
+            --kuromame: #1a1a1a;
+            --soy: #e8dcc4;
+            --indigo: #264653;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--sumi); line-height: 2; overflow-x: hidden; background: var(--kinari); }
+
+        /* Steam Animation */
+        .tofu-steam { position: absolute; width: 6px; height: 50px; background: linear-gradient(to top, rgba(255,255,255,0.2), transparent); border-radius: 50%; animation: tofuSteam 3s ease-in-out infinite; }
+        .tofu-steam:nth-child(1) { right: 12%; top: 35%; animation-delay: 0s; }
+        .tofu-steam:nth-child(2) { right: 15%; top: 38%; animation-delay: 1s; width: 5px; }
+        .tofu-steam:nth-child(3) { right: 10%; top: 33%; animation-delay: 2s; width: 7px; }
+        @keyframes tofuSteam { 0% { opacity: 0; transform: translateY(0) scaleX(1); } 50% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-40px) scaleX(1.5); } }
+
+        /* Soybean Float */
+        .soybean { position: absolute; font-size: 1.8rem; animation: soybeanFloat 4s ease-in-out infinite; opacity: 0.3; }
+        .soybean:nth-child(4) { right: 20%; top: 25%; animation-delay: 0s; }
+        .soybean:nth-child(5) { right: 8%; top: 50%; animation-delay: 1.5s; font-size: 1.5rem; }
+        .soybean:nth-child(6) { right: 25%; top: 55%; animation-delay: 3s; font-size: 1.3rem; }
+        @keyframes soybeanFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(5deg); } }
+
+        /* Japanese Pattern Circle */
+        .wa-pattern { position: absolute; right: 18%; top: 40%; width: 100px; height: 100px; border: 2px solid rgba(107,142,78,0.3); border-radius: 50%; animation: waRotate 20s linear infinite; }
+        .wa-pattern::before { content: ''; position: absolute; inset: 10px; border: 1px dashed rgba(107,142,78,0.2); border-radius: 50%; }
+        @keyframes waRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(245,243,235,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 30px rgba(45,45,45,0.05); border-bottom: 1px solid rgba(212,197,163,0.5); }
+        .logo { font-family: 'Shippori Mincho', serif; font-size: 1.8rem; font-weight: 600; color: var(--sumi); letter-spacing: 8px; }
+        .logo span { color: var(--matcha); font-size: 1rem; display: block; letter-spacing: 2px; margin-top: -5px; }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--sumi); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; letter-spacing: 1px; }
+        nav a:hover { color: var(--matcha); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--indigo) 0%, var(--kuromame) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--kinari); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='50' cy='50' r='2'/%3E%3Ccircle cx='25' cy='25' r='1'/%3E%3Ccircle cx='75' cy='75' r='1'/%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-content { max-width: 650px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(107,142,78,0.2); border: 1px solid var(--matcha); padding: 10px 25px; border-radius: 0; font-size: 0.85rem; margin-bottom: 25px; color: var(--matcha); animation: fadeIn 1s ease; letter-spacing: 2px; }
+        .hero h1 { font-family: 'Shippori Mincho', serif; font-size: 3.2rem; margin-bottom: 20px; line-height: 1.4; font-weight: 600; animation: slideUp 1s ease; letter-spacing: 5px; }
+        .hero h1 span { color: var(--hinoki); }
+        .hero p { font-size: 1.1rem; margin-bottom: 35px; opacity: 0.9; animation: slideUp 1s ease 0.2s both; letter-spacing: 1px; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--matcha); color: var(--kinari); padding: 18px 40px; text-decoration: none; font-weight: 500; border-radius: 0; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; box-shadow: 0 10px 30px rgba(107,142,78,0.3); letter-spacing: 1px; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(107,142,78,0.4); background: var(--hinoki); color: var(--sumi); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
-        .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .section-header h2 { font-family: 'Shippori Mincho', serif; font-size: 2rem; margin-bottom: 15px; color: var(--sumi); font-weight: 600; letter-spacing: 5px; }
+        .section-header p { color: #777; font-size: 0.95rem; letter-spacing: 1px; }
+
+        .services { background: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--kinari); padding: 45px 35px; text-align: center; box-shadow: 0 10px 40px rgba(45,45,45,0.05); transition: all 0.4s ease; border: 1px solid var(--hinoki); position: relative; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: var(--matcha); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(45,45,45,0.1); }
+        .service-icon { width: 80px; height: 80px; background: var(--soy); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.2rem; border: 2px solid var(--hinoki); }
+        .service-card h3 { font-family: 'Shippori Mincho', serif; font-size: 1.25rem; margin-bottom: 15px; color: var(--sumi); font-weight: 600; letter-spacing: 2px; }
+        .service-card p { color: #666; font-size: 0.95rem; line-height: 1.9; }
+
+        .features { background: var(--kinari); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 35px 20px; background: var(--white); transition: all 0.3s ease; border: 1px solid var(--hinoki); }
+        .feature-item:hover { transform: translateY(-8px); background: var(--indigo); border-color: var(--indigo); }
+        .feature-item:hover .material-icons { color: var(--matcha); }
+        .feature-item:hover h4, .feature-item:hover p { color: var(--kinari); }
+        .feature-item .material-icons { font-size: 2.5rem; color: var(--matcha); margin-bottom: 15px; transition: color 0.3s; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; color: var(--sumi); font-weight: 600; transition: color 0.3s; letter-spacing: 1px; }
+        .feature-item p { color: #888; font-size: 0.8rem; transition: color 0.3s; }
+
+        .cta-section { background: linear-gradient(135deg, var(--matcha), var(--indigo)); color: var(--kinari); text-align: center; padding: 100px 50px; }
+        .cta-section h2 { font-family: 'Shippori Mincho', serif; font-size: 2rem; margin-bottom: 15px; font-weight: 600; letter-spacing: 3px; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.9; font-size: 1rem; }
+        .cta-section .cta-btn { background: var(--kinari); color: var(--indigo); }
+
+        footer { background: var(--kuromame); color: var(--soy); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Shippori Mincho', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 20px; letter-spacing: 5px; }
+        .footer-logo span { color: var(--matcha); display: block; font-size: 0.9rem; letter-spacing: 2px; margin-top: 5px; }
+        .copyright { color: rgba(232,220,196,0.4); font-size: 0.85rem; margin-top: 20px; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(45,45,45,0.1); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; text-decoration: none; font-weight: 500; background: var(--matcha); color: var(--kinari); transition: all 0.3s ease; letter-spacing: 1px; }
+        .fixed-cta a:hover { transform: scale(1.05); background: var(--indigo); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; letter-spacing: 3px; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .tofu-steam, .soybean, .wa-pattern { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">豆腐店AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>豆腐店のAI活用</h1><p>AI活用で業務効率化と顧客体験向上を実現します。</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">豆匠<span>MAMESHOW</span></div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="tofu-steam"></div>
+        <div class="tofu-steam"></div>
+        <div class="tofu-steam"></div>
+        <div class="soybean">🫘</div>
+        <div class="soybean">🫘</div>
+        <div class="soybean">🫘</div>
+        <div class="wa-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-badge">豆腐店向けAI研修</div>
+            <h1>伝統の技を<span>未来へつなぐ</span></h1>
+            <p>製造管理・需要予測・顧客分析まで、老舗の味を守りながら経営をAIでサポート。廃棄削減と品質向上を両立。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">spa</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2></div>
+        <div class="section-header fade-in">
+            <h2>豆腐店専門AI</h2>
+            <p>朝の製造から販売まで一貫サポート</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの活用法を学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>業務効率化</h3><p>業界特有の課題に合わせた研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>導入支援</h3><p>研修後も3ヶ月間のサポートで定着までフォロー。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🌅</div>
+                <h3>製造計画・品質管理</h3>
+                <p>天候・曜日・季節から需要を予測し、最適な製造量をAIが算出。にがり投入タイミングも数値化。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🫘</div>
+                <h3>原料仕入れ最適化</h3>
+                <p>大豆の価格動向・品質情報をAIが分析。最適な仕入れタイミングと在庫管理をサポート。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📱</div>
+                <h3>顧客管理・配達最適化</h3>
+                <p>お得意様の注文履歴から需要を予測。配達ルートの最適化で効率的な配送を実現。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">temple_buddhist</span>
+                <h4>伝統製法理解</h4>
+                <p>職人技を活かす</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">delete_forever</span>
+                <h4>廃棄40%削減</h4>
+                <p>需要予測の実績</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">watch_later</span>
+                <h4>早朝作業効率化</h4>
+                <p>計画自動化</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">local_shipping</span>
+                <h4>配達効率1.5倍</h4>
+                <p>ルート最適化</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">豆腐店AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>貴店の課題をお聞かせください</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">豆匠<span>MAMESHOW</span></div>
+        <p>豆腐店のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        window.addEventListener('scroll', () => { document.querySelector('.fixed-cta').classList.toggle('visible', window.scrollY > 500); });
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>

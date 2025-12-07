@@ -3,83 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スパ・温泉AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>湯心 YUSHIN | スパ・温泉DX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #b8860b; --secondary: #daa520; --dark: #1a1a2e; --light: #f8f8f8; --white: #ffffff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '♨️'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; animation: fadeInUp 1s ease 0.5s forwards; opacity: 0; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --sage: #7c9082;
+            --sage-light: #a8c5ad;
+            --earth: #4a5043;
+            --bamboo: #8b9a71;
+            --stone: #6b705c;
+            --cream: #fefae0;
+            --warm-white: #f8f6f0;
+            --white: #ffffff;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--earth); line-height: 1.9; overflow-x: hidden; font-weight: 300; }
+
+        /* Steam Rising Animation */
+        .steam { position: absolute; width: 8px; height: 80px; background: linear-gradient(to top, rgba(255,255,255,0.1), rgba(255,255,255,0)); border-radius: 50%; animation: rise 6s ease-in-out infinite; }
+        .steam:nth-child(1) { right: 15%; bottom: 10%; animation-delay: 0s; }
+        .steam:nth-child(2) { right: 18%; bottom: 15%; animation-delay: 1s; width: 6px; height: 60px; }
+        .steam:nth-child(3) { right: 12%; bottom: 12%; animation-delay: 2s; width: 10px; height: 100px; }
+        .steam:nth-child(4) { right: 20%; bottom: 8%; animation-delay: 3s; }
+        @keyframes rise { 0% { opacity: 0; transform: translateY(0) scaleX(1); } 50% { opacity: 0.6; transform: translateY(-50px) scaleX(1.5); } 100% { opacity: 0; transform: translateY(-100px) scaleX(0.5); } }
+
+        /* Zen Circle */
+        .zen-circle { position: absolute; right: 10%; top: 25%; width: 250px; height: 250px; border: 2px solid rgba(124,144,130,0.2); border-radius: 50%; animation: zenRotate 60s linear infinite; }
+        .zen-circle::before { content: ''; position: absolute; top: 50%; left: 0; width: 15px; height: 15px; background: var(--sage-light); border-radius: 50%; transform: translateY(-50%); }
+        @keyframes zenRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(254,250,224,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 30px rgba(74,80,67,0.08); }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; font-weight: 600; color: var(--earth); letter-spacing: 3px; }
+        .logo span { color: var(--sage); font-weight: 400; }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--stone); font-size: 0.9rem; font-weight: 400; transition: color 0.3s; }
+        nav a:hover { color: var(--sage); }
+
+        .hero { min-height: 100vh; background: linear-gradient(160deg, var(--sage-light) 0%, var(--sage) 50%, var(--earth) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; overflow: hidden; }
+        .hero-content { max-width: 600px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 10px 25px; border-radius: 30px; font-size: 0.85rem; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.3); animation: fadeIn 1s ease; letter-spacing: 1px; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3.2rem; margin-bottom: 20px; line-height: 1.4; font-weight: 500; animation: slideUp 1s ease; letter-spacing: 2px; }
+        .hero h1 span { display: block; font-size: 1.1rem; font-weight: 300; opacity: 0.8; letter-spacing: 4px; margin-bottom: 10px; }
+        .hero p { font-size: 1.1rem; margin-bottom: 35px; opacity: 0.9; animation: slideUp 1s ease 0.2s both; font-weight: 300; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--earth); padding: 18px 40px; text-decoration: none; font-weight: 500; border-radius: 50px; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; box-shadow: 0 10px 30px rgba(74,80,67,0.2); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(74,80,67,0.3); background: var(--cream); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
-        .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; margin-bottom: 15px; color: var(--earth); font-weight: 500; letter-spacing: 2px; }
+        .section-header p { color: var(--stone); font-size: 1rem; font-weight: 300; }
+
+        .services { background: var(--warm-white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 50px 40px; border-radius: 16px; text-align: center; box-shadow: 0 10px 40px rgba(74,80,67,0.06); transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, var(--sage-light), var(--sage)); border-radius: 0 0 3px 3px; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(74,80,67,0.12); }
+        .service-icon { width: 90px; height: 90px; background: linear-gradient(135deg, var(--cream), var(--warm-white)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 2.5rem; border: 2px solid var(--sage-light); }
+        .service-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.3rem; margin-bottom: 15px; color: var(--earth); font-weight: 500; }
+        .service-card p { color: var(--stone); font-size: 0.95rem; line-height: 1.9; font-weight: 300; }
+
+        .features { background: var(--cream); }
         .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .copyright { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .feature-item { padding: 35px 20px; background: var(--white); border-radius: 12px; transition: all 0.3s ease; }
+        .feature-item:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(74,80,67,0.1); }
+        .feature-item .material-icons { font-size: 2.8rem; color: var(--sage); margin-bottom: 15px; }
+        .feature-item h4 { font-family: 'Zen Old Mincho', serif; font-size: 1.05rem; margin-bottom: 8px; color: var(--earth); font-weight: 500; }
+        .feature-item p { color: var(--stone); font-size: 0.85rem; font-weight: 300; }
+
+        .cta-section { background: linear-gradient(135deg, var(--sage), var(--earth)); color: var(--white); text-align: center; padding: 100px 50px; position: relative; }
+        .cta-section h2 { font-family: 'Zen Old Mincho', serif; font-size: 2.2rem; margin-bottom: 15px; font-weight: 500; letter-spacing: 2px; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.9; font-size: 1.1rem; font-weight: 300; }
+
+        footer { background: var(--earth); color: var(--cream); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 20px; letter-spacing: 3px; }
+        .copyright { color: rgba(254,250,224,0.5); font-size: 0.85rem; margin-top: 20px; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(74,80,67,0.15); transition: bottom 0.5s ease; z-index: 999; }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
-        .fixed-cta .consult { background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 500; background: var(--sage); color: var(--white); transition: all 0.3s ease; }
+        .fixed-cta a:hover { background: var(--earth); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.4rem; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .steam, .zen-circle { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">スパ・温泉AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>癒し空間のDX推進</h1><p>予約管理と接客品質の向上</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">湯心<span>YUSHIN</span></div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="zen-circle"></div>
+        <div class="hero-content">
+            <div class="hero-badge">スパ・温泉向けAI研修</div>
+            <h1><span>心と体を癒す空間を</span>AIでさらに心地よく</h1>
+            <p>予約最適化・顧客体験向上・業務効率化で、癒しの空間をもっと特別に。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">mail</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2><p>AI活用で業務を効率化</p></div>
+        <div class="section-header fade-in">
+            <h2>温浴施設のためのAI</h2>
+            <p>ゲストの満足度と業務効率を両立</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>予約AI研修</h3><p>ChatGPTなど最新AIツールの基本操作から実践活用まで学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>顧客管理</h3><p>業界特有の課題に合わせたカスタマイズ研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>業務効率化</h3><p>研修後も3ヶ月間のサポートで定着までフォローします。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🧘</div>
+                <h3>予約・混雑予測</h3>
+                <p>AIが来館予測を分析し、お客様に最適な来館時間を提案。待ち時間を減らし満足度向上。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">💆</div>
+                <h3>パーソナライズ接客</h3>
+                <p>お客様の好みを学習し、最適な施術・サービスを提案。リピート率を大幅に向上。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🌿</div>
+                <h3>設備管理AI</h3>
+                <p>温度・水質をIoTで24時間監視。異常を事前検知し、安全で快適な環境を維持。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">spa</span>
+                <h4>温浴施設専門</h4>
+                <p>業界を知る講師陣</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">favorite</span>
+                <h4>満足度+20%</h4>
+                <p>顧客体験の向上</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">auto_awesome</span>
+                <h4>簡単導入</h4>
+                <p>現場に負担をかけない</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">eco</span>
+                <h4>省エネ対応</h4>
+                <p>エネルギー効率も改善</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">スパ・温泉AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact" class="consult"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>貴施設に最適なプランをご提案します</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">湯心 YUSHIN</div>
+        <p>スパ・温泉のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, observerOptions);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
         const fixedCta = document.querySelector('.fixed-cta');
-        window.addEventListener('scroll', () => { fixedCta.classList.toggle('visible', window.scrollY > 500); });
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>

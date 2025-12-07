@@ -3,79 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酒屋AI研修 | Uravation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>蔵元 KURABITO | 酒屋DX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #2e8b57; --secondary: #556b2f; --dark: #1a1a2e; --light: #f8f8f8; --white: #fff; }
-        body { font-family: 'Noto Sans JP', sans-serif; color: var(--dark); line-height: 1.8; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        nav a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.9rem; }
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--white); position: relative; }
-        .hero::before { content: '🍶'; position: absolute; right: 10%; top: 30%; font-size: 12rem; opacity: 0.15; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; animation: fadeInUp 1s ease forwards; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
-        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--primary); padding: 18px 40px; text-decoration: none; font-weight: 700; border-radius: 50px; transition: all 0.3s ease; }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        :root {
+            --midnight: #1a1a2e;
+            --sake-white: #f8f6f0;
+            --gold-leaf: #c9a227;
+            --deep-red: #8b0000;
+            --cedar: #5d4e37;
+            --rice: #fffef5;
+            --indigo: #264653;
+            --silver: #c0c0c0;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: var(--midnight); line-height: 2; overflow-x: hidden; background: var(--sake-white); }
+
+        /* Sake Drop Animation */
+        .sake-drop { position: absolute; width: 4px; height: 20px; background: linear-gradient(to bottom, rgba(200,162,39,0.6), transparent); border-radius: 0 0 50% 50%; animation: sakeDrop 2.5s ease-in-out infinite; }
+        .sake-drop:nth-child(1) { right: 12%; top: 30%; animation-delay: 0s; }
+        .sake-drop:nth-child(2) { right: 15%; top: 32%; animation-delay: 0.8s; width: 3px; }
+        .sake-drop:nth-child(3) { right: 10%; top: 28%; animation-delay: 1.6s; width: 5px; }
+        @keyframes sakeDrop { 0% { opacity: 0; transform: translateY(-10px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(40px); } }
+
+        /* Tokkuri (Sake Bottle) */
+        .tokkuri { position: absolute; right: 8%; top: 35%; font-size: 5rem; opacity: 0.15; animation: tokkuriFloat 4s ease-in-out infinite; }
+        @keyframes tokkuriFloat { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-15px) rotate(3deg); } }
+
+        /* Rice Grain Pattern */
+        .rice-pattern { position: absolute; right: 22%; top: 45%; width: 80px; height: 80px; opacity: 0.1; }
+        .rice-grain { position: absolute; width: 8px; height: 4px; background: var(--gold-leaf); border-radius: 50%; animation: riceFloat 3s ease-in-out infinite; }
+        .rice-grain:nth-child(1) { top: 0; left: 30%; }
+        .rice-grain:nth-child(2) { top: 20px; left: 10%; animation-delay: 0.5s; }
+        .rice-grain:nth-child(3) { top: 40px; left: 50%; animation-delay: 1s; }
+        .rice-grain:nth-child(4) { top: 60px; left: 25%; animation-delay: 1.5s; }
+        @keyframes riceFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(248,246,240,0.98); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 2px 30px rgba(26,26,46,0.05); border-bottom: 1px solid rgba(201,162,39,0.3); }
+        .logo { font-family: 'Zen Old Mincho', serif; font-size: 1.8rem; font-weight: 700; color: var(--midnight); letter-spacing: 10px; }
+        .logo span { color: var(--gold-leaf); font-size: 0.9rem; display: block; letter-spacing: 3px; margin-top: -5px; }
+        nav a { margin-left: 30px; text-decoration: none; color: var(--midnight); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; letter-spacing: 1px; }
+        nav a:hover { color: var(--gold-leaf); }
+
+        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--midnight) 0%, var(--indigo) 100%); display: flex; align-items: center; padding: 120px 50px 80px; color: var(--sake-white); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9a227' fill-opacity='0.03'%3E%3Ccircle cx='60' cy='60' r='2'/%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-content { max-width: 650px; position: relative; z-index: 10; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,162,39,0.15); border: 1px solid var(--gold-leaf); padding: 10px 25px; border-radius: 0; font-size: 0.85rem; margin-bottom: 25px; color: var(--gold-leaf); animation: fadeIn 1s ease; letter-spacing: 3px; }
+        .hero h1 { font-family: 'Zen Old Mincho', serif; font-size: 3rem; margin-bottom: 20px; line-height: 1.5; font-weight: 700; animation: slideUp 1s ease; letter-spacing: 8px; }
+        .hero h1 span { color: var(--gold-leaf); }
+        .hero p { font-size: 1.1rem; margin-bottom: 35px; opacity: 0.9; animation: slideUp 1s ease 0.2s both; letter-spacing: 1px; }
+
+        .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--gold-leaf); color: var(--midnight); padding: 18px 40px; text-decoration: none; font-weight: 600; border-radius: 0; transition: all 0.3s ease; animation: slideUp 1s ease 0.4s both; box-shadow: 0 10px 30px rgba(201,162,39,0.3); letter-spacing: 1px; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201,162,39,0.4); background: var(--sake-white); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
         .section { padding: 100px 50px; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; margin-bottom: 15px; color: var(--primary); }
-        .services { background: var(--light); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .service-card { background: var(--white); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .service-card:hover { transform: translateY(-10px); }
-        .service-icon { font-size: 3.5rem; margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--primary); }
-        .service-card p { color: #666; font-size: 0.95rem; }
-        .features { background: var(--white); }
-        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: center; }
-        .feature-item { padding: 30px 20px; }
-        .feature-item .material-icons { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; }
-        .feature-item p { color: #888; font-size: 0.85rem; }
-        .cta { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); text-align: center; padding: 80px 50px; }
-        .cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        footer { background: var(--dark); color: var(--white); padding: 50px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
-        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(0,0,0,0.1); transition: bottom 0.5s ease; z-index: 999; }
+        .section-header h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 15px; color: var(--midnight); font-weight: 700; letter-spacing: 5px; }
+        .section-header p { color: #777; font-size: 0.95rem; letter-spacing: 1px; }
+
+        .services { background: var(--rice); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--sake-white); padding: 45px 35px; text-align: center; box-shadow: 0 10px 40px rgba(26,26,46,0.05); transition: all 0.4s ease; border: 1px solid rgba(201,162,39,0.2); position: relative; }
+        .service-card::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gold-leaf); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(26,26,46,0.1); border-color: var(--gold-leaf); }
+        .service-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--midnight), var(--indigo)); border-radius: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 2.2rem; }
+        .service-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 1.25rem; margin-bottom: 15px; color: var(--midnight); font-weight: 600; letter-spacing: 2px; }
+        .service-card p { color: #666; font-size: 0.95rem; line-height: 1.9; }
+
+        .features { background: var(--sake-white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .feature-item { padding: 35px 20px; background: var(--rice); transition: all 0.3s ease; border: 1px solid rgba(201,162,39,0.15); }
+        .feature-item:hover { transform: translateY(-8px); background: var(--midnight); border-color: var(--midnight); }
+        .feature-item:hover .material-icons { color: var(--gold-leaf); }
+        .feature-item:hover h4, .feature-item:hover p { color: var(--sake-white); }
+        .feature-item .material-icons { font-size: 2.5rem; color: var(--deep-red); margin-bottom: 15px; transition: color 0.3s; }
+        .feature-item h4 { font-size: 1rem; margin-bottom: 8px; color: var(--midnight); font-weight: 600; transition: color 0.3s; letter-spacing: 1px; }
+        .feature-item p { color: #888; font-size: 0.8rem; transition: color 0.3s; }
+
+        .cta-section { background: linear-gradient(135deg, var(--deep-red), var(--midnight)); color: var(--sake-white); text-align: center; padding: 100px 50px; }
+        .cta-section h2 { font-family: 'Zen Old Mincho', serif; font-size: 2rem; margin-bottom: 15px; font-weight: 700; letter-spacing: 3px; }
+        .cta-section p { margin-bottom: 35px; opacity: 0.9; font-size: 1rem; }
+        .cta-section .cta-btn { background: var(--gold-leaf); color: var(--midnight); }
+
+        footer { background: var(--midnight); color: var(--sake-white); padding: 60px 50px; text-align: center; }
+        .footer-logo { font-family: 'Zen Old Mincho', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 8px; }
+        .footer-logo span { color: var(--gold-leaf); display: block; font-size: 0.9rem; letter-spacing: 3px; margin-top: 5px; }
+        .copyright { color: rgba(248,246,240,0.4); font-size: 0.85rem; margin-top: 20px; }
+
+        .fixed-cta { position: fixed; bottom: -100px; left: 0; right: 0; background: var(--sake-white); padding: 15px 50px; display: flex; justify-content: center; gap: 20px; box-shadow: 0 -5px 30px rgba(26,26,46,0.1); transition: bottom 0.5s ease; z-index: 999; border-top: 1px solid rgba(201,162,39,0.3); }
         .fixed-cta.visible { bottom: 0; }
-        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; background: var(--primary); color: var(--white); }
-        @media (max-width: 768px) { header { padding: 15px 20px; } nav { display: none; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 2rem; } .section { padding: 60px 20px; } .features-grid { grid-template-columns: repeat(2, 1fr); } }
+        .fixed-cta a { display: flex; align-items: center; gap: 8px; padding: 15px 35px; text-decoration: none; font-weight: 600; background: var(--midnight); color: var(--gold-leaf); transition: all 0.3s ease; letter-spacing: 1px; }
+        .fixed-cta a:hover { transform: scale(1.05); background: var(--deep-red); color: var(--sake-white); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; letter-spacing: 5px; }
+            .section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .sake-drop, .tokkuri, .rice-pattern { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header><div class="logo">酒屋AI研修</div><nav><a href="#services">サービス</a><a href="#features">特徴</a><a href="#contact">お問い合わせ</a></nav></header>
-    <section class="hero"><div class="hero-content"><h1>酒販店のDX推進</h1><p>AI活用で業務効率化と顧客体験向上を実現します。</p><a href="#contact" class="cta-btn"><span class="material-icons">mail</span>無料相談</a></div></section>
+    <header>
+        <div class="logo">蔵元<span>KURABITO</span></div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#features">特徴</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="sake-drop"></div>
+        <div class="sake-drop"></div>
+        <div class="sake-drop"></div>
+        <div class="tokkuri">🍶</div>
+        <div class="rice-pattern">
+            <div class="rice-grain"></div>
+            <div class="rice-grain"></div>
+            <div class="rice-grain"></div>
+            <div class="rice-grain"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">酒屋向けAI研修</div>
+            <h1>銘酒の価値を<span>AIで届ける</span></h1>
+            <p>在庫管理・顧客分析・ペアリング提案まで、酒屋経営をAIでサポート。お客様一人ひとりに最適な一本を提案。</p>
+            <a href="#contact" class="cta-btn">
+                <span class="material-icons">wine_bar</span>無料相談を予約
+            </a>
+        </div>
+    </section>
+
     <section class="services section" id="services">
-        <div class="section-header fade-in"><h2>サービス内容</h2></div>
+        <div class="section-header fade-in">
+            <h2>酒屋専門AI</h2>
+            <p>日本酒・ワイン・クラフトビールの専門知識をAIに</p>
+        </div>
         <div class="services-grid">
-            <div class="service-card fade-in"><div class="service-icon">🤖</div><h3>AI基礎研修</h3><p>ChatGPTなど最新AIツールの活用法を学べます。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">📊</div><h3>業務効率化</h3><p>業界特有の課題に合わせた研修を提供します。</p></div>
-            <div class="service-card fade-in"><div class="service-icon">🎯</div><h3>導入支援</h3><p>研修後も3ヶ月間のサポートで定着までフォロー。</p></div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🍶</div>
+                <h3>銘柄レコメンドAI</h3>
+                <p>お客様の好み・料理・シーンから最適な銘柄をAIが提案。専門知識がなくても的確なアドバイスが可能に。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">📊</div>
+                <h3>在庫・仕入れ最適化</h3>
+                <p>季節・トレンド・顧客層から需要を予測。希少銘柄の仕入れタイミングと適正在庫をAIがサポート。</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🎓</div>
+                <h3>知識データベース化</h3>
+                <p>蔵元情報・テイスティングノート・ペアリング知識をAIに学習。新人でもプロ級の接客を実現。</p>
+            </div>
         </div>
     </section>
+
     <section class="features section" id="features">
-        <div class="section-header fade-in"><h2>選ばれる理由</h2></div>
+        <div class="section-header fade-in">
+            <h2>選ばれる理由</h2>
+        </div>
         <div class="features-grid">
-            <div class="feature-item fade-in"><span class="material-icons">verified</span><h4>実績500社以上</h4><p>豊富な導入実績</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">support_agent</span><h4>専門講師</h4><p>現役エンジニア</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">tune</span><h4>カスタマイズ</h4><p>業界特化研修</p></div>
-            <div class="feature-item fade-in"><span class="material-icons">trending_up</span><h4>効果測定</h4><p>ROI可視化</p></div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">liquor</span>
+                <h4>酒類専門</h4>
+                <p>ソムリエ監修</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">recommend</span>
+                <h4>提案精度95%</h4>
+                <p>顧客満足度</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">inventory_2</span>
+                <h4>在庫回転1.4倍</h4>
+                <p>需要予測で実現</p>
+            </div>
+            <div class="feature-item fade-in">
+                <span class="material-icons">person_add</span>
+                <h4>新人即戦力化</h4>
+                <p>知識DB活用</p>
+            </div>
         </div>
     </section>
-    <section class="cta" id="contact"><h2>まずは無料相談から</h2><a href="#" class="cta-btn">お問い合わせ</a></section>
-    <footer><div class="footer-logo">酒屋AI研修</div><p>&copy; 2024 Uravation Inc.</p></footer>
-    <div class="fixed-cta"><a href="#contact"><span class="material-icons">mail</span>無料相談</a></div>
+
+    <section class="cta-section" id="contact">
+        <h2>まずは無料相談から</h2>
+        <p>貴店の課題をお聞かせください</p>
+        <a href="#" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">蔵元<span>KURABITO</span></div>
+        <p>酒屋のためのAI研修</p>
+        <p class="copyright">&copy; 2024 Uravation Inc.</p>
+    </footer>
+
+    <div class="fixed-cta">
+        <a href="#contact">
+            <span class="material-icons">mail</span>無料相談
+        </a>
+    </div>
+
     <script>
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        window.addEventListener('scroll', () => { document.querySelector('.fixed-cta').classList.toggle('visible', window.scrollY > 500); });
+
+        const fixedCta = document.querySelector('.fixed-cta');
+        window.addEventListener('scroll', () => {
+            fixedCta.classList.toggle('visible', window.scrollY > 500);
+        });
     </script>
 </body>
 </html>
