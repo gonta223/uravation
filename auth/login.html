@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; min-height: 100vh; display: flex; }
+
+        .left-panel { flex: 1; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%); padding: 60px; display: flex; flex-direction: column; justify-content: space-between; color: white; position: relative; overflow: hidden; }
+        .left-panel::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); }
+
+        .brand { font-size: 2rem; font-weight: 900; position: relative; z-index: 10; }
+        .brand-tagline { margin-top: 15px; font-size: 1.1rem; opacity: 0.9; }
+
+        .testimonial { position: relative; z-index: 10; max-width: 400px; }
+        .testimonial-text { font-size: 1.5rem; font-weight: 500; line-height: 1.6; margin-bottom: 30px; }
+        .testimonial-author { display: flex; align-items: center; gap: 15px; }
+        .author-avatar { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .author-info .name { font-weight: 600; }
+        .author-info .role { font-size: 0.9rem; opacity: 0.8; }
+
+        .floating-shapes { position: absolute; inset: 0; pointer-events: none; }
+        .shape { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.1); }
+        .shape-1 { width: 200px; height: 200px; top: 10%; right: 10%; }
+        .shape-2 { width: 100px; height: 100px; bottom: 20%; left: 10%; }
+        .shape-3 { width: 60px; height: 60px; top: 40%; right: 30%; }
+
+        .right-panel { flex: 1; background: #f8fafc; display: flex; align-items: center; justify-content: center; padding: 40px; }
+
+        .login-container { width: 100%; max-width: 400px; }
+        .login-header { margin-bottom: 40px; }
+        .login-header h1 { font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
+        .login-header p { color: #64748b; }
+        .login-header p a { color: #6366f1; text-decoration: none; font-weight: 500; }
+
+        .social-login { display: flex; gap: 12px; margin-bottom: 30px; }
+        .social-btn { flex: 1; padding: 14px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: #1e293b; transition: all 0.3s; }
+        .social-btn:hover { border-color: #6366f1; }
+        .social-btn img { width: 20px; height: 20px; }
+
+        .divider { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; color: #94a3b8; font-size: 0.9rem; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; color: #1e293b; margin-bottom: 10px; }
+        .form-group input { width: 100%; padding: 16px 18px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 1rem; background: white; transition: border-color 0.3s; }
+        .form-group input:focus { outline: none; border-color: #6366f1; }
+
+        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .remember-me { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #64748b; }
+        .remember-me input { width: 18px; height: 18px; accent-color: #6366f1; }
+        .forgot-link { color: #6366f1; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+
+        .login-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        .security-note { margin-top: 30px; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #64748b; }
+        .security-note span:first-child { font-size: 1.2rem; }
+
+        @media (max-width: 900px) {
+            .left-panel { display: none; }
+            .right-panel { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="left-panel">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <div>
+            <div class="brand">AppName</div>
+            <p class="brand-tagline">ビジネスを次のレベルへ</p>
+        </div>
+
+        <div class="testimonial">
+            <p class="testimonial-text">"AppNameを導入してから、チームの生産性が200%向上しました。もう手放せません。"</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">👨‍💼</div>
+                <div class="author-info">
+                    <div class="name">田中 健太</div>
+                    <div class="role">株式会社サンプル CTO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>おかえりなさい</h1>
+                <p>アカウントをお持ちでない方は <a href="register.html">新規登録</a></p>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn">🌐 Google</button>
+                <button class="social-btn">🍎 Apple</button>
+            </div>
+
+            <div class="divider">または</div>
+
+            <form>
+                <div class="form-group">
+                    <label>メールアドレス</label>
+                    <input type="email" placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label>パスワード</label>
+                    <input type="password" placeholder="••••••••">
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox">
+                        ログイン状態を保持
+                    </label>
+                    <a href="#" class="forgot-link">パスワードを忘れた？</a>
+                </div>
+
+                <button type="submit" class="login-btn">ログイン</button>
+            </form>
+
+            <div class="security-note">
+                <span>🔒</span>
+                <span>256bit SSL暗号化で保護されています</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

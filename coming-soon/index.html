@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - 新サービス公開予定</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0a0a0a; color: white; min-height: 100vh; overflow-x: hidden; }
+
+        .bg-gradient { position: fixed; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%); pointer-events: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; min-height: 100vh; display: flex; flex-direction: column; position: relative; z-index: 10; }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 100px; }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; }
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.1rem; transition: all 0.3s; }
+        .social-links a:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+        main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+        .content h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 30px; letter-spacing: -2px; }
+        .content h1 .gradient { background: linear-gradient(135deg, #6366f1, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .content p { font-size: 1.2rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 50px; }
+
+        .countdown { display: flex; gap: 25px; margin-bottom: 50px; }
+        .countdown-item { text-align: center; }
+        .countdown-value { font-size: 4rem; font-weight: 900; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 20px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
+        .countdown-label { font-size: 0.85rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px; }
+
+        .notify-form { display: flex; gap: 12px; max-width: 450px; }
+        .notify-form input { flex: 1; padding: 18px 24px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; color: white; font-size: 1rem; }
+        .notify-form input::placeholder { color: rgba(255,255,255,0.3); }
+        .notify-form input:focus { outline: none; border-color: #6366f1; }
+        .notify-form button { padding: 18px 32px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+        .notify-form button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        .feature-preview { position: relative; }
+        .preview-card { background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px; backdrop-filter: blur(10px); }
+        .preview-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; }
+        .feature-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .feature-item:last-child { border-bottom: none; }
+        .feature-icon { width: 45px; height: 45px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .feature-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .feature-text p { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+        .floating-elements { position: absolute; inset: -50px; pointer-events: none; }
+        .float-item { position: absolute; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3)); border-radius: 16px; animation: float 6s ease-in-out infinite; }
+        .float-item:nth-child(1) { top: 10%; left: -20px; animation-delay: 0s; }
+        .float-item:nth-child(2) { top: 60%; right: -30px; animation-delay: 2s; width: 40px; height: 40px; }
+        .float-item:nth-child(3) { bottom: 10%; left: 30%; animation-delay: 4s; width: 30px; height: 30px; border-radius: 50%; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+
+        .stats-bar { display: flex; gap: 50px; margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .stat-item .stat-value { font-size: 2rem; font-weight: 800; margin-bottom: 5px; }
+        .stat-item .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+
+        @media (max-width: 900px) {
+            main { grid-template-columns: 1fr; gap: 50px; }
+            .content h1 { font-size: 2.5rem; }
+            .countdown-value { font-size: 2.5rem; width: 70px; height: 70px; }
+            .stats-bar { flex-wrap: wrap; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">NEXT/APP</div>
+            <div class="social-links">
+                <a href="#">🐦</a>
+                <a href="#">📸</a>
+                <a href="#">💼</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="content">
+                <h1>まもなく<br><span class="gradient">革新的な体験</span>を<br>お届けします</h1>
+                <p>私たちは、あなたの生産性を飛躍的に向上させる次世代プラットフォームを開発中です。ローンチの瞬間をお見逃しなく。</p>
+
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-value">14</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">08</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">42</div>
+                        <div class="countdown-label">Min</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">19</div>
+                        <div class="countdown-label">Sec</div>
+                    </div>
+                </div>
+
+                <form class="notify-form">
+                    <input type="email" placeholder="メールアドレスを入力">
+                    <button type="submit">通知を受け取る</button>
+                </form>
+            </div>
+
+            <div class="feature-preview">
+                <div class="floating-elements">
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                </div>
+                <div class="preview-card">
+                    <h3>🚀 開発中の機能</h3>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-text">
+                            <h4>超高速パフォーマンス</h4>
+                            <p>最新技術による瞬時のレスポンス</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-text">
+                            <h4>AI搭載アシスタント</h4>
+                            <p>スマートな自動化でタスクを効率化</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-text">
+                            <h4>エンタープライズセキュリティ</h4>
+                            <p>銀行レベルの堅牢なセキュリティ</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-text">
+                            <h4>グローバル対応</h4>
+                            <p>20言語以上に対応予定</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">5,240+</div>
+                <div class="stat-label">事前登録者数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">β版テスター</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">12</div>
+                <div class="stat-label">開発チーム</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

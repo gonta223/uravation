@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - ページが見つかりません</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        .stars { position: fixed; inset: 0; pointer-events: none; }
+        .star { position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%; animation: twinkle 2s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        header { padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 10; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .back-btn { padding: 12px 24px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+        main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; position: relative; z-index: 10; }
+
+        .error-code { font-size: 15rem; font-weight: 900; line-height: 1; background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; }
+        .error-code::after { content: '404'; position: absolute; inset: 0; background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: blur(50px); opacity: 0.5; z-index: -1; }
+
+        .astronaut { font-size: 8rem; margin: 30px 0; animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+
+        .error-message { text-align: center; max-width: 500px; margin-bottom: 40px; }
+        .error-message h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
+        .error-message p { color: rgba(255,255,255,0.6); font-size: 1.05rem; line-height: 1.7; }
+
+        .action-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .action-btn { padding: 16px 32px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .action-btn.primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .action-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+        .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .action-btn.secondary:hover { background: rgba(255,255,255,0.2); }
+
+        .suggestions { margin-top: 60px; text-align: center; }
+        .suggestions h3 { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+        .suggestion-links { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+        .suggestion-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .suggestion-links a:hover { color: #6366f1; }
+
+        .planet { position: fixed; border-radius: 50%; }
+        .planet-1 { width: 300px; height: 300px; background: linear-gradient(135deg, #1e40af, #3b82f6); bottom: -100px; right: -50px; opacity: 0.3; }
+        .planet-2 { width: 150px; height: 150px; background: linear-gradient(135deg, #7c3aed, #a855f7); top: 100px; left: 50px; opacity: 0.2; }
+
+        @media (max-width: 600px) {
+            .error-code { font-size: 8rem; }
+            .astronaut { font-size: 5rem; }
+            .error-message h1 { font-size: 1.4rem; }
+            header { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="planet planet-1"></div>
+    <div class="planet planet-2"></div>
+
+    <header>
+        <div class="logo">AppName</div>
+        <a href="#" class="back-btn">← 戻る</a>
+    </header>
+
+    <main>
+        <div class="error-code">404</div>
+        <div class="astronaut">🧑‍🚀</div>
+        <div class="error-message">
+            <h1>宇宙の彼方へ迷い込みました</h1>
+            <p>お探しのページは存在しないか、移動または削除された可能性があります。URLをご確認いただくか、以下のリンクからお探しください。</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="action-btn primary">🏠 ホームへ戻る</a>
+            <a href="#" class="action-btn secondary">🔍 サイト内検索</a>
+        </div>
+
+        <div class="suggestions">
+            <h3>人気のページ</h3>
+            <div class="suggestion-links">
+                <a href="#">製品情報</a>
+                <a href="#">料金プラン</a>
+                <a href="#">ヘルプセンター</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 星を生成
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            star.style.width = Math.random() * 2 + 1 + 'px';
+            star.style.height = star.style.width;
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
