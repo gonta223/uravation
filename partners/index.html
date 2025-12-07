@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パートナープログラム - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 100px 50px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -2px; position: relative; }
+        .hero h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto 40px; position: relative; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; position: relative; }
+        .hero-btn { padding: 16px 35px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .hero-btn.primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .hero-btn.secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+
+        .partner-types { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+        .section-header p { color: #64748b; font-size: 1.1rem; }
+
+        .types-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .type-card { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s; border: 2px solid transparent; }
+        .type-card:hover { transform: translateY(-5px); border-color: #6366f1; }
+        .type-card .icon { width: 80px; height: 80px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 25px; }
+        .type-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; }
+        .type-card p { font-size: 1rem; color: #64748b; line-height: 1.7; margin-bottom: 25px; }
+        .type-card .benefits { list-style: none; margin-bottom: 25px; }
+        .type-card .benefits li { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.95rem; color: #475569; }
+        .type-card .benefits .check { color: #22c55e; font-weight: bold; }
+        .type-card .apply-btn { display: inline-block; padding: 14px 28px; background: #6366f1; color: white; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .type-card .apply-btn:hover { background: #4f46e5; }
+
+        .benefits-section { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 80px 50px; color: white; }
+        .benefits-container { max-width: 1200px; margin: 0 auto; }
+        .benefits-header { text-align: center; margin-bottom: 50px; }
+        .benefits-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .benefit-item { text-align: center; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 16px; }
+        .benefit-item .icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .benefit-item h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .benefit-item p { font-size: 0.9rem; opacity: 0.9; }
+
+        .tiers-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .tiers-table { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .tiers-table table { width: 100%; border-collapse: collapse; }
+        .tiers-table th, .tiers-table td { padding: 20px 25px; text-align: left; border-bottom: 1px solid #f1f5f9; }
+        .tiers-table thead { background: #f8fafc; }
+        .tiers-table th { font-weight: 600; color: #64748b; font-size: 0.9rem; }
+        .tiers-table td { font-size: 0.95rem; }
+        .tier-name { font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .tier-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        .tier-badge.silver { background: #e2e8f0; color: #64748b; }
+        .tier-badge.gold { background: #fef3c7; color: #d97706; }
+        .tier-badge.platinum { background: #e0e7ff; color: #6366f1; }
+        .check-icon { color: #22c55e; font-size: 1.2rem; }
+        .dash-icon { color: #cbd5e1; }
+
+        .partners-showcase { background: #f8fafc; padding: 80px 20px; }
+        .showcase-container { max-width: 1200px; margin: 0 auto; }
+        .partners-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; margin-top: 40px; }
+        .partner-logo { width: 150px; height: 60px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; color: #94a3b8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+        .testimonials-section { max-width: 1000px; margin: 0 auto; padding: 80px 20px; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .testimonial-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .testimonial-card .quote { font-size: 1.05rem; color: #475569; line-height: 1.8; margin-bottom: 25px; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 15px; }
+        .author-avatar { width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .author-info .name { font-weight: 700; margin-bottom: 3px; }
+        .author-info .company { font-size: 0.9rem; color: #64748b; }
+
+        .cta-section { background: #1e293b; color: white; padding: 80px 50px; text-align: center; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 35px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cta-btn { display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; }
+
+        @media (max-width: 1000px) {
+            .types-grid { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-buttons { flex-direction: column; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .benefits-section { padding: 60px 20px; }
+            .tiers-table { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+            <a href="#">パートナー</a>
+        </nav>
+        <a href="#" class="header-cta">パートナー申請</a>
+    </header>
+
+    <section class="hero">
+        <h1>一緒に<span>成長</span>しましょう</h1>
+        <p>AppNameパートナープログラムに参加して、新たな収益源を獲得しながら、お客様により大きな価値を提供しませんか？</p>
+        <div class="hero-buttons">
+            <a href="#" class="hero-btn primary">パートナーになる</a>
+            <a href="#" class="hero-btn secondary">詳細を見る</a>
+        </div>
+    </section>
+
+    <section class="partner-types">
+        <div class="section-header">
+            <h2>パートナータイプ</h2>
+            <p>あなたのビジネスに最適なパートナーシップをお選びください</p>
+        </div>
+        <div class="types-grid">
+            <div class="type-card">
+                <div class="icon">🏢</div>
+                <h3>リセラーパートナー</h3>
+                <p>AppNameを直接販売し、お客様のビジネス成長をサポートしながら収益を獲得</p>
+                <ul class="benefits">
+                    <li><span class="check">✓</span>最大40%のマージン</li>
+                    <li><span class="check">✓</span>専任アカウントマネージャー</li>
+                    <li><span class="check">✓</span>営業・技術トレーニング</li>
+                    <li><span class="check">✓</span>共同マーケティング支援</li>
+                </ul>
+                <a href="#" class="apply-btn">申し込む →</a>
+            </div>
+            <div class="type-card">
+                <div class="icon">🔧</div>
+                <h3>ソリューションパートナー</h3>
+                <p>AppNameを活用したソリューションを構築・提供するシステムインテグレーター向け</p>
+                <ul class="benefits">
+                    <li><span class="check">✓</span>技術認定プログラム</li>
+                    <li><span class="check">✓</span>優先サポート</li>
+                    <li><span class="check">✓</span>案件紹介</li>
+                    <li><span class="check">✓</span>APIアクセス</li>
+                </ul>
+                <a href="#" class="apply-btn">申し込む →</a>
+            </div>
+            <div class="type-card">
+                <div class="icon">🔗</div>
+                <h3>テクノロジーパートナー</h3>
+                <p>AppNameと連携するアプリ・サービスを開発するテクノロジー企業向け</p>
+                <ul class="benefits">
+                    <li><span class="check">✓</span>開発者向けリソース</li>
+                    <li><span class="check">✓</span>マーケットプレイス掲載</li>
+                    <li><span class="check">✓</span>技術サポート</li>
+                    <li><span class="check">✓</span>共同プロモーション</li>
+                </ul>
+                <a href="#" class="apply-btn">申し込む →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <div class="benefits-header">
+                <h2>パートナー特典</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="icon">💰</div>
+                    <h3>収益機会</h3>
+                    <p>魅力的なマージンと継続的な収益</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">📚</div>
+                    <h3>トレーニング</h3>
+                    <p>製品・営業の専門トレーニング</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">🎯</div>
+                    <h3>リード提供</h3>
+                    <p>見込み顧客の紹介プログラム</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">📣</div>
+                    <h3>マーケティング</h3>
+                    <p>共同マーケティング支援</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tiers-section">
+        <div class="section-header">
+            <h2>パートナーティア</h2>
+            <p>実績に応じてティアが上がり、より多くの特典を獲得できます</p>
+        </div>
+        <div class="tiers-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>特典</th>
+                        <th>Silver</th>
+                        <th>Gold</th>
+                        <th>Platinum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>基本マージン</td>
+                        <td>20%</td>
+                        <td>30%</td>
+                        <td>40%</td>
+                    </tr>
+                    <tr>
+                        <td>専任アカウントマネージャー</td>
+                        <td><span class="dash-icon">—</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>リード提供</td>
+                        <td><span class="dash-icon">—</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>MDF（マーケティング開発資金）</td>
+                        <td><span class="dash-icon">—</span></td>
+                        <td><span class="dash-icon">—</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>イベント登壇機会</td>
+                        <td><span class="dash-icon">—</span></td>
+                        <td><span class="dash-icon">—</span></td>
+                        <td><span class="check-icon">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>年間売上要件</td>
+                        <td>なし</td>
+                        <td>500万円以上</td>
+                        <td>2,000万円以上</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="partners-showcase">
+        <div class="showcase-container">
+            <div class="section-header">
+                <h2>パートナー企業</h2>
+                <p>300社以上のパートナー企業が参加しています</p>
+            </div>
+            <div class="partners-logos">
+                <div class="partner-logo">ACME</div>
+                <div class="partner-logo">TechCo</div>
+                <div class="partner-logo">GlobalIT</div>
+                <div class="partner-logo">SysCorp</div>
+                <div class="partner-logo">DataPro</div>
+                <div class="partner-logo">CloudX</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="section-header">
+            <h2>パートナーの声</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="quote">「AppNameパートナープログラムに参加して2年で、売上が3倍になりました。手厚いサポートと高いマージンが魅力です。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨‍💼</div>
+                    <div class="author-info">
+                        <div class="name">山田 太郎</div>
+                        <div class="company">株式会社テックソリューションズ 代表取締役</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">「技術トレーニングが充実していて、自信を持ってお客様に提案できます。案件紹介も多く、Win-Winの関係を築けています。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👩‍💼</div>
+                    <div class="author-info">
+                        <div class="name">佐藤 花子</div>
+                        <div class="company">グローバルIT株式会社 営業部長</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>パートナーシップを始めましょう</h2>
+        <p>申請は簡単。まずはフォームからお申し込みください。担当者が48時間以内にご連絡します。</p>
+        <a href="#" class="cta-btn">今すぐ申請する →</a>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

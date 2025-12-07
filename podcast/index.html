@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポッドキャスト - AppName Cast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+
+        header { background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid #1e293b; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 1.5rem; font-weight: 800; color: white; }
+        nav a { margin-left: 30px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
+        nav a:hover { color: white; }
+        .subscribe-btn { padding: 12px 24px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { padding: 100px 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1300px; margin: 0 auto; align-items: center; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 25px; line-height: 1.2; letter-spacing: -2px; }
+        .hero-content h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-content p { font-size: 1.2rem; color: #94a3b8; line-height: 1.8; margin-bottom: 35px; }
+        .platform-links { display: flex; gap: 15px; flex-wrap: wrap; }
+        .platform-link { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: #1e293b; border-radius: 12px; text-decoration: none; color: white; font-weight: 500; transition: all 0.3s; border: 1px solid #334155; }
+        .platform-link:hover { background: #334155; transform: translateY(-2px); }
+        .platform-link .icon { font-size: 1.5rem; }
+
+        .hero-artwork { display: flex; justify-content: center; }
+        .podcast-cover { width: 400px; height: 400px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7); border-radius: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 30px 80px rgba(99, 102, 241, 0.3); position: relative; }
+        .podcast-cover .mic { font-size: 8rem; margin-bottom: 20px; }
+        .podcast-cover .title { font-size: 2rem; font-weight: 900; }
+        .podcast-cover::after { content: ''; position: absolute; inset: -3px; background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 32px; z-index: -1; filter: blur(20px); opacity: 0.5; }
+
+        .stats-bar { background: #1e293b; padding: 40px 50px; }
+        .stats-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-around; text-align: center; }
+        .stat-item .value { font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-item .label { font-size: 0.9rem; color: #64748b; margin-top: 5px; }
+
+        .episodes-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2rem; font-weight: 800; }
+        .section-header a { color: #6366f1; text-decoration: none; font-weight: 500; }
+
+        .latest-episode { background: linear-gradient(135deg, #1e293b, #334155); border-radius: 24px; padding: 40px; margin-bottom: 50px; display: grid; grid-template-columns: 200px 1fr; gap: 40px; border: 1px solid #334155; }
+        .latest-episode .badge { display: inline-block; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; }
+        .latest-episode .cover { width: 200px; height: 200px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .latest-episode .content h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 15px; }
+        .latest-episode .meta { display: flex; gap: 20px; margin-bottom: 15px; }
+        .latest-episode .meta-item { font-size: 0.9rem; color: #64748b; display: flex; align-items: center; gap: 6px; }
+        .latest-episode .description { font-size: 1rem; color: #94a3b8; line-height: 1.7; margin-bottom: 25px; }
+        .latest-episode .play-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .latest-episode .play-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+        .latest-episode .play-btn .icon { font-size: 1.3rem; }
+
+        .episodes-list { display: flex; flex-direction: column; gap: 15px; }
+        .episode-item { background: #1e293b; border-radius: 16px; padding: 25px 30px; display: grid; grid-template-columns: 80px 1fr auto; gap: 25px; align-items: center; border: 1px solid #334155; transition: all 0.3s; }
+        .episode-item:hover { border-color: #6366f1; transform: translateX(5px); }
+        .episode-item .number { font-size: 1.5rem; font-weight: 800; color: #6366f1; text-align: center; }
+        .episode-item .info h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .episode-item .info .meta { display: flex; gap: 15px; }
+        .episode-item .info .meta span { font-size: 0.85rem; color: #64748b; }
+        .episode-item .actions { display: flex; gap: 10px; }
+        .episode-item .play-btn { width: 50px; height: 50px; border-radius: 50%; background: #6366f1; border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .episode-item .play-btn:hover { background: #4f46e5; transform: scale(1.1); }
+
+        .hosts-section { background: #1e293b; padding: 80px 50px; }
+        .hosts-container { max-width: 1000px; margin: 0 auto; }
+        .hosts-header { text-align: center; margin-bottom: 50px; }
+        .hosts-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .hosts-header p { color: #64748b; }
+        .hosts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .host-card { display: flex; gap: 25px; padding: 30px; background: #0f172a; border-radius: 20px; }
+        .host-card .avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 3.5rem; flex-shrink: 0; }
+        .host-card .info h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; }
+        .host-card .info .role { color: #6366f1; font-size: 0.9rem; margin-bottom: 12px; }
+        .host-card .info .bio { font-size: 0.95rem; color: #94a3b8; line-height: 1.6; }
+        .host-card .social { display: flex; gap: 10px; margin-top: 15px; }
+        .host-card .social a { width: 35px; height: 35px; background: #1e293b; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; }
+
+        .subscribe-section { max-width: 800px; margin: 0 auto; padding: 80px 20px; text-align: center; }
+        .subscribe-section h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .subscribe-section p { color: #94a3b8; font-size: 1.1rem; margin-bottom: 40px; }
+        .subscribe-platforms { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .subscribe-card { padding: 25px 35px; background: #1e293b; border-radius: 16px; text-decoration: none; color: white; transition: all 0.3s; border: 1px solid #334155; }
+        .subscribe-card:hover { border-color: #6366f1; transform: translateY(-3px); }
+        .subscribe-card .icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .subscribe-card .name { font-weight: 600; }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #1e293b; }
+
+        @media (max-width: 1000px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding: 60px 20px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .platform-links { justify-content: center; }
+            .podcast-cover { width: 300px; height: 300px; }
+            .latest-episode { grid-template-columns: 1fr; }
+            .latest-episode .cover { margin: 0 auto; }
+            .hosts-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .stats-container { flex-direction: column; gap: 30px; }
+            .episode-item { grid-template-columns: 60px 1fr; }
+            .episode-item .actions { display: none; }
+            .host-card { flex-direction: column; text-align: center; }
+            .host-card .social { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎙️ AppName Cast</div>
+        <nav>
+            <a href="#">エピソード</a>
+            <a href="#">ホスト</a>
+            <a href="#">ゲスト</a>
+            <a href="#">書き起こし</a>
+        </nav>
+        <a href="#" class="subscribe-btn">購読する</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ビジネスの<span>未来</span>を語る<br>ポッドキャスト</h1>
+            <p>スタートアップ、テクノロジー、プロダクト開発について、業界のリーダーたちと深掘りするポッドキャスト。毎週火曜日配信。</p>
+            <div class="platform-links">
+                <a href="#" class="platform-link">
+                    <span class="icon">🎵</span>
+                    Apple Podcasts
+                </a>
+                <a href="#" class="platform-link">
+                    <span class="icon">🟢</span>
+                    Spotify
+                </a>
+                <a href="#" class="platform-link">
+                    <span class="icon">▶️</span>
+                    YouTube
+                </a>
+            </div>
+        </div>
+        <div class="hero-artwork">
+            <div class="podcast-cover">
+                <span class="mic">🎙️</span>
+                <span class="title">AppName Cast</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="value">150+</div>
+                <div class="label">エピソード</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">50K+</div>
+                <div class="label">月間リスナー</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">4.9</div>
+                <div class="label">平均評価</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">100+</div>
+                <div class="label">ゲスト出演</div>
+            </div>
+        </div>
+    </div>
+
+    <section class="episodes-section">
+        <div class="section-header">
+            <h2>🎧 最新エピソード</h2>
+        </div>
+
+        <div class="latest-episode">
+            <div class="cover">🎤</div>
+            <div class="content">
+                <span class="badge">NEW</span>
+                <h3>#152 AIスタートアップの未来 - ChatGPTがもたらす産業変革</h3>
+                <div class="meta">
+                    <span class="meta-item">📅 2024年12月3日</span>
+                    <span class="meta-item">⏱️ 58分</span>
+                    <span class="meta-item">👤 ゲスト: 山田太郎（AI Ventures CEO）</span>
+                </div>
+                <p class="description">生成AIの急速な進化がビジネスに与えるインパクトについて、AI Venturesの山田CEOをお迎えして議論します。スタートアップがAIをどう活用すべきか、具体的な事例と共に深掘りします。</p>
+                <button class="play-btn">
+                    <span class="icon">▶️</span>
+                    今すぐ聴く
+                </button>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>📚 バックナンバー</h2>
+            <a href="#">すべて見る →</a>
+        </div>
+
+        <div class="episodes-list">
+            <div class="episode-item">
+                <div class="number">#151</div>
+                <div class="info">
+                    <h4>プロダクトマネージャーのキャリアパス</h4>
+                    <div class="meta">
+                        <span>📅 2024年11月26日</span>
+                        <span>⏱️ 45分</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="play-btn">▶️</button>
+                </div>
+            </div>
+
+            <div class="episode-item">
+                <div class="number">#150</div>
+                <div class="info">
+                    <h4>シリーズA資金調達のリアル - 成功と失敗の分かれ目</h4>
+                    <div class="meta">
+                        <span>📅 2024年11月19日</span>
+                        <span>⏱️ 62分</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="play-btn">▶️</button>
+                </div>
+            </div>
+
+            <div class="episode-item">
+                <div class="number">#149</div>
+                <div class="info">
+                    <h4>リモートワーク時代のチームビルディング</h4>
+                    <div class="meta">
+                        <span>📅 2024年11月12日</span>
+                        <span>⏱️ 51分</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="play-btn">▶️</button>
+                </div>
+            </div>
+
+            <div class="episode-item">
+                <div class="number">#148</div>
+                <div class="info">
+                    <h4>SaaSプライシング戦略の極意</h4>
+                    <div class="meta">
+                        <span>📅 2024年11月5日</span>
+                        <span>⏱️ 48分</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="play-btn">▶️</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hosts-section">
+        <div class="hosts-container">
+            <div class="hosts-header">
+                <h2>🎤 ホスト</h2>
+                <p>毎週、業界の最新トピックをお届けします</p>
+            </div>
+            <div class="hosts-grid">
+                <div class="host-card">
+                    <div class="avatar">👨‍💻</div>
+                    <div class="info">
+                        <h3>田中 健太</h3>
+                        <div class="role">AppName CEO & Co-Founder</div>
+                        <p class="bio">元Google、Metaで10年以上プロダクト開発に従事。スタートアップの成長戦略と組織づくりが専門。</p>
+                        <div class="social">
+                            <a href="#">🐦</a>
+                            <a href="#">💼</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="host-card">
+                    <div class="avatar">👩‍💼</div>
+                    <div class="info">
+                        <h3>佐藤 美咲</h3>
+                        <div class="role">AppName CMO</div>
+                        <p class="bio">B2B SaaSマーケティングのスペシャリスト。複数のスタートアップでグロースを牽引した経験を持つ。</p>
+                        <div class="social">
+                            <a href="#">🐦</a>
+                            <a href="#">💼</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="subscribe-section">
+        <h2>お好きなプラットフォームで購読</h2>
+        <p>毎週火曜日、新エピソードを自動でお届け</p>
+        <div class="subscribe-platforms">
+            <a href="#" class="subscribe-card">
+                <div class="icon">🎵</div>
+                <div class="name">Apple Podcasts</div>
+            </a>
+            <a href="#" class="subscribe-card">
+                <div class="icon">🟢</div>
+                <div class="name">Spotify</div>
+            </a>
+            <a href="#" class="subscribe-card">
+                <div class="icon">🟣</div>
+                <div class="name">Google Podcasts</div>
+            </a>
+            <a href="#" class="subscribe-card">
+                <div class="icon">📻</div>
+                <div class="name">RSS Feed</div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

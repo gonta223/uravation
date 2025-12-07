@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベント - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 80px 50px; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -2px; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+        .events-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+
+        .filter-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+        .filter-tabs { display: flex; gap: 10px; }
+        .filter-tab { padding: 12px 24px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .filter-tab:hover { border-color: #6366f1; }
+        .filter-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+        .filter-select { padding: 12px 20px; border: 1px solid #e2e8f0; border-radius: 10px; background: white; font-size: 0.9rem; }
+
+        .featured-event { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 50px; display: grid; grid-template-columns: 1fr 1fr; }
+        .featured-event .image { background: linear-gradient(135deg, #1e293b, #334155); display: flex; align-items: center; justify-content: center; font-size: 6rem; min-height: 350px; position: relative; }
+        .featured-event .badge { position: absolute; top: 25px; left: 25px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 8px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .featured-event .content { padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .featured-event .event-type { display: inline-block; background: #e0e7ff; color: #6366f1; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; margin-bottom: 20px; }
+        .featured-event h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; line-height: 1.3; }
+        .featured-event .description { font-size: 1rem; color: #64748b; line-height: 1.7; margin-bottom: 25px; }
+        .featured-event .meta { display: flex; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
+        .featured-event .meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #475569; }
+        .featured-event .register-btn { display: inline-block; padding: 16px 35px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; border-radius: 12px; font-weight: 700; transition: all 0.3s; }
+        .featured-event .register-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 800; }
+
+        .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px; }
+        .event-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .event-card .image { height: 180px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+        .event-card .date-badge { position: absolute; top: 15px; left: 15px; background: white; padding: 10px 15px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .event-card .date-badge .month { font-size: 0.75rem; color: #6366f1; font-weight: 600; text-transform: uppercase; }
+        .event-card .date-badge .day { font-size: 1.4rem; font-weight: 800; }
+        .event-card .content { padding: 25px; }
+        .event-card .event-type { display: inline-block; background: #f1f5f9; color: #64748b; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 12px; }
+        .event-card .event-type.online { background: #dcfce7; color: #16a34a; }
+        .event-card .event-type.offline { background: #fef3c7; color: #d97706; }
+        .event-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+        .event-card .meta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+        .event-card .meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #64748b; }
+        .event-card .footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid #f1f5f9; }
+        .event-card .spots { font-size: 0.85rem; color: #64748b; }
+        .event-card .spots.limited { color: #ef4444; }
+        .event-card .register-btn { padding: 10px 20px; background: #6366f1; color: white; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .event-card .register-btn:hover { background: #4f46e5; }
+
+        .past-events { background: #f1f5f9; padding: 60px 20px; margin: 0 -20px; }
+        .past-events-container { max-width: 1200px; margin: 0 auto; }
+        .past-events-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .past-event-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .past-event-card .image { height: 120px; background: linear-gradient(135deg, #94a3b8, #64748b); display: flex; align-items: center; justify-content: center; font-size: 2rem; filter: grayscale(50%); }
+        .past-event-card .content { padding: 20px; }
+        .past-event-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+        .past-event-card .date { font-size: 0.85rem; color: #64748b; margin-bottom: 10px; }
+        .past-event-card .archive-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.85rem; color: #6366f1; text-decoration: none; }
+        .past-event-card .archive-link:hover { text-decoration: underline; }
+
+        .newsletter-section { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 24px; padding: 50px; text-align: center; color: white; margin-top: 60px; }
+        .newsletter-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
+        .newsletter-section p { font-size: 1rem; opacity: 0.9; margin-bottom: 25px; }
+        .newsletter-form { display: flex; gap: 12px; max-width: 500px; margin: 0 auto; }
+        .newsletter-form input { flex: 1; padding: 16px 20px; border: none; border-radius: 10px; font-size: 1rem; }
+        .newsletter-form button { padding: 16px 30px; background: white; color: #6366f1; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+
+        @media (max-width: 1000px) {
+            .featured-event { grid-template-columns: 1fr; }
+            .events-grid { grid-template-columns: repeat(2, 1fr); }
+            .past-events-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2.2rem; }
+            .filter-section { flex-direction: column; align-items: stretch; }
+            .events-grid { grid-template-columns: 1fr; }
+            .past-events-grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+            <a href="#">イベント</a>
+        </nav>
+        <a href="#" class="header-cta">無料で始める</a>
+    </header>
+
+    <section class="hero">
+        <h1>イベント</h1>
+        <p>最新のトレンド、製品アップデート、業界のベストプラクティスを学べるイベントに参加しましょう</p>
+    </section>
+
+    <div class="events-container">
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active">すべて</button>
+                <button class="filter-tab">オンライン</button>
+                <button class="filter-tab">オフライン</button>
+                <button class="filter-tab">ウェビナー</button>
+                <button class="filter-tab">カンファレンス</button>
+            </div>
+            <select class="filter-select">
+                <option>日付順</option>
+                <option>人気順</option>
+            </select>
+        </div>
+
+        <div class="featured-event">
+            <div class="image">
+                <span class="badge">🔥 注目イベント</span>
+                🎤
+            </div>
+            <div class="content">
+                <span class="event-type">カンファレンス</span>
+                <h2>AppName Summit 2025</h2>
+                <p class="description">年に一度の大型カンファレンス。最新の製品アップデート、成功事例、業界トレンドを豪華ゲストと共にお届けします。ネットワーキングの機会もご用意。</p>
+                <div class="meta">
+                    <div class="meta-item">📅 2025年2月15日（土）</div>
+                    <div class="meta-item">🕐 10:00 - 18:00</div>
+                    <div class="meta-item">📍 東京国際フォーラム</div>
+                </div>
+                <a href="#" class="register-btn">今すぐ登録（無料）→</a>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>📅 今後のイベント</h2>
+        </div>
+
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="image">
+                    <div class="date-badge">
+                        <div class="month">JAN</div>
+                        <div class="day">18</div>
+                    </div>
+                    💻
+                </div>
+                <div class="content">
+                    <span class="event-type online">オンライン</span>
+                    <h3>AI活用術マスタークラス</h3>
+                    <div class="meta">
+                        <div class="meta-item">🕐 14:00 - 15:30</div>
+                        <div class="meta-item">📍 Zoom</div>
+                    </div>
+                    <div class="footer">
+                        <span class="spots">残り28席</span>
+                        <button class="register-btn">登録</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="image">
+                    <div class="date-badge">
+                        <div class="month">JAN</div>
+                        <div class="day">25</div>
+                    </div>
+                    🎯
+                </div>
+                <div class="content">
+                    <span class="event-type offline">オフライン</span>
+                    <h3>プロダクトマネジメント勉強会</h3>
+                    <div class="meta">
+                        <div class="meta-item">🕐 19:00 - 21:00</div>
+                        <div class="meta-item">📍 渋谷オフィス</div>
+                    </div>
+                    <div class="footer">
+                        <span class="spots limited">残り5席</span>
+                        <button class="register-btn">登録</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="image">
+                    <div class="date-badge">
+                        <div class="month">FEB</div>
+                        <div class="day">01</div>
+                    </div>
+                    🚀
+                </div>
+                <div class="content">
+                    <span class="event-type online">オンライン</span>
+                    <h3>新機能ローンチウェビナー</h3>
+                    <div class="meta">
+                        <div class="meta-item">🕐 12:00 - 13:00</div>
+                        <div class="meta-item">📍 YouTube Live</div>
+                    </div>
+                    <div class="footer">
+                        <span class="spots">席数無制限</span>
+                        <button class="register-btn">登録</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="image">
+                    <div class="date-badge">
+                        <div class="month">FEB</div>
+                        <div class="day">08</div>
+                    </div>
+                    👥
+                </div>
+                <div class="content">
+                    <span class="event-type offline">オフライン</span>
+                    <h3>ユーザーミートアップ 大阪</h3>
+                    <div class="meta">
+                        <div class="meta-item">🕐 18:30 - 21:00</div>
+                        <div class="meta-item">📍 グランフロント大阪</div>
+                    </div>
+                    <div class="footer">
+                        <span class="spots">残り42席</span>
+                        <button class="register-btn">登録</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="image">
+                    <div class="date-badge">
+                        <div class="month">FEB</div>
+                        <div class="day">12</div>
+                    </div>
+                    📊
+                </div>
+                <div class="content">
+                    <span class="event-type online">オンライン</span>
+                    <h3>データ分析入門セミナー</h3>
+                    <div class="meta">
+                        <div class="meta-item">🕐 15:00 - 16:30</div>
+                        <div class="meta-item">📍 Zoom</div>
+                    </div>
+                    <div class="footer">
+                        <span class="spots">残り65席</span>
+                        <button class="register-btn">登録</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="image">
+                    <div class="date-badge">
+                        <div class="month">FEB</div>
+                        <div class="day">20</div>
+                    </div>
+                    🎓
+                </div>
+                <div class="content">
+                    <span class="event-type online">オンライン</span>
+                    <h3>認定試験対策講座</h3>
+                    <div class="meta">
+                        <div class="meta-item">🕐 10:00 - 12:00</div>
+                        <div class="meta-item">📍 Zoom</div>
+                    </div>
+                    <div class="footer">
+                        <span class="spots">残り15席</span>
+                        <button class="register-btn">登録</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="past-events">
+            <div class="past-events-container">
+                <div class="section-header">
+                    <h2>📼 過去のイベント</h2>
+                </div>
+                <div class="past-events-grid">
+                    <div class="past-event-card">
+                        <div class="image">🎬</div>
+                        <div class="content">
+                            <h4>2024年振り返りセミナー</h4>
+                            <div class="date">2024年12月15日</div>
+                            <a href="#" class="archive-link">アーカイブを見る →</a>
+                        </div>
+                    </div>
+                    <div class="past-event-card">
+                        <div class="image">🔧</div>
+                        <div class="content">
+                            <h4>API活用ハンズオン</h4>
+                            <div class="date">2024年12月1日</div>
+                            <a href="#" class="archive-link">アーカイブを見る →</a>
+                        </div>
+                    </div>
+                    <div class="past-event-card">
+                        <div class="image">💡</div>
+                        <div class="content">
+                            <h4>業務効率化Tips共有会</h4>
+                            <div class="date">2024年11月20日</div>
+                            <a href="#" class="archive-link">アーカイブを見る →</a>
+                        </div>
+                    </div>
+                    <div class="past-event-card">
+                        <div class="image">🌟</div>
+                        <div class="content">
+                            <h4>ユーザー事例発表会</h4>
+                            <div class="date">2024年11月10日</div>
+                            <a href="#" class="archive-link">アーカイブを見る →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="newsletter-section">
+            <h2>イベント情報をお届けします</h2>
+            <p>新しいイベントが公開されたらメールでお知らせします</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="メールアドレス">
+                <button type="submit">登録する</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
