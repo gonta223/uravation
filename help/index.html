@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ヘルプセンター - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: #64748b; font-weight: 400; }
+        nav a { margin-left: 25px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-actions { display: flex; gap: 15px; }
+        .header-btn { padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; text-decoration: none; }
+        .header-btn.secondary { color: #64748b; }
+        .header-btn.primary { background: #6366f1; color: white; }
+
+        .hero { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 80px 50px; text-align: center; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 40px; }
+
+        .search-box { max-width: 600px; margin: 0 auto; display: flex; background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .search-box input { flex: 1; padding: 20px 25px; border: none; font-size: 1rem; }
+        .search-box input:focus { outline: none; }
+        .search-box button { padding: 20px 30px; background: #1e293b; color: white; border: none; font-size: 1rem; cursor: pointer; }
+
+        .help-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+
+        .quick-links { display: flex; justify-content: center; gap: 15px; margin: -30px 0 60px; flex-wrap: wrap; }
+        .quick-link { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: white; border-radius: 30px; font-size: 0.9rem; color: #64748b; text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .quick-link:hover { color: #6366f1; transform: translateY(-2px); }
+
+        .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 60px; }
+        .category-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; transition: all 0.3s; text-decoration: none; color: inherit; }
+        .category-card:hover { border-color: #6366f1; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .category-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 20px; }
+        .category-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .category-card p { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; line-height: 1.6; }
+        .article-count { font-size: 0.85rem; color: #6366f1; font-weight: 500; }
+
+        .popular-section { margin-bottom: 60px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 800; }
+        .section-header a { color: #6366f1; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+
+        .articles-list { background: white; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
+        .article-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit; transition: background 0.3s; }
+        .article-item:last-child { border-bottom: none; }
+        .article-item:hover { background: #f8fafc; }
+        .article-info { display: flex; align-items: center; gap: 15px; }
+        .article-info .icon { font-size: 1.2rem; }
+        .article-info h4 { font-size: 1rem; font-weight: 500; margin-bottom: 3px; }
+        .article-info .category { font-size: 0.8rem; color: #64748b; }
+        .article-item .arrow { color: #94a3b8; }
+
+        .contact-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 60px; }
+        .contact-card { background: white; border-radius: 16px; padding: 35px; text-align: center; border: 1px solid #e2e8f0; }
+        .contact-card .icon { font-size: 2.5rem; margin-bottom: 20px; }
+        .contact-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .contact-card p { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; line-height: 1.6; }
+        .contact-card a { display: inline-block; padding: 12px 24px; background: #f1f5f9; color: #6366f1; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .contact-card a:hover { background: #6366f1; color: white; }
+
+        .video-section { background: white; border-radius: 16px; padding: 40px; border: 1px solid #e2e8f0; margin-bottom: 60px; }
+        .video-section h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 30px; text-align: center; }
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .video-card { border-radius: 12px; overflow: hidden; cursor: pointer; }
+        .video-thumbnail { aspect-ratio: 16/9; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; position: relative; }
+        .play-btn { width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .video-card h4 { padding: 15px; font-size: 0.95rem; font-weight: 600; }
+
+        .community-banner { background: linear-gradient(135deg, #1e293b, #334155); border-radius: 20px; padding: 50px; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .community-content h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+        .community-content p { opacity: 0.8; font-size: 1rem; }
+        .community-btn { padding: 16px 32px; background: #6366f1; color: white; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+        .community-btn:hover { background: #4f46e5; }
+
+        footer { padding: 40px 20px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+
+        @media (max-width: 900px) {
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-section { grid-template-columns: 1fr; }
+            .video-grid { grid-template-columns: 1fr; }
+            .community-banner { flex-direction: column; text-align: center; gap: 25px; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            nav, .header-actions { display: none; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 1.8rem; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .help-container { padding: 40px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName <span>ヘルプセンター</span></div>
+        <nav>
+            <a href="#">ドキュメント</a>
+            <a href="#">API</a>
+            <a href="#">コミュニティ</a>
+            <a href="#">ステータス</a>
+        </nav>
+        <div class="header-actions">
+            <a href="#" class="header-btn secondary">ログイン</a>
+            <a href="#" class="header-btn primary">お問い合わせ</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>何かお困りですか？</h1>
+        <p>検索するか、以下のカテゴリからお探しください</p>
+        <div class="search-box">
+            <input type="text" placeholder="質問やキーワードを入力...">
+            <button>🔍 検索</button>
+        </div>
+    </section>
+
+    <div class="help-container">
+        <div class="quick-links">
+            <a href="#" class="quick-link">🚀 はじめ方</a>
+            <a href="#" class="quick-link">💳 請求について</a>
+            <a href="#" class="quick-link">🔒 セキュリティ</a>
+            <a href="#" class="quick-link">📱 モバイルアプリ</a>
+            <a href="#" class="quick-link">🔗 連携設定</a>
+        </div>
+
+        <div class="categories-grid">
+            <a href="#" class="category-card">
+                <div class="category-icon">🚀</div>
+                <h3>はじめに</h3>
+                <p>アカウント作成、初期設定、基本的な使い方を学びましょう</p>
+                <span class="article-count">15件の記事</span>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">📊</div>
+                <h3>ダッシュボード</h3>
+                <p>プロジェクト管理、タスク作成、進捗の可視化について</p>
+                <span class="article-count">23件の記事</span>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">👥</div>
+                <h3>チーム・コラボレーション</h3>
+                <p>メンバー招待、権限設定、共同編集機能について</p>
+                <span class="article-count">18件の記事</span>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">⚡</div>
+                <h3>自動化</h3>
+                <p>ワークフロー設定、トリガー、自動通知について</p>
+                <span class="article-count">12件の記事</span>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">🔗</div>
+                <h3>連携・API</h3>
+                <p>外部サービス連携、API、Webhookについて</p>
+                <span class="article-count">28件の記事</span>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon">💳</div>
+                <h3>請求・プラン</h3>
+                <p>料金プラン、支払い方法、請求書について</p>
+                <span class="article-count">10件の記事</span>
+            </a>
+        </div>
+
+        <div class="popular-section">
+            <div class="section-header">
+                <h2>📚 よく読まれている記事</h2>
+                <a href="#">すべて見る →</a>
+            </div>
+            <div class="articles-list">
+                <a href="#" class="article-item">
+                    <div class="article-info">
+                        <span class="icon">📄</span>
+                        <div>
+                            <h4>アカウントの作成方法</h4>
+                            <span class="category">はじめに</span>
+                        </div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="#" class="article-item">
+                    <div class="article-info">
+                        <span class="icon">📄</span>
+                        <div>
+                            <h4>チームメンバーを招待する</h4>
+                            <span class="category">チーム・コラボレーション</span>
+                        </div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="#" class="article-item">
+                    <div class="article-info">
+                        <span class="icon">📄</span>
+                        <div>
+                            <h4>Slack連携の設定方法</h4>
+                            <span class="category">連携・API</span>
+                        </div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="#" class="article-item">
+                    <div class="article-info">
+                        <span class="icon">📄</span>
+                        <div>
+                            <h4>プランのアップグレード方法</h4>
+                            <span class="category">請求・プラン</span>
+                        </div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="#" class="article-item">
+                    <div class="article-info">
+                        <span class="icon">📄</span>
+                        <div>
+                            <h4>二要素認証の設定</h4>
+                            <span class="category">セキュリティ</span>
+                        </div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-card">
+                <div class="icon">💬</div>
+                <h3>チャットサポート</h3>
+                <p>リアルタイムでサポートスタッフがお答えします</p>
+                <a href="#">チャットを開始</a>
+            </div>
+            <div class="contact-card">
+                <div class="icon">📧</div>
+                <h3>メールサポート</h3>
+                <p>詳細な質問はメールでお送りください</p>
+                <a href="#">メールを送る</a>
+            </div>
+            <div class="contact-card">
+                <div class="icon">📞</div>
+                <h3>電話サポート</h3>
+                <p>Enterprise プランのお客様向け</p>
+                <a href="#">電話予約</a>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2>🎥 チュートリアル動画</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <h4>AppName入門（5分）</h4>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <h4>プロジェクト作成ガイド（3分）</h4>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <h4>自動化の設定方法（8分）</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="community-banner">
+            <div class="community-content">
+                <h2>🌐 コミュニティに参加しよう</h2>
+                <p>他のユーザーと交流し、ベストプラクティスを共有しましょう</p>
+            </div>
+            <a href="#" class="community-btn">コミュニティへ →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved. | <a href="#" style="color: #6366f1;">利用規約</a> | <a href="#" style="color: #6366f1;">プライバシーポリシー</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紹介プログラム - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; }
+
+        header { padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 900; }
+        nav a { margin-left: 30px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { padding: 100px 50px; text-align: center; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.3) 0%, transparent 60%); }
+        .hero-content { position: relative; z-index: 10; }
+        .hero-badge { display: inline-block; background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; margin-bottom: 30px; }
+        .hero h1 { font-size: 4rem; font-weight: 900; margin-bottom: 25px; letter-spacing: -2px; line-height: 1.1; }
+        .hero h1 span { background: linear-gradient(135deg, #22c55e, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.3rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 50px; line-height: 1.7; }
+
+        .reward-highlight { display: inline-flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 25px 40px; }
+        .reward-amount { font-size: 3rem; font-weight: 900; color: #22c55e; }
+        .reward-text { text-align: left; }
+        .reward-text .per { font-size: 1.1rem; font-weight: 600; }
+        .reward-text .desc { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+
+        .how-it-works { padding: 100px 50px; background: rgba(255,255,255,0.02); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .section-header p { color: rgba(255,255,255,0.6); font-size: 1.1rem; }
+
+        .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto; position: relative; }
+        .steps-grid::before { content: ''; position: absolute; top: 50px; left: 15%; right: 15%; height: 2px; background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent); }
+        .step-card { text-align: center; position: relative; z-index: 10; }
+        .step-number { width: 100px; height: 100px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; margin: 0 auto 30px; }
+        .step-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        .step-card p { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+        .rewards-section { padding: 100px 50px; }
+        .rewards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; }
+        .reward-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; text-align: center; }
+        .reward-card.featured { background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1)); border-color: rgba(34, 197, 94, 0.3); }
+        .reward-card .icon { font-size: 3rem; margin-bottom: 20px; }
+        .reward-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        .reward-card .amount { font-size: 2.5rem; font-weight: 900; color: #22c55e; margin-bottom: 15px; }
+        .reward-card p { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+        .share-section { padding: 80px 50px; background: rgba(255,255,255,0.02); }
+        .share-container { max-width: 600px; margin: 0 auto; text-align: center; }
+        .share-container h2 { font-size: 2rem; font-weight: 800; margin-bottom: 30px; }
+
+        .referral-link-box { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 25px; margin-bottom: 30px; }
+        .referral-link-box label { display: block; font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+        .link-input-group { display: flex; gap: 10px; }
+        .link-input-group input { flex: 1; padding: 16px 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; font-size: 0.95rem; }
+        .copy-btn { padding: 16px 25px; background: #6366f1; border: none; border-radius: 10px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .copy-btn:hover { background: #4f46e5; }
+
+        .share-buttons { display: flex; gap: 15px; justify-content: center; }
+        .share-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none; transition: all 0.3s; }
+        .share-btn:hover { transform: translateY(-3px); }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.facebook { background: #4267b2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.email { background: #64748b; }
+
+        .stats-section { padding: 80px 50px; }
+        .stats-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; max-width: 800px; margin: 0 auto; }
+        .stats-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 30px; text-align: center; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .stat-item { text-align: center; }
+        .stat-item .value { font-size: 2.5rem; font-weight: 900; color: #6366f1; margin-bottom: 5px; }
+        .stat-item .label { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+        .leaderboard { margin-top: 40px; }
+        .leaderboard h4 { font-size: 1rem; font-weight: 600; margin-bottom: 20px; color: rgba(255,255,255,0.8); }
+        .leader-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .leader-rank { width: 30px; height: 30px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: #1e293b; }
+        .leader-rank.silver { background: linear-gradient(135deg, #94a3b8, #64748b); }
+        .leader-rank.bronze { background: linear-gradient(135deg, #d97706, #b45309); }
+        .leader-info { flex: 1; }
+        .leader-info .name { font-weight: 600; font-size: 0.95rem; }
+        .leader-info .referrals { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        .leader-earnings { font-weight: 700; color: #22c55e; }
+
+        .faq-section { padding: 80px 50px; background: rgba(255,255,255,0.02); }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .faq-question { padding: 25px 0; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { padding-bottom: 25px; color: rgba(255,255,255,0.7); line-height: 1.8; font-size: 0.95rem; }
+
+        .cta-section { padding: 100px 50px; text-align: center; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .cta-section p { color: rgba(255,255,255,0.7); font-size: 1.1rem; margin-bottom: 40px; }
+        .cta-btn { display: inline-block; padding: 20px 50px; background: linear-gradient(135deg, #22c55e, #10b981); color: white; border-radius: 14px; font-size: 1.1rem; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4); }
+
+        footer { padding: 40px 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        @media (max-width: 900px) {
+            .steps-grid { grid-template-columns: 1fr; gap: 30px; }
+            .steps-grid::before { display: none; }
+            .rewards-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 20px; }
+            nav { display: none; }
+            .hero { padding: 80px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .reward-highlight { flex-direction: column; text-align: center; }
+            .reward-text { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+        </nav>
+        <a href="#" class="header-cta">ログイン</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="hero-badge">💰 紹介プログラム</span>
+            <h1>友達を紹介して<br><span>報酬を獲得</span>しよう</h1>
+            <p>AppNameを友達に紹介するだけで、あなたも友達も特典がもらえます。紹介に上限はありません。</p>
+
+            <div class="reward-highlight">
+                <div class="reward-amount">¥5,000</div>
+                <div class="reward-text">
+                    <div class="per">1紹介あたり</div>
+                    <div class="desc">紹介された方にも¥2,000クレジット</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2>仕組みはシンプル</h2>
+            <p>3ステップで報酬を獲得</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>リンクをシェア</h3>
+                <p>あなた専用の紹介リンクをSNSやメールで友達に送りましょう</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>友達が登録</h3>
+                <p>友達がリンクから登録し、有料プランに加入します</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>報酬をゲット</h3>
+                <p>友達の課金が確認されると、あなたに報酬が付与されます</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rewards-section">
+        <div class="section-header">
+            <h2>報酬プログラム</h2>
+            <p>紹介すればするほどお得に</p>
+        </div>
+
+        <div class="rewards-grid">
+            <div class="reward-card">
+                <div class="icon">🎁</div>
+                <h3>紹介報酬</h3>
+                <div class="amount">¥5,000</div>
+                <p>友達が有料プランに加入するたびに、¥5,000のクレジットを獲得</p>
+            </div>
+            <div class="reward-card">
+                <div class="icon">👋</div>
+                <h3>友達特典</h3>
+                <div class="amount">¥2,000</div>
+                <p>紹介された友達も¥2,000分のクレジットからスタート</p>
+            </div>
+            <div class="reward-card featured">
+                <div class="icon">🏆</div>
+                <h3>トップ紹介者ボーナス</h3>
+                <div class="amount">¥50,000</div>
+                <p>月間トップ紹介者には特別ボーナスを進呈</p>
+            </div>
+            <div class="reward-card">
+                <div class="icon">♾️</div>
+                <h3>無制限</h3>
+                <div class="amount">上限なし</div>
+                <p>紹介人数に上限はありません。紹介するほど報酬が増えます</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="share-section">
+        <div class="share-container">
+            <h2>今すぐシェアしよう</h2>
+
+            <div class="referral-link-box">
+                <label>あなたの紹介リンク</label>
+                <div class="link-input-group">
+                    <input type="text" value="https://appname.com/ref/YOUR_CODE" readonly>
+                    <button class="copy-btn">コピー</button>
+                </div>
+            </div>
+
+            <div class="share-buttons">
+                <a href="#" class="share-btn twitter">🐦</a>
+                <a href="#" class="share-btn facebook">📘</a>
+                <a href="#" class="share-btn linkedin">💼</a>
+                <a href="#" class="share-btn email">📧</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-card">
+            <h3>📊 あなたの紹介実績</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="value">12</div>
+                    <div class="label">紹介人数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">8</div>
+                    <div class="label">有料転換</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">¥40,000</div>
+                    <div class="label">獲得報酬</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">¥25,000</div>
+                    <div class="label">出金可能</div>
+                </div>
+            </div>
+
+            <div class="leaderboard">
+                <h4>🏆 今月のトップ紹介者</h4>
+                <div class="leader-item">
+                    <div class="leader-rank">1</div>
+                    <div class="leader-info">
+                        <div class="name">田中 太郎</div>
+                        <div class="referrals">42件の紹介</div>
+                    </div>
+                    <div class="leader-earnings">¥210,000</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-rank silver">2</div>
+                    <div class="leader-info">
+                        <div class="name">佐藤 花子</div>
+                        <div class="referrals">35件の紹介</div>
+                    </div>
+                    <div class="leader-earnings">¥175,000</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-rank bronze">3</div>
+                    <div class="leader-info">
+                        <div class="name">山田 一郎</div>
+                        <div class="referrals">28件の紹介</div>
+                    </div>
+                    <div class="leader-earnings">¥140,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-header">
+            <h2>よくある質問</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">報酬はいつ受け取れますか？ <span>+</span></div>
+                <div class="faq-answer">紹介された方の有料プラン加入が確認された翌月末に、登録された銀行口座へお振込みします。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">紹介人数に上限はありますか？ <span>+</span></div>
+                <div class="faq-answer">いいえ、上限はありません。紹介すればするほど報酬が増えます。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">友達が無料プランのままでも報酬はもらえますか？ <span>+</span></div>
+                <div class="faq-answer">報酬は有料プランへの加入が条件となります。無料プランのみの場合は対象外です。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">クレジットは何に使えますか？ <span>+</span></div>
+                <div class="faq-answer">AppNameの月額料金のお支払いや、追加機能の購入にご利用いただけます。</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>今すぐ紹介を始めよう</h2>
+        <p>友達と一緒にAppNameを使って、報酬もゲットしよう</p>
+        <a href="#" class="cta-btn">紹介リンクを取得 →</a>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

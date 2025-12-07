@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>製品ロードマップ - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+
+        header { padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-size: 1.5rem; font-weight: 900; }
+        nav a { margin-left: 30px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { padding: 80px 50px; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero p { font-size: 1.2rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 30px; }
+        .last-updated { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+
+        .roadmap-container { max-width: 1000px; margin: 0 auto; padding: 0 20px 100px; }
+
+        .filter-bar { display: flex; justify-content: center; gap: 15px; margin-bottom: 60px; flex-wrap: wrap; }
+        .filter-btn { padding: 12px 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; color: rgba(255,255,255,0.7); font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .filter-btn:hover { border-color: rgba(255,255,255,0.3); }
+        .filter-btn.active { background: #6366f1; border-color: #6366f1; color: white; }
+
+        .timeline { position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #6366f1, #a855f7, #ec4899); transform: translateX(-50%); }
+
+        .quarter-section { margin-bottom: 80px; }
+        .quarter-header { text-align: center; margin-bottom: 40px; position: relative; }
+        .quarter-badge { display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 12px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: 700; position: relative; z-index: 10; }
+
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 30px; transition: all 0.3s; }
+        .feature-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-3px); }
+        .feature-card:nth-child(odd) { transform: translateX(-20px); }
+        .feature-card:nth-child(even) { transform: translateX(20px); }
+        .feature-card:hover:nth-child(odd) { transform: translateX(-20px) translateY(-3px); }
+        .feature-card:hover:nth-child(even) { transform: translateX(20px) translateY(-3px); }
+
+        .feature-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .feature-status { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .feature-status.released { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .feature-status.in-progress { background: rgba(99, 102, 241, 0.2); color: #818cf8; }
+        .feature-status.planned { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+        .feature-status.research { background: rgba(156, 163, 175, 0.2); color: #9ca3af; }
+
+        .feature-category { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+
+        .feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .feature-card h3 .icon { font-size: 1.3rem; }
+        .feature-card p { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px; }
+
+        .feature-meta { display: flex; gap: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        .feature-meta .item { display: flex; align-items: center; gap: 6px; }
+
+        .vote-section { display: flex; align-items: center; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .vote-btn { display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: rgba(255,255,255,0.7); font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .vote-btn:hover { background: rgba(99, 102, 241, 0.2); border-color: #6366f1; color: white; }
+        .vote-btn.voted { background: rgba(99, 102, 241, 0.2); border-color: #6366f1; color: #818cf8; }
+        .vote-count { font-weight: 600; }
+
+        .suggest-section { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.1)); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 24px; padding: 50px; text-align: center; margin-top: 80px; }
+        .suggest-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
+        .suggest-section p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 30px; }
+        .suggest-btn { display: inline-block; padding: 16px 35px; background: #6366f1; color: white; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .suggest-btn:hover { background: #4f46e5; transform: translateY(-2px); }
+
+        .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 60px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-dot.released { background: #22c55e; }
+        .legend-dot.in-progress { background: #6366f1; }
+        .legend-dot.planned { background: #f97316; }
+        .legend-dot.research { background: #9ca3af; }
+
+        footer { padding: 40px 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        footer p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        @media (max-width: 800px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .feature-card:nth-child(odd), .feature-card:nth-child(even) { transform: none; }
+            .feature-card:hover:nth-child(odd), .feature-card:hover:nth-child(even) { transform: translateY(-3px); }
+            .timeline::before { left: 20px; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 20px; }
+            nav { display: none; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2rem; }
+            .roadmap-container { padding: 0 15px 60px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">更新履歴</a>
+        </nav>
+        <a href="#" class="header-cta">フィードバック</a>
+    </header>
+
+    <section class="hero">
+        <h1>🗺️ 製品ロードマップ</h1>
+        <p>AppNameの開発計画と進捗をご覧いただけます。ぜひ投票で優先度を教えてください。</p>
+        <p class="last-updated">最終更新: 2024年12月7日</p>
+    </section>
+
+    <div class="roadmap-container">
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot released"></div>
+                <span>リリース済み</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot in-progress"></div>
+                <span>開発中</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot planned"></div>
+                <span>計画中</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot research"></div>
+                <span>検討中</span>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">すべて</button>
+            <button class="filter-btn">コラボレーション</button>
+            <button class="filter-btn">自動化</button>
+            <button class="filter-btn">分析</button>
+            <button class="filter-btn">連携</button>
+            <button class="filter-btn">モバイル</button>
+        </div>
+
+        <div class="timeline">
+            <div class="quarter-section">
+                <div class="quarter-header">
+                    <span class="quarter-badge">✅ 2024 Q4 - リリース済み</span>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">AI</span>
+                            <span class="feature-status released">リリース済み</span>
+                        </div>
+                        <h3><span class="icon">🤖</span> AIアシスタント</h3>
+                        <p>AIがタスクの要約、提案、自動補完をサポート。生産性が平均30%向上。</p>
+                        <div class="feature-meta">
+                            <div class="item">📅 11月リリース</div>
+                            <div class="item">👍 2,340票</div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">連携</span>
+                            <span class="feature-status released">リリース済み</span>
+                        </div>
+                        <h3><span class="icon">🔗</span> Notion連携強化</h3>
+                        <p>Notionとの双方向同期に対応。データベースの自動インポート機能を追加。</p>
+                        <div class="feature-meta">
+                            <div class="item">📅 10月リリース</div>
+                            <div class="item">👍 1,890票</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quarter-section">
+                <div class="quarter-header">
+                    <span class="quarter-badge">🚀 2025 Q1 - 開発中</span>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">コラボレーション</span>
+                            <span class="feature-status in-progress">開発中</span>
+                        </div>
+                        <h3><span class="icon">🎥</span> ビデオ通話統合</h3>
+                        <p>アプリ内でビデオ通話が可能に。タスクを見ながらミーティングができます。</p>
+                        <div class="feature-meta">
+                            <div class="item">📅 1月予定</div>
+                            <div class="item">👍 3,120票</div>
+                        </div>
+                        <div class="vote-section">
+                            <button class="vote-btn voted">👍 投票済み</button>
+                            <span class="vote-count">3,120</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">自動化</span>
+                            <span class="feature-status in-progress">開発中</span>
+                        </div>
+                        <h3><span class="icon">⚡</span> ワークフロービルダー</h3>
+                        <p>ドラッグ&ドロップで複雑なワークフローを構築。コーディング不要。</p>
+                        <div class="feature-meta">
+                            <div class="item">📅 2月予定</div>
+                            <div class="item">👍 2,780票</div>
+                        </div>
+                        <div class="vote-section">
+                            <button class="vote-btn">👍 投票する</button>
+                            <span class="vote-count">2,780</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quarter-section">
+                <div class="quarter-header">
+                    <span class="quarter-badge">📋 2025 Q2 - 計画中</span>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">分析</span>
+                            <span class="feature-status planned">計画中</span>
+                        </div>
+                        <h3><span class="icon">📊</span> カスタムダッシュボード</h3>
+                        <p>ウィジェットを自由に配置してオリジナルのダッシュボードを作成。</p>
+                        <div class="feature-meta">
+                            <div class="item">📅 Q2予定</div>
+                            <div class="item">👍 1,560票</div>
+                        </div>
+                        <div class="vote-section">
+                            <button class="vote-btn">👍 投票する</button>
+                            <span class="vote-count">1,560</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">モバイル</span>
+                            <span class="feature-status planned">計画中</span>
+                        </div>
+                        <h3><span class="icon">⌚</span> Apple Watch対応</h3>
+                        <p>手首から通知確認、タスク完了、タイマー操作が可能に。</p>
+                        <div class="feature-meta">
+                            <div class="item">📅 Q2予定</div>
+                            <div class="item">👍 980票</div>
+                        </div>
+                        <div class="vote-section">
+                            <button class="vote-btn">👍 投票する</button>
+                            <span class="vote-count">980</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quarter-section">
+                <div class="quarter-header">
+                    <span class="quarter-badge">💭 検討中</span>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">連携</span>
+                            <span class="feature-status research">検討中</span>
+                        </div>
+                        <h3><span class="icon">🎨</span> Figma連携</h3>
+                        <p>デザインファイルをタスクに添付、コメントを同期。</p>
+                        <div class="vote-section">
+                            <button class="vote-btn">👍 投票する</button>
+                            <span class="vote-count">2,100</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-header">
+                            <span class="feature-category">AI</span>
+                            <span class="feature-status research">検討中</span>
+                        </div>
+                        <h3><span class="icon">🗣️</span> 音声入力対応</h3>
+                        <p>音声でタスク作成、メモ入力。ハンズフリー操作を実現。</p>
+                        <div class="vote-section">
+                            <button class="vote-btn">👍 投票する</button>
+                            <span class="vote-count">1,450</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="suggest-section">
+            <h2>💡 機能をリクエスト</h2>
+            <p>欲しい機能がありましたら、ぜひお聞かせください。</p>
+            <a href="#" class="suggest-btn">機能をリクエストする →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

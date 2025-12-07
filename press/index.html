@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレス・メディアキット - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+
+        .hero { background: #1e293b; color: white; padding: 100px 50px; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero p { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+
+        .press-container { max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
+
+        .contact-banner { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 20px; padding: 40px; color: white; display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; }
+        .contact-banner h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .contact-banner p { opacity: 0.9; font-size: 0.95rem; }
+        .contact-banner a { padding: 14px 28px; background: white; color: #6366f1; border-radius: 10px; font-weight: 600; text-decoration: none; }
+
+        .section-header { margin-bottom: 40px; }
+        .section-header h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
+        .section-header p { color: #64748b; font-size: 1rem; }
+
+        .brand-assets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 60px; }
+        .asset-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .asset-preview { height: 180px; display: flex; align-items: center; justify-content: center; }
+        .asset-preview.dark { background: #1e293b; }
+        .asset-preview.light { background: #f1f5f9; }
+        .asset-preview.gradient { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .asset-preview .logo-display { font-size: 2rem; font-weight: 900; }
+        .asset-preview.dark .logo-display { color: white; }
+        .asset-preview.light .logo-display { color: #1e293b; }
+        .asset-preview.gradient .logo-display { color: white; }
+        .asset-info { padding: 20px; }
+        .asset-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .asset-info p { font-size: 0.85rem; color: #64748b; margin-bottom: 15px; }
+        .asset-formats { display: flex; gap: 8px; }
+        .format-tag { padding: 5px 12px; background: #f1f5f9; border-radius: 6px; font-size: 0.75rem; color: #64748b; }
+
+        .download-all { text-align: center; margin-bottom: 60px; }
+        .download-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 35px; background: #1e293b; color: white; border-radius: 12px; font-weight: 600; text-decoration: none; }
+
+        .company-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-bottom: 60px; }
+        .fact-card { background: white; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .fact-card .value { font-size: 2.5rem; font-weight: 900; color: #6366f1; margin-bottom: 8px; }
+        .fact-card .label { font-size: 0.9rem; color: #64748b; }
+
+        .boilerplate { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 60px; }
+        .boilerplate h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; }
+        .boilerplate p { font-size: 1rem; color: #475569; line-height: 1.9; margin-bottom: 15px; }
+        .copy-boilerplate { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #f1f5f9; border-radius: 8px; color: #6366f1; font-size: 0.9rem; font-weight: 500; cursor: pointer; border: none; margin-top: 10px; }
+
+        .leadership { margin-bottom: 60px; }
+        .leadership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .leader-card { background: white; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .leader-avatar { width: 100px; height: 100px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px; }
+        .leader-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+        .leader-card .role { font-size: 0.9rem; color: #6366f1; margin-bottom: 15px; }
+        .leader-card p { font-size: 0.85rem; color: #64748b; line-height: 1.6; margin-bottom: 15px; }
+        .leader-links { display: flex; justify-content: center; gap: 10px; }
+        .leader-links a { width: 35px; height: 35px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; }
+
+        .press-releases { margin-bottom: 60px; }
+        .release-list { display: flex; flex-direction: column; gap: 15px; }
+        .release-item { background: white; border-radius: 12px; padding: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .release-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .release-info .date { font-size: 0.85rem; color: #64748b; }
+        .release-item a { color: #6366f1; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+
+        .media-coverage { margin-bottom: 60px; }
+        .media-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .media-logo { background: white; border-radius: 12px; padding: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 1.2rem; font-weight: 700; color: #94a3b8; }
+
+        .contact-section { background: #1e293b; border-radius: 20px; padding: 50px; color: white; text-align: center; }
+        .contact-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .contact-section p { opacity: 0.8; margin-bottom: 30px; }
+        .contact-info { display: flex; justify-content: center; gap: 40px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; }
+        .contact-item .icon { width: 45px; height: 45px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .contact-item .text { text-align: left; }
+        .contact-item .label { font-size: 0.8rem; opacity: 0.7; }
+        .contact-item .value { font-weight: 600; }
+
+        footer { padding: 40px 20px; text-align: center; color: #64748b; font-size: 0.9rem; }
+
+        @media (max-width: 900px) {
+            .brand-assets { grid-template-columns: repeat(2, 1fr); }
+            .company-facts { grid-template-columns: repeat(2, 1fr); }
+            .leadership-grid { grid-template-columns: 1fr; }
+            .media-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-info { flex-direction: column; gap: 20px; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 80px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .press-container { padding: 50px 15px; }
+            .brand-assets { grid-template-columns: 1fr; }
+            .contact-banner { flex-direction: column; text-align: center; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">製品</a>
+            <a href="#">会社概要</a>
+            <a href="#">採用情報</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>プレス・メディアキット</h1>
+        <p>AppNameに関する報道・記事作成にご利用いただける素材と情報をまとめています</p>
+    </section>
+
+    <div class="press-container">
+        <div class="contact-banner">
+            <div>
+                <h3>📰 取材・お問い合わせ</h3>
+                <p>プレス関連のお問い合わせは広報担当までご連絡ください</p>
+            </div>
+            <a href="mailto:press@appname.example">press@appname.example</a>
+        </div>
+
+        <section>
+            <div class="section-header">
+                <h2>ブランドアセット</h2>
+                <p>ロゴ・アイコンをダウンロード</p>
+            </div>
+
+            <div class="brand-assets">
+                <div class="asset-card">
+                    <div class="asset-preview dark">
+                        <span class="logo-display">AppName</span>
+                    </div>
+                    <div class="asset-info">
+                        <h4>ロゴ（ダークBG用）</h4>
+                        <p>暗い背景での使用に最適</p>
+                        <div class="asset-formats">
+                            <span class="format-tag">SVG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">PDF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="asset-card">
+                    <div class="asset-preview light">
+                        <span class="logo-display">AppName</span>
+                    </div>
+                    <div class="asset-info">
+                        <h4>ロゴ（ライトBG用）</h4>
+                        <p>明るい背景での使用に最適</p>
+                        <div class="asset-formats">
+                            <span class="format-tag">SVG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">PDF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="asset-card">
+                    <div class="asset-preview gradient">
+                        <span class="logo-display" style="font-size: 3rem;">📱</span>
+                    </div>
+                    <div class="asset-info">
+                        <h4>アプリアイコン</h4>
+                        <p>アプリストア・SNS用</p>
+                        <div class="asset-formats">
+                            <span class="format-tag">SVG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">ICO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-all">
+                <a href="#" class="download-btn">📥 すべてのアセットをダウンロード（ZIP）</a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>会社概要</h2>
+                <p>AppNameについて</p>
+            </div>
+
+            <div class="company-facts">
+                <div class="fact-card">
+                    <div class="value">2020</div>
+                    <div class="label">設立年</div>
+                </div>
+                <div class="fact-card">
+                    <div class="value">150+</div>
+                    <div class="label">従業員数</div>
+                </div>
+                <div class="fact-card">
+                    <div class="value">50,000+</div>
+                    <div class="label">導入企業</div>
+                </div>
+                <div class="fact-card">
+                    <div class="value">$50M</div>
+                    <div class="label">累計調達額</div>
+                </div>
+            </div>
+
+            <div class="boilerplate">
+                <h3>ボイラープレート</h3>
+                <p>AppNameは、2020年に設立されたSaaS企業です。チームの生産性を最大化するコラボレーションプラットフォームを提供し、世界150カ国以上、50,000社を超える企業にご利用いただいています。</p>
+                <p>「すべてのチームに、最高の働き方を」をミッションに掲げ、リアルタイムコラボレーション、ワークフロー自動化、高度な分析機能を統合したオールインワンソリューションを展開。シリーズBラウンドで累計5,000万ドルを調達し、急成長を続けています。</p>
+                <button class="copy-boilerplate">📋 コピーする</button>
+            </div>
+        </section>
+
+        <section class="leadership">
+            <div class="section-header">
+                <h2>経営陣</h2>
+                <p>リーダーシップチーム</p>
+            </div>
+
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-avatar">👨‍💼</div>
+                    <h4>田中 健太</h4>
+                    <div class="role">CEO & Co-Founder</div>
+                    <p>元Google Japan。東京大学工学部卒。10年以上のプロダクト開発経験。</p>
+                    <div class="leader-links">
+                        <a href="#">🐦</a>
+                        <a href="#">💼</a>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-avatar">👩‍💻</div>
+                    <h4>佐藤 美咲</h4>
+                    <div class="role">CTO & Co-Founder</div>
+                    <p>元Amazon。MIT卒。AIと分散システムの専門家。</p>
+                    <div class="leader-links">
+                        <a href="#">🐦</a>
+                        <a href="#">💼</a>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-avatar">👨‍🔬</div>
+                    <h4>山田 一郎</h4>
+                    <div class="role">CFO</div>
+                    <p>元Goldman Sachs。慶應義塾大学経済学部卒。スタートアップ財務の専門家。</p>
+                    <div class="leader-links">
+                        <a href="#">💼</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="press-releases">
+            <div class="section-header">
+                <h2>プレスリリース</h2>
+                <p>最新のニュース</p>
+            </div>
+
+            <div class="release-list">
+                <div class="release-item">
+                    <div class="release-info">
+                        <h4>AppName、シリーズBラウンドで3,000万ドルを調達</h4>
+                        <div class="date">2024年11月15日</div>
+                    </div>
+                    <a href="#">詳細を見る →</a>
+                </div>
+                <div class="release-item">
+                    <div class="release-info">
+                        <h4>導入企業数50,000社突破のお知らせ</h4>
+                        <div class="date">2024年10月1日</div>
+                    </div>
+                    <a href="#">詳細を見る →</a>
+                </div>
+                <div class="release-item">
+                    <div class="release-info">
+                        <h4>AI機能「AppName Copilot」を正式リリース</h4>
+                        <div class="date">2024年8月20日</div>
+                    </div>
+                    <a href="#">詳細を見る →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="media-coverage">
+            <div class="section-header">
+                <h2>メディア掲載</h2>
+                <p>AppNameが紹介されたメディア</p>
+            </div>
+
+            <div class="media-grid">
+                <div class="media-logo">TechCrunch</div>
+                <div class="media-logo">Forbes</div>
+                <div class="media-logo">日経新聞</div>
+                <div class="media-logo">WIRED</div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>プレスお問い合わせ</h2>
+            <p>取材・インタビュー・資料請求などお気軽にご連絡ください</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="icon">📧</div>
+                    <div class="text">
+                        <div class="label">Email</div>
+                        <div class="value">press@appname.example</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📱</div>
+                    <div class="text">
+                        <div class="label">Phone</div>
+                        <div class="value">03-1234-5678</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
