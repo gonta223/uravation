@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>システムステータス - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+
+        header { padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .subscribe-btn { padding: 12px 24px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; font-size: 0.9rem; text-decoration: none; transition: all 0.3s; }
+        .subscribe-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .status-container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+
+        .overall-status { text-align: center; margin-bottom: 60px; }
+        .status-badge { display: inline-flex; align-items: center; gap: 12px; padding: 20px 40px; border-radius: 16px; margin-bottom: 20px; }
+        .status-badge.operational { background: rgba(34, 197, 94, 0.15); }
+        .status-badge.degraded { background: rgba(249, 115, 22, 0.15); }
+        .status-badge.outage { background: rgba(239, 68, 68, 0.15); }
+        .status-dot { width: 16px; height: 16px; border-radius: 50%; }
+        .status-badge.operational .status-dot { background: #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); }
+        .status-badge.degraded .status-dot { background: #f97316; box-shadow: 0 0 20px rgba(249, 115, 22, 0.5); }
+        .status-badge.outage .status-dot { background: #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        .status-text { font-size: 1.5rem; font-weight: 700; }
+        .status-badge.operational .status-text { color: #22c55e; }
+        .status-badge.degraded .status-text { color: #f97316; }
+        .status-badge.outage .status-text { color: #ef4444; }
+        .last-updated { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+
+        .services-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 60px; }
+        .service-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 25px; display: flex; justify-content: space-between; align-items: center; }
+        .service-info { display: flex; align-items: center; gap: 15px; }
+        .service-icon { width: 45px; height: 45px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .service-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 3px; }
+        .service-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        .service-status { display: flex; align-items: center; gap: 10px; }
+        .service-status .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .service-status .dot.operational { background: #22c55e; }
+        .service-status .dot.degraded { background: #f97316; }
+        .service-status .dot.outage { background: #ef4444; }
+        .service-status span { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+
+        .uptime-section { margin-bottom: 60px; }
+        .uptime-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .uptime-period { display: flex; gap: 10px; }
+        .period-btn { padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: rgba(255,255,255,0.6); font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+        .period-btn.active { background: #6366f1; border-color: #6366f1; color: white; }
+
+        .uptime-chart { display: flex; gap: 3px; margin-bottom: 15px; }
+        .uptime-bar { flex: 1; height: 35px; border-radius: 4px; transition: all 0.3s; cursor: pointer; }
+        .uptime-bar.up { background: #22c55e; }
+        .uptime-bar.degraded { background: #f97316; }
+        .uptime-bar.down { background: #ef4444; }
+        .uptime-bar:hover { transform: scaleY(1.2); }
+
+        .uptime-legend { display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        .uptime-summary { display: flex; gap: 40px; margin-top: 20px; }
+        .uptime-stat { }
+        .uptime-stat .value { font-size: 1.8rem; font-weight: 800; color: #22c55e; }
+        .uptime-stat .label { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+        .incidents-section { margin-bottom: 60px; }
+        .incident-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 25px; margin-bottom: 15px; }
+        .incident-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .incident-title { display: flex; align-items: center; gap: 12px; }
+        .incident-severity { padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .incident-severity.resolved { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .incident-severity.investigating { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+        .incident-severity.critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .incident-name { font-weight: 600; font-size: 1.05rem; }
+        .incident-date { font-size: 0.85rem; color: rgba(255,255,255,0.4); }
+        .incident-updates { display: flex; flex-direction: column; gap: 12px; }
+        .update-item { display: flex; gap: 15px; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.1); }
+        .update-time { font-size: 0.8rem; color: rgba(255,255,255,0.4); white-space: nowrap; min-width: 60px; }
+        .update-text { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+        .no-incidents { text-align: center; padding: 40px; color: rgba(255,255,255,0.5); }
+        .no-incidents .icon { font-size: 3rem; margin-bottom: 15px; }
+
+        .schedule-section { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 30px; }
+        .schedule-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .schedule-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .schedule-date { min-width: 100px; }
+        .schedule-date .day { font-size: 1.5rem; font-weight: 800; }
+        .schedule-date .month { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        .schedule-info h4 { font-weight: 600; margin-bottom: 8px; }
+        .schedule-info p { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+        .schedule-time { font-size: 0.85rem; color: #6366f1; margin-top: 10px; }
+
+        footer { padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; }
+        footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+
+        @media (max-width: 600px) {
+            header { padding: 20px; }
+            .status-container { padding: 40px 15px; }
+            .service-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .uptime-summary { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName Status</div>
+        <a href="#" class="subscribe-btn">🔔 更新を受け取る</a>
+    </header>
+
+    <div class="status-container">
+        <div class="overall-status">
+            <div class="status-badge operational">
+                <div class="status-dot"></div>
+                <span class="status-text">すべてのシステムが正常に稼働中</span>
+            </div>
+            <p class="last-updated">最終更新: 2024年12月7日 14:30 JST</p>
+        </div>
+
+        <div class="services-list">
+            <h3 class="section-title">🖥️ サービス別ステータス</h3>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <div class="service-icon">🌐</div>
+                    <div>
+                        <div class="service-name">Webアプリケーション</div>
+                        <div class="service-desc">app.appname.com</div>
+                    </div>
+                </div>
+                <div class="service-status">
+                    <div class="dot operational"></div>
+                    <span>稼働中</span>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <div class="service-icon">📡</div>
+                    <div>
+                        <div class="service-name">API</div>
+                        <div class="service-desc">api.appname.com</div>
+                    </div>
+                </div>
+                <div class="service-status">
+                    <div class="dot operational"></div>
+                    <span>稼働中</span>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <div class="service-icon">📱</div>
+                    <div>
+                        <div class="service-name">モバイルアプリ</div>
+                        <div class="service-desc">iOS / Android</div>
+                    </div>
+                </div>
+                <div class="service-status">
+                    <div class="dot operational"></div>
+                    <span>稼働中</span>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <div class="service-icon">💾</div>
+                    <div>
+                        <div class="service-name">データベース</div>
+                        <div class="service-desc">プライマリ / レプリカ</div>
+                    </div>
+                </div>
+                <div class="service-status">
+                    <div class="dot operational"></div>
+                    <span>稼働中</span>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-info">
+                    <div class="service-icon">📧</div>
+                    <div>
+                        <div class="service-name">メール配信</div>
+                        <div class="service-desc">通知・トランザクション</div>
+                    </div>
+                </div>
+                <div class="service-status">
+                    <div class="dot operational"></div>
+                    <span>稼働中</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="uptime-section">
+            <div class="uptime-header">
+                <h3 class="section-title">📊 稼働率</h3>
+                <div class="uptime-period">
+                    <button class="period-btn">7日</button>
+                    <button class="period-btn active">30日</button>
+                    <button class="period-btn">90日</button>
+                </div>
+            </div>
+            <div class="uptime-chart">
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar degraded"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+                <div class="uptime-bar up"></div>
+            </div>
+            <div class="uptime-legend">
+                <span>30日前</span>
+                <span>今日</span>
+            </div>
+            <div class="uptime-summary">
+                <div class="uptime-stat">
+                    <div class="value">99.98%</div>
+                    <div class="label">過去30日間の稼働率</div>
+                </div>
+                <div class="uptime-stat">
+                    <div class="value">12分</div>
+                    <div class="label">今月のダウンタイム</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="incidents-section">
+            <h3 class="section-title">📋 インシデント履歴</h3>
+
+            <div class="incident-item">
+                <div class="incident-header">
+                    <div class="incident-title">
+                        <span class="incident-severity resolved">解決済み</span>
+                        <span class="incident-name">API応答遅延</span>
+                    </div>
+                    <span class="incident-date">2024年12月5日</span>
+                </div>
+                <div class="incident-updates">
+                    <div class="update-item">
+                        <span class="update-time">15:45</span>
+                        <span class="update-text">問題は解決されました。サービスは正常に稼働しています。</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-time">15:30</span>
+                        <span class="update-text">原因を特定し、修正を適用中です。</span>
+                    </div>
+                    <div class="update-item">
+                        <span class="update-time">15:15</span>
+                        <span class="update-text">一部のAPIリクエストで遅延が発生しています。調査中です。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="schedule-section">
+            <h3 class="section-title">🔧 メンテナンス予定</h3>
+
+            <div class="schedule-item">
+                <div class="schedule-date">
+                    <div class="day">15</div>
+                    <div class="month">12月</div>
+                </div>
+                <div class="schedule-info">
+                    <h4>定期メンテナンス</h4>
+                    <p>データベースの最適化とセキュリティパッチの適用を行います。サービスへの影響はありません。</p>
+                    <div class="schedule-time">🕐 02:00 - 04:00 JST</div>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="schedule-date">
+                    <div class="day">22</div>
+                    <div class="month">12月</div>
+                </div>
+                <div class="schedule-info">
+                    <h4>インフラアップグレード</h4>
+                    <p>サーバーインフラのアップグレードを実施します。最大30分程度のダウンタイムが発生する可能性があります。</p>
+                    <div class="schedule-time">🕐 03:00 - 05:00 JST</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. システムステータスに関するお問い合わせ: status@appname.example</p>
+    </footer>
+</body>
+</html>

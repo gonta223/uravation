@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>連携・インテグレーション - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 100px 50px; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -2px; }
+        .hero p { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto 40px; }
+        .hero-stats { display: flex; justify-content: center; gap: 60px; }
+        .hero-stat .value { font-size: 3rem; font-weight: 900; }
+        .hero-stat .label { font-size: 0.9rem; opacity: 0.7; }
+
+        .search-section { max-width: 600px; margin: -30px auto 0; position: relative; z-index: 10; padding: 0 20px; }
+        .search-box { display: flex; background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); overflow: hidden; }
+        .search-box input { flex: 1; padding: 20px 25px; border: none; font-size: 1rem; }
+        .search-box input:focus { outline: none; }
+        .search-box button { padding: 20px 30px; background: #6366f1; color: white; border: none; font-size: 1rem; cursor: pointer; }
+
+        .integrations-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+
+        .category-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 50px; flex-wrap: wrap; }
+        .category-tab { padding: 12px 24px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .category-tab:hover { border-color: #6366f1; }
+        .category-tab.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+        .featured-section { margin-bottom: 60px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .section-header h2 { font-size: 1.8rem; font-weight: 800; }
+        .section-header a { color: #6366f1; text-decoration: none; font-weight: 500; }
+
+        .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .featured-card { background: white; border-radius: 20px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s; position: relative; overflow: hidden; }
+        .featured-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .featured-card .badge { position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .featured-card .icon { width: 70px; height: 70px; background: #f1f5f9; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 25px; }
+        .featured-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .featured-card p { font-size: 0.95rem; color: #64748b; line-height: 1.7; margin-bottom: 20px; }
+        .featured-card .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .featured-card .tag { padding: 5px 12px; background: #f1f5f9; border-radius: 6px; font-size: 0.8rem; color: #64748b; }
+
+        .integrations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .integration-card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; transition: all 0.3s; cursor: pointer; }
+        .integration-card:hover { border-color: #6366f1; transform: translateY(-3px); }
+        .integration-card .icon { width: 50px; height: 50px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 15px; }
+        .integration-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .integration-card p { font-size: 0.85rem; color: #64748b; line-height: 1.5; }
+        .integration-card .category-label { display: inline-block; margin-top: 12px; font-size: 0.75rem; color: #6366f1; background: rgba(99, 102, 241, 0.1); padding: 4px 10px; border-radius: 4px; }
+
+        .category-section { margin-bottom: 60px; }
+        .category-section h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+
+        .request-section { background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 24px; padding: 60px; text-align: center; color: white; margin-top: 60px; }
+        .request-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .request-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+        .request-btn { display: inline-block; padding: 16px 35px; background: white; color: #6366f1; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .request-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        footer { padding: 40px 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; margin-top: 80px; }
+
+        @media (max-width: 1000px) {
+            .featured-grid { grid-template-columns: repeat(2, 1fr); }
+            .integrations-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 80px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .featured-grid { grid-template-columns: 1fr; }
+            .integrations-grid { grid-template-columns: repeat(2, 1fr); }
+            .request-section { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+        </nav>
+        <a href="#" class="header-cta">無料で始める</a>
+    </header>
+
+    <section class="hero">
+        <h1>500+のアプリと連携</h1>
+        <p>お気に入りのツールとシームレスに接続。ワークフローを自動化し、生産性を最大化しましょう。</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="value">500+</div>
+                <div class="label">連携アプリ</div>
+            </div>
+            <div class="hero-stat">
+                <div class="value">50M+</div>
+                <div class="label">月間同期数</div>
+            </div>
+            <div class="hero-stat">
+                <div class="value">99.9%</div>
+                <div class="label">稼働率</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" placeholder="連携アプリを検索...">
+            <button>🔍 検索</button>
+        </div>
+    </div>
+
+    <div class="integrations-container">
+        <div class="category-tabs">
+            <button class="category-tab active">すべて</button>
+            <button class="category-tab">コミュニケーション</button>
+            <button class="category-tab">CRM・営業</button>
+            <button class="category-tab">マーケティング</button>
+            <button class="category-tab">開発ツール</button>
+            <button class="category-tab">ファイル管理</button>
+            <button class="category-tab">会計・請求</button>
+        </div>
+
+        <div class="featured-section">
+            <div class="section-header">
+                <h2>🌟 人気の連携</h2>
+                <a href="#">すべて見る →</a>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <span class="badge">人気No.1</span>
+                    <div class="icon">💬</div>
+                    <h3>Slack</h3>
+                    <p>Slackチャンネルに通知を送信、コマンドでタスクを作成・更新</p>
+                    <div class="tags">
+                        <span class="tag">コミュニケーション</span>
+                        <span class="tag">通知</span>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="icon">📝</div>
+                    <h3>Notion</h3>
+                    <p>Notionのデータベースと双方向同期、ページの自動作成</p>
+                    <div class="tags">
+                        <span class="tag">ドキュメント</span>
+                        <span class="tag">同期</span>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="icon">☁️</div>
+                    <h3>Salesforce</h3>
+                    <p>リード・商談データを同期、営業パイプラインを可視化</p>
+                    <div class="tags">
+                        <span class="tag">CRM</span>
+                        <span class="tag">営業</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h3>💬 コミュニケーション</h3>
+            <div class="integrations-grid">
+                <div class="integration-card">
+                    <div class="icon">💬</div>
+                    <h4>Slack</h4>
+                    <p>チャット通知とコマンド連携</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">👥</div>
+                    <h4>Microsoft Teams</h4>
+                    <p>チームチャットと会議連携</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">📧</div>
+                    <h4>Gmail</h4>
+                    <p>メールからタスク自動作成</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🎥</div>
+                    <h4>Zoom</h4>
+                    <p>会議の自動スケジュール</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h3>💼 CRM・営業</h3>
+            <div class="integrations-grid">
+                <div class="integration-card">
+                    <div class="icon">☁️</div>
+                    <h4>Salesforce</h4>
+                    <p>リード・商談データ同期</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🟠</div>
+                    <h4>HubSpot</h4>
+                    <p>CRMデータの双方向同期</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">📊</div>
+                    <h4>Pipedrive</h4>
+                    <p>パイプライン管理連携</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🔵</div>
+                    <h4>Zendesk</h4>
+                    <p>サポートチケット連携</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h3>🛠️ 開発ツール</h3>
+            <div class="integrations-grid">
+                <div class="integration-card">
+                    <div class="icon">🐙</div>
+                    <h4>GitHub</h4>
+                    <p>Issue・PRと自動連携</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🦊</div>
+                    <h4>GitLab</h4>
+                    <p>MR・Issueトラッキング</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🔵</div>
+                    <h4>Jira</h4>
+                    <p>チケット双方向同期</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">📐</div>
+                    <h4>Figma</h4>
+                    <p>デザインファイル連携</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h3>📁 ファイル管理</h3>
+            <div class="integrations-grid">
+                <div class="integration-card">
+                    <div class="icon">📦</div>
+                    <h4>Dropbox</h4>
+                    <p>ファイル自動同期</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🔷</div>
+                    <h4>Google Drive</h4>
+                    <p>ドキュメント連携</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">☁️</div>
+                    <h4>OneDrive</h4>
+                    <p>ファイル共有連携</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">📋</div>
+                    <h4>Box</h4>
+                    <p>エンタープライズ連携</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="request-section">
+            <h2>お探しの連携がありませんか？</h2>
+            <p>ご要望の連携をリクエストしてください。優先的に開発を検討します。</p>
+            <a href="#" class="request-btn">連携をリクエスト →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

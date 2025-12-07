@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>他社比較 - AppName vs 競合</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        nav a { margin-left: 30px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+        .header-cta { padding: 12px 24px; background: #6366f1; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+        .hero { background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 100px 50px; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero p { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto; }
+
+        .compare-container { max-width: 1200px; margin: -60px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
+
+        .compare-selector { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 40px; display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .compare-selector span { color: #64748b; font-size: 0.95rem; }
+        .compare-selector select { padding: 14px 20px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 1rem; background: white; min-width: 200px; }
+
+        .compare-table-wrapper { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+
+        .compare-table { width: 100%; border-collapse: collapse; }
+        .compare-table th, .compare-table td { padding: 20px 25px; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        .compare-table th { background: #f8fafc; font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+        .compare-table th:first-child { text-align: left; width: 35%; }
+        .compare-table td:first-child { text-align: left; font-weight: 500; }
+
+        .product-header { padding: 30px 25px !important; background: white !important; }
+        .product-header .product-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; }
+        .product-header .product-price { font-size: 0.9rem; color: #64748b; }
+        .product-header.highlight { background: linear-gradient(135deg, #6366f1, #8b5cf6) !important; color: white; }
+        .product-header.highlight .product-price { color: rgba(255,255,255,0.8); }
+        .product-header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; margin-left: 10px; }
+
+        .category-row { background: #f8fafc !important; }
+        .category-row td { font-weight: 600; color: #1e293b; font-size: 0.95rem; padding: 15px 25px !important; }
+
+        .check { color: #22c55e; font-size: 1.3rem; }
+        .cross { color: #ef4444; font-size: 1.3rem; }
+        .partial { color: #f59e0b; font-size: 0.9rem; }
+
+        .value-cell { font-size: 0.95rem; }
+        .value-cell.highlight { color: #6366f1; font-weight: 600; }
+
+        .winner-badge { display: inline-block; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; margin-left: 8px; }
+
+        .summary-section { padding: 80px 50px; background: white; }
+        .summary-header { text-align: center; margin-bottom: 50px; }
+        .summary-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .summary-header p { color: #64748b; font-size: 1.1rem; }
+
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .summary-card { background: #f8fafc; border-radius: 16px; padding: 35px; text-align: center; }
+        .summary-card .icon { font-size: 3rem; margin-bottom: 20px; }
+        .summary-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+        .summary-card p { font-size: 0.95rem; color: #64748b; line-height: 1.7; }
+        .summary-card .stat { font-size: 2rem; font-weight: 800; color: #6366f1; margin-top: 15px; }
+
+        .testimonial-section { padding: 80px 50px; background: #f8fafc; }
+        .testimonial-card { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 50px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        .testimonial-card blockquote { font-size: 1.3rem; font-style: italic; color: #334155; line-height: 1.8; margin-bottom: 30px; }
+        .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .author-avatar { width: 60px; height: 60px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+        .author-info .name { font-weight: 600; }
+        .author-info .role { font-size: 0.9rem; color: #64748b; }
+        .switch-badge { display: inline-block; background: rgba(34, 197, 94, 0.1); color: #16a34a; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 25px; }
+
+        .cta-section { padding: 100px 50px; text-align: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; }
+        .cta-section h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 35px; }
+        .cta-btn { display: inline-block; padding: 18px 40px; background: white; color: #6366f1; border-radius: 12px; font-size: 1.05rem; font-weight: 700; text-decoration: none; }
+
+        footer { padding: 40px 50px; text-align: center; background: #1e293b; color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+
+        @media (max-width: 900px) {
+            .compare-table-wrapper { overflow-x: auto; }
+            .compare-table { min-width: 700px; }
+            .summary-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            nav { display: none; }
+            .hero { padding: 80px 20px; }
+            .hero h1 { font-size: 2rem; }
+            .compare-container { padding: 0 15px; margin-top: -40px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AppName</div>
+        <nav>
+            <a href="#">機能</a>
+            <a href="#">料金</a>
+            <a href="#">事例</a>
+        </nav>
+        <a href="#" class="header-cta">無料で始める</a>
+    </header>
+
+    <section class="hero">
+        <h1>なぜAppNameが選ばれるのか</h1>
+        <p>主要な競合製品と機能・価格を徹底比較。AppNameが最適な選択である理由をご確認ください。</p>
+    </section>
+
+    <div class="compare-container">
+        <div class="compare-selector">
+            <span>比較対象を選択:</span>
+            <select>
+                <option>CompetitorA</option>
+                <option>CompetitorB</option>
+                <option>CompetitorC</option>
+            </select>
+            <span>vs</span>
+            <select>
+                <option>CompetitorB</option>
+                <option>CompetitorA</option>
+                <option>CompetitorC</option>
+            </select>
+        </div>
+
+        <div class="compare-table-wrapper">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="product-header highlight">
+                            <div class="product-name">AppName <span class="badge">おすすめ</span></div>
+                            <div class="product-price">¥2,980/月〜</div>
+                        </th>
+                        <th class="product-header">
+                            <div class="product-name">CompetitorA</div>
+                            <div class="product-price">¥4,500/月〜</div>
+                        </th>
+                        <th class="product-header">
+                            <div class="product-name">CompetitorB</div>
+                            <div class="product-price">¥3,800/月〜</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="category-row">
+                        <td colspan="4">基本機能</td>
+                    </tr>
+                    <tr>
+                        <td>リアルタイムコラボレーション</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">一部対応</span></td>
+                    </tr>
+                    <tr>
+                        <td>無制限プロジェクト</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>ストレージ容量</td>
+                        <td class="value-cell highlight">無制限 <span class="winner-badge">最大</span></td>
+                        <td class="value-cell">100GB</td>
+                        <td class="value-cell">50GB</td>
+                    </tr>
+                    <tr class="category-row">
+                        <td colspan="4">自動化・連携</td>
+                    </tr>
+                    <tr>
+                        <td>ワークフロー自動化</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">上位プランのみ</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>API連携数</td>
+                        <td class="value-cell highlight">500+ <span class="winner-badge">最多</span></td>
+                        <td class="value-cell">200+</td>
+                        <td class="value-cell">100+</td>
+                    </tr>
+                    <tr>
+                        <td>Webhook対応</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr class="category-row">
+                        <td colspan="4">セキュリティ</td>
+                    </tr>
+                    <tr>
+                        <td>SOC2認証</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>SAML SSO</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">上位プランのみ</span></td>
+                        <td><span class="partial">上位プランのみ</span></td>
+                    </tr>
+                    <tr>
+                        <td>監査ログ</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr class="category-row">
+                        <td colspan="4">サポート</td>
+                    </tr>
+                    <tr>
+                        <td>24時間サポート</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">上位プランのみ</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>日本語サポート</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>専任カスタマーサクセス</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="partial">上位プランのみ</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <section class="summary-section">
+        <div class="summary-header">
+            <h2>AppNameが選ばれる理由</h2>
+            <p>数字で見る圧倒的な優位性</p>
+        </div>
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="icon">💰</div>
+                <h3>コストパフォーマンス</h3>
+                <p>同等機能を持つ競合製品と比較して、大幅なコスト削減を実現</p>
+                <div class="stat">40%削減</div>
+            </div>
+            <div class="summary-card">
+                <div class="icon">⚡</div>
+                <h3>導入スピード</h3>
+                <p>直感的なUIで、チーム全体が即日から利用開始可能</p>
+                <div class="stat">3倍速い</div>
+            </div>
+            <div class="summary-card">
+                <div class="icon">📈</div>
+                <h3>生産性向上</h3>
+                <p>導入企業の平均的な生産性向上率</p>
+                <div class="stat">+150%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-section">
+        <div class="testimonial-card">
+            <blockquote>"以前使っていたツールから乗り換えて本当に良かった。機能は充実しているのに、使いやすさが段違いです。チーム全員が2日で使いこなせるようになりました。"</blockquote>
+            <div class="testimonial-author">
+                <div class="author-avatar">👨‍💼</div>
+                <div class="author-info">
+                    <div class="name">田中 健太</div>
+                    <div class="role">株式会社TechVentures CTO</div>
+                </div>
+            </div>
+            <div class="switch-badge">CompetitorAから乗り換え</div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>違いを体験してください</h2>
+        <p>14日間の無料トライアルで、AppNameの優位性をご確認ください</p>
+        <a href="#" class="cta-btn">無料で始める →</a>
+    </section>
+
+    <footer>
+        <p>© 2024 AppName Inc. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

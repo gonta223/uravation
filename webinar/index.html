@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無料ウェビナー - AI活用で生産性を3倍にする方法</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+
+        .page-container { display: grid; grid-template-columns: 1fr 450px; min-height: 100vh; }
+
+        .main-content { padding: 60px; display: flex; flex-direction: column; }
+
+        .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 30px; }
+        .badge .live-dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        h1 { font-size: 3rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; letter-spacing: -1px; }
+        h1 span { background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .webinar-meta { display: flex; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; }
+        .meta-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.7); }
+        .meta-item .icon { font-size: 1.3rem; }
+
+        .description { font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 40px; }
+
+        .topics-section { margin-bottom: 50px; }
+        .topics-section h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+        .topics-list { display: flex; flex-direction: column; gap: 15px; }
+        .topic-item { display: flex; align-items: flex-start; gap: 15px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; }
+        .topic-number { width: 30px; height: 30px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; flex-shrink: 0; }
+        .topic-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .topic-text p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+
+        .speakers-section { margin-bottom: 50px; }
+        .speakers-section h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+        .speakers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .speaker-card { display: flex; gap: 15px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; }
+        .speaker-avatar { width: 60px; height: 60px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+        .speaker-info .name { font-weight: 600; margin-bottom: 3px; }
+        .speaker-info .role { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+        .speaker-info .company { font-size: 0.8rem; color: #818cf8; }
+
+        .social-proof { display: flex; align-items: center; gap: 20px; padding: 25px; background: rgba(34, 197, 94, 0.1); border-radius: 12px; margin-top: auto; }
+        .avatar-stack { display: flex; }
+        .avatar-stack .avatar { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #0f172a; margin-left: -12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .avatar-stack .avatar:first-child { margin-left: 0; }
+        .avatar-stack .avatar:nth-child(1) { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .avatar-stack .avatar:nth-child(2) { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .avatar-stack .avatar:nth-child(3) { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .avatar-stack .more { background: #22c55e; color: white; font-size: 0.8rem; font-weight: 600; }
+        .proof-text { font-size: 0.95rem; color: rgba(255,255,255,0.9); }
+        .proof-text strong { color: #22c55e; }
+
+        .sidebar { background: linear-gradient(180deg, #1e293b, #0f172a); padding: 50px 40px; display: flex; flex-direction: column; }
+
+        .register-card { background: white; border-radius: 20px; padding: 35px; color: #1e293b; flex: 1; display: flex; flex-direction: column; }
+        .register-card h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; text-align: center; }
+        .register-card .subtitle { text-align: center; color: #64748b; font-size: 0.95rem; margin-bottom: 30px; }
+
+        .countdown { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #e2e8f0; }
+        .countdown-item { text-align: center; }
+        .countdown-value { font-size: 2rem; font-weight: 800; color: #6366f1; }
+        .countdown-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+        .form-group input, .form-group select { width: 100%; padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #6366f1; }
+
+        .register-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 10px; transition: all 0.3s; }
+        .register-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+        .form-note { text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 20px; }
+        .form-note a { color: #6366f1; }
+
+        .benefits { margin-top: 30px; padding-top: 25px; border-top: 1px solid #e2e8f0; }
+        .benefit-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem; color: #475569; }
+        .benefit-item .check { color: #22c55e; font-weight: bold; }
+
+        .urgency-banner { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 25px; }
+        .urgency-banner p { font-size: 0.9rem; font-weight: 600; }
+
+        @media (max-width: 1000px) {
+            .page-container { grid-template-columns: 1fr; }
+            .main-content { padding: 40px 20px; }
+            .sidebar { padding: 40px 20px; }
+            h1 { font-size: 2rem; }
+            .speakers-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="main-content">
+            <div class="badge">
+                <span class="live-dot"></span>
+                無料オンラインセミナー
+            </div>
+
+            <h1>AI活用で<span>生産性を3倍</span>にする実践テクニック</h1>
+
+            <div class="webinar-meta">
+                <div class="meta-item">
+                    <span class="icon">📅</span>
+                    <span>2024年12月20日（金）</span>
+                </div>
+                <div class="meta-item">
+                    <span class="icon">🕐</span>
+                    <span>14:00 - 15:30（90分）</span>
+                </div>
+                <div class="meta-item">
+                    <span class="icon">💻</span>
+                    <span>Zoom開催</span>
+                </div>
+            </div>
+
+            <p class="description">
+                ChatGPT、Copilot、その他のAIツールを活用して、日々の業務を劇的に効率化する方法を、実例を交えて解説します。明日からすぐに使える実践的なテクニックをお伝えします。
+            </p>
+
+            <div class="topics-section">
+                <h3>📚 学べる内容</h3>
+                <div class="topics-list">
+                    <div class="topic-item">
+                        <div class="topic-number">1</div>
+                        <div class="topic-text">
+                            <h4>AIツールの基礎と選び方</h4>
+                            <p>目的別に最適なAIツールを選ぶためのフレームワーク</p>
+                        </div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-number">2</div>
+                        <div class="topic-text">
+                            <h4>効果的なプロンプトの書き方</h4>
+                            <p>AIから最高の回答を引き出すプロンプトエンジニアリング</p>
+                        </div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-number">3</div>
+                        <div class="topic-text">
+                            <h4>業務別活用事例</h4>
+                            <p>マーケティング、営業、開発、カスタマーサポートでの活用法</p>
+                        </div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-number">4</div>
+                        <div class="topic-text">
+                            <h4>ワークフロー自動化</h4>
+                            <p>AIを組み込んだ業務自動化の構築方法</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speakers-section">
+                <h3>🎤 登壇者</h3>
+                <div class="speakers-grid">
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">👨‍💻</div>
+                        <div class="speaker-info">
+                            <div class="name">田中 健太</div>
+                            <div class="role">CEO & Co-Founder</div>
+                            <div class="company">AppName Inc.</div>
+                        </div>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">👩‍🔬</div>
+                        <div class="speaker-info">
+                            <div class="name">佐藤 美咲</div>
+                            <div class="role">AI Research Lead</div>
+                            <div class="company">AppName Inc.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-proof">
+                <div class="avatar-stack">
+                    <div class="avatar">👨</div>
+                    <div class="avatar">👩</div>
+                    <div class="avatar">🧑</div>
+                    <div class="avatar more">+847</div>
+                </div>
+                <p class="proof-text"><strong>850名以上</strong>が既に参加登録済み</p>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="register-card">
+                <h2>無料で参加する</h2>
+                <p class="subtitle">以下のフォームからお申し込みください</p>
+
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-value">13</div>
+                        <div class="countdown-label">日</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">08</div>
+                        <div class="countdown-label">時間</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value">42</div>
+                        <div class="countdown-label">分</div>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label>お名前 *</label>
+                        <input type="text" placeholder="山田 太郎">
+                    </div>
+                    <div class="form-group">
+                        <label>メールアドレス *</label>
+                        <input type="email" placeholder="example@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label>会社名</label>
+                        <input type="text" placeholder="株式会社サンプル">
+                    </div>
+                    <div class="form-group">
+                        <label>役職</label>
+                        <select>
+                            <option>選択してください</option>
+                            <option>経営者・役員</option>
+                            <option>部長・マネージャー</option>
+                            <option>一般社員</option>
+                            <option>フリーランス</option>
+                            <option>その他</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="register-btn">今すぐ無料で登録する</button>
+                </form>
+
+                <p class="form-note">
+                    登録することで<a href="#">利用規約</a>と<a href="#">プライバシーポリシー</a>に同意したことになります
+                </p>
+
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>参加無料・途中退出OK</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>録画アーカイブ配布あり</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>スライド資料プレゼント</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>Q&Aセッションあり</span>
+                    </div>
+                </div>
+
+                <div class="urgency-banner">
+                    <p>⚠️ 残り50席となりました</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
