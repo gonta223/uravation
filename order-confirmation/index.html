@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注文確認 - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #f8fafc; color: #1e293b; min-height: 100vh; }
+
+        .header { background: white; border-bottom: 1px solid #e2e8f0; padding: 20px; }
+        .header-content { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; }
+        .header-links a { color: #64748b; text-decoration: none; margin-left: 25px; font-size: 0.9rem; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; }
+
+        .success-banner { text-align: center; margin-bottom: 40px; }
+        .success-icon { width: 100px; height: 100px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 25px; animation: bounceIn 0.6s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .success-banner h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+        .success-banner p { color: #64748b; font-size: 1.1rem; }
+
+        .order-card { background: white; border-radius: 20px; padding: 35px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+
+        .order-header { display: flex; justify-content: space-between; align-items: start; padding-bottom: 25px; border-bottom: 1px solid #e2e8f0; margin-bottom: 25px; }
+        .order-info h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .order-number { font-size: 1.5rem; font-weight: 800; color: #6366f1; margin-bottom: 10px; }
+        .order-date { font-size: 0.9rem; color: #64748b; }
+        .order-status { padding: 10px 20px; background: #dcfce7; color: #16a34a; border-radius: 30px; font-size: 0.9rem; font-weight: 600; }
+
+        .section-title { font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; }
+
+        .product-list { margin-bottom: 25px; }
+        .product-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid #f1f5f9; }
+        .product-item:last-child { border-bottom: none; }
+        .product-image { width: 80px; height: 80px; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
+        .product-details { flex: 1; }
+        .product-name { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
+        .product-meta { font-size: 0.85rem; color: #64748b; }
+        .product-quantity { font-size: 0.9rem; color: #64748b; margin-top: 8px; }
+        .product-price { font-weight: 700; font-size: 1.1rem; text-align: right; }
+
+        .price-breakdown { background: #f8fafc; border-radius: 12px; padding: 20px; }
+        .price-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 0.95rem; }
+        .price-row.total { border-top: 2px solid #e2e8f0; margin-top: 10px; padding-top: 15px; font-size: 1.2rem; font-weight: 700; }
+        .price-row .label { color: #64748b; }
+        .price-row.discount .value { color: #22c55e; }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .info-block h4 { font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; }
+        .info-block p { font-size: 0.95rem; line-height: 1.7; }
+        .info-block .name { font-weight: 600; }
+
+        .tracking-section { margin-top: 25px; padding-top: 25px; border-top: 1px solid #e2e8f0; }
+        .tracking-timeline { display: flex; justify-content: space-between; position: relative; margin-top: 30px; }
+        .tracking-timeline::before { content: ''; position: absolute; top: 20px; left: 10%; right: 10%; height: 4px; background: #e2e8f0; }
+        .tracking-timeline::after { content: ''; position: absolute; top: 20px; left: 10%; width: 30%; height: 4px; background: #22c55e; }
+        .tracking-step { text-align: center; position: relative; z-index: 1; flex: 1; }
+        .tracking-step .dot { width: 40px; height: 40px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1rem; }
+        .tracking-step.completed .dot { background: #22c55e; color: white; }
+        .tracking-step.current .dot { background: #6366f1; color: white; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); } }
+        .tracking-step .label { font-size: 0.8rem; color: #64748b; }
+        .tracking-step.completed .label { color: #22c55e; font-weight: 500; }
+
+        .actions-section { display: flex; gap: 15px; margin-top: 30px; }
+        .btn { flex: 1; padding: 16px 25px; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: #6366f1; color: white; }
+        .btn-primary:hover { background: #4f46e5; }
+        .btn-secondary { background: white; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { border-color: #6366f1; color: #6366f1; }
+
+        .help-section { background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 16px; padding: 30px; text-align: center; margin-top: 30px; }
+        .help-section h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .help-section p { color: #64748b; font-size: 0.95rem; margin-bottom: 20px; }
+        .help-links { display: flex; gap: 20px; justify-content: center; }
+        .help-link { display: flex; align-items: center; gap: 8px; color: #0284c7; text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+        .help-link:hover { text-decoration: underline; }
+
+        .email-preview { background: #f8fafc; border-radius: 12px; padding: 20px; margin-top: 25px; display: flex; align-items: center; gap: 15px; }
+        .email-icon { width: 50px; height: 50px; background: #e0e7ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .email-info { flex: 1; }
+        .email-info .title { font-weight: 600; font-size: 0.95rem; }
+        .email-info .desc { font-size: 0.85rem; color: #64748b; }
+
+        footer { background: #1e293b; color: white; padding: 30px 20px; margin-top: 60px; }
+        .footer-content { max-width: 800px; margin: 0 auto; text-align: center; font-size: 0.9rem; color: #94a3b8; }
+
+        @media (max-width: 600px) {
+            .order-header { flex-direction: column; gap: 15px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .tracking-timeline { flex-direction: column; gap: 20px; }
+            .tracking-timeline::before, .tracking-timeline::after { display: none; }
+            .actions-section { flex-direction: column; }
+            .help-links { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">AppName</div>
+            <div class="header-links">
+                <a href="#">注文履歴</a>
+                <a href="#">マイページ</a>
+                <a href="#">ヘルプ</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="success-banner">
+            <div class="success-icon">✓</div>
+            <h1>ご注文ありがとうございます！</h1>
+            <p>ご注文を受け付けました。確認メールをお送りしました。</p>
+        </div>
+
+        <div class="order-card">
+            <div class="order-header">
+                <div class="order-info">
+                    <h2>注文番号</h2>
+                    <div class="order-number">#ORD-2024-78542</div>
+                    <div class="order-date">2024年12月8日 14:32</div>
+                </div>
+                <div class="order-status">✓ 注文確定</div>
+            </div>
+
+            <div class="section-title">注文商品</div>
+            <div class="product-list">
+                <div class="product-item">
+                    <div class="product-image">📦</div>
+                    <div class="product-details">
+                        <div class="product-name">AppName Pro プラン（年間）</div>
+                        <div class="product-meta">12ヶ月間のアクセス • 全機能利用可能</div>
+                        <div class="product-quantity">数量: 1</div>
+                    </div>
+                    <div class="product-price">¥29,800</div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">👥</div>
+                    <div class="product-details">
+                        <div class="product-name">追加ユーザーライセンス × 5</div>
+                        <div class="product-meta">チームメンバー用追加シート</div>
+                        <div class="product-quantity">数量: 5</div>
+                    </div>
+                    <div class="product-price">¥15,000</div>
+                </div>
+            </div>
+
+            <div class="price-breakdown">
+                <div class="price-row">
+                    <span class="label">小計</span>
+                    <span class="value">¥44,800</span>
+                </div>
+                <div class="price-row discount">
+                    <span class="label">早期割引（20%OFF）</span>
+                    <span class="value">-¥8,960</span>
+                </div>
+                <div class="price-row">
+                    <span class="label">消費税（10%）</span>
+                    <span class="value">¥3,584</span>
+                </div>
+                <div class="price-row total">
+                    <span class="label">合計</span>
+                    <span class="value">¥39,424</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-card">
+            <div class="info-grid">
+                <div class="info-block">
+                    <h4>お支払い方法</h4>
+                    <p>
+                        <span class="name">クレジットカード</span><br>
+                        VISA **** **** **** 4242<br>
+                        有効期限: 12/26
+                    </p>
+                </div>
+                <div class="info-block">
+                    <h4>請求先情報</h4>
+                    <p>
+                        <span class="name">株式会社サンプル</span><br>
+                        田中 太郎<br>
+                        tanaka@example.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="tracking-section">
+                <div class="section-title">ステータス</div>
+                <div class="tracking-timeline">
+                    <div class="tracking-step completed">
+                        <div class="dot">✓</div>
+                        <div class="label">注文確定</div>
+                    </div>
+                    <div class="tracking-step current">
+                        <div class="dot">📧</div>
+                        <div class="label">確認メール送信</div>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="dot">⚙️</div>
+                        <div class="label">アカウント設定</div>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="dot">🚀</div>
+                        <div class="label">利用開始</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="email-preview">
+                <div class="email-icon">📧</div>
+                <div class="email-info">
+                    <div class="title">確認メールを送信しました</div>
+                    <div class="desc">tanaka@example.com に注文確認メールを送信しました。メールが届かない場合は迷惑メールフォルダをご確認ください。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions-section">
+            <a href="#" class="btn btn-primary">🚀 今すぐ始める</a>
+            <a href="#" class="btn btn-secondary">📄 領収書をダウンロード</a>
+            <a href="#" class="btn btn-secondary">📧 メールを再送</a>
+        </div>
+
+        <div class="help-section">
+            <h3>ご不明点はございますか？</h3>
+            <p>ご注文に関するお問い合わせは、以下からお気軽にどうぞ。</p>
+            <div class="help-links">
+                <a href="#" class="help-link">💬 チャットで相談</a>
+                <a href="#" class="help-link">📧 メールで問い合わせ</a>
+                <a href="#" class="help-link">📚 ヘルプセンター</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            © 2024 AppName. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

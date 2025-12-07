@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エラーページコレクション - AppName</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+
+        .page-header { padding: 40px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+        .page-header p { color: #94a3b8; }
+
+        .error-section { padding: 60px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .section-label { text-align: center; font-size: 0.85rem; color: #6366f1; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; }
+
+        /* 403 Forbidden */
+        .error-403 { background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%); }
+        .error-container { max-width: 600px; margin: 0 auto; text-align: center; }
+
+        .lock-animation { position: relative; width: 150px; height: 150px; margin: 0 auto 40px; }
+        .lock-body { width: 100px; height: 80px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 15px; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; }
+        .lock-body::before { content: ''; width: 20px; height: 20px; background: #1e1b4b; border-radius: 50%; }
+        .lock-body::after { content: ''; width: 8px; height: 25px; background: #1e1b4b; position: absolute; bottom: 15px; border-radius: 4px; }
+        .lock-shackle { width: 60px; height: 50px; border: 10px solid #a5b4fc; border-bottom: none; border-radius: 30px 30px 0 0; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); }
+
+        .error-code { font-size: 8rem; font-weight: 900; line-height: 1; margin-bottom: 20px; background: linear-gradient(135deg, #6366f1, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .error-title { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .error-desc { color: #94a3b8; font-size: 1.1rem; line-height: 1.8; margin-bottom: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 35px; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+        .btn-primary { background: #6366f1; color: white; }
+        .btn-primary:hover { background: #4f46e5; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); }
+        .btn-ghost { background: transparent; color: #94a3b8; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-ghost:hover { border-color: white; color: white; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+
+        /* 500 Server Error */
+        .error-500 { background: linear-gradient(180deg, #0f172a 0%, #450a0a 100%); }
+
+        .server-animation { position: relative; width: 200px; height: 150px; margin: 0 auto 40px; }
+        .server { width: 160px; height: 50px; background: #1e293b; border-radius: 8px; margin: 0 auto 10px; position: relative; display: flex; align-items: center; padding: 0 15px; }
+        .server::before { content: ''; width: 10px; height: 10px; background: #ef4444; border-radius: 50%; animation: blink 1s infinite; }
+        .server::after { content: ''; position: absolute; right: 15px; width: 60px; height: 6px; background: #334155; border-radius: 3px; }
+        .server.ok::before { background: #22c55e; animation: none; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .smoke { position: absolute; font-size: 2rem; animation: rise 2s infinite; opacity: 0; }
+        .smoke:nth-child(1) { left: 30%; animation-delay: 0s; }
+        .smoke:nth-child(2) { left: 50%; animation-delay: 0.5s; }
+        .smoke:nth-child(3) { left: 70%; animation-delay: 1s; }
+        @keyframes rise { 0% { transform: translateY(0); opacity: 0; } 50% { opacity: 0.7; } 100% { transform: translateY(-50px); opacity: 0; } }
+
+        .error-500 .error-code { background: linear-gradient(135deg, #ef4444, #dc2626); -webkit-background-clip: text; }
+
+        /* 503 Service Unavailable */
+        .error-503 { background: linear-gradient(180deg, #0f172a 0%, #422006 100%); }
+
+        .maintenance-animation { width: 150px; height: 150px; margin: 0 auto 40px; position: relative; }
+        .gear { position: absolute; border-radius: 50%; }
+        .gear-1 { width: 100px; height: 100px; border: 8px solid #f59e0b; top: 25px; left: 25px; animation: spin 4s linear infinite; }
+        .gear-2 { width: 60px; height: 60px; border: 6px solid #fbbf24; top: 0; left: 0; animation: spin 3s linear infinite reverse; }
+        .gear::before { content: '⚙️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; }
+        .gear-2::before { font-size: 1.2rem; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .error-503 .error-code { background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; }
+
+        .countdown { display: flex; gap: 20px; justify-content: center; margin: 30px 0; }
+        .countdown-item { background: rgba(255,255,255,0.1); padding: 20px 25px; border-radius: 12px; }
+        .countdown-value { font-size: 2.5rem; font-weight: 800; }
+        .countdown-label { font-size: 0.8rem; color: #94a3b8; }
+
+        /* 408 Timeout */
+        .error-408 { background: linear-gradient(180deg, #0f172a 0%, #164e63 100%); }
+
+        .timeout-animation { width: 150px; height: 150px; margin: 0 auto 40px; position: relative; }
+        .clock-face { width: 120px; height: 120px; border: 6px solid #22d3ee; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .clock-hand { position: absolute; background: #22d3ee; transform-origin: bottom center; left: 50%; }
+        .clock-hand.hour { width: 4px; height: 30px; top: 35px; margin-left: -2px; }
+        .clock-hand.minute { width: 3px; height: 45px; top: 20px; margin-left: -1.5px; animation: tick 2s steps(60) infinite; }
+        @keyframes tick { to { transform: rotate(360deg); } }
+        .clock-center { width: 12px; height: 12px; background: #22d3ee; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        .error-408 .error-code { background: linear-gradient(135deg, #22d3ee, #06b6d4); -webkit-background-clip: text; }
+
+        /* Additional Styles */
+        .suggestions { margin-top: 50px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .suggestions h4 { font-size: 0.9rem; color: #64748b; margin-bottom: 20px; }
+        .suggestions-list { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .suggestion-link { padding: 10px 20px; background: rgba(255,255,255,0.05); border-radius: 30px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .suggestion-link:hover { background: rgba(255,255,255,0.1); color: white; }
+
+        .support-info { margin-top: 40px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 16px; display: inline-block; }
+        .support-info p { font-size: 0.9rem; color: #94a3b8; }
+        .support-info a { color: #6366f1; text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .error-code { font-size: 5rem; }
+            .error-title { font-size: 1.5rem; }
+            .btn-group { flex-direction: column; }
+            .countdown { gap: 10px; }
+            .countdown-item { padding: 15px; }
+            .countdown-value { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>エラーページコレクション</h1>
+        <p>HTTPエラーコードに対応したエラーページデザイン</p>
+    </header>
+
+    <!-- 403 Forbidden -->
+    <section class="error-section error-403">
+        <div class="section-label">403 Forbidden</div>
+        <div class="error-container">
+            <div class="lock-animation">
+                <div class="lock-shackle"></div>
+                <div class="lock-body"></div>
+            </div>
+            <div class="error-code">403</div>
+            <h1 class="error-title">アクセスが拒否されました</h1>
+            <p class="error-desc">このページを表示する権限がありません。<br>アクセス権限が必要な場合は、管理者にお問い合わせください。</p>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary">← ホームに戻る</a>
+                <a href="#" class="btn btn-ghost">サポートに連絡</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 500 Server Error -->
+    <section class="error-section error-500">
+        <div class="section-label">500 Internal Server Error</div>
+        <div class="error-container">
+            <div class="server-animation">
+                <div class="smoke">💨</div>
+                <div class="smoke">💨</div>
+                <div class="smoke">💨</div>
+                <div class="server"></div>
+                <div class="server ok"></div>
+                <div class="server"></div>
+            </div>
+            <div class="error-code">500</div>
+            <h1 class="error-title">サーバーエラー</h1>
+            <p class="error-desc">申し訳ございません。サーバーで予期しないエラーが発生しました。<br>技術チームに通知済みです。しばらくしてから再度お試しください。</p>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary">🔄 ページを再読み込み</a>
+                <a href="#" class="btn btn-ghost">ステータスを確認</a>
+            </div>
+            <div class="support-info">
+                <p>問題が解決しない場合は <a href="#">support@appname.com</a> までご連絡ください<br>エラーID: ERR-2024-12-08-001</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 503 Service Unavailable -->
+    <section class="error-section error-503">
+        <div class="section-label">503 Service Unavailable</div>
+        <div class="error-container">
+            <div class="maintenance-animation">
+                <div class="gear gear-1"></div>
+                <div class="gear gear-2"></div>
+            </div>
+            <div class="error-code">503</div>
+            <h1 class="error-title">メンテナンス中</h1>
+            <p class="error-desc">現在、システムのメンテナンスを行っています。<br>より良いサービスを提供するための作業です。</p>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value">01</div>
+                    <div class="countdown-label">時間</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value">23</div>
+                    <div class="countdown-label">分</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value">45</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary">完了通知を受け取る</a>
+        </div>
+    </section>
+
+    <!-- 408 Timeout -->
+    <section class="error-section error-408">
+        <div class="section-label">408 Request Timeout</div>
+        <div class="error-container">
+            <div class="timeout-animation">
+                <div class="clock-face"></div>
+                <div class="clock-hand hour"></div>
+                <div class="clock-hand minute"></div>
+                <div class="clock-center"></div>
+            </div>
+            <div class="error-code">408</div>
+            <h1 class="error-title">リクエストがタイムアウトしました</h1>
+            <p class="error-desc">サーバーからの応答に時間がかかりすぎました。<br>インターネット接続を確認し、再度お試しください。</p>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary">🔄 再試行</a>
+                <a href="#" class="btn btn-ghost">← 戻る</a>
+            </div>
+            <div class="suggestions">
+                <h4>よくアクセスされるページ</h4>
+                <div class="suggestions-list">
+                    <a href="#" class="suggestion-link">🏠 ホーム</a>
+                    <a href="#" class="suggestion-link">📊 ダッシュボード</a>
+                    <a href="#" class="suggestion-link">⚙️ 設定</a>
+                    <a href="#" class="suggestion-link">💬 サポート</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
